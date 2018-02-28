@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
@@ -43,12 +45,18 @@ dependencies {
     implementation deps.dagger.android_support
     implementation deps.constraint_layout
 
+    implementation deps.room.rxjava2
+
+    // RxJava
+    implementation deps.rx_android
+    implementation deps.rxjava2
+
     implementation deps.timber
 
-    annotationProcessor deps.dagger.android_support_compiler
-    annotationProcessor deps.dagger.compiler
-    annotationProcessor deps.room.compiler
-    annotationProcessor deps.lifecycle.compiler
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+    kapt deps.room.compiler
+    kapt deps.lifecycle.compiler
 
     testImplementation deps.junit
     testImplementation deps.mock_web_server
@@ -77,4 +85,6 @@ dependencies {
     })
     androidTestImplementation deps.dexmaker
     androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
+
+    implementation project(':recurve')
 }

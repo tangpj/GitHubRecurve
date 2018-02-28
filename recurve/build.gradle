@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
-apply plugin: 'jacoco'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion build_versions.target_sdk
@@ -8,10 +11,10 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app_versions.code
+        versionName app_versions.name
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -27,10 +30,30 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin.stdlib
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation deps.support.app_compat
+    implementation deps.room.runtime
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.java8
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    implementation deps.timber
+
+    implementation deps.room.rxjava2
+
+    // RxJava
+    implementation deps.rx_android
+    implementation deps.rxjava2
+
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+    kapt deps.room.compiler
+    kapt deps.lifecycle.compiler
 }

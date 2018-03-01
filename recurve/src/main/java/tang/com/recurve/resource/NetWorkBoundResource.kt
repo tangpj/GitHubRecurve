@@ -26,11 +26,8 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by tang on 2018/2/28.
- */
-
-/**
- * A generic class that can provide a resource backed by both the sqlite database and the network.
  *
+ * A generic class that can provide a resource backed by both the sqlite database and the network.
  *
  * You can read more about it in the [Architecture
  * Guide](https://developer.android.com/arch).
@@ -68,8 +65,6 @@ abstract class NetworkBoundResource<ResultType, RequestType> @MainThread interna
         result.addSource<ApiResponse<RequestType>>(apiResponse) { response ->
             result.removeSource<ApiResponse<RequestType>>(apiResponse)
             result.removeSource(dbSource)
-
-
 
             if (response?.isSuccessful == true) {
                 Observable.fromArray(response)

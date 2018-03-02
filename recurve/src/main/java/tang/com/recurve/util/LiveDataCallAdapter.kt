@@ -46,7 +46,6 @@ class LiveDataCallAdapter<R>(private val responseType: Type, val apiResponse: Ap
                         override fun onResponse(call: Call<R>, response: Response<R>) {
                             postValue(apiResponse)
                         }
-
                         override fun onFailure(call: Call<R>, throwable: Throwable) {
                             postValue(apiResponse)
                         }

@@ -8,8 +8,6 @@ android {
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
 
-
-
     defaultConfig {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
@@ -27,6 +25,18 @@ android {
         }
     }
 
+    dataBinding{
+        enabled true
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {
@@ -48,6 +58,8 @@ dependencies {
 
     implementation deps.room.rxjava2
 
+    implementation deps.glide
+
     // RxJava
     implementation deps.rx_android
     implementation deps.rxjava2
@@ -56,4 +68,6 @@ dependencies {
     kapt deps.dagger.compiler
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
+
+    kapt deps.databinding_compiler
 }

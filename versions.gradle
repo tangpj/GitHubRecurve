@@ -31,6 +31,7 @@ versions.kotlin = "1.1.60"
 versions.paging = "1.0.0-alpha5"
 versions.app_code = 1
 versions.app_name = "1.0"
+versions.databinding_compiler = "3.0.1"
 def deps = [:]
 
 def support = [:]
@@ -99,6 +100,7 @@ kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 
 deps.kotlin = kotlin
+
 deps.paging = "android.arch.paging:runtime:$versions.paging"
 deps.glide = "com.github.bumptech.glide:glide:$versions.glide"
 deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
@@ -110,6 +112,8 @@ deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
 deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.databinding_compiler = "com.android.databinding:compiler:$versions.databinding_compiler"
+
 ext.deps = deps
 
 def build_versions = [:]

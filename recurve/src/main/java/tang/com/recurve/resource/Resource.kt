@@ -17,7 +17,6 @@
 package tang.com.recurve.resource
 
 
-
 /**
  * Created by tang on 2018/2/28.
  * A generic class that holds a value with its loading status.

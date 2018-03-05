@@ -13,44 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package tang.com.recurve.util
 
-package tang.com.recurve.util;
-
-import android.os.SystemClock;
-import android.support.v4.util.ArrayMap;
-
-import java.util.concurrent.TimeUnit;
+import android.os.SystemClock
+import android.support.v4.util.ArrayMap
+import java.util.concurrent.TimeUnit
 
 /**
+ * Created by tang on 2018/3/5.
  * Utility class that decides whether we should fetch some data or not.
  */
-public class RateLimiter<KEY> {
-    private ArrayMap<KEY, Long> timestamps = new ArrayMap<>();
-    private final long timeout;
+class RateLimiter<in KEY>(timeout: Int, timeUnit: TimeUnit) {
+    private val timestamps = ArrayMap<KEY, Long>()
+    private val timeout: Long = timeUnit.toMillis(timeout.toLong())
 
-    public RateLimiter(int timeout, TimeUnit timeUnit) {
-        this.timeout = timeUnit.toMillis(timeout);
-    }
-
-    public synchronized boolean shouldFetch(KEY key) {
-        Long lastFetched = timestamps.get(key);
-        long now = now();
+    @Synchronized
+    fun shouldFetch(key: KEY): Boolean {
+        val lastFetched = timestamps[key]
+        val now = now()
         if (lastFetched == null) {
-            timestamps.put(key, now);
-            return true;
+            timestamps.put(key, now)
+            return true
         }
         if (now - lastFetched > timeout) {
-            timestamps.put(key, now);
-            return true;
+            timestamps.put(key, now)
+            return true
         }
-        return false;
+        return false
     }
 
-    private long now() {
-        return SystemClock.uptimeMillis();
-    }
+    private fun now(): Long = SystemClock.uptimeMillis()
 
-    public synchronized void reset(KEY key) {
-        timestamps.remove(key);
+    @Synchronized
+    fun reset(key: KEY) {
+        timestamps.remove(key)
     }
 }

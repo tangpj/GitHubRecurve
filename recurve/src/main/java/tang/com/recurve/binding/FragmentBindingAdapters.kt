@@ -15,6 +15,7 @@
  */
 package tang.com.recurve.binding
 
+import android.app.Activity
 import android.databinding.BindingAdapter
 import android.support.v4.app.Fragment
 import android.widget.ImageView
@@ -26,10 +27,12 @@ import javax.inject.Inject
  * Created by tang on 2018/3/7.
  * Binding adapters that work with a fragment instance.
  */
-class FragmentBindingAdapters
-@Inject constructor(private val fragment: Fragment) {
+class FragmentBindingAdapters @Inject constructor(private val fragment: Fragment) {
+
     @BindingAdapter("imageUrl")
     fun bindImage(imageView: ImageView, url: String) {
         Glide.with(fragment).load(url).into(imageView)
     }
+
+
 }

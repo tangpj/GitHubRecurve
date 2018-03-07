@@ -16,22 +16,17 @@
 package tang.com.recurve.binding
 
 import android.app.Activity
-import android.databinding.BindingAdapter
+import android.databinding.DataBindingComponent
 import android.support.v4.app.Fragment
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import javax.inject.Inject
 
-
 /**
- * Created by tang on 2018/3/7.
- * Binding adapters that work with a fragment instance.
+ * Created by tang on 2018/3/2.
+ * A Data Binding Component implementation for fragments.
  */
-class FragmentBindingAdapters @Inject constructor(private val fragment: Fragment) {
-
-    @BindingAdapter("imageUrl")
-    fun bindImage(imageView: ImageView, url: String) {
-        Glide.with(fragment).load(url).into(imageView)
+class RecurveDataBindingComponent(): DataBindingComponent {
+    override fun getFragmentBindingAdapters(): ImageBindingAdapters {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 

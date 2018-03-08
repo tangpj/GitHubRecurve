@@ -19,23 +19,49 @@ import android.databinding.BindingAdapter
 import android.support.annotation.DrawableRes
 import android.widget.ImageView
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
+import tang.com.recurve.util.circle
 import tang.com.recurve.util.default
-import javax.inject.Inject
+import tang.com.recurve.util.rounded
+import tang.com.recurve.util.square
+import java.net.URI
 
 
 /**
  * Created by tang on 2018/3/7.
  * Binding adapters that work with a fragment instance.
  */
-class ImageBindingAdapters @Inject @JvmOverloads constructor(private val requestManager: RequestManager
+class ImageBindingAdapters @JvmOverloads constructor(private val requestManager: RequestManager
                                                              , @DrawableRes private val placeholderRes: Int = 0
                                                              , @DrawableRes private val fallbackRes: Int = 0
                                                              , @DrawableRes private val error: Int = 0) {
 
     @BindingAdapter("imageUrl")
     fun bindImage(imageView: ImageView, url: String) {
-        requestManager.load(url).default(placeholderRes,fallbackRes,error).into(imageView)
+        requestManager.load(url)
+                .apply(RequestOptions().default(placeholderRes,fallbackRes,error))
+                .into(imageView)
     }
 
+    @BindingAdapter("imageCircle")
+    fun bindImageCircle(imageView: ImageView, url: String){
+        requestManager.load(url)
+                .apply(RequestOptions().circle(placeholderRes,fallbackRes,error))
+                .into(imageView)
+    }
+
+    @BindingAdapter("imageSquare")
+    fun bindImageSquare(imageView: ImageView, url: String){
+        requestManager.load(url)
+                .apply(RequestOptions().square(placeholderRes,fallbackRes,error))
+                .into(imageView)
+    }
+
+    @BindingAdapter("imageRounded")
+    fun bindImageRounded(imageView: ImageView, url: String){
+        requestManager.load(url)
+                .apply(RequestOptions().rounded(placeholderRes,fallbackRes,error))
+                .into(imageView)
+    }
 
 }

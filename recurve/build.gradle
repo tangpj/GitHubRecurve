@@ -59,6 +59,7 @@ dependencies {
     implementation deps.room.rxjava2
 
     implementation deps.glide
+    implementation deps.glide_transformations
 
     // RxJava
     implementation deps.rx_android

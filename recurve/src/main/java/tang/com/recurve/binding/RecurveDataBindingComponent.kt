@@ -25,9 +25,9 @@ import javax.inject.Inject
  * A Data Binding Component implementation for fragments.
  */
 class RecurveDataBindingComponent(): DataBindingComponent {
-    override fun getFragmentBindingAdapters(): ImageBindingAdapters {
+
+    override fun getImageBindingAdapters(): ImageBindingAdapters {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 
 }

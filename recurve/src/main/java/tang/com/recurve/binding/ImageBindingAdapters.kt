@@ -25,42 +25,43 @@ import tang.com.recurve.util.default
 import tang.com.recurve.util.rounded
 import tang.com.recurve.util.square
 import java.net.URI
+import javax.inject.Inject
 
 
 /**
  * Created by tang on 2018/3/7.
  * Binding adapters that work with a fragment instance.
  */
-class ImageBindingAdapters @JvmOverloads constructor(private val requestManager: RequestManager
-                                                             , @DrawableRes private val placeholderRes: Int = 0
-                                                             , @DrawableRes private val fallbackRes: Int = 0
-                                                             , @DrawableRes private val error: Int = 0) {
+class ImageBindingAdapters @Inject constructor(private val requestManager: RequestManager
+                                                             , @DrawableRes private val placeholderRes: Int
+                                                             , @DrawableRes private val fallbackRes: Int
+                                                             , @DrawableRes private val errorRes: Int) {
 
     @BindingAdapter("imageUrl")
     fun bindImage(imageView: ImageView, url: String) {
         requestManager.load(url)
-                .apply(RequestOptions().default(placeholderRes,fallbackRes,error))
+                .apply(RequestOptions().default(placeholderRes,fallbackRes,errorRes))
                 .into(imageView)
     }
 
     @BindingAdapter("imageCircle")
     fun bindImageCircle(imageView: ImageView, url: String){
         requestManager.load(url)
-                .apply(RequestOptions().circle(placeholderRes,fallbackRes,error))
+                .apply(RequestOptions().circle(placeholderRes,fallbackRes,errorRes))
                 .into(imageView)
     }
 
     @BindingAdapter("imageSquare")
     fun bindImageSquare(imageView: ImageView, url: String){
         requestManager.load(url)
-                .apply(RequestOptions().square(placeholderRes,fallbackRes,error))
+                .apply(RequestOptions().square(placeholderRes,fallbackRes,errorRes))
                 .into(imageView)
     }
 
     @BindingAdapter("imageRounded")
     fun bindImageRounded(imageView: ImageView, url: String){
         requestManager.load(url)
-                .apply(RequestOptions().rounded(placeholderRes,fallbackRes,error))
+                .apply(RequestOptions().rounded(placeholderRes,fallbackRes,errorRes))
                 .into(imageView)
     }
 

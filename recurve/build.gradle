@@ -71,4 +71,5 @@ dependencies {
     kapt deps.lifecycle.compiler
 
     kapt deps.databinding_compiler
+    testCompile 'org.testng:testng:6.9.6'
 }

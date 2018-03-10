@@ -15,18 +15,14 @@
  */
 package tang.com.recurve.binding
 
-import android.app.Activity
-import android.app.Application
 import android.databinding.DataBindingComponent
 import android.support.annotation.DrawableRes
-import android.support.v4.app.Fragment
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import javax.inject.Inject
 
 /**
  * Created by tang on 2018/3/2.
  * A Data Binding Component implementation for recurve.
+ * RequestManager created by Glide.with()
  */
 class RecurveDataBindingComponent(private val requestManager: RequestManager): DataBindingComponent {
 

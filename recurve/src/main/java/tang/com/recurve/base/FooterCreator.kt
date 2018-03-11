@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package tang.com.recurve.base
 
-import android.support.v4.app.Fragment
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewParent
 
 /**
- * Created by tang on 2018/3/10.
+ * Created by tang on 2018/3/11.
  */
+interface FooterCreator<FooterHolder : RecyclerView.ViewHolder>{
 
-class ListFragment : Fragment(){
-    
+    fun addFooter(footer: () -> View)
+    fun onCreateFooterHolder(parent: ViewParent): FooterHolder
+    fun onBindFooterHoder(holder: FooterHolder, position: Int)
+    fun itemType()
 }

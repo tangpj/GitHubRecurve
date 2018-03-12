@@ -21,27 +21,64 @@ import android.support.v7.widget.RecyclerView
  * Created by tang on 2018/3/11.
  */
 abstract class ItemCreator<E,in ItemHolder: RecyclerView.ViewHolder> (
-        val adapter: ModulesAdapter): ICreator<E,ItemHolder>{
+        private val adapter: ModulesAdapter): Creator<E,ItemHolder>{
 
     private var dataList: MutableList<E> = mutableListOf()
 
-    override fun setData(dataList: MutableList<E>){
+    override fun setDataList(dataList: MutableList<E>){
         this.dataList = dataList
         if (dataList.size > 0){
-            adapter.notifyModulesItemChange(this,0)
+            adapter.notifyModulesItemSetChange(this)
         }
     }
 
-    override fun addData(e: E): Boolean{
+    final override fun getData(position: Int): E = dataList[position]
+
+    final override fun addItem(e: E): Boolean{
         val isSucceed = dataList.add(e)
-        if (isSucceed){
-            adapter.notifyModulesItemChange(this,dataList.size - 1)
-
+        return if (isSucceed){
+            adapter.notifyModulesItemInserted(this,dataList.size - 1)
+            true
+        }else {
+            false
         }
-        return false
     }
 
-    override fun getItemCount() = dataList.size
+    final override fun setItem(position: Int, e: E): E? {
+        val result = dataList.set(position,e)
+        if (result != null){
+            adapter.notifyModulesItemChanged(this,position)
+        }
+        return result
+    }
 
-    fun onBindHeaderHoder(holder: ItemHolder, headPosition: Int){}
+    final override fun removedItem(e: E): Boolean {
+        val removedPosition = dataList.indexOf(e)
+        val isSucceed = dataList.remove(e)
+        return if (isSucceed){
+            adapter.notifyModulesItemRemoved(this,removedPosition)
+            true
+        }else{
+            false
+        }
+    }
+
+    final override fun removedItemAt(position: Int): E?{
+        val removedItem = dataList.removeAt(position)
+        if (removedItem != null){
+            adapter.notifyModulesItemRemoved(this,position)
+        }
+        return removedItem
+    }
+
+    final override fun getItemCount() = dataList.size
+
+    override fun getItemViewType(): Int = 0
+
+    final override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int) {
+        onBindItemView(itemHolder,dataList[inCreatorPosition],inCreatorPosition)
+    }
+
+
+
 }

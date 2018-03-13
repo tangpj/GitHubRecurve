@@ -23,6 +23,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding{
+        enabled true
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {
@@ -52,6 +65,8 @@ dependencies {
     implementation deps.rxjava2
 
     implementation deps.timber
+
+    kapt "com.android.databinding:compiler:3.0.1"
 
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler

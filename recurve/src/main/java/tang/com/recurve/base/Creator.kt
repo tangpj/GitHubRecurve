@@ -6,7 +6,7 @@ import android.view.ViewGroup
 /**
  * Created by tang on 2018/3/11.
  */
-interface Creator<E,in HeaderHolder: RecyclerView.ViewHolder>{
+interface Creator<E,ItemHolder: RecyclerView.ViewHolder>{
 
     fun setDataList(dataList: MutableList<E>)
 
@@ -24,9 +24,9 @@ interface Creator<E,in HeaderHolder: RecyclerView.ViewHolder>{
 
     fun getItemViewType(): Int
 
-    fun onCreateItemView(parent: ViewGroup): RecyclerView.ViewHolder
+    fun onCreateItemView(parent: ViewGroup): ItemHolder
 
     fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int)
 
-    fun onBindItemView(itemHolder: RecyclerView.ViewHolder, e: E, inCreatorPosition: Int)
+    fun onBindItemView(itemHolder: ItemHolder, e: E, inCreatorPosition: Int)
 }

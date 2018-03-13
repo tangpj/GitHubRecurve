@@ -20,7 +20,7 @@ import android.support.v7.widget.RecyclerView
 /**
  * Created by tang on 2018/3/11.
  */
-abstract class ItemCreator<E,in ItemHolder: RecyclerView.ViewHolder> (
+abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> (
         private val adapter: ModulesAdapter): Creator<E,ItemHolder>{
 
     private var dataList: MutableList<E> = mutableListOf()
@@ -75,10 +75,10 @@ abstract class ItemCreator<E,in ItemHolder: RecyclerView.ViewHolder> (
 
     override fun getItemViewType(): Int = 0
 
+    @Suppress("UNCHECKED_CAST")
     final override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int) {
-        onBindItemView(itemHolder,dataList[inCreatorPosition],inCreatorPosition)
+        onBindItemView(itemHolder as ItemHolder,dataList[inCreatorPosition],inCreatorPosition)
     }
 
-
-
 }
+

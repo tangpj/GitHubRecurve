@@ -15,7 +15,6 @@
  */
 package tang.com.recurve.base
 
-import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
@@ -23,7 +22,7 @@ import android.view.ViewGroup
 /**
  * Created by tang on 2018/3/10.
  */
-abstract class ModulesAdapter
+class ModulesAdapter
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var creatorList: MutableList<Creator<*,*>>
@@ -39,6 +38,15 @@ abstract class ModulesAdapter
         }
         this.creatorList = creatorList
         notifyDataSetChanged()
+    }
+
+    fun addCreator(creator: Creator<*, *>){
+        val creatorMap = creatorList.groupBy { it.getItemViewType() }
+        if (creatorMap[creator.getItemViewType()] != null){
+            throw IllegalArgumentException("Creator ItemViewType can't not equal")
+        }
+        creatorList.add(creator)
+        notifyModulesItemSetChange(creator)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{

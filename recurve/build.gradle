@@ -42,6 +42,8 @@ kapt {
 dependencies {
     implementation deps.kotlin.stdlib
 
+    kapt "com.android.databinding:compiler:3.0.1"
+
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
     implementation deps.room.runtime

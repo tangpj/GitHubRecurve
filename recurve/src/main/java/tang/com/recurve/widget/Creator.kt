@@ -1,12 +1,19 @@
-package tang.com.recurve.base
+package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import tang.com.recurve.base.Creator.Companion.FILL
+import tang.com.recurve.base.Creator.Companion.WRAP
 
 /**
  * Created by tang on 2018/3/11.
  */
 interface Creator<E,ItemHolder: RecyclerView.ViewHolder>{
+
+    companion object {
+        const val FILL = -1
+        const val WRAP = -2
+    }
 
     fun setDataList(dataList: MutableList<E>)
 
@@ -23,6 +30,8 @@ interface Creator<E,ItemHolder: RecyclerView.ViewHolder>{
     fun getItemCount(): Int
 
     fun getItemViewType(): Int
+
+    fun getSpan(): Int
 
     fun onCreateItemView(parent: ViewGroup): ItemHolder
 

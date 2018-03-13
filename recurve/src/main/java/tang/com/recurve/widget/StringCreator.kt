@@ -1,4 +1,4 @@
-package tang.com.recurve.base
+package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Recurve</string>
     <string name="retry">Retry</string>
+    <string name="unknown_error">Unknown Error</string>
 </resources>

@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import tang.com.mvvmrecurve.databinding.ActivityMainBinding
-import tang.com.recurve.base.StringCreator
-import tang.com.recurve.base.ModulesAdapter
+import tang.com.recurve.widget.StringCreator
+import tang.com.recurve.widget.ModulesAdapter
 
 class MainActivity : AppCompatActivity() {
 

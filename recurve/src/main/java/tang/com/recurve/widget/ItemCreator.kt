@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tang.com.recurve.base
+package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
+import tang.com.recurve.widget.Creator.Companion.WRAP
 
 /**
  * Created by tang on 2018/3/11.
  */
-abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> (
-        private val adapter: ModulesAdapter): Creator<E,ItemHolder>{
+abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> @JvmOverloads constructor(
+        private val adapter: ModulesAdapter, private val itemType: Int = 0): Creator<E, ItemHolder> {
 
     private var dataList: MutableList<E> = mutableListOf()
 
@@ -73,7 +74,9 @@ abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> (
 
     final override fun getItemCount() = dataList.size
 
-    override fun getItemViewType(): Int = 0
+    final override fun getItemViewType(): Int = itemType
+
+    override fun getSpan(): Int = WRAP
 
     @Suppress("UNCHECKED_CAST")
     final override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int) {

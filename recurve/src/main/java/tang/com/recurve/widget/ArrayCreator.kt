@@ -18,13 +18,14 @@ import tang.com.recurve.R
  * @param layoutId
  * @param viewId
  * @param stringConverter 字符串转换器
+ * @param itemType adapter中Item的类型
  * 当T的toString不满足需求时可以通过转换器来定义转换规则
  */
 class ArrayCreator<T>(adapter: ModulesAdapter
                       , @LayoutRes private val layoutId: Int = R.layout.item_text
                       , @IdRes private val viewId: Int = R.id.text1
-                      , private val stringConverter: ((T) -> String)? = null
-                      , itemType: Int = 0)
+                      , itemType: Int = 0
+                      , private val stringConverter: ((T) -> String)? = null)
     : ItemCreator<T, ArrayCreator.ArrayViewHolder>(adapter,itemType) {
     override fun onCreateItemView(parent: ViewGroup): ArrayViewHolder {
         return ArrayViewHolder(LayoutInflater.from(parent.context).inflate(layoutId,parent,false),viewId)

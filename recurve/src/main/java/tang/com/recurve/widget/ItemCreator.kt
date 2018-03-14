@@ -74,7 +74,7 @@ abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> @JvmOverloads
 
     final override fun getItemCount() = dataList.size
 
-    final override fun getItemViewType(): Int = itemType
+    override fun getItemViewType(): Int = itemType
 
     override fun getSpan(): Int = WRAP
 

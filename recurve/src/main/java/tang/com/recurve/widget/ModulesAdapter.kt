@@ -15,6 +15,7 @@
  */
 package tang.com.recurve.widget
 
+import android.support.annotation.IntDef
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
@@ -27,7 +28,6 @@ class ModulesAdapter
 
     private var creatorList: MutableList<Creator<*, *>>
             = mutableListOf()
-
 
     fun setCreator(creatorList: MutableList<Creator<*, *>>){
         val creatorMap = creatorList.groupBy { it.getItemViewType() }
@@ -124,5 +124,11 @@ class ModulesAdapter
 
 
 }
+
+const val FILL = -1
+const val WRAP = -2
+
+@IntDef(FILL, WRAP)
+annotation class SpanType
 
 

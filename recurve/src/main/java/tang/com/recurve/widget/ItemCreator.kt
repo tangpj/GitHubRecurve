@@ -16,7 +16,7 @@
 package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
-import tang.com.recurve.widget.Creator.Companion.WRAP
+import android.widget.ExpandableListAdapter
 
 /**
  * Created by tang on 2018/3/11.
@@ -33,7 +33,9 @@ abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> @JvmOverloads
         }
     }
 
-    final override fun getData(position: Int): E = dataList[position]
+    override fun getData(): List<E> = dataList.distinct()
+
+    final override fun getItem(position: Int): E = dataList[position]
 
     final override fun addItem(e: E): Boolean{
         val isSucceed = dataList.add(e)

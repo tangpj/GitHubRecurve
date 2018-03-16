@@ -26,7 +26,7 @@ import tang.com.recurve.R
 
 /**
  * Created by tang on 2018/3/14.
- * 快速构建简单的队列Creator
+ * 队列Creator
  * @param T 数据实体类
  * @param adapter
  * @param layoutId
@@ -41,7 +41,8 @@ class ArrayCreator<T>(adapter: ModulesAdapter
                       , itemType: Int = 0
                       , private val stringConverter: ((T) -> String)? = null)
     : ItemCreator<T, ArrayCreator.ArrayViewHolder>(adapter,itemType) {
-    override fun onCreateItemView(parent: ViewGroup): ArrayViewHolder {
+
+    override fun onCreateItemViewHolder(parent: ViewGroup): ArrayViewHolder {
         return ArrayViewHolder(LayoutInflater.from(parent.context).inflate(layoutId,parent,false),viewId)
     }
 

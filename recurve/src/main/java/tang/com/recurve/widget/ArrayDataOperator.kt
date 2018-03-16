@@ -15,21 +15,26 @@
  */
 package tang.com.recurve.widget
 
-import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
-
 /**
- * Created by tang on 2018/3/11.
+ * Created by tang on 2018/3/16.
+ * 一级列表数据操作接口
  */
-interface Creator{
+interface ArrayDataOperator<E>{
 
-    fun getItemCount(): Int
+    fun setDataList(dataList: MutableList<E>)
 
-    fun getItemViewType(): Int
+    fun getData(): List<E>
 
-    fun getSpan(): Int
+    fun getItem(position: Int): E
 
-    fun onCreateItemViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+    fun addItem(e: E): Boolean
 
-    fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int)
+    fun addItem(position: Int, e: E)
+
+    fun setItem(position: Int,e: E): E?
+
+    fun removedItem(e: E): Boolean
+
+    fun removedItemAt(position: Int):E?
+
 }

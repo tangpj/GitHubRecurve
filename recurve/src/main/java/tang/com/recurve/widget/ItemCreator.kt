@@ -16,13 +16,13 @@
 package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
-import android.widget.ExpandableListAdapter
 
 /**
  * Created by tang on 2018/3/11.
+ * 辅助Adapter创建Item
  */
-abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> @JvmOverloads constructor(
-        private val adapter: ModulesAdapter, private val itemType: Int = 0): Creator<E, ItemHolder> {
+abstract class ItemCreator<E, in ItemHolder: RecyclerView.ViewHolder> @JvmOverloads constructor(
+        private val adapter: ModulesAdapter, private val itemType: Int = 0): Creator, ArrayDataOperator<E>{
 
     private var dataList: MutableList<E> = mutableListOf()
 
@@ -33,7 +33,7 @@ abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> @JvmOverloads
         }
     }
 
-    override fun getData(): List<E> = dataList.distinct()
+    override fun getData(): List<E> = dataList.toList()
 
     final override fun getItem(position: Int): E = dataList[position]
 
@@ -45,6 +45,11 @@ abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> @JvmOverloads
         }else {
             false
         }
+    }
+
+    override fun addItem(position: Int, e: E) {
+        dataList.add(position,e)
+        adapter.notifyModulesItemInserted(this, position)
     }
 
     final override fun setItem(position: Int, e: E): E? {
@@ -79,6 +84,8 @@ abstract class ItemCreator<E, ItemHolder: RecyclerView.ViewHolder> @JvmOverloads
     override fun getItemViewType(): Int = itemType
 
     override fun getSpan(): Int = WRAP
+
+    abstract fun onBindItemView(itemHolder: ItemHolder, e: E, inCreatorPosition: Int)
 
     @Suppress("UNCHECKED_CAST")
     final override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int) {

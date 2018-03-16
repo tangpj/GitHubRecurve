@@ -18,6 +18,7 @@ package tang.com.recurve.widget
 import android.support.annotation.IntDef
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import android.widget.ExpandableListAdapter
 
 
 /**
@@ -26,10 +27,10 @@ import android.view.ViewGroup
 class ModulesAdapter
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var creatorList: MutableList<Creator<*, *>>
+    private var creatorList: MutableList<Creator>
             = mutableListOf()
 
-    fun setCreator(creatorList: MutableList<Creator<*, *>>){
+    fun setCreator(creatorList: MutableList<Creator>){
         val creatorMap = creatorList.groupBy { it.getItemViewType() }
         for (entry in creatorMap) {
             if (entry.value.size > 1){
@@ -40,7 +41,7 @@ class ModulesAdapter
         notifyDataSetChanged()
     }
 
-    fun addCreator(creator: Creator<*, *>){
+    fun addCreator(creator: Creator){
         val creatorMap = creatorList.groupBy { it.getItemViewType() }
         if (creatorMap[creator.getItemViewType()] != null){
             throw IllegalArgumentException("Creator ItemViewType can't not equal")
@@ -51,8 +52,8 @@ class ModulesAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{
         val viewTypeList = creatorList.groupBy { it.getItemViewType() }[viewType]
-        return viewTypeList?.first()?.onCreateItemView(parent)
-                ?: creatorList.first().onCreateItemView(parent)
+        return viewTypeList?.first()?.onCreateItemViewHolder(parent)
+                ?: creatorList.first().onCreateItemViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -74,32 +75,38 @@ class ModulesAdapter
         return -1
     }
 
-    fun notifyModulesItemSetChange(creator: Creator<*, *>){
+    fun notifyModulesItemSetChange(creator: Creator){
         notifyModulesItemRangeChange(creator ,0,creator.getItemCount() - 1)
     }
 
-    fun notifyModulesItemRangeChange(creator: Creator<*, *>, aimsStartPosition: Int, aimsEndPosition: Int){
+    fun notifyModulesItemRangeChange(creator: Creator, aimsStartPosition: Int, aimsEndPosition: Int){
         val startPosition = getModulesStartPosition(creator)
         notifyItemRangeChanged(startPosition + aimsStartPosition,
                 startPosition + aimsEndPosition)
     }
 
-    fun notifyModulesItemChanged(creator: Creator<*, *>, aimsPosition: Int){
+    fun notifyModulesItemChanged(creator: Creator, aimsPosition: Int){
         val startPosition = getModulesStartPosition(creator)
         notifyItemChanged(startPosition + aimsPosition)
     }
 
-    fun notifyModulesItemInserted(creator: Creator<*, *>, aimsPosition: Int){
+    fun notifyModulesItemInserted(creator: Creator, aimsPosition: Int){
         val startPosition = getModulesStartPosition(creator)
         notifyItemInserted(startPosition + aimsPosition)
     }
 
-    fun notifyModulesItemRemoved(creator: Creator<*, *>, aimsPosition: Int){
+    fun notifyModulesItemRemoved(creator: Creator, aimsPosition: Int){
         val startPosition = getModulesStartPosition(creator)
         notifyItemRemoved(startPosition + aimsPosition)
     }
 
-    private fun getModulesStartPosition(creator: Creator<*, *>): Int{
+    fun notifyModulesItemRangeRemoved(creator: Creator, aimsStartPosition: Int, aimsEndPosition: Int){
+        val startPosition = getModulesStartPosition(creator)
+        notifyItemRangeRemoved(startPosition + aimsStartPosition
+                , startPosition + aimsEndPosition)
+    }
+
+    private fun getModulesStartPosition(creator: Creator): Int{
         val creatorPosition = creatorList.indexOf(creator)
         var startPosition = 0
         creatorList.forEachIndexed { index, iCreator ->

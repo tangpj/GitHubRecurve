@@ -53,9 +53,9 @@ interface ExpandableOperator<Parent,Child> {
 
     fun removedChildItemAt(parent: Parent, childPosition: Int): Child
 
-    fun removedChildItemAt(parentPosition: Int, childPosition: Int): Boolean
+    fun removedChildItemAt(parentPosition: Int, childPosition: Int): Child
 
     fun getParentItemCount(): Int
 
-    fun getChildItemCountByParent(parentPosition: Int): Int
+    fun getChildItemCountByParent(parent: Parent): Int
 }

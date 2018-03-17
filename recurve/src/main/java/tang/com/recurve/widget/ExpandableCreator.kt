@@ -64,92 +64,84 @@ class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
     }
 
     override fun addChildItem(parent: Parent, child: Child): Boolean
-            = operatorChildItemByParent(parent,child){
-        operatorChild, childList ->
-        val result = childList.add(operatorChild)
+            = operatorChildItemByParent(parent){ it ->
+        val result = it.add(child)
         adapter.notifyModulesItemInserted(this, getChildPositionInCreator(parent,child))
         result
     }
 
     override fun addChildItem(parentPosition: Int, child: Child): Boolean
-            = operatorChildItemByParentPosition(parentPosition,child){
-        operatorChild, childList ->
-        val result = childList.add(operatorChild)
+            = operatorChildItemByParentPosition(parentPosition){ it ->
+        val result = it.add(child)
         adapter.notifyModulesItemInserted(this, getChildPositionInCreatorAt(parentPosition,child))
         result
     }
 
     override fun addChildItem(parent: Parent, childPosition: Int, child: Child)
-            = operatorChildItemByParent(parent,child) {
-        operatorChild, childList ->
-        childList.add(childPosition,operatorChild)
+            = operatorChildItemByParent(parent) { it ->
+        it.add(childPosition,child)
         adapter.notifyModulesItemInserted(this, getChildPositionInCreator(parent,child))
     }
 
     override fun addChildItem(parentPosition: Int, childPosition: Int, child: Child)
-            = operatorChildItemByParentPosition(parentPosition,child){
-        operatorChild, childList ->
-        childList.add(childPosition,operatorChild)
+            = operatorChildItemByParentPosition(parentPosition){ it ->
+        it.add(childPosition,child)
         adapter.notifyModulesItemInserted(this, getChildPositionInCreatorAt(parentPosition,child))
     }
 
     override fun setChildItem(parent: Parent, childPosition: Int, child: Child): Child
-            = operatorChildItemByParent(parent,child) {
-        operatorChild, childList ->
-        childList.set(childPosition,operatorChild)
+            = operatorChildItemByParent(parent) { it ->
+        val result = it.set(childPosition,child)
+        adapter.notifyModulesItemChanged(this, getChildPositionInCreator(parent,childPosition))
+        result
     }
 
     override fun setChildItem(parentPosition: Int, childPosition: Int, child: Child): Child
-            = operatorChildItemByParentPosition(parentPosition,child){
-        operatorChild, childList -> childList.set(childPosition,operatorChild)
+            = operatorChildItemByParentPosition(parentPosition){ it ->
+        val result = it.set(childPosition,child)
+        adapter.notifyModulesItemChanged(this, getChildPositionInCreatorAt(parentPosition,childPosition))
+        result
     }
 
-    override fun removedChildItem(parent: Parent, child: Child): Boolean {
-        val childList = dataMap[parent] ?: throw NullPointerException("can't not find parent: $parent")
-        val isSucceed = childList.remove(child)
-        adapter.notifyModulesItemRemoved(this,getChildPositionInCreator(parent,child))
-        return isSucceed
+    override fun removedChildItem(parent: Parent, child: Child): Boolean
+            = operatorChildItemByParent(parent){ it ->
+        val result = it.remove(child)
+        adapter.notifyModulesItemRemoved(this, getChildPositionInCreator(parent,child))
+        result
     }
 
-    override fun removedChildItem(parentPosition: Int, child: Child): Boolean {
-        val parent = getParent(parentPosition)
-        val childList = dataMap[parent]
-                ?: throw NullPointerException("can't not find parent in position $parentPosition")
-        val isSucceed = childList.remove(child)
-        adapter.notifyModulesItemInserted(this, getChildPositionInCreator(parent,child))
-        return isSucceed
+    override fun removedChildItem(parentPosition: Int, child: Child): Boolean
+            = operatorChildItemByParentPosition(parentPosition){ it ->
+        val result = it.remove(child)
+        adapter.notifyModulesItemRemoved(this, getChildPositionInCreatorAt(parentPosition, child))
+        result
     }
 
-    override fun removedChildItemAt(parent: Parent, childPosition: Int): Child {
-        val childList = dataMap[parent] ?: throw NullPointerException("can't not find parent: $parent")
-        val result = childList.removeAt(childPosition)
-        adapter.notifyModulesItemRemoved(this,getChildPositionInCreator(parent,childPosition))
-        return result
+    override fun removedChildItemAt(parent: Parent, childPosition: Int): Child
+            = operatorChildItemByParent(parent){ it ->
+        val result = it.removeAt(childPosition)
+        adapter.notifyModulesItemRemoved(this, getChildPositionInCreator(parent, childPosition))
+        result
     }
 
-    override fun removedChildItemAt(parentPosition: Int, childPosition: Int): Boolean {
-
+    override fun removedChildItemAt(parentPosition: Int, childPosition: Int): Child
+            = operatorChildItemByParentPosition(parentPosition){ it ->
+        val result = it.removeAt(childPosition)
+        adapter.notifyModulesItemRemoved(this, getChildPositionInCreatorAt(parentPosition, childPosition))
+        result
     }
 
-    override fun getParentItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getParentItemCount(): Int = dataMap.size
 
-    override fun getChildItemCountByParent(parentPosition: Int): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getChildItemCountByParent(parent: Parent): Int
+            = dataMap[parent]?.size ?: throw NullPointerException("can't not find this parent: $parent")
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun getItemViewType(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemCount(): Int = dataMap.entries.sumBy { it.value.size } + getParentItemCount()
 
-    override fun getSpan(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemViewType(): Int = 0
+
+    override fun getSpan(): Int = WRAP
 
     override fun onCreateItemViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -180,17 +172,17 @@ class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
     }
 
     private fun <R> operatorChildItemByParentPosition(
-            parentPosition: Int, child: Child, operator: (operatorChild: Child, childList: MutableList<Child>) -> R): R{
+            parentPosition: Int, operator: (childList: MutableList<Child>) -> R): R{
         val parent = getParent(parentPosition)
         val childList = dataMap[parent]
                 ?: throw NullPointerException("can't not find parent in position $parentPosition")
-        return  operator.invoke(child,childList)
+        return  operator.invoke(childList)
     }
 
     private fun <R> operatorChildItemByParent(
-            parent: Parent, child: Child, operator: (operatorChild: Child, childList: MutableList<Child>) -> R): R{
-        val childList = dataMap[parent] ?: throw NullPointerException("can't not find parent: $parent")
-        return operator.invoke(child,childList)
+            parent: Parent, operator: (childList: MutableList<Child>) -> R): R{
+        val childList = dataMap[parent] ?: throw NullPointerException("can't not find this parent: $parent")
+        return operator.invoke(childList)
     }
 
     private fun getParentPositionInCreator(mParent: Parent): Int{

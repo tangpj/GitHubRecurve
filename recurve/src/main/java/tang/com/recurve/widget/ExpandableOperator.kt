@@ -35,17 +35,23 @@ interface ExpandableOperator<Parent,Child> {
 
     fun removedParentItemAt(parentPosition: Int)
 
+    fun addChildItem(parent: Parent, child: Child): Boolean
+
     fun addChildItem(parentPosition: Int, child: Child): Boolean
+
+    fun addChildItem(parent: Parent, childPosition: Int, child: Child)
 
     fun addChildItem(parentPosition: Int, childPosition: Int, child: Child)
 
-    fun setChildItem(parentPosition: Int, childPosition: Int, child: Child): Child?
+    fun setChildItem(parent: Parent, childPosition: Int, child: Child): Child
+
+    fun setChildItem(parentPosition: Int, childPosition: Int, child: Child): Child
 
     fun removedChildItem(parent: Parent, child: Child): Boolean
 
-    fun removedChildItem(parent: Parent, childPosition: Int): Boolean
-
     fun removedChildItem(parentPosition : Int,child: Child): Boolean
+
+    fun removedChildItemAt(parent: Parent, childPosition: Int): Child
 
     fun removedChildItemAt(parentPosition: Int, childPosition: Int): Boolean
 

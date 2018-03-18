@@ -17,15 +17,14 @@ package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import kotlin.concurrent.thread
 
 /**
  * Created by tang on 2018/3/15.
  * 辅助创建二级Adapter
  */
 
-abstract class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
-        , ChildHolder: RecyclerView.ViewHolder>
+abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.ViewHolder
+        , in ChildHolder: RecyclerView.ViewHolder>
 @JvmOverloads constructor(private val adapter: ModulesAdapter, private val creatorType: Int = 0)
     :Creator,ExpandableOperator<Parent,Child> {
 
@@ -286,10 +285,6 @@ abstract class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHol
     abstract fun onCreateParentViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
 
     abstract fun onCreateChildViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
-
-//    abstract fun onBindParentItemView(parentHolder: ParentHolder, parentPosition: Int){}
-//
-//    abstract fun onBindChildItemView(childHolder: ChildHolder, childPosition: Int){}
 
     abstract fun onBindParentItemView(parentHolder: ParentHolder, parent: Parent?, parentPosition: Int)
 

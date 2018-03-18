@@ -22,7 +22,7 @@ import android.support.v7.widget.RecyclerView
  * 辅助Adapter创建Item
  */
 abstract class ItemCreator<E, in ItemHolder: RecyclerView.ViewHolder> @JvmOverloads constructor(
-        private val adapter: ModulesAdapter, private val itemType: Int = 0): Creator, ArrayDataOperator<E>{
+        private val adapter: ModulesAdapter, private val creatorType: Int = 0): Creator, ArrayDataOperator<E>{
 
     private var dataList: MutableList<E> = mutableListOf()
 
@@ -81,15 +81,17 @@ abstract class ItemCreator<E, in ItemHolder: RecyclerView.ViewHolder> @JvmOverlo
 
     final override fun getItemCount() = dataList.size
 
-    override fun getItemViewType(): Int = itemType
+    final override fun getItemViewType(creatorPosition: Int): Int = creatorType
+
+    final override fun getCreatorType(): Int  = creatorType
 
     override fun getSpan(): Int = WRAP
 
     abstract fun onBindItemView(itemHolder: ItemHolder, e: E, inCreatorPosition: Int)
 
     @Suppress("UNCHECKED_CAST")
-    final override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int) {
-        onBindItemView(itemHolder as ItemHolder,dataList[inCreatorPosition],inCreatorPosition)
+    final override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, creatorPosition: Int) {
+        onBindItemView(itemHolder as ItemHolder,dataList[creatorPosition],creatorPosition)
     }
 
 }

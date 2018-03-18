@@ -25,11 +25,13 @@ interface Creator{
 
     fun getItemCount(): Int
 
-    fun getItemViewType(): Int
+    fun getItemViewType(creatorPosition: Int): Int
+
+    fun getCreatorType(): Int
 
     fun getSpan(): Int
 
-    fun onCreateItemViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+    fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 
-    fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int)
+    fun onBindItemView(itemHolder: RecyclerView.ViewHolder, creatorPosition: Int)
 }

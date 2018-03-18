@@ -31,7 +31,7 @@ class ModulesAdapter
             = mutableListOf()
 
     fun setCreator(creatorList: MutableList<Creator>){
-        val creatorMap = creatorList.groupBy { it.getItemViewType() }
+        val creatorMap = creatorList.groupBy { it.getCreatorType() }
         for (entry in creatorMap) {
             if (entry.value.size > 1){
                 throw IllegalArgumentException("Creator ItemViewType can't not equal")
@@ -42,8 +42,8 @@ class ModulesAdapter
     }
 
     fun addCreator(creator: Creator){
-        val creatorMap = creatorList.groupBy { it.getItemViewType() }
-        if (creatorMap[creator.getItemViewType()] != null){
+        val creatorMap = creatorList.groupBy { it.getCreatorType() }
+        if (creatorMap[creator.getCreatorType()] != null){
             throw IllegalArgumentException("Creator ItemViewType can't not equal")
         }
         creatorList.add(creator)
@@ -51,13 +51,13 @@ class ModulesAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{
-        val viewTypeList = creatorList.groupBy { it.getItemViewType() }[viewType]
-        return viewTypeList?.first()?.onCreateItemViewHolder(parent)
-                ?: creatorList.first().onCreateItemViewHolder(parent)
+        val viewTypeList = creatorList.groupBy { it.getCreatorType() }[viewType]
+        return viewTypeList?.first()?.onCreateItemViewHolder(parent, viewType)
+                ?: creatorList.first().onCreateItemViewHolder(parent, viewType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val creator = creatorList[getCreatorIndex(position)]
+        val creator = creatorList[getCreatorPosition(position)]
         val modulesStartPosition = getModulesStartPosition(creator)
         val inCreatorPosition = position - modulesStartPosition
         creator.onBindItemView(holder,inCreatorPosition)
@@ -70,7 +70,7 @@ class ModulesAdapter
         creatorList.forEach {
             sum += it.getItemCount()
             if (sum > position)
-                return@getItemViewType it.getItemViewType()
+                return@getItemViewType it.getItemViewType(getCreatorPosition(position))
         }
         return -1
     }
@@ -116,7 +116,7 @@ class ModulesAdapter
         return startPosition
     }
 
-    private fun getCreatorIndex(position: Int): Int{
+    private fun getCreatorPosition(position: Int): Int{
         var startPosition = 0
         var resultIndex = 0
         creatorList.forEachIndexed { index, iCreator ->

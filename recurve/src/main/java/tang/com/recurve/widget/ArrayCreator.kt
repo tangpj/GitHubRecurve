@@ -38,11 +38,11 @@ import tang.com.recurve.R
 class ArrayCreator<T>(adapter: ModulesAdapter
                       , @LayoutRes private val layoutId: Int = R.layout.item_text
                       , @IdRes private val viewId: Int = R.id.text1
-                      , itemType: Int = 0
+                      , creatorType: Int = 0
                       , private val stringConverter: ((T) -> String)? = null)
-    : ItemCreator<T, ArrayCreator.ArrayViewHolder>(adapter,itemType) {
+    : ItemCreator<T, ArrayCreator.ArrayViewHolder>(adapter,creatorType) {
 
-    override fun onCreateItemViewHolder(parent: ViewGroup): ArrayViewHolder {
+    override fun onCreateItemViewHolder(parent: ViewGroup,viewType: Int): ArrayViewHolder {
         return ArrayViewHolder(LayoutInflater.from(parent.context).inflate(layoutId,parent,false),viewId)
     }
 
@@ -56,5 +56,5 @@ class ArrayCreator<T>(adapter: ModulesAdapter
 }
 
 fun stringCreator(adapter: ModulesAdapter,itemType: Int = 0): ArrayCreator<String>{
-    return ArrayCreator(adapter, itemType = itemType)
+    return ArrayCreator(adapter, creatorType = itemType)
 }

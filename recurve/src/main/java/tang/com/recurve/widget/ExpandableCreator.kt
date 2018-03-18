@@ -17,16 +17,28 @@ package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import kotlin.concurrent.thread
 
 /**
  * Created by tang on 2018/3/15.
  * 辅助创建二级Adapter
  */
 
-class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
+abstract class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
         , ChildHolder: RecyclerView.ViewHolder>
-@JvmOverloads constructor(private val adapter: ModulesAdapter, private val itemType: Int = 0)
+@JvmOverloads constructor(private val adapter: ModulesAdapter, private val creatorType: Int = 0)
     :Creator,ExpandableOperator<Parent,Child> {
+
+
+    /**
+     * ItemType保留位
+     * 通过该位确认Item的分级
+     */
+
+    companion object {
+        const val ITEM_TYPE_PARENT = 1023
+        const val ITEM_TYPE_CHILD = 1024
+    }
 
     private var dataMap: LinkedHashMap<Parent,MutableList<Child>> = LinkedHashMap()
 
@@ -44,7 +56,7 @@ class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
     }
 
     override fun addParentItem(parentPosition: Int, parent: Parent): List<Child>? {
-       return realSetParentItem(parentPosition,parent,true)
+        return realSetParentItem(parentPosition,parent,true)
     }
 
     override fun setParentItem(parentPosition: Int, parent: Parent): List<Child>?{
@@ -134,21 +146,41 @@ class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
     override fun getParentItemCount(): Int = dataMap.size
 
     override fun getChildItemCountByParent(parent: Parent): Int
-            = dataMap[parent]?.size ?: throw NullPointerException("can't not find this parent: $parent")
+            = dataMap[parent]?.size ?: throw NullPointerException("can not find this parent: $parent")
 
 
     override fun getItemCount(): Int = dataMap.entries.sumBy { it.value.size } + getParentItemCount()
 
-    override fun getItemViewType(): Int = 0
+    override fun getItemViewType(creatorPosition: Int): Int {
+        if (getParentInCreatorPosition(creatorPosition) != null){
+            return creatorType * ITEM_TYPE_PARENT
+        }
+        return creatorType * ITEM_TYPE_CHILD
+    }
+
+    override fun getCreatorType(): Int {
+        return creatorType
+    }
 
     override fun getSpan(): Int = WRAP
 
-    override fun onCreateItemViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType / creatorType == ITEM_TYPE_PARENT){
+            return onCreateParentViewHolder(parent)
+        }
+        return onCreateChildViewHolder(parent)
     }
 
-    override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, inCreatorPosition: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    @Suppress("UNCHECKED_CAST")
+    override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, creatorPosition: Int) {
+        if (getItemViewType(creatorPosition) / creatorType == ITEM_TYPE_PARENT){
+            val parent = getParentInCreatorPosition(creatorPosition)
+            onBindParentItemView(itemHolder as ParentHolder
+                    , parent , getParentPosition(parent))
+            return
+        }
+        val (child,childPosition) = getChild(creatorPosition)
+        onBindChildItemView(itemHolder as ChildHolder, child, childPosition)
     }
 
     private fun realSetParentItem(parentPosition: Int, parent: Parent,isAdd: Boolean = false): List<Child>?{
@@ -175,23 +207,30 @@ class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
             parentPosition: Int, operator: (childList: MutableList<Child>) -> R): R{
         val parent = getParent(parentPosition)
         val childList = dataMap[parent]
-                ?: throw NullPointerException("can't not find parent in position $parentPosition")
+                ?: throw NullPointerException("can not find parent in position $parentPosition")
         return  operator.invoke(childList)
     }
 
     private fun <R> operatorChildItemByParent(
             parent: Parent, operator: (childList: MutableList<Child>) -> R): R{
-        val childList = dataMap[parent] ?: throw NullPointerException("can't not find this parent: $parent")
+        val childList = dataMap[parent] ?: throw NullPointerException("can not find this parent: $parent")
         return operator.invoke(childList)
     }
 
     private fun getParentPositionInCreator(mParent: Parent): Int{
-        var parentPosition = 0
+        var parentPositionInCreator = 0
         dataMap.entries.forEach { (parent, child) ->
             if (mParent == parent) return@forEach
-            else parentPosition += child.size + 1
+            else parentPositionInCreator += child.size + 1
         }
-        return parentPosition
+        return parentPositionInCreator
+    }
+
+    private fun getParentPosition(mParent: Parent?): Int{
+        dataMap.entries.forEachIndexed { index,(parent, _) ->
+            if (mParent == parent) return index
+        }
+        throw NullPointerException("can not find parent: $mParent")
     }
 
     private fun getParent(parentPosition: Int): Parent{
@@ -205,13 +244,38 @@ class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
         throw IndexOutOfBoundsException("Invalid index $parentPosition, size is ${dataMap.size}")
     }
 
+    private fun getChild(creatorPosition: Int): Pair<Child,Int>{
+        var parentPosition = 0
+        dataMap.entries.forEach { it ->
+            parentPosition += (it.value.size + 1)
+            if (parentPosition > creatorPosition){
+                val childPosition = creatorPosition - parentPosition - it.value.size
+                return Pair(it.value[childPosition],childPosition)
+            }
+        }
+        throw NullPointerException("can not find child by position: $creatorPosition")
+    }
+
+    private fun getParentInCreatorPosition(creatorPosition: Int): Parent?{
+        var position = 0
+        dataMap.entries.forEach{
+            mutableEntry ->
+            if (creatorPosition != position ){
+                position += mutableEntry.value.size + 1
+            }else{
+                return mutableEntry.key
+            }
+        }
+        return null
+    }
+
     private fun getChildPositionInCreator(mParent: Parent, child: Child): Int{
         val childPositionInList: Int = dataMap[mParent]?.indexOf(child) ?: 0
         return getParentPositionInCreator(mParent) + childPositionInList + 1
     }
 
     private fun getChildPositionInCreatorAt(parentPosition: Int, child: Child): Int =
-        getChildPositionInCreator(getParent(parentPosition),child)
+            getChildPositionInCreator(getParent(parentPosition),child)
 
     private fun getChildPositionInCreator(mParent: Parent, childPositionInList: Int): Int
             = getParentPositionInCreator(mParent) + childPositionInList + 1
@@ -219,15 +283,16 @@ class ExpandableCreator<Parent,Child,ParentHolder: RecyclerView.ViewHolder
     private fun getChildPositionInCreatorAt(parentPosition: Int, childPositionInList: Int): Int =
             getChildPositionInCreator(getParent(parentPosition),childPositionInList)
 
-//    fun onCreateParentViewHolder(parent: ViewGroup): RecyclerView.ViewHolder{}
+    abstract fun onCreateParentViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+
+    abstract fun onCreateChildViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+
+//    abstract fun onBindParentItemView(parentHolder: ParentHolder, parentPosition: Int){}
 //
-//    fun onCreateChildViewHolder(parent: ViewGroup): RecyclerView.ViewHolder{}
+//    abstract fun onBindChildItemView(childHolder: ChildHolder, childPosition: Int){}
 
-    fun onBindParentItemView(parentHolder: ParentHolder, parentPosition: Int){}
+    abstract fun onBindParentItemView(parentHolder: ParentHolder, parent: Parent?, parentPosition: Int)
 
-    fun onBindChildItemView(childHolder: ChildHolder, childPosition: Int){}
+    abstract fun onBindChildItemView(childHolder: ChildHolder, child: Child?, childPosition: Int)
 
-//    abstract fun onBindParentItemView(parentHolder: ParentHolder, parent: Parent, parentPosition: Int)
-//
-//    abstract fun onBindChildItemView(childHolder: ChildHolder, child: Child, childPosition: Int)
 }

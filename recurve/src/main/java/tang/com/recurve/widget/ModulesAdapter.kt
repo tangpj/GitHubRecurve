@@ -34,7 +34,7 @@ class ModulesAdapter
         val creatorMap = creatorList.groupBy { it.getCreatorType() }
         for (entry in creatorMap) {
             if (entry.value.size > 1){
-                throw IllegalArgumentException("Creator ItemViewType can't not equal")
+                throw IllegalArgumentException("Creator CreatorType can't not equal")
             }
         }
         this.creatorList = creatorList
@@ -44,7 +44,7 @@ class ModulesAdapter
     fun addCreator(creator: Creator){
         val creatorMap = creatorList.groupBy { it.getCreatorType() }
         if (creatorMap[creator.getCreatorType()] != null){
-            throw IllegalArgumentException("Creator ItemViewType can't not equal")
+            throw IllegalArgumentException("Creator CreatorType can't not equal")
         }
         creatorList.add(creator)
         notifyModulesItemSetChange(creator)

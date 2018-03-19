@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import tang.com.mvvmrecurve.databinding.ActivityMainBinding
-import tang.com.recurve.widget.ArrayCreator
-import tang.com.recurve.widget.ModulesAdapter
-import tang.com.recurve.widget.stringCreator
+import tang.com.recurve.widget.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +20,10 @@ class MainActivity : AppCompatActivity() {
         binding.list.adapter = adapter
         adapter.addCreator(stringCreate)
         stringCreate.setDataList(mutableListOf("1","2","3"))
+
+        val creator = SimpleExpandableCreator<String,String>(adapter,creatorType = 2)
+        adapter.addCreator(creator)
+        creator.setDataList(LinkedHashMap())
 
 
     }

@@ -55,6 +55,6 @@ class ArrayCreator<T>(adapter: ModulesAdapter
     }
 }
 
-fun stringCreator(adapter: ModulesAdapter,itemType: Int = 0): ArrayCreator<String>{
-    return ArrayCreator(adapter, creatorType = itemType)
+fun stringCreator(adapter: ModulesAdapter,creatorType: Int = 0): ArrayCreator<String>{
+    return ArrayCreator(adapter, creatorType = creatorType)
 }

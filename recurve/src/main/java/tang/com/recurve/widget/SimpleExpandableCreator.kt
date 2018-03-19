@@ -15,15 +15,15 @@ import tang.com.recurve.R
 
 class SimpleExpandableCreator<Parent,Child>(
         adapter: ModulesAdapter
+        , creatorType: Int = 0
         , @LayoutRes private val parentLayoutId: Int = R.layout.item_text
         , @LayoutRes private val childLayoutId: Int = R.layout.item_text
         , @IdRes private val parentViewId: Int = R.id.text1
         , @IdRes private val childViewId: Int = R.id.text1
-        , creatorType: Int = 0
         , private val parentConverter: ((Parent?) -> String)? = null
         , private val childConverter: ((Child?) -> String)? = null)
     : ExpandableCreator<Parent, Child
-        , SimpleExpandableCreator.ParentViewHolder, SimpleExpandableCreator.ChildViewHolder>(adapter) {
+        , SimpleExpandableCreator.ParentViewHolder, SimpleExpandableCreator.ChildViewHolder>(adapter,creatorType = creatorType) {
 
     override fun onCreateParentViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
             = ParentViewHolder(LayoutInflater.from(parent.context)

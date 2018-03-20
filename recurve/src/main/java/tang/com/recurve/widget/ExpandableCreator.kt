@@ -150,11 +150,18 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
 
     override fun getItemCount(): Int = dataMap.entries.sumBy { it.value.size } + getParentItemCount()
 
-    override fun getItemViewType(creatorPosition: Int): Int {
+    override fun getCreatorItemViewTypeByPosition(creatorPosition: Int): Int {
         if (getParentInCreatorPosition(creatorPosition) != null){
             return creatorType * ITEM_TYPE_PARENT
         }
         return creatorType * ITEM_TYPE_CHILD
+    }
+
+    override fun getCreatorItemViewTypeByViteType(viewType: Int): Int {
+        if (viewType % ITEM_TYPE_PARENT == 0 || viewType % ITEM_TYPE_CHILD == 0){
+            return viewType
+        }
+        return 0
     }
 
     override fun getCreatorType(): Int {
@@ -172,7 +179,7 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, creatorPosition: Int) {
-        if (getItemViewType(creatorPosition) / creatorType == ITEM_TYPE_PARENT){
+        if (getCreatorItemViewTypeByPosition(creatorPosition) / creatorType == ITEM_TYPE_PARENT){
             val parent = getParentInCreatorPosition(creatorPosition)
             onBindParentItemView(itemHolder as ParentHolder
                     , parent , getParentPosition(parent))

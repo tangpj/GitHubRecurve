@@ -23,7 +23,10 @@ class MainActivity : AppCompatActivity() {
 
         val creator = SimpleExpandableCreator<String,String>(adapter,creatorType = 2)
         adapter.addCreator(creator)
-        creator.setDataList(LinkedHashMap())
+        val linked = LinkedHashMap<String,MutableList<String>>()
+
+        linked.put("2222", mutableListOf("4","5","6"))
+        creator.setDataList(linked)
 
 
     }

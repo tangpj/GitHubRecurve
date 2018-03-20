@@ -51,7 +51,7 @@ class ModulesAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{
-        val viewTypeList = creatorList.groupBy { it.getCreatorType() }[viewType]
+        val viewTypeList = creatorList.groupBy { it.getCreatorItemViewTypeByViteType(viewType)}[viewType]
         return viewTypeList?.first()?.onCreateItemViewHolder(parent, viewType)
                 ?: creatorList.first().onCreateItemViewHolder(parent, viewType)
     }
@@ -70,7 +70,7 @@ class ModulesAdapter
         creatorList.forEach {
             sum += it.getItemCount()
             if (sum > position)
-                return@getItemViewType it.getItemViewType(getCreatorPosition(position))
+                return@getItemViewType it.getCreatorItemViewTypeByPosition(getCreatorPosition(position))
         }
         return -1
     }
@@ -110,7 +110,7 @@ class ModulesAdapter
         val creatorPosition = creatorList.indexOf(creator)
         var startPosition = 0
         creatorList.forEachIndexed { index, iCreator ->
-            if( index == creatorPosition) return@forEachIndexed
+            if( index == creatorPosition) return startPosition
             else startPosition += iCreator.getItemCount()
         }
         return startPosition
@@ -120,10 +120,10 @@ class ModulesAdapter
         var startPosition = 0
         var resultIndex = 0
         creatorList.forEachIndexed { index, iCreator ->
-            if( startPosition < position) startPosition += iCreator.getItemCount()
-            else {
+            startPosition += iCreator.getItemCount()
+            if( startPosition > position){
                 resultIndex = index
-                return@forEachIndexed
+                return resultIndex
             }
         }
         return resultIndex

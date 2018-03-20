@@ -81,7 +81,9 @@ abstract class ItemCreator<E, in ItemHolder: RecyclerView.ViewHolder> @JvmOverlo
 
     final override fun getItemCount() = dataList.size
 
-    final override fun getItemViewType(creatorPosition: Int): Int = creatorType
+    final override fun getCreatorItemViewTypeByPosition(creatorPosition: Int): Int = creatorType
+
+    override fun getCreatorItemViewTypeByViteType(viewType: Int): Int = creatorType
 
     final override fun getCreatorType(): Int  = creatorType
 

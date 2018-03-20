@@ -25,7 +25,9 @@ interface Creator{
 
     fun getItemCount(): Int
 
-    fun getItemViewType(creatorPosition: Int): Int
+    fun getCreatorItemViewTypeByPosition(creatorPosition: Int): Int
+
+    fun getCreatorItemViewTypeByViteType(viewType: Int): Int
 
     fun getCreatorType(): Int
 

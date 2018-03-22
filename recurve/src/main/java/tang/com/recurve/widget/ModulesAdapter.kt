@@ -57,7 +57,7 @@ class ModulesAdapter
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val creator = creatorList[getCreatorPosition(position)]
+        val creator = creatorList[getCreatorIndex(position)]
         val modulesStartPosition = getModulesStartPosition(creator)
         val inCreatorPosition = position - modulesStartPosition
         creator.onBindItemView(holder,inCreatorPosition)
@@ -116,7 +116,7 @@ class ModulesAdapter
         return startPosition
     }
 
-    private fun getCreatorPosition(position: Int): Int{
+    private fun getCreatorIndex(position: Int): Int{
         var startPosition = 0
         var resultIndex = 0
         creatorList.forEachIndexed { index, iCreator ->
@@ -127,6 +127,20 @@ class ModulesAdapter
             }
         }
         return resultIndex
+    }
+
+    private fun getCreatorPosition(position: Int): Int{
+        var startPosition = 0
+        var resultPosition = 0
+        creatorList.forEach {iCreator ->
+            if( startPosition + iCreator.getItemCount() <= position){
+               startPosition += iCreator.getItemCount()
+            }else{
+                resultPosition = position - startPosition
+                return@forEach
+            }
+        }
+        return resultPosition
     }
 
 

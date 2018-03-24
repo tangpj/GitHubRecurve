@@ -26,7 +26,11 @@ class MainActivity : AppCompatActivity() {
         val linked = LinkedHashMap<String,MutableList<String>>()
 
         linked.put("2222", mutableListOf("4","5","6"))
+        linked.put("3333", mutableListOf("7","8"))
         creator.setDataList(linked)
+        val stringCreate1 = stringCreator(adapter,1)
+        stringCreate1.setDataList(mutableListOf("99999","8888888","666666"))
+        adapter.addCreator(stringCreate1)
 
 
     }

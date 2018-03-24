@@ -255,7 +255,7 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
         dataMap.entries.forEach { it ->
             parentPosition += (it.value.size + 1)
             if (parentPosition > creatorPosition){
-                val childPosition = creatorPosition - parentPosition - it.value.size
+                val childPosition = creatorPosition - (parentPosition - it.value.size)
                 return Pair(it.value[childPosition],childPosition)
             }
         }

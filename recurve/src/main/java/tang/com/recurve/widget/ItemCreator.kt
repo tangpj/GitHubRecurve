@@ -16,6 +16,7 @@
 package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
+import android.view.View
 
 /**
  * Created by tang on 2018/3/11.
@@ -25,6 +26,12 @@ abstract class ItemCreator<E, in ItemHolder: RecyclerView.ViewHolder> @JvmOverlo
         private val adapter: ModulesAdapter, private val creatorType: Int = 0): Creator, ArrayDataOperator<E>{
 
     private var dataList: MutableList<E> = mutableListOf()
+
+    private var itemClickListener: ((view: View, e: E, creatorPosition: Int) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: ((view: View, e: E, creatorPosition: Int) -> Unit)){
+        this.itemClickListener = listener
+    }
 
     override fun setDataList(dataList: MutableList<E>){
         this.dataList = dataList
@@ -93,7 +100,11 @@ abstract class ItemCreator<E, in ItemHolder: RecyclerView.ViewHolder> @JvmOverlo
 
     @Suppress("UNCHECKED_CAST")
     final override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, creatorPosition: Int) {
-        onBindItemView(itemHolder as ItemHolder,dataList[creatorPosition],creatorPosition)
+        val e: E = dataList[creatorPosition]
+        itemClickListener?.let { listener
+            -> itemHolder.itemView.setOnClickListener {
+            listener.invoke(itemHolder.itemView, e , creatorPosition) } }
+        onBindItemView(itemHolder as ItemHolder, e ,creatorPosition)
     }
 
 }

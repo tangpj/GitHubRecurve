@@ -29,7 +29,6 @@ class ModulesAdapter
 
     private var creatorList: MutableList<Creator>
             = mutableListOf()
-
     fun setCreator(creatorList: MutableList<Creator>){
         val creatorMap = creatorList.groupBy { it.getCreatorType() }
         for (entry in creatorMap) {

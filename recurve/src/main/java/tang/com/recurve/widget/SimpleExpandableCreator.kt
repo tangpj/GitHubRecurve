@@ -33,11 +33,13 @@ class SimpleExpandableCreator<Parent,Child>(
             = ChildViewHolder(LayoutInflater.from(parent.context)
             .inflate(childLayoutId,parent,false), childViewId)
 
-    override fun onBindParentItemView(parentHolder: ParentViewHolder, parent: Parent?, parentPosition: Int) {
+    override fun onBindParentItemView(parentHolder: ParentViewHolder, parent: Parent?
+                                      , parentPosition: Int, creatorPosition: Int) {
         parentHolder.textView.text = parentConverter?.invoke(parent) ?: parent.toString()
     }
 
-    override fun onBindChildItemView(childHolder: ChildViewHolder, child: Child?, childPosition: Int) {
+    override fun onBindChildItemView(childHolder: ChildViewHolder, child: Child?
+                                     , childPosition: Int, creatorPosition: Int) {
         childHolder.textView.text = childConverter?.invoke(child) ?: child.toString()
     }
 

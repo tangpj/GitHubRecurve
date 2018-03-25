@@ -16,6 +16,7 @@
 package tang.com.recurve.widget
 
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
 
 /**
@@ -40,6 +41,22 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
     }
 
     private var dataMap: LinkedHashMap<Parent,MutableList<Child>> = LinkedHashMap()
+
+    private var parentClickListener:
+            ((view: View, parent: Parent, parentPosition: Int, inCreatorPosition: Int) -> Unit)? = null
+
+    private var childClickListener:
+            ((view: View, child: Child, childPosition: Int, inCreatorPosition: Int) -> Unit)? = null
+
+    fun setOnParentClickListener(listener: (view: View, parent: Parent
+                                            , parentPosition: Int, inCreatorPosition: Int) -> Unit){
+        parentClickListener = listener
+    }
+
+    fun setOnChildClickListener(listener: (view: View, child: Child
+                                           , childPosition: Int, inCreatorPosition: Int) -> Unit){
+        childClickListener = listener
+    }
 
     override fun setDataList(dataMap: LinkedHashMap<Parent, MutableList<Child>>) {
         this.dataMap = dataMap
@@ -181,12 +198,18 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
     override fun onBindItemView(itemHolder: RecyclerView.ViewHolder, creatorPosition: Int) {
         if (getCreatorItemViewTypeByPosition(creatorPosition) / creatorType == ITEM_TYPE_PARENT){
             val parent = getParentInCreatorPosition(creatorPosition)
+            val parentPosition = getParentPosition(parent)
+            parentClickListener?.let { listener ->
+                itemHolder.itemView.setOnClickListener { listener.invoke(it, parent, parentPosition,creatorPosition) } }
             onBindParentItemView(itemHolder as ParentHolder
-                    , parent , getParentPosition(parent))
+                    , parent , parentPosition, creatorPosition)
             return
         }
         val (child,childPosition) = getChild(creatorPosition)
-        onBindChildItemView(itemHolder as ChildHolder, child, childPosition)
+        childClickListener?.let { listener ->
+            itemHolder.itemView.setOnClickListener { listener.invoke(it, child, childPosition, creatorPosition) }
+        }
+        onBindChildItemView(itemHolder as ChildHolder, child, childPosition, creatorPosition)
     }
 
     private fun realSetParentItem(parentPosition: Int, parent: Parent,isAdd: Boolean = false): List<Child>?{
@@ -262,7 +285,7 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
         throw NullPointerException("can not find child by position: $creatorPosition")
     }
 
-    private fun getParentInCreatorPosition(creatorPosition: Int): Parent?{
+    private fun getParentInCreatorPosition(creatorPosition: Int): Parent{
         var position = 0
         dataMap.entries.forEach{
             mutableEntry ->
@@ -272,7 +295,7 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
                 return mutableEntry.key
             }
         }
-        return null
+        throw NullPointerException("can not find parent by position: $creatorPosition")
     }
 
     private fun getChildPositionInCreator(mParent: Parent, child: Child): Int{
@@ -293,8 +316,10 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
 
     abstract fun onCreateChildViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
 
-    abstract fun onBindParentItemView(parentHolder: ParentHolder, parent: Parent?, parentPosition: Int)
+    abstract fun onBindParentItemView(parentHolder: ParentHolder, parent: Parent?
+                                      , parentPosition: Int, creatorPosition: Int)
 
-    abstract fun onBindChildItemView(childHolder: ChildHolder, child: Child?, childPosition: Int)
+    abstract fun onBindChildItemView(childHolder: ChildHolder, child: Child?
+                                     , childPosition: Int, creatorPosition: Int)
 
 }

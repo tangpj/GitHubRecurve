@@ -43,12 +43,12 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
     private var dataMap: LinkedHashMap<Parent,MutableList<Child>> = LinkedHashMap()
 
     private var parentClickListener:
-            ((view: View, parent: Parent, parentPosition: Int, inCreatorPosition: Int) -> Unit)? = null
+            ((view: View, parent: Parent?, parentPosition: Int, inCreatorPosition: Int) -> Unit)? = null
 
     private var childClickListener:
             ((view: View, child: Child, childPosition: Int, inCreatorPosition: Int) -> Unit)? = null
 
-    fun setOnParentClickListener(listener: (view: View, parent: Parent
+    fun setOnParentClickListener(listener: (view: View, parent: Parent?
                                             , parentPosition: Int, inCreatorPosition: Int) -> Unit){
         parentClickListener = listener
     }
@@ -285,7 +285,7 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
         throw NullPointerException("can not find child by position: $creatorPosition")
     }
 
-    private fun getParentInCreatorPosition(creatorPosition: Int): Parent{
+    private fun getParentInCreatorPosition(creatorPosition: Int): Parent?{
         var position = 0
         dataMap.entries.forEach{
             mutableEntry ->
@@ -295,7 +295,7 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
                 return mutableEntry.key
             }
         }
-        throw NullPointerException("can not find parent by position: $creatorPosition")
+        return null
     }
 
     private fun getChildPositionInCreator(mParent: Parent, child: Child): Int{

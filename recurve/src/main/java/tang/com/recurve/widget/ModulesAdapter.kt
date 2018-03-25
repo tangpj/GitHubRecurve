@@ -18,8 +18,6 @@ package tang.com.recurve.widget
 import android.support.annotation.IntDef
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import android.widget.ExpandableListAdapter
-
 
 /**
  * Created by tang on 2018/3/10.

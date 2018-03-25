@@ -32,9 +32,9 @@ import javax.inject.Inject
  * Binding adapters that work with a fragment instance.
  */
 class ImageBindingAdapters @Inject constructor(private val requestManager: RequestManager
-                                                             , @DrawableRes private val placeholderRes: Int
-                                                             , @DrawableRes private val fallbackRes: Int
-                                                             , @DrawableRes private val errorRes: Int) {
+                                                             , private val placeholderRes: Int = 0
+                                                             , private val fallbackRes: Int = 0
+                                                             , private val errorRes: Int = 0) {
 
     @BindingAdapter("imageUrl")
     fun bindImage(imageView: ImageView, url: String) {

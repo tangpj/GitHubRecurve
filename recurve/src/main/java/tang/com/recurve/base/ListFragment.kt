@@ -21,14 +21,24 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import tang.com.recurve.databinding.FragmentListBinding
+import tang.com.recurve.widget.ArrayCreator
+import tang.com.recurve.widget.ItemCreator
+import tang.com.recurve.widget.ModulesAdapter
 
 /**
  * Created by tang on 2018/3/10.
  */
 
-class ListFragment : Fragment(){
+class ListFragment<E> : Fragment(){
 
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding = FragmentListBinding.inflate(LayoutInflater.from(container?.context), container, false)
+        return binding.root
+    }
 
-//    }
+    private fun initView(binding: FragmentListBinding){
+        val adapter = ModulesAdapter()
+
+    }
 }

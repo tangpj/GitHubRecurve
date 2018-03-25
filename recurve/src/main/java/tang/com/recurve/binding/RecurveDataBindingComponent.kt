@@ -24,15 +24,13 @@ import com.bumptech.glide.RequestManager
  * A Data Binding Component implementation for recurve.
  * RequestManager created by Glide.with()
  */
-class RecurveDataBindingComponent(private val requestManager: RequestManager): DataBindingComponent {
-
-    @DrawableRes private var placeholderRes: Int = 0
-    @DrawableRes var fallbackRes: Int = 0
-    @DrawableRes var errorRes: Int = 0
+class RecurveDataBindingComponent(private val requestManager: RequestManager
+                                  , private var placeholderRes: Int = 0
+                                  , private var fallbackRes: Int = 0
+                                  , private var errorRes: Int = 0): DataBindingComponent {
 
     override fun getImageBindingAdapters(): ImageBindingAdapters =
             ImageBindingAdapters(requestManager,placeholderRes,fallbackRes,errorRes)
-
 
 
 }

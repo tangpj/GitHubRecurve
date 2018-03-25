@@ -29,7 +29,6 @@ abstract class ExpandableCreator<Parent,Child, in ParentHolder: RecyclerView.Vie
 @JvmOverloads constructor(private val adapter: ModulesAdapter, private val creatorType: Int = 0)
     :Creator,ExpandableOperator<Parent,Child> {
 
-
     /**
      * ItemType保留位
      * 通过该位确认Item的分级

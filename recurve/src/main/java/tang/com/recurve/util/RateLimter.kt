@@ -32,11 +32,11 @@ class RateLimiter<in KEY>(timeout: Int, timeUnit: TimeUnit) {
         val lastFetched = timestamps[key]
         val now = now()
         if (lastFetched == null) {
-            timestamps.put(key, now)
+            timestamps[key] = now
             return true
         }
         if (now - lastFetched > timeout) {
-            timestamps.put(key, now)
+            timestamps[key] = now
             return true
         }
         return false

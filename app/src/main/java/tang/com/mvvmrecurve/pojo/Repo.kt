@@ -49,7 +49,7 @@ val name: String, @field:SerializedName("full_name")
 
             val owner = o as Owner?
 
-            if (if (login != null) login != owner!!.login else owner!!.login != null) {
+            if (login != owner!!.login) {
                 return false
             }
             return if (url != null) url == owner.url else owner.url == null

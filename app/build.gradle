@@ -66,8 +66,6 @@ dependencies {
 
     implementation deps.timber
 
-    kapt "com.android.databinding:compiler:3.0.1"
-
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
     kapt deps.room.compiler
@@ -102,7 +100,7 @@ dependencies {
     androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
 
     implementation project(':recurve')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

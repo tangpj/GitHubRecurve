@@ -48,7 +48,6 @@ dependencies {
     implementation deps.room.runtime
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
-    implementation deps.lifecycle.java8
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.glide
@@ -70,6 +69,8 @@ dependencies {
     kapt deps.dagger.compiler
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
+
+    kapt deps.databinding_compiler
 
     testImplementation deps.junit
     testImplementation deps.mock_web_server

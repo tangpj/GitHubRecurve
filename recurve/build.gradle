@@ -47,13 +47,8 @@ dependencies {
     implementation deps.room.runtime
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
-    implementation deps.lifecycle.java8
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
-
-    implementation deps.dagger.runtime
-    implementation deps.dagger.android
-    implementation deps.dagger.android_support
 
     implementation deps.timber
 
@@ -66,8 +61,6 @@ dependencies {
     implementation deps.rx_android
     implementation deps.rxjava2
 
-    kapt deps.dagger.android_support_compiler
-    kapt deps.dagger.compiler
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
 

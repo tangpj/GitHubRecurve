@@ -24,14 +24,13 @@ import tang.com.recurve.util.circle
 import tang.com.recurve.util.default
 import tang.com.recurve.util.rounded
 import tang.com.recurve.util.square
-import javax.inject.Inject
 
 
 /**
  * Created by tang on 2018/3/7.
  * Binding adapters that work with a fragment instance.
  */
-class ImageBindingAdapters @Inject constructor(private val requestManager: RequestManager
+class ImageBindingAdapters constructor(private val requestManager: RequestManager
                                                              , private val placeholderRes: Int = 0
                                                              , private val fallbackRes: Int = 0
                                                              , private val errorRes: Int = 0) {

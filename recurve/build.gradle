@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -33,14 +31,20 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 kapt {
     generateStubs = true
+    useBuildCache = true
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.stdlib_jre8
 
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
@@ -65,5 +69,5 @@ dependencies {
     kapt deps.lifecycle.compiler
 
     kapt deps.databinding_compiler
-    testCompile 'org.testng:testng:6.9.6'
+    testImplementation 'org.testng:testng:6.9.6'
 }

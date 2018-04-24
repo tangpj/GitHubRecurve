@@ -1,9 +1,7 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.apollographql.android'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -32,14 +30,21 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 kapt {
     generateStubs = true
+    useBuildCache = true
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.stdlib_jre8
+    implementation deps.kotlin.stdlib_jdk8
 
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
@@ -69,6 +74,8 @@ dependencies {
     kapt deps.dagger.compiler
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
+
+    implementation deps.apollo.runtime
 
     kapt deps.databinding_compiler
 
@@ -101,7 +108,6 @@ dependencies {
     androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
 
     implementation project(':recurve')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

@@ -14,6 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'CLIENT_ID', github.client_id
+        buildConfigField 'String', 'CLIENT_SECRET', github.client_secret
+        buildConfigField 'String', 'REDIRECTt_URI', github.redirect_uri
     }
     buildTypes {
         release {
@@ -40,6 +44,10 @@ android {
 kapt {
     generateStubs = true
     useBuildCache = true
+}
+
+apollo {
+    useJavaBeansSemanticNaming = true
 }
 
 dependencies {
@@ -108,6 +116,7 @@ dependencies {
     androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
 
     implementation project(':recurve')
+    implementation 'com.apollographql.android:converter-pojo:0.1.0'
 }
 repositories {
     mavenCentral()

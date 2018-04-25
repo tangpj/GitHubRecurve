@@ -13,10 +13,6 @@ import tang.com.mvvmrecurve.pojo.Repo
  */
 interface GithubService {
 
-    @GET("users/{login}/repos")
-    fun getRepos(@Path("login") login: String): LiveData<GitHubApiResponse<List<Repo>>>
 
-    @GET("repos/{owner}/{name}")
-    fun getRepo(@Path("owner") owner: String, @Path("name") name: String): LiveData<GitHubApiResponse<Repo>>
 
 }

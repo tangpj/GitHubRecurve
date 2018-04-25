@@ -2,6 +2,7 @@
 * Shared file between builds so that they can all use the same dependencies and
 * maven repositories.
 **/
+
 ext.deps = [:]
 def versions = [:]
 versions.arch_core = "1.1.0"
@@ -138,9 +139,11 @@ app_versions.name = "1.0"
 ext.app_versions = app_versions
 
 
+
 def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
+    handler.mavenCentral()
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 ext.addRepos = this.&addRepos

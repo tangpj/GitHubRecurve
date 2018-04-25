@@ -6,4 +6,6 @@
 /captures
 .externalNativeBuild
 /.idea
+github.gradle
+
 

@@ -2,4 +2,5 @@
     <string name="app_name">Recurve</string>
     <string name="retry">Retry</string>
     <string name="unknown_error">Unknown Error</string>
+    <string name="no_browser_found">The link could not be opened: no browser was found on your device</string>
 </resources>

@@ -14,6 +14,11 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        buildConfigField 'String', 'CLIENT_ID', github.client_id
+        buildConfigField 'String', 'CLIENT_SECRET', github.client_secret
+        buildConfigField 'String', 'REDIRECTt_URI', github.redirect_uri
+        buildConfigField 'String', 'SCOPES', github.scopes
+
     }
 
     buildTypes {
@@ -45,7 +50,10 @@ kapt {
 
 dependencies {
     implementation deps.kotlin.stdlib_jre8
+    implementation deps.kotlin.stdlib_jdk8
 
+    implementation deps.support.recyclerview
+    implementation deps.support.customtabs
     implementation deps.room.runtime
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
@@ -67,5 +75,4 @@ dependencies {
     kapt deps.lifecycle.compiler
 
     kapt deps.databinding_compiler
-    testImplementation 'org.testng:testng:6.9.6'
 }

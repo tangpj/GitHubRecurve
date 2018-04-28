@@ -1,4 +1,4 @@
-package tang.com.mvvmrecurve.di
+package tang.com.github.di
 
 import android.app.Application
 import android.content.Context

@@ -3,12 +3,11 @@ package tang.com.mvvmrecurve
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.design.button.MaterialButton
 import android.view.View
-import android.widget.Toast
-import tang.com.mvvmrecurve.api.GithubOauth2.Companion.launchOauthLogin
 import tang.com.mvvmrecurve.databinding.ActivityMainBinding
-import tang.com.recurve.widget.*
+import tang.com.github.GithubOauth2
+import tang.com.recurve.widget.ModulesAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +21,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun add(v: View){
-        launchOauthLogin(this)
+        GithubOauth2.launchOauthLogin(this)
     }
 }

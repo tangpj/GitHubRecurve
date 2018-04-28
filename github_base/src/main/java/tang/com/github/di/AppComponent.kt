@@ -1,11 +1,11 @@
-package tang.com.mvvmrecurve.di
+package tang.com.github.di
 
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import tang.com.mvvmrecurve.GitHubApp
+import tang.com.github.GitHubApp
 import javax.inject.Singleton
 
 @Singleton

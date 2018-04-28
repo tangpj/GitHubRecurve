@@ -1,4 +1,4 @@
-package tang.com.oauth2;
+package tang.com.github;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

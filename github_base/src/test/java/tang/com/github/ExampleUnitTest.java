@@ -1,4 +1,4 @@
-package tang.com.oauth2;
+package tang.com.github;
 
 import org.junit.Test;
 

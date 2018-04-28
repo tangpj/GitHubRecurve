@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion build_versions.target_sdk
+    compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
 
     defaultConfig {
@@ -49,9 +49,10 @@ kapt {
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib_jre8
-    implementation deps.kotlin.stdlib_jdk8
+    api deps.kotlin.stdlib_jre8
+    api deps.kotlin.stdlib_jdk8
 
+    implementation deps.support.app_compat
     implementation deps.support.recyclerview
     implementation deps.support.customtabs
     implementation deps.room.runtime

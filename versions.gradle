@@ -142,6 +142,9 @@ app_versions.code = 1
 app_versions.name = "1.0"
 ext.app_versions = app_versions
 
+def db_versions = [:]
+db_versions.github = "1"
+ext.db_versions = db_versions
 
 
 def addRepos(RepositoryHandler handler) {

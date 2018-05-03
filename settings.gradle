@@ -1,1 +1,1 @@
-include ':app', ':recurve', ':github_base'
+include ':app', ':recurve', ':github_base', ':oauth'

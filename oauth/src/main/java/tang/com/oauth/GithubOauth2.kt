@@ -1,6 +1,7 @@
-package tang.com.github
+package tang.com.oauth
 
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 
 import tang.com.recurve.util.IntentUtils
@@ -23,6 +24,12 @@ class GithubOauth2 private constructor(){
                     .appendQueryParameter(PARAM_CALLBACK_URI, BuildConfig.REDIRECTt_URI)
                     .build()
             IntentUtils.openInCustomTabOrBrowser(activity,uri)
+        }
+
+        @JvmStatic
+        @JvmOverloads
+        fun getGithubToken(intent: Intent, callback: ((token: String) -> Unit)? = null){
+
         }
 
     }

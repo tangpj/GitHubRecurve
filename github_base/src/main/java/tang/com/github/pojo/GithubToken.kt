@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(primaryKeys = ["access_token"])
+@Entity(primaryKeys = ["accessToken"])
 data class GithubToken(
         @SerializedName("access_token") val accessToken: String,
         @SerializedName("token_type") val tokenType: String,

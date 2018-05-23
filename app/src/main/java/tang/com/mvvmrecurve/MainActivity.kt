@@ -3,10 +3,9 @@ package tang.com.mvvmrecurve
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.button.MaterialButton
 import android.view.View
 import tang.com.mvvmrecurve.databinding.ActivityMainBinding
-import tang.com.github.GithubOauth2
+import tang.com.oauth.GithubOauth2
 import tang.com.recurve.widget.ModulesAdapter
 
 class MainActivity : AppCompatActivity() {

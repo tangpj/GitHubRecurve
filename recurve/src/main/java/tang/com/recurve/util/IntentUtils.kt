@@ -14,18 +14,18 @@ import java.util.*
 class IntentUtils{
 
     companion object {
-        fun openInCustomTabOrBrowser(activity: Activity, uri: Uri) {
-            val pkg = CustomTabsHelper.getPackageNameToUse(activity)
+        fun openInCustomTabOrBrowser(context: Context, uri: Uri) {
+            val pkg = CustomTabsHelper.getPackageNameToUse(context)
             if (pkg != null) {
-                val color = UiUtils.resolveColor(activity, R.attr.colorPrimary)
+                val color = UiUtils.resolveColor(context, R.attr.colorPrimary)
                 val i = CustomTabsIntent.Builder()
                         .setToolbarColor(color)
                         .build()
                 i.intent.`package` = pkg
                 i.intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                i.launchUrl(activity, uri)
+                i.launchUrl(context, uri)
             } else {
-                launchBrowser(activity, uri, Intent.FLAG_ACTIVITY_NEW_TASK)
+                launchBrowser(context, uri, Intent.FLAG_ACTIVITY_NEW_TASK)
             }
         }
 

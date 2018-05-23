@@ -1,7 +1,17 @@
 package tang.com.oauth.repository
 
-import tang.com.recurve.resource.NetworkBoundResource
+import android.net.Uri
+import tang.com.github.db.GithubDb
+import tang.com.github.db.GithubTokenDao
+import tang.com.oauth.BuildConfig
+import tang.com.oauth.GithubOauth2
+import tang.com.oauth.api.OAuthService
+import javax.inject.Inject
 
-class Oauth2Repository{
+class Oauth2Repository @Inject
+constructor(val db: GithubDb, val dao: GithubTokenDao, val oauthService: OAuthService){
 
+    fun getGithubToken(){
+
+    }
 }

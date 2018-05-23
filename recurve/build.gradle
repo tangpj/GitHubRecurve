@@ -49,7 +49,6 @@ kapt {
 }
 
 dependencies {
-    api deps.kotlin.stdlib_jre8
     api deps.kotlin.stdlib_jdk8
 
     implementation deps.support.app_compat

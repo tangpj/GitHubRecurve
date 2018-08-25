@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'calces.modules'
 apply plugin: 'com.apollographql.android'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -39,18 +39,10 @@ android {
 
 }
 
-kapt {
-    generateStubs = true
-    useBuildCache = true
-}
-
 apollo {
     useJavaBeansSemanticNaming = true
 }
 
-dependencies {
-    api project(':oauth2')
-}
 repositories {
     mavenCentral()
 }

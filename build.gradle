@@ -15,6 +15,22 @@ buildscript {
     }
 
 }
+plugins {
+    id "calces.appconfig" version "1.0.11"
+}
+
+appConfig{
+    debugEnable false
+    apps{
+        app{
+            mainActivity ".MainActivity"
+            modules ':oauth2'
+        }
+    }
+    modules{
+        oauth2
+    }
+}
 
 allprojects {
     addRepos(repositories)

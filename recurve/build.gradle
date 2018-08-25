@@ -43,11 +43,6 @@ android {
 
 }
 
-kapt {
-    generateStubs = true
-    useBuildCache = true
-}
-
 dependencies {
     api deps.kotlin.stdlib_jdk8
 

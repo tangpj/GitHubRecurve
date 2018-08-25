@@ -20,15 +20,13 @@ import android.arch.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import tang.com.recurve.resource.ApiResponse
+import tang.com.recurve.resource.NextPageStrategy
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-/**
- * Created by tang on 2018/2/28.
- */
 
-
-class LiveDataCallAdapterFactory<R>(private val apiResponse: ApiResponse<R>) : CallAdapter.Factory() {
+class LiveDataCallAdapterFactory @JvmOverloads constructor(
+        private val nextPageStrategy: NextPageStrategy? = null) : CallAdapter.Factory() {
 
     override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
         if (CallAdapter.Factory.getRawType(returnType) != LiveData::class.java) {
@@ -43,6 +41,6 @@ class LiveDataCallAdapterFactory<R>(private val apiResponse: ApiResponse<R>) : C
             throw IllegalArgumentException("resource must be parameterized")
         }
         val bodyType = CallAdapter.Factory.getParameterUpperBound(0, observableType)
-        return LiveDataCallAdapter(bodyType,apiResponse)
+        return LiveDataCallAdapter<Any>(responseType = bodyType, nextPageStrategy = nextPageStrategy)
     }
 }

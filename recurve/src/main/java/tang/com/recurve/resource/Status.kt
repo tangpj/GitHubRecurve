@@ -18,10 +18,6 @@
 package tang.com.recurve.resource
 
 /**
- * Created by tang on 2018/2/28.
- */
-
-/**
  * Status of a resource that is provided to the UI.
  *
  *

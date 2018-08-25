@@ -13,61 +13,95 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package tang.com.recurve.resource
 
-import android.support.v4.util.ArrayMap
 import retrofit2.Response
 import timber.log.Timber
-import java.io.IOException
 import java.util.regex.Pattern
 
 /**
- * Created by tang on 2018/2/28.
  * Common class used by API responses.
- * @param <T>
+ * @param <T> the type of the response object
 </T> */
-abstract class ApiResponse<T> {
-    val code: Int
-    val body: T?
-    val errorMessage: String?
+@Suppress("unused") // T is used in extending classes
+sealed class ApiResponse<T> {
 
-    val isSuccessful: Boolean
-        get() = code in 200..299
+    companion object {
+        @JvmStatic
+        fun <T> create(error: Throwable): ApiErrorResponse<T> {
+            return ApiErrorResponse(error.message ?: "unknown error")
+        }
 
-    val nextPage: Int?
-        get() = nextPageRule()
+        @JvmStatic
+        @JvmOverloads
+        fun <T> create(response: Response<T>, nextPageStrategy: NextPageStrategy? = null): ApiResponse<T> {
+            return if (response.isSuccessful) {
+                val body = response.body()
+                if (body == null || response.code() == 204) {
+                    ApiEmptyResponse()
+                } else {
+                    ApiSuccessResponse(
+                            body = body,
+                            linkHeader = response.headers()?.get("link"),
+                            nextPageStrategy = nextPageStrategy
+                    )
+                }
+            } else {
+                val msg = response.errorBody()?.string()
+                val errorMsg = if (msg.isNullOrEmpty()) {
+                    response.message()
+                } else {
+                    msg
+                }
+                ApiErrorResponse(errorMsg ?: "unknown error")
+            }
+        }
+    }
+}
 
-    constructor(error: Throwable) {
-        code = 500
-        body = null
-        errorMessage = error.message
+/**
+ * separate class for HTTP 204 resposes so that we can make ApiSuccessResponse's body non-null.
+ */
+class ApiEmptyResponse<T> : ApiResponse<T>()
+
+data class ApiSuccessResponse<T>(
+        val body: T,
+        val links: Map<String, String>
+) : ApiResponse<T>() {
+
+    private var mNextPageStrategy: NextPageStrategy? = null
+
+    @JvmOverloads
+    constructor(body: T, linkHeader: String?, nextPageStrategy: NextPageStrategy? = null) : this(
+            body = body,
+            links = linkHeader?.extractLinks() ?: emptyMap()){
+        mNextPageStrategy= nextPageStrategy
     }
 
-    constructor(response: Response<T>) {
-        code = response.code()
-        if (response.isSuccessful) {
-            body = response.body()
-            errorMessage = null
-        } else {
-            var message: String? = null
-            if (response.errorBody() != null) {
-                try {
-                    message = response.errorBody()!!.string()
-                } catch (ignored: IOException) {
-                    Timber.e(ignored, "error while parsing response")
-                }
 
+    val nextPage: Int by lazy(LazyThreadSafetyMode.NONE) {
+        mNextPageStrategy?.nextPageRule(links) ?: -1
+    }
+
+    companion object {
+        private val LINK_PATTERN = Pattern.compile("<([^>]*)>[\\s]*;[\\s]*rel=\"([a-zA-Z0-9]+)\"")
+        private val PAGE_PATTERN = Pattern.compile("\\bpage=(\\d+)")
+        private const val NEXT_LINK = "next"
+
+        private fun String.extractLinks(): Map<String, String> {
+            val links = mutableMapOf<String, String>()
+            val matcher = LINK_PATTERN.matcher(this)
+
+            while (matcher.find()) {
+                val count = matcher.groupCount()
+                if (count == 2) {
+                    links[matcher.group(2)] = matcher.group(1)
+                }
             }
-            if (message == null || message.trim { it <= ' ' }.isEmpty()) {
-                message = response.message()
-            }
-            errorMessage = message
-            body = null
+            return links
         }
 
     }
-
-    protected abstract fun nextPageRule() : Int?
-
 }
+
+data class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()

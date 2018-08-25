@@ -20,12 +20,12 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
+import io.reactivex.FlowableSubscriber
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 /**
- * Created by tang on 2018/2/28.
  *
  * A generic class that can provide a resource backed by both the sqlite database and the network.
  *
@@ -34,26 +34,30 @@ import io.reactivex.schedulers.Schedulers
  * @param <ResultType>
  * @param <RequestType>
 </RequestType></ResultType> */
-abstract class NetworkBoundResource<ResultType, RequestType> @MainThread internal constructor() {
+abstract class NetworkBoundResource<ResultType, RequestType>
+@MainThread constructor() {
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
     init {
-        result.value = Resource.loading<ResultType>(null)
+        result.value = Resource.loading(null)
+        @Suppress("LeakingThis")
         val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
             if (shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
             } else {
-                result.addSource(dbSource) { newData -> setValue(Resource.success(newData)) }
+                result.addSource(dbSource) { newData ->
+                    setValue(Resource.success(newData))
+                }
             }
         }
     }
 
     @MainThread
     private fun setValue(newValue: Resource<ResultType>) {
-        if (result.value == newValue) {
+        if (result.value != newValue) {
             result.value = newValue
         }
     }
@@ -61,39 +65,54 @@ abstract class NetworkBoundResource<ResultType, RequestType> @MainThread interna
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
         val apiResponse = createCall()
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
-        result.addSource(dbSource) { newData -> setValue(Resource.loading(newData)) }
-        result.addSource<ApiResponse<RequestType>>(apiResponse) { response ->
-            result.removeSource<ApiResponse<RequestType>>(apiResponse)
+        result.addSource(dbSource) { newData ->
+            setValue(Resource.loading(newData))
+        }
+        result.addSource(apiResponse) { response ->
+            result.removeSource(apiResponse)
             result.removeSource(dbSource)
+            when (response) {
+                is ApiSuccessResponse -> {
 
-            if (response?.isSuccessful == true) {
-                Observable.fromArray(response)
-                        .subscribeOn(Schedulers.io())
-                        .map { it ->
-                            saveCallResult(processResponse(it))
-                            return@map it
-                        }
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ result.addSource(loadFromDb()) {
-                            newData -> setValue(Resource.success(newData)) } })
+                    Observable.fromArray(response)
+                            .subscribeOn(Schedulers.io())
+                            .map { saveCallResult(processResponse(it)) }
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                        result.addSource(loadFromDb()) { newData
+                                            -> setValue(Resource.success(newData))
+                                        }
+                                    })
+                }
+                is ApiEmptyResponse -> {
 
-            } else {
-                onFetchFailed()
-                result.addSource(dbSource) {
-                    newData -> setValue(Resource.error(response?.errorMessage, newData)) }
+                    Observable.fromArray(response)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                result.addSource(loadFromDb()) { newData
+                                    -> setValue(Resource.success(newData))
+                                }
+                            })
+                }
+                is ApiErrorResponse -> {
+                    onFetchFailed()
+                    result.addSource(dbSource) { newData ->
+                        setValue(Resource.error(response.errorMessage, newData))
+                    }
+                }
             }
         }
     }
 
-    protected fun onFetchFailed() = Unit
+    protected open fun onFetchFailed() {}
 
-    fun asLiveData(): LiveData<Resource<ResultType>> = result
-
-    @WorkerThread
-    protected fun processResponse(response: ApiResponse<RequestType>): RequestType? = response.body
+    fun asLiveData() = result as LiveData<Resource<ResultType>>
 
     @WorkerThread
-    protected abstract fun saveCallResult(item: RequestType?)
+    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.body
+
+    @WorkerThread
+    protected abstract fun saveCallResult(item: RequestType)
 
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean

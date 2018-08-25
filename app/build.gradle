@@ -49,7 +49,7 @@ apollo {
 }
 
 dependencies {
-    api project(':oauth')
+    api project(':oauth2')
 }
 repositories {
     mavenCentral()

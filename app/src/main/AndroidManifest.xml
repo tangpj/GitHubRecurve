@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tang.com.mvvmrecurve">
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tang.com.mvvmrecurve">
   <uses-sdk xmlns:tools="http://schemas.android.com/tools" tools:overrideLibrary="android.support.v15.preference"/>
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <application android:supportsRtl="true" android:label="@string/app_name" android:name="tang.com.github.GitHubApp" android:theme="@style/AppTheme" android:icon="@mipmap/ic_launcher" android:allowBackup="true" android:fullBackupContent="@xml/backup_descriptor" android:roundIcon="@mipmap/ic_launcher_round">
+  <application android:supportsRtl="true" android:label="@string/app_name"  android:theme="@style/AppTheme" android:icon="@mipmap/ic_launcher" android:allowBackup="true" android:fullBackupContent="@xml/backup_descriptor" android:roundIcon="@mipmap/ic_launcher_round">
     <activity android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

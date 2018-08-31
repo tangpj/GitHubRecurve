@@ -5,7 +5,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion build_versions.build_tools
 
     defaultConfig {
         minSdkVersion build_versions.min_sdk
@@ -16,6 +15,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'int', 'DB_VERSION_GITHUB', db_versions.github
+        buildConfigField 'String', 'CLIENT_ID', github.client_id
+        buildConfigField 'String', 'CLIENT_SECRET', github.client_secret
+        buildConfigField 'String', 'REDIRECTt_URI', github.redirect_uri
+        buildConfigField 'String', 'SCOPES', github.scopes
     }
 
     dataBinding{
@@ -57,6 +60,7 @@ dependencies {
     api deps.lifecycle.extensions
     api deps.retrofit.runtime
     api deps.retrofit.gson
+    api deps.retrofit.rxjava_adapter
     api deps.glide
 
     api deps.dagger.runtime
@@ -69,7 +73,6 @@ dependencies {
     // RxJava
     api deps.rx_android
     api deps.rxjava2
-
     api deps.timber
 
     kapt deps.dagger.android_support_compiler
@@ -81,6 +84,8 @@ dependencies {
     api deps.apollo.converter
 
     kapt deps.databinding_compiler
+    api project(':recurve')
+    api 'androidx.core:core-ktx:1.0.0-alpha1'
 
     androidTestImplementation deps.junit
     androidTestImplementation (deps.mock_web_server, {
@@ -123,7 +128,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-core-utils'
         exclude group: 'net.bytebuddy'
     })
-
-    api project(':recurve')
 
 }

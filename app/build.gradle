@@ -6,7 +6,6 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion build_versions.build_tools
     defaultConfig {
         applicationId "tang.com.mvvmrecurve"
         minSdkVersion build_versions.min_sdk
@@ -37,12 +36,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+
 }
 
 apollo {
     useJavaBeansSemanticNaming = true
 }
 
-repositories {
-    mavenCentral()
+
+dependencies {
+    api project(':github_base')
 }

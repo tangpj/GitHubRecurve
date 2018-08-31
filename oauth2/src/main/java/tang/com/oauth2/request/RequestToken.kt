@@ -1,8 +1,12 @@
 package tang.com.oauth2.request
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-data class RequestToken constructor(
+@Parcelize
+data class RequestToken(
         @SerializedName ("client_id") val clientId: String,
         @SerializedName("client_secret") val client_secret: String,
-        @SerializedName("redirect_uri") val redirectUri: String)
+        @SerializedName("redirect_uri") var redirectUri: String? = "",
+        @SerializedName("code") val code: String): Parcelable

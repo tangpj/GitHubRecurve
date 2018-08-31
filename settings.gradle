@@ -1,1 +1,2 @@
-include ':app', ':recurve', ':github_base', ':oauth2'
+include ':app', ':github_base', ':oauth2','recurve'
+project(":recurve").projectDir = file("../MvvmRecurve/recurve")

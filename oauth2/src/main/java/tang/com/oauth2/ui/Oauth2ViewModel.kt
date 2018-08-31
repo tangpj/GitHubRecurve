@@ -8,7 +8,8 @@ import android.view.View
 import tang.com.github.pojo.GithubToken
 import tang.com.oauth.BuildConfig
 import tang.com.oauth2.GithubOauth2
-import tang.com.recurve.util.IntentUtils
+import tang.com.recurve.util.openInCustomTabOrBrowser
+
 
 class Oauth2ViewModel: ViewModel() {
     private val token: MutableLiveData<GithubToken> = MutableLiveData()
@@ -24,6 +25,6 @@ class Oauth2ViewModel: ViewModel() {
 
     fun authorize(view: View){
         val uri = buildAuthorizeUri()
-        IntentUtils.openInCustomTabOrBrowser(view.context, uri)
+        openInCustomTabOrBrowser(view.context, uri)
     }
 }

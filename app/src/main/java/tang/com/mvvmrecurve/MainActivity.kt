@@ -1,5 +1,6 @@
 package tang.com.mvvmrecurve
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
 
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        GithubOauth2.getGithubToken(intent, null)
+        super.onNewIntent(intent)
 
     }
 

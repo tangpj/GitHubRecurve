@@ -26,43 +26,43 @@ import com.google.gson.annotations.SerializedName
  * Using name/owner_login as primary key instead of id since name/owner_login is always available
  * vs id is not.
  */
-@Entity(indices = arrayOf(Index("id"), Index("owner_login")), primaryKeys = arrayOf("name", "owner_login"))
-class Repo(val id: Int, @field:SerializedName("name")
-val name: String, @field:SerializedName("full_name")
-           val fullName: String, @field:SerializedName("description")
-           val description: String, @field:SerializedName("owner")
-           @field:Embedded(prefix = "owner_")
-           val owner: Owner, @field:SerializedName("stargazers_count")
-           val stars: Int) {
-
-    class Owner(@field:SerializedName("login")
-                val login: String, @field:SerializedName("url")
-                val url: String?) {
-
-        override fun equals(o: Any?): Boolean {
-            if (this === o) {
-                return true
-            }
-            if (o == null || javaClass != o.javaClass) {
-                return false
-            }
-
-            val owner = o as Owner?
-
-            if (login != owner!!.login) {
-                return false
-            }
-            return if (url != null) url == owner.url else owner.url == null
-        }
-
-        override fun hashCode(): Int {
-            var result = login?.hashCode() ?: 0
-            result = 31 * result + (url?.hashCode() ?: 0)
-            return result
-        }
-    }
-
-    companion object {
-        val UNKNOWN_ID = -1
-    }
-}
+//@Entity(indices = arrayOf(Index("id"), Index("owner_login")), primaryKeys = arrayOf("name", "owner_login"))
+//class Repo(val id: Int, @field:SerializedName("name")
+//val name: String, @field:SerializedName("full_name")
+//           val fullName: String, @field:SerializedName("description")
+//           val description: String, @field:SerializedName("owner")
+//           @field:Embedded(prefix = "owner_")
+//           val owner: Owner, @field:SerializedName("stargazers_count")
+//           val stars: Int) {
+//
+//    class Owner(@field:SerializedName("login")
+//                val login: String, @field:SerializedName("url")
+//                val url: String?) {
+//
+//        override fun equals(o: Any?): Boolean {
+//            if (this === o) {
+//                return true
+//            }
+//            if (o == null || javaClass != o.javaClass) {
+//                return false
+//            }
+//
+//            val owner = o as Owner?
+//
+//            if (login != owner!!.login) {
+//                return false
+//            }
+//            return if (url != null) url == owner.url else owner.url == null
+//        }
+//
+//        override fun hashCode(): Int {
+//            var result = login?.hashCode() ?: 0
+//            result = 31 * result + (url?.hashCode() ?: 0)
+//            return result
+//        }
+//    }
+//
+//    companion object {
+//        val UNKNOWN_ID = -1
+//    }
+//}

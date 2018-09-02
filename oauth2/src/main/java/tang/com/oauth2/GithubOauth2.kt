@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import tang.com.github.api.createOauthService
+import tang.com.github.pojo.GithubToken
 import tang.com.oauth.BuildConfig
 import tang.com.oauth2.request.RequestToken
 import tang.com.recurve.util.openInCustomTabOrBrowser
@@ -41,9 +42,14 @@ class GithubOauth2 private constructor(){
                 val requestToken = RequestToken(clientId = BuildConfig.CLIENT_ID,
                         client_secret = BuildConfig.CLIENT_SECRET,
                         code = data.getQueryParameter(PARAM_CODE) ?: "")
-                service.getToken(requestToken).subscribe { t1, t2 ->
-                    println("")
+                service.getToken(requestToken).map {
+                    GithubToken(accessToken = it.headers().get("access_token") ?: "",
+                            tokenType = it.headers().get("token_type"),
+                            scope = it.headers().get("scope"))
+                }.subscribe { t1, t2 ->
+                    println()
                 }
+
             }
         }
 

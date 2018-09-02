@@ -1,10 +1,10 @@
 package tang.com.mvvmrecurve
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import tang.com.mvvmrecurve.databinding.ActivityMainBinding
 import tang.com.oauth2.GithubOauth2
 import tang.com.recurve.widget.ModulesAdapter

@@ -1,7 +1,7 @@
 package tang.com.github
 
 import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import dagger.android.DaggerApplication
 import tang.com.github.di.DaggerAppComponent
 
 class GitHubApp: DaggerApplication() {

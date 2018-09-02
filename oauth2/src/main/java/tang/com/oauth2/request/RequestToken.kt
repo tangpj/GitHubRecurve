@@ -9,4 +9,4 @@ data class RequestToken(
         @SerializedName ("client_id") val clientId: String,
         @SerializedName("client_secret") val client_secret: String,
         @SerializedName("redirect_uri") var redirectUri: String? = "",
-        @SerializedName("code") val code: String): Parcelable
+        @SerializedName("code") val code: String?): Parcelable

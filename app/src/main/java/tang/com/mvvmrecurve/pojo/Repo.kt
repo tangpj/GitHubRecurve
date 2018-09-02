@@ -16,9 +16,7 @@
 
 package tang.com.mvvmrecurve.pojo
 
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Index
+
 
 import com.google.gson.annotations.SerializedName
 

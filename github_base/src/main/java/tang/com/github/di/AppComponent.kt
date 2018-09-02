@@ -9,12 +9,10 @@ import tang.com.github.GitHubApp
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class,
-    AndroidSupportInjectionModule::class])
+@Component(modules = [AndroidInjectionModule::class])
 interface AppComponent: AndroidInjector<GitHubApp>{
     @Component.Builder
     interface Builder{
-
         @BindsInstance fun application(app: GitHubApp): AppComponent.Builder
 
         fun build(): AppComponent

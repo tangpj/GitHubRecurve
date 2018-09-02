@@ -1,8 +1,8 @@
 package tang.com.oauth.ui
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import tang.com.oauth.R
 import tang.com.oauth.databinding.ActivityOauth2Binding
 

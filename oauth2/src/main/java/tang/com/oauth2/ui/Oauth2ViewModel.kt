@@ -1,10 +1,9 @@
 package tang.com.oauth2.ui
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.content.Intent
 import android.net.Uri
 import android.view.View
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import tang.com.github.pojo.GithubToken
 import tang.com.oauth.BuildConfig
 import tang.com.oauth2.GithubOauth2

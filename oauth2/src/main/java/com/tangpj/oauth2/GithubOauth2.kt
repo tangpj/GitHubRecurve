@@ -39,17 +39,6 @@ class GithubOauth2 private constructor(){
                     data.scheme == CALLBACK_URI.scheme &&
                     data.host == CALLBACK_URI.host){
                 val service = createOauthService()
-                val requestToken = RequestToken(clientId = BuildConfig.CLIENT_ID,
-                        client_secret = BuildConfig.CLIENT_SECRET,
-                        code = data.getQueryParameter(PARAM_CODE) ?: "")
-                service.getToken(requestToken).map {
-                    GithubToken(accessToken = it.headers().get("access_token") ?: "",
-                            tokenType = it.headers().get("token_type"),
-                            scope = it.headers().get("scope"))
-                }.subscribe { t1, t2 ->
-                    println()
-                }
-
             }
         }
 

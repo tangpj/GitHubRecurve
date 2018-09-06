@@ -112,6 +112,16 @@ kotlin.ktx = "androidx.core:core-ktx:$versions.ktx"
 kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
 deps.kotlin = kotlin
 
+def navigation = [:]
+navigation.runtime = "android.arch.navigation:navigation-runtime:$versions.navigation"
+navigation.runtime_ktx = "android.arch.navigation:navigation-runtime-ktx:$versions.navigation"
+navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.navigation"
+navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+navigation.testing_ktx = "android.arch.navigation:navigation-testing-ktx:$versions.navigation"
+deps.navigation = navigation
+
+
 def apollo = [:]
 apollo.runtime = "com.apollographql.apollo:apollo-runtime:$versions.apollo"
 apollo.plugin = "com.apollographql.apollo:apollo-gradle-plugin:$versions.apollo"

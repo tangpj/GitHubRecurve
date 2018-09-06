@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main">
+
+    <fragment android:id="@+id/oauth2Fragment"
+        android:name="com.tangpj.oauth2.ui.Oauth2Fragment"
+        android:label="Oauth2Fragment">
+
+    </fragment>
+
+</navigation>

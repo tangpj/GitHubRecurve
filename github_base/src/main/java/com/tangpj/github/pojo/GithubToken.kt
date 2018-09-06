@@ -8,6 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(primaryKeys = ["accessToken"])
 data class GithubToken(
-        @SerializedName("access_token") val accessToken: String,
-        @SerializedName("token_type") val tokenType: String?,
-        @SerializedName("scope") val scope: String?): Parcelable
+        @SerializedName("access_token") var accessToken: String,
+        @SerializedName("token_type") var tokenType: String?,
+        @SerializedName("scope") var scope: String?,
+        var code: String): Parcelable

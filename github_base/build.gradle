@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -57,6 +58,7 @@ dependencies {
     api deps.lifecycle.extensions
     api deps.retrofit.gson
     api deps.retrofit.rxjava_adapter
+    api deps.navigation.fragment_ktx
 
     api deps.dagger.runtime
     api (deps.dagger.android){

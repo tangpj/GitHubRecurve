@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="tang.com.oauth2.ui.Oauth2ViewModel"/>
+            type="com.tangpj.oauth2.ui.Oauth2ViewModel"/>
 
     </data>
 

@@ -7,7 +7,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion build_versions.compile_sdk
     defaultConfig {
-        applicationId "tang.com.mvvmrecurve"
+        applicationId "com.tangpj.mvvmrecurve"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         versionCode 1

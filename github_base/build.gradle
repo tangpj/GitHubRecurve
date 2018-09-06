@@ -51,7 +51,7 @@ android {
 
 dependencies {
     api project(':recurve')
-    api deps.support.material
+    api deps.androidx.material
     api deps.room.runtime
     api deps.lifecycle.runtime
     api deps.lifecycle.extensions

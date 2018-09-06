@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tang.com.mvvmrecurve">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.tangpj.mvvmrecurve">
   <uses-sdk xmlns:tools="http://schemas.android.com/tools" tools:overrideLibrary="android.support.v15.preference"/>
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

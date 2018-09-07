@@ -10,7 +10,19 @@
         android:fullBackupContent="@xml/backup_descriptor"
         android:roundIcon="@mipmap/ic_launcher_round">
 
-
+        <activity android:name="com.tangpj.oauth2.ui.Oauth2Activity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <data android:scheme="recurve" android:host="oauth" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
 
     </application>
 

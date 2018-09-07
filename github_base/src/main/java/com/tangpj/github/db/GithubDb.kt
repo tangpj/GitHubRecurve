@@ -8,5 +8,5 @@ import com.tangpj.github.pojo.GithubToken
 @Database(entities = [GithubToken::class],version = BuildConfig.DB_VERSION_GITHUB)
 abstract class GithubDb: RoomDatabase() {
 
-    abstract fun oauthDao(): GithubTokenDao
+    abstract fun tokenDao(): GithubTokenDao
 }

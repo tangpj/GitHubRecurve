@@ -27,7 +27,7 @@ appConfig{
     apps{
         app{
             mainActivity ".MainActivity"
-            applicationName "com.tangpj.github.GitHubApp"
+            applicationName "com.tangpj.oauth2.Oauth2App"
             modules ':oauth2'
         }
     }

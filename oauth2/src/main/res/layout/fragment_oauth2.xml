@@ -4,7 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.tangpj.oauth2.ui.Oauth2ViewModel"/>
+        
+        <variable
+            name="authorizeListener"
+            type="android.view.View.OnClickListener"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,6 +25,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
             android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
+            android:onClickListener="@{authorizeListener}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/stat_notify_more"

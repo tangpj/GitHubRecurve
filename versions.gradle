@@ -37,7 +37,7 @@ versions.ktx = "1.0.0-rc02"
 versions.navigation = "1.0.0-alpha04"
 versions.app_code = 1
 versions.app_name = "1.0"
-versions.databinding_compiler = "3.2.0-alpha11"
+versions.databinding_compiler = "3.3.0-alpha08"
 versions.apollo = "1.0.0-alpha2"
 versions.apollo_converter = "0.1.0"
 deps.version = versions
@@ -141,13 +141,13 @@ deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
 deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
-deps.databinding_compiler = "androidx.databinding:compiler:$versions.databinding_compiler"
+deps.databinding_compiler = "androidx.databinding:databinding-compiler:$versions.databinding_compiler"
 ext.deps = deps
 
 def build_versions = [:]
 build_versions.min_sdk = 15
 build_versions.compile_sdk = 28
-build_versions.build_tools = "28.0.0-rc1"
+build_versions.build_tools = "28.0.7"
 ext.build_versions = build_versions
 
 def app_versions = [:]

@@ -1,7 +1,6 @@
 package com.tangpj.github.db
 
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert

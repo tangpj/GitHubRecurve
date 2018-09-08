@@ -1,6 +1,7 @@
 package com.tangpj.oauth2
 
 import com.tangpj.github.GithubApp
+import com.tangpj.oauth2.di.DaggerOauth2Component
 
 /**
  * @ClassName: Oauth2App
@@ -10,8 +11,8 @@ import com.tangpj.github.GithubApp
  */
 class Oauth2App : GithubApp(){
 
-
-    override fun initComponentInject() {
+    override fun componentInject() {
+        DaggerOauth2Component.builder().application(this).build().inject(this)
     }
 
 }

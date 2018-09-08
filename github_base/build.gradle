@@ -68,9 +68,15 @@ dependencies {
     api deps.rx_android
     api deps.rxjava2
 
+    api deps.apollo.converter
+
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+
+    kapt deps.room.compiler
     kapt deps.lifecycle.compiler
 
-    api deps.apollo.converter
+    kapt deps.databinding_compiler
 
     androidTestImplementation deps.junit
     androidTestImplementation (deps.mock_web_server, {

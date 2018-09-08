@@ -2,6 +2,7 @@ apply plugin: 'calces.modules'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -41,5 +42,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(':github_base')
+
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+
+    kapt deps.room.compiler
+    kapt deps.lifecycle.compiler
+
+    kapt deps.databinding_compiler
 
 }

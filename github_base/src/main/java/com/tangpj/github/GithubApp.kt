@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 abstract class GithubApp: Application(), HasActivityInjector {
 
-    abstract fun initComponentInject()
+    abstract fun componentInject()
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
@@ -18,7 +18,7 @@ abstract class GithubApp: Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
         AppInjector()
-                .setComponentInject { initComponentInject() }
+                .setComponentInject { componentInject() }
                 .init(this)
     }
 

@@ -1,6 +1,7 @@
 package com.tangpj.oauth2.di
 
 import android.app.Application
+import com.tangpj.github.GithubApp
 import com.tangpj.github.di.GithubDbModule
 import com.tangpj.oauth.di.OauthAppModule
 import dagger.BindsInstance
@@ -12,10 +13,8 @@ import javax.inject.Singleton
 @Component(
         modules = [
             AndroidInjectionModule::class,
-            GithubDbModule::class,
             OauthAppModule::class,
-            Oauth2AcitivtyModule::class])
-
+            Oauth2ActivityModule::class])
 interface Oauth2Component{
 
     @Component.Builder
@@ -26,5 +25,5 @@ interface Oauth2Component{
         fun build(): Oauth2Component
     }
 
-    fun inject(app: Application)
+    fun inject(app: GithubApp)
 }

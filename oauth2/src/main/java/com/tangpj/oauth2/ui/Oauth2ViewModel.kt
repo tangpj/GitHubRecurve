@@ -1,29 +1,29 @@
 package com.tangpj.oauth2.ui
 
 import android.net.Uri
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.tangpj.github.pojo.GithubToken
 import com.tangpj.oauth.BuildConfig
-import com.tangpj.oauth.repository.Oauth2Repository
+import com.tangpj.oauth2.repository.Oauth2Repository
 import com.tangpj.oauth2.GithubOauth2
+import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.resource.Resource
 import javax.inject.Inject
 
 
 class Oauth2ViewModel @Inject constructor(repository: Oauth2Repository): ViewModel() {
-    private val codeUri: MutableLiveData<Uri> = MutableLiveData()
+    private val requestToken: MutableLiveData<RequestToken> = MutableLiveData()
 
     val token: LiveData<Resource<GithubToken>> = Transformations
-            .switchMap(codeUri){
+            .switchMap(requestToken){
                 repository.getGithubToken(it)
             }
 
-    fun refreshCode(uri: Uri) {
-        codeUri.value = uri
+    fun refreshCode(code: String) {
+        requestToken.value = RequestToken(code = code)
     }
 
     fun buildAuthorizeUri(): Uri

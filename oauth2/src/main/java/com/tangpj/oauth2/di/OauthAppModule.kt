@@ -20,7 +20,7 @@ class OauthAppModule{
     @Provides
     fun providerOauthService(): OAuthService{
         return Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl("https://github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(LiveDataCallAdapterFactory(GithubNextPageStrategy()))
                 .build()

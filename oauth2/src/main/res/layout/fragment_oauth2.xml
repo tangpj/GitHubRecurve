@@ -13,9 +13,10 @@
             type="android.view.View.OnClickListener"/>
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/primaryColor"
         >
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,25 +32,30 @@
             app:srcCompat="@android:drawable/stat_notify_more"
             />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="499dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/github_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:text="TextView"
+            android:textSize="96sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="275dp" />
 
 
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
 

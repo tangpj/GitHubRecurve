@@ -156,7 +156,7 @@ app_versions.name = "1.0"
 ext.app_versions = app_versions
 
 def db_versions = [:]
-db_versions.github = "1"
+db_versions.github = "2"
 ext.db_versions = db_versions
 
 

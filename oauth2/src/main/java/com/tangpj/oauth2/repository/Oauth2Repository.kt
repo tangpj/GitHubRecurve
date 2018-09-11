@@ -22,14 +22,13 @@ constructor(val gitDb: GithubDb, val tokenDao: GithubTokenDao, val oauthService:
 
         return object : NetworkBoundResource<GithubToken, GithubToken>(){
             override fun saveCallResult(item: GithubToken) {
-                item.code = requestToken.code
                 tokenDao.insert(item)
             }
 
             override fun shouldFetch(data: GithubToken?): Boolean =
                     data == null || tokenRateLimiter.shouldFetch(requestToken)
 
-            override fun loadFromDb(): LiveData<GithubToken> = tokenDao.loadToken(requestToken.code)
+            override fun loadFromDb(): LiveData<GithubToken> = tokenDao.loadToken(1)
 
             override fun createCall(): LiveData<ApiResponse<GithubToken>> =
                 oauthService.getToken(requestToken)

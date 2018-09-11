@@ -2,10 +2,7 @@ package com.tangpj.github.db
 
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.tangpj.github.pojo.GithubToken
 
 @Dao
@@ -15,7 +12,10 @@ abstract class GithubTokenDao {
     abstract fun insert(githubToken: GithubToken)
 
     @Query("""
-        SELECT * FROM GithubToken WHERE :code
+        SELECT * FROM GithubToken WHERE id = :id
         """)
-    abstract fun loadToken(code: String): LiveData<GithubToken>
+    abstract fun loadToken(id: Long): LiveData<GithubToken>
+
+    @Delete
+    abstract fun deleteToken(githubToken: GithubToken)
 }

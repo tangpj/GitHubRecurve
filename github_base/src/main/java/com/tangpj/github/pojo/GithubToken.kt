@@ -6,9 +6,10 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(primaryKeys = ["accessToken"])
+@Entity(primaryKeys = ["id"])
 data class GithubToken(
+        var id: Long = 1,
         @SerializedName("access_token") var accessToken: String,
         @SerializedName("token_type") var tokenType: String?,
-        @SerializedName("scope") var scope: String?,
-        var code: String): Parcelable
+        @SerializedName("scope") var scope: String?
+        ): Parcelable

@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app_versions.code
+        versionName app_versions.name
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'int', 'DB_VERSION_GITHUB', db_versions.github
+        buildConfigField 'String', 'CLIENT_ID', github.client_id
+        buildConfigField 'String', 'CLIENT_SECRET', github.client_secret
+        buildConfigField 'String', 'REDIRECTt_URI', github.redirect_uri
+        buildConfigField 'String', 'SCOPES', github.scopes
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api deps.androidx.appcompat
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+}

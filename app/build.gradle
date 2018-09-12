@@ -45,5 +45,5 @@ apollo {
 
 
 dependencies {
-    api project(':github_base')
+    api project(':baselib:github_base')
 }

@@ -28,11 +28,13 @@ appConfig{
         app{
             mainActivity ".MainActivity"
             applicationName "com.tangpj.oauth2.Oauth2App"
-            modules ':oauth2'
+            modules ':modules:oauth2'
         }
     }
     modules{
-        oauth2
+        oauth2{
+            name ':modules:oauth2'
+        }
     }
 }
 

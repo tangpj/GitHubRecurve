@@ -19,18 +19,6 @@
         android:background="@color/primaryColor"
         >
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
-            android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
-            android:onClickListener="@{authorizeListener}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/stat_notify_more"
-            />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -45,15 +33,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/floatingActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_min_height_material"
+            android:layout_margin="@dimen/margin_horizontal_material"
+            android:textAppearance="@style/TextAppearance.Adaptive.Body1"
+            android:onClickListener="@{authorizeListener}"
+            android:text="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/stat_notify_more" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

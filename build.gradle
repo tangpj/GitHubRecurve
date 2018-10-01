@@ -19,11 +19,11 @@ buildscript {
 
 }
 plugins {
-    id "calces.appconfig" version "1.1.0"
+    id "calces.appconfig" version "1.2.31"
 }
 
 appConfig{
-    debugEnable false
+    debugEnable true
     apps{
         app{
             mainActivity ".MainActivity"
@@ -34,6 +34,9 @@ appConfig{
     modules{
         oauth2{
             name ':modules:oauth2'
+            applicationId "com.tangpj.oatuh2"
+            mainActivity ".Oauth2Activity"
+            isRunAlone true
         }
     }
 }

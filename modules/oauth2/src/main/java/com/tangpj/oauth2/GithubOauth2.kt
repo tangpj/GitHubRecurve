@@ -5,7 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import com.tangpj.github.api.createOauthService
 import com.tangpj.github.pojo.GithubToken
-import com.tangpj.oauth.BuildConfig
+import com.tangpj.oatuh2.BuildConfig
 import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
 

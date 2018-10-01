@@ -25,17 +25,17 @@
 
 
     <!--text dimens-->
-    <dimen name="text_size_caption_material">20sp</dimen>
-    <dimen name="text_size_body_2_material">24sp</dimen>
-    <dimen name="text_size_button_material">24sp</dimen>
-    <dimen name="text_size_body_1_material">28sp</dimen>
-    <dimen name="text_size_subtitle_2_material">20sp</dimen>
-    <dimen name="text_size_subtitle_1_material">28sp</dimen>
-    <dimen name="text_size_h6_material">36sp</dimen>
-    <dimen name="text_size_h5_material">40sp</dimen>
-    <dimen name="text_size_h4_material">56sp</dimen>
-    <dimen name="text_size_h3_material">80sp</dimen>
-    <dimen name="text_size_h2_material">100sp</dimen>
-    <dimen name="text_size_h1_material">160sp</dimen>
+    <dimen name="text_size_caption_material">14sp</dimen>
+    <dimen name="text_size_body_2_material">18sp</dimen>
+    <dimen name="text_size_button_material">14sp</dimen>
+    <dimen name="text_size_body_1_material">16sp</dimen>
+    <dimen name="text_size_subtitle_2_material">14sp</dimen>
+    <dimen name="text_size_subtitle_1_material">16sp</dimen>
+    <dimen name="text_size_h6_material">20sp</dimen>
+    <dimen name="text_size_h5_material">24sp</dimen>
+    <dimen name="text_size_h4_material">34sp</dimen>
+    <dimen name="text_size_h3_material">48sp</dimen>
+    <dimen name="text_size_h2_material">60sp</dimen>
+    <dimen name="text_size_h1_material">96sp</dimen>
 
 </resources>

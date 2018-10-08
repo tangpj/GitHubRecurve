@@ -21,6 +21,23 @@ android {
 
 }
 
+screen{
+
+    dimens{
+        designPx 360
+        smallesWidths 360,411,480
+        scale BigDecimal.ROUND_UP
+        auto true
+    }
+
+    mipmap{
+        designDensity "xxxhdpi"
+        mipmapDensity 'xxhdpi','xhdpi','hdpi','mdpi'
+        auto true
+    }
+
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

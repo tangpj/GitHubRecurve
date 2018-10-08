@@ -1,0 +1,28 @@
+<resources>
+  <!-- sw480dp -->
+  <dimen name='gutters_material'>22dp</dimen>
+  <dimen name='padding_horizontal_material'>11dp</dimen>
+  <dimen name='padding_vertical_material'>6dp</dimen>
+  <dimen name='margin_horizontal_material'>22dp</dimen>
+  <dimen name='margin_vertical_material'>11dp</dimen>
+  <dimen name='elevation_material'>6dp</dimen>
+  <dimen name='common_icon_height_material'>64dp</dimen>
+  <dimen name='common_icon_width_material'>64dp</dimen>
+  <dimen name='content_margin_horizontal_material'>96dp</dimen>
+  <dimen name='button_min_height_material'>64dp</dimen>
+  <dimen name='button_min_width_material'>118dp</dimen>
+  <dimen name='text_view_min_height_material'>64dp</dimen>
+  <dimen name='text_view_min_width_material'>118dp</dimen>
+  <dimen name='text_size_caption_material'>16sp</dimen>
+  <dimen name='text_size_body_2_material'>19sp</dimen>
+  <dimen name='text_size_button_material'>19sp</dimen>
+  <dimen name='text_size_body_1_material'>22sp</dimen>
+  <dimen name='text_size_subtitle_2_material'>19sp</dimen>
+  <dimen name='text_size_subtitle_1_material'>22sp</dimen>
+  <dimen name='text_size_h6_material'>27sp</dimen>
+  <dimen name='text_size_h5_material'>32sp</dimen>
+  <dimen name='text_size_h4_material'>46sp</dimen>
+  <dimen name='text_size_h3_material'>64sp</dimen>
+  <dimen name='text_size_h2_material'>80sp</dimen>
+  <dimen name='text_size_h1_material'>128sp</dimen>
+</resources>

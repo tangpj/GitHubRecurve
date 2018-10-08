@@ -7,9 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.tangpj.oauth.R
-import com.tangpj.oauth.databinding.ActivityOauth2Binding
 import com.tangpj.oauth2.GithubOauth2.Companion.PARAM_CODE
+import com.tangpj.oauth2.R
+import com.tangpj.oauth2.databinding.ActivityOauth2Binding
+
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector

@@ -20,6 +20,8 @@ android {
         buildConfigField 'String', 'CLIENT_SECRET', github.client_secret
         buildConfigField 'String', 'REDIRECTt_URI', github.redirect_uri
         buildConfigField 'String', 'SCOPES', github.scopes
+
+        buildConfigField 'String', 'BASE_URL', github.base_url
     }
 
     dataBinding{
@@ -71,6 +73,8 @@ dependencies {
     api project(':baselib:res')
 
     api deps.apollo.converter
+    api deps.apollo.runtime
+    api deps.apollo.android_support
 
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler

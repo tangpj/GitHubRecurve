@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.tangpj.github.pojo.GithubToken
-import com.tangpj.oauth.BuildConfig
+import com.tangpj.oauth2.BuildConfig
 import com.tangpj.oauth2.repository.Oauth2Repository
 import com.tangpj.oauth2.GithubOauth2
 import com.tangpj.oauth2.request.RequestToken
@@ -33,12 +33,5 @@ class Oauth2ViewModel @Inject constructor(repository: Oauth2Repository): ViewMod
                 .appendQueryParameter(GithubOauth2.PARAM_SCOPE, BuildConfig.SCOPES)
                 .appendQueryParameter(GithubOauth2.PARAM_CALLBACK_URI, BuildConfig.REDIRECTt_URI)
                 .build()
-
-
-
-
-
-
-
 
 }

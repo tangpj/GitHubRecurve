@@ -34,8 +34,9 @@ appConfig{
     modules{
         oauth2{
             name ':modules:oauth2'
-            applicationId "com.tangpj.oatuh2"
-            mainActivity ".Oauth2Activity"
+            applicationId "com.tangpj.oauth2"
+            mainActivity ".ui.Oauth2Activity"
+            applicationName "com.tangpj.oauth2.Oauth2App"
             isRunAlone true
         }
     }

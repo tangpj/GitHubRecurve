@@ -2,7 +2,6 @@ package com.tangpj.oauth.di
 
 import com.tangpj.github.db.GithubDb
 import com.tangpj.github.db.GithubTokenDao
-import com.tangpj.github.di.GithubDbModule
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

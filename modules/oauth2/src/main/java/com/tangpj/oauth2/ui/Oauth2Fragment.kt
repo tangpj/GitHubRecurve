@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.tangpj.oauth.databinding.FragmentOauth2Binding
+import com.tangpj.oauth2.databinding.FragmentOauth2Binding
 import com.tangpj.recurve.di.Injectable
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
 import javax.inject.Inject

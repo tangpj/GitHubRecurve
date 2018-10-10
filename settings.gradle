@@ -1,2 +1,9 @@
-include ':app', ':baselib:github_base', ':baselib:res',':recurve', ':modules:oauth2'
+include ':app', ':baselib:github_base',
+        ':baselib:res',':recurve',
+        'recurve-retrofit2-support',
+        'recurve-apollo-support',
+        ':modules:oauth2'
+
 project(":recurve").projectDir = file("../MvvmRecurve/recurve")
+project(":recurve-retrofit2-support").projectDir = file("../MvvmRecurve/recurve-retrofit2-support")
+project(":recurve-apollo-support").projectDir = file("../MvvmRecurve/recurve-apollo-support")

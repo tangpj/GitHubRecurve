@@ -54,6 +54,8 @@ android {
 
 dependencies {
     api project(':recurve')
+    api project(':recurve-retrofit2-support')
+    api project(':recurve-apollo-support')
     api deps.androidx.material
     api deps.room.runtime
     api deps.lifecycle.runtime

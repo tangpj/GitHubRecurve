@@ -1,8 +1,5 @@
 package com.tangpj.oauth2.di
 
-import com.tangpj.github.db.GithubDb
-import com.tangpj.github.db.GithubTokenDao
-import com.tangpj.github.di.AppModule
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +9,7 @@ import com.tangpj.recurve.retrofit2.LiveDataCallAdapterFactory
 import dagger.Module
 import javax.inject.Singleton
 
-@Module(includes = [Oauth2ViewModelModule::class, AppModule::class])
+@Module(includes = [Oauth2ViewModelModule::class])
 class OauthAppModule{
 
     @Singleton
@@ -25,9 +22,4 @@ class OauthAppModule{
                 .build()
                 .create(OAuthService::class.java)
     }
-
-    @Singleton
-    @Provides
-    fun providerGithubTokenDao(githubDb: GithubDb): GithubTokenDao =
-            githubDb.tokenDao()
 }

@@ -1,6 +1,5 @@
 package com.tangpj.oauth2.ui
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
 import com.tangpj.recurve.di.Injectable
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
+import timber.log.Timber
 import javax.inject.Inject
 
 class Oauth2Fragment : Fragment(), Injectable {
@@ -30,7 +29,7 @@ class Oauth2Fragment : Fragment(), Injectable {
         val params = Oauth2FragmentArgs.fromBundle(arguments)
         getToken(params.code)
         oauth2ViewModel.token.observeForever {
-            println(it)
+            Timber.d(it.toString())
         }
 
     }

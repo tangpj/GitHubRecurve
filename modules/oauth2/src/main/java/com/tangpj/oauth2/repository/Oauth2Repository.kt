@@ -28,7 +28,7 @@ constructor(val gitDb: GithubDb, val tokenDao: GithubTokenDao, val oauthService:
             override fun shouldFetch(data: GithubToken?): Boolean =
                     data == null || tokenRateLimiter.shouldFetch(requestToken)
 
-            override fun loadFromDb(): LiveData<GithubToken> = tokenDao.loadToken(1)
+            override fun loadFromDb(): LiveData<GithubToken> = tokenDao.loadToken()
 
             override fun createCall(): LiveData<ApiResponse<GithubToken>> =
                 oauthService.getToken(requestToken)

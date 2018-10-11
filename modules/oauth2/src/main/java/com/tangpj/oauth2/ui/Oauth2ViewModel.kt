@@ -11,16 +11,23 @@ import com.tangpj.oauth2.repository.Oauth2Repository
 import com.tangpj.oauth2.GithubOauth2
 import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.resource.Resource
+import okhttp3.OkHttpClient
 import javax.inject.Inject
 
 
 class Oauth2ViewModel @Inject constructor(repository: Oauth2Repository): ViewModel() {
     private val requestToken: MutableLiveData<RequestToken> = MutableLiveData()
 
+    @Inject
+    lateinit var client: OkHttpClient
+
     val token: LiveData<Resource<GithubToken>> = Transformations
             .switchMap(requestToken){
                 repository.getGithubToken(it)
             }
+    init {
+        token.observeForever {  }
+    }
 
     fun refreshCode(code: String) {
         requestToken.value = RequestToken(code = code)

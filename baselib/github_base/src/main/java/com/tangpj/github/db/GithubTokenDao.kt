@@ -14,7 +14,7 @@ abstract class GithubTokenDao {
     @Query("""
         SELECT * FROM GithubToken WHERE id = :id
         """)
-    abstract fun loadToken(id: Long): LiveData<GithubToken>
+    abstract fun loadToken(id: Long = 0): LiveData<GithubToken>
 
     @Delete
     abstract fun deleteToken(githubToken: GithubToken)

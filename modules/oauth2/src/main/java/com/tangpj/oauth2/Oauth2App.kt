@@ -2,7 +2,6 @@ package com.tangpj.oauth2
 
 import com.tangpj.github.BuildConfig
 import com.tangpj.github.GithubApp
-import com.tangpj.oauth2.di.DaggerOauth2Component
 import timber.log.Timber
 
 
@@ -28,9 +27,5 @@ class Oauth2App : GithubApp(){
         }
     }
 
-    override fun componentInject() {
-        DaggerOauth2Component.builder().application(this).build().inject(this)
-
-    }
 
 }

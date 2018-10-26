@@ -8,7 +8,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class Oauth2FragmentModule{
 
-    @ContributesAndroidInjector
-    abstract fun contributesOauth2Fragment(): Oauth2Fragment
+
 
 }

@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
-import com.tangpj.recurve.di.Injectable
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
+import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
 
-class Oauth2Fragment : Fragment(), Injectable {
+class Oauth2Fragment : DaggerFragment() {
 
     private lateinit var oauth2ViewModel: Oauth2ViewModel
     private lateinit var binding: FragmentOauth2Binding

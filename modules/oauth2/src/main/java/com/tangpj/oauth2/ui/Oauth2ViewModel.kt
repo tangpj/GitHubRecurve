@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.tangpj.github.BuildConfig
 import com.tangpj.github.pojo.GithubToken
-import com.tangpj.oauth2.BuildConfig
 import com.tangpj.oauth2.repository.Oauth2Repository
 import com.tangpj.oauth2.GithubOauth2
 import com.tangpj.oauth2.request.RequestToken

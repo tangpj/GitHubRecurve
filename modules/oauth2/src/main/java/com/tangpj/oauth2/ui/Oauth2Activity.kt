@@ -2,24 +2,18 @@ package com.tangpj.oauth2.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import com.tangpj.oauth2.GithubOauth2.Companion.PARAM_CODE
 import com.tangpj.oauth2.R
 import com.tangpj.oauth2.databinding.ActivityOauth2Binding
+import dagger.android.support.DaggerAppCompatActivity
 
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
 
-class Oauth2Activity: AppCompatActivity(), HasSupportFragmentInjector {
+class Oauth2Activity: DaggerAppCompatActivity() {
 
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     lateinit var binding: ActivityOauth2Binding
 
@@ -43,9 +37,6 @@ class Oauth2Activity: AppCompatActivity(), HasSupportFragmentInjector {
             navController.navigate(Oauth2FragmentDirections.refreshCode().setCode(it))
         }
     }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> =
-            dispatchingAndroidInjector
 
     override fun onSupportNavigateUp(): Boolean {
         return super.onSupportNavigateUp()

@@ -2,8 +2,7 @@ package com.tangpj.oauth2.request
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.tangpj.oauth2.BuildConfig
-import com.tangpj.oauth2.GithubOauth2
+import com.tangpj.github.BuildConfig
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

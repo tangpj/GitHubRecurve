@@ -1,17 +1,13 @@
 package com.tangpj.github
 
-import android.app.Activity
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.tangpj.github.db.GithubTokenDao
 import com.tangpj.github.pojo.GithubToken
-import com.tangpj.recurve.di.AppInjector
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.DaggerApplication
 import javax.inject.Inject
 
-abstract class GithubApp: Application(), HasActivityInjector {
+open class GithubApp: DaggerApplication(){
 
     private lateinit var instance: GithubApp
 
@@ -20,28 +16,18 @@ abstract class GithubApp: Application(), HasActivityInjector {
 
     lateinit var token: LiveData<GithubToken>
 
-    abstract fun componentInject()
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        AppInjector()
-                .setComponentInject {
 
-                    componentInject()
-                }
-                .init(this)
         token = githubTokenDao.loadToken()
 
     }
 
-
-    override fun activityInjector(): AndroidInjector<Activity> =
-            dispatchingAndroidInjector
-
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     fun getInstance(): GithubApp = instance
 

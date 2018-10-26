@@ -16,11 +16,6 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', 'CLIENT_ID', github.client_id
-        buildConfigField 'String', 'CLIENT_SECRET', github.client_secret
-        buildConfigField 'String', 'REDIRECTt_URI', github.redirect_uri
-        buildConfigField 'String', 'SCOPES', github.scopes
-
     }
 
     dataBinding{
@@ -29,6 +24,15 @@ android {
 
     androidExtensions {
         experimental = true
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     buildTypes {
@@ -49,7 +53,5 @@ dependencies {
 
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
-
-    kapt deps.databinding_compiler
 
 }

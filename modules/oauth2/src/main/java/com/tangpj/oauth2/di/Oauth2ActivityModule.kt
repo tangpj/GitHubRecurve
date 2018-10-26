@@ -8,6 +8,5 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class Oauth2ActivityModule{
 
-    @ContributesAndroidInjector(modules = [Oauth2FragmentModule::class])
-    abstract fun contributeMainActivity(): Oauth2Activity
+
 }

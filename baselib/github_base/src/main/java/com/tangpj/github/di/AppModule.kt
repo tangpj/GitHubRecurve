@@ -1,11 +1,15 @@
 package com.tangpj.github.di
 
+import android.webkit.JavascriptInterface
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.tangpj.github.GithubApp
 import com.tangpj.github.db.GithubDb
 import com.tangpj.github.db.GithubTokenDao
 import com.tangpj.github.pojo.GithubToken
+import com.tangpj.recurve.viewmodel.RecurevViewModelFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -22,6 +26,11 @@ class AppModule{
             = OkHttpClient.Builder()
             .addInterceptor(tokenInterceptor)
             .build()
+
+    @Singleton
+    @Provides
+    fun bindViewModelFactory(creators: Map<Class< out ViewModel>, @JvmSuppressWildcards ViewModel>)
+            : ViewModelProvider.Factory = RecurevViewModelFactory(creators)
 
 
     @Singleton

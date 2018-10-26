@@ -4,27 +4,22 @@ import androidx.lifecycle.LiveData
 import com.tangpj.github.GithubApp
 import com.tangpj.github.pojo.GithubToken
 import dagger.BindsInstance
-import dagger.Component
-import dagger.android.AndroidInjectionModule
+import dagger.Subcomponent
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [
-    AndroidInjectionModule::class,
+@Subcomponent(modules = [
+    AndroidSupportInjectionModule::class,
     AppModule::class])
-interface GithubComponent{
+interface GithubComponent : AndroidInjector<GithubApp>{
 
-    @Component.Builder
-    interface Builder{
-
+    @Subcomponent.Builder
+    abstract class Builder : AndroidInjector.Builder<GithubApp>() {
         @BindsInstance
-        fun application(app: GithubApp): Builder
+        abstract fun token(token: LiveData<GithubToken>): Builder
 
-        @BindsInstance
-        fun token(token: LiveData<GithubToken>): Builder
-
-        fun build(): GithubComponent
     }
 
-    fun inject(app: GithubApp)
 }

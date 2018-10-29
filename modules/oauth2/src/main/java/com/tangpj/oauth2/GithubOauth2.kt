@@ -1,7 +1,5 @@
 package com.tangpj.oauth2
 
-import android.net.Uri
-
 class GithubOauth2 private constructor(){
 
     companion object {

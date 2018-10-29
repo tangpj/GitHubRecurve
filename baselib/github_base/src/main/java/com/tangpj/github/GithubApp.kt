@@ -7,7 +7,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject
 
-open class GithubApp: DaggerApplication(){
+abstract class GithubApp: DaggerApplication(){
 
     private lateinit var instance: GithubApp
 
@@ -20,13 +20,7 @@ open class GithubApp: DaggerApplication(){
     override fun onCreate() {
         super.onCreate()
         instance = this
-
         token = githubTokenDao.loadToken()
-
-    }
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun getInstance(): GithubApp = instance

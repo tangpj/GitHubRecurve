@@ -7,8 +7,6 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
-
-
 @Module
 class ApolloModule{
 

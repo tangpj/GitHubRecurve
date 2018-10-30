@@ -3,7 +3,6 @@ package com.tangpj.github
 import androidx.lifecycle.LiveData
 import com.tangpj.github.db.GithubTokenDao
 import com.tangpj.github.pojo.GithubToken
-import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject
 

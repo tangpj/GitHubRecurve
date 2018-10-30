@@ -29,6 +29,7 @@ class Oauth2Activity: DaggerAppCompatActivity() {
             navController.navigate(Oauth2FragmentDirections.refreshCode().setCode(it))
         }
 
+
     }
 
     override fun onNewIntent(intent: Intent?) {

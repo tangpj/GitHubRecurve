@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.tangpj.github.GithubApp
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
 import dagger.android.support.DaggerFragment
@@ -19,6 +20,9 @@ class Oauth2Fragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var githubApp : GithubApp
 
     private val authorizeListener = View.OnClickListener{  _: View -> authorize() }
 
@@ -45,8 +49,9 @@ class Oauth2Fragment : DaggerFragment() {
     }
 
     private fun getToken(code: String?){
-        code?.let {
+        code?.let { it ->
             oauth2ViewModel.refreshCode(code)
+
         }
 
     }

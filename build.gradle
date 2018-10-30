@@ -38,6 +38,13 @@ appConfig{
             applicationName "com.tangpj.oauth2.Oauth2App"
             isRunAlone true
         }
+
+        personal{
+            name ':modules:personal'
+            applicationId "com.tangpj.personal"
+
+            isRunAlone false
+        }
     }
 }
 

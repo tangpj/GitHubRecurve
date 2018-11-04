@@ -40,8 +40,8 @@ appConfig{
         }
 
         personal{
-            name ':modules:personal'
-            applicationId "com.tangpj.personal"
+            name ':modules:user'
+            applicationId "com.tangpj.user"
 
             isRunAlone false
         }

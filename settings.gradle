@@ -1,4 +1,4 @@
-include ':app', ':baselib:github_base', ':gittestsuper', ':modules:personal',
+include ':app', ':baselib:github_base', ':gittestsuper', ':modules:user',
         ':baselib:res',':recurve',
         'recurve-retrofit2-support',
         'recurve-apollo-support',

@@ -1,4 +1,4 @@
-package com.tangpj.personal;
+package com.tangpj.user;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

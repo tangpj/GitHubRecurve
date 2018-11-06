@@ -1,9 +1,23 @@
-include ':app', ':baselib:github_base', ':gittestsuper', ':modules:user',
-        ':baselib:res',':recurve',
-        'recurve-retrofit2-support',
+//library
+include ':baselib:github_base',
+        ':baselib:res',
+        ':gittestsuper',
+        ':recurve'
+
+//app
+include ':app'
+
+//modules
+include ':modules:oauth2',
+        ':modules:user',
+        ':modules:profile'
+
+
+//recurve支持库
+include 'recurve-retrofit2-support',
         'recurve-apollo-support',
-        'recurve-dagger2-support',
-        ':modules:oauth2'
+        'recurve-dagger2-support'
+
 
 project(":recurve").projectDir = file("../MvvmRecurve/recurve")
 project(":recurve-retrofit2-support").projectDir = file("../MvvmRecurve/recurve-retrofit2-support")

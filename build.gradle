@@ -39,11 +39,18 @@ appConfig{
             isRunAlone true
         }
 
-        personal{
+        user{
             name ':modules:user'
             applicationId "com.tangpj.user"
 
-            isRunAlone false
+            isRunAlone true
+        }
+
+        profile{
+            name ':modules:profile'
+            applicationId "com.tangpj.profile"
+
+            isRunAlone true
         }
     }
 }

@@ -52,4 +52,5 @@
     <style name="TextAppearance.Adaptive.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:textSize">@dimen/text_size_h1_material</item>
     </style>
+
 </resources>

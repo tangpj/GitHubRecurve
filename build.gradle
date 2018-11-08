@@ -39,8 +39,8 @@ appConfig{
             isRunAlone true
         }
 
-        user{
-            name ':modules:user'
+        repositories{
+            name ':modules:repositories'
             applicationId "com.tangpj.user"
 
             isRunAlone true

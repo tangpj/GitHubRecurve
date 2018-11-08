@@ -1,4 +1,4 @@
-package com.tangpj.user;
+package com.tangpj.repositories;
 
 import org.junit.Test;
 

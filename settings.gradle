@@ -9,7 +9,7 @@ include ':app'
 
 //modules
 include ':modules:oauth2',
-        ':modules:user',
+        ':modules:repositories',
         ':modules:profile'
 
 

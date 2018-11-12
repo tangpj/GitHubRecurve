@@ -1,0 +1,14 @@
+ext.deps = [:]
+
+def github = [:]
+
+github.client_id = '"github client id"'
+github.client_secret = '"github client secret"'
+github.redirect_uri = '"github redirect uri"'
+github.base_url = '"https://api.github.com/graphql"'
+def scopes =["user", "repo", "gist", "notifications",
+             "delete_repo", "write:discussion", "admin:gpg_key", "admin:repo_hook",
+             "admin:org_hook", "admin:org", "admin:public_key"]
+
+github.scopes = "\"${scopes.join(",")}\""
+ext.github = github

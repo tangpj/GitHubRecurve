@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- app 主题属性 -->
+<resources>
+    <attr name="primaryColor" format="color|reference"/>
+    <attr name="primaryLightColor" format="color|reference"/>
+    <attr name="primaryDarkColor" format="color|reference"/>
+
+    <attr name="secondaryColor" format="color|reference"/>
+    <attr name="secondaryLightColor" format="color|reference"/>
+    <attr name="secondaryDarkColor" format="color|reference"/>
+
+    <attr name="primaryTextColor" format="color|reference"/>
+    <attr name="secondaryTextColor" format="color|reference"/>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="AppTheme.Normal">
+        <!-- Customize your theme here. -->
+        <item name="primaryColor">@color/primaryColorNormal</item>
+        <item name="primaryLightColor">@color/primaryLightColorNormal</item>
+        <item name="primaryDarkColor">@color/primaryDarkColorNormal</item>
+
+        <item name="secondaryColor">@color/secondaryColorNormal</item>
+        <item name="secondaryLightColor">@color/secondaryLightColorNormal</item>
+        <item name="secondaryDarkColor">@color/secondaryDarkColorNormal</item>
+
+        <item name="primaryTextColor">@color/primaryTextColorNormal</item>
+        <item name="secondaryTextColor">@color/secondaryTextColorNormal</item>
+
+    </style>
+    
+</resources>

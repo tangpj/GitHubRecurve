@@ -2,8 +2,4 @@
 <resources>
     <!-- CardView -->
 
-    <style name="" parent="CardView.Dark">
-
-    </style>
-
 </resources>

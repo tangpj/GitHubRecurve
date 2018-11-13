@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Adaptive Text Appearance.-->
+    <style name="TextAppearance.Adaptive.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">@dimen/text_size_caption_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">@dimen/text_size_body_2_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">@dimen/text_size_body_1_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.SubTitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textSize">@dimen/text_size_subtitle_2_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.SubTitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">@dimen/text_size_subtitle_1_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">@dimen/text_size_h6_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">@dimen/text_size_h5_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">@dimen/text_size_h4_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">@dimen/text_size_h3_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textSize">@dimen/text_size_h2_material</item>
+    </style>
+
+    <style name="TextAppearance.Adaptive.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">@dimen/text_size_h1_material</item>
+    </style>
+
+</resources>

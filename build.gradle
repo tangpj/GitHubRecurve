@@ -8,7 +8,6 @@ buildscript {
         classpath deps.kotlin.plugin
         classpath deps.apollo.plugin
         classpath deps.navigation.safe_args_plugin
-        classpath "com.tangpj.tools:calces-gradle-plugin:1.2.42"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,7 +18,9 @@ buildscript {
 
 }
 
-apply plugin: "calces.appconfig"
+plugins {
+    id "calces.appconfig" version "1.2.42"
+}
  
 appConfig{
     debugEnable true

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 正常主题颜色 -->
+    <color name="primaryColorNormal">#37474f</color>
+    <color name="primaryLightColorNormal">#62727b</color>
+    <color name="primaryDarkColorNormal">#102027</color>
+
+    <color name="secondaryColorNormal">#cfd8dc</color>
+    <color name="secondaryLightColorNormal">#ffffff</color>
+    <color name="secondaryDarkColorNormal">#9ea7aa</color>
+
+    <color name="primaryTextColorNormal">#e0f7fa</color>
+    <color name="secondaryTextColorNormal">#000000</color>
+
+</resources>

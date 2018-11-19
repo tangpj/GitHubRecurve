@@ -6,12 +6,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <application android:supportsRtl="true"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:icon="@mipmap/ic_launcher"
-        android:allowBackup="true"
-        android:roundIcon="@mipmap/ic_launcher_round">
+    <application
+        android:label="@string/app_name">
 
         <activity android:name=".ui.Oauth2Activity"
             android:launchMode="singleTop">

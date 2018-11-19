@@ -2,18 +2,20 @@
 <resources>
 
 
-    <style name="AppTheme.Normal">
+    <style name="AppTheme.Normal" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="primaryColor">@color/primaryColorNormal</item>
-        <item name="primaryLightColor">@color/primaryLightColorNormal</item>
-        <item name="primaryDarkColor">@color/primaryDarkColorNormal</item>
+        <item name="colorPrimary">@color/primaryColorNormal</item>
+        <item name="colorPrimaryLight">@color/primaryLightColorNormal</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorNormal</item>
 
-        <item name="secondaryColor">@color/secondaryColorNormal</item>
-        <item name="secondaryLightColor">@color/secondaryLightColorNormal</item>
-        <item name="secondaryDarkColor">@color/secondaryDarkColorNormal</item>
+        <item name="colorSecondary">@color/secondaryColorNormal</item>
+        <item name="colorSecondaryLight">@color/secondaryLightColorNormal</item>
+        <item name="colorSecondaryDark">@color/secondaryDarkColorNormal</item>
 
-        <item name="primaryTextColor">@color/primaryTextColorNormal</item>
-        <item name="secondaryTextColor">@color/secondaryTextColorNormal</item>
+        <item name="colorAccent">?attr/colorSecondary</item>
+
+        <item name="colorPrimaryText">@color/primaryTextColorNormal</item>
+        <item name="colorSecondaryText">@color/secondaryTextColorNormal</item>
 
     </style>
     

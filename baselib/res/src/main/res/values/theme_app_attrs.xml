@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- app 主题属性 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <attr name="colorPrimaryText" format="color|reference"/>
     <attr name="colorSecondaryText" format="color|reference"/>
+
+
 </resources>

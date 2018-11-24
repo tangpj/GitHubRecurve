@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 
     <style name="AppTheme.Normal" parent="AppTheme">
@@ -12,9 +12,26 @@
         <item name="colorSecondaryLight">@color/secondaryLightColorNormal</item>
         <item name="colorSecondaryDark">@color/secondaryDarkColorNormal</item>
 
-        <item name="colorAccent">?attr/colorSecondary</item>
+        <item name="colorAccent" tools:ignore="PrivateResource">?attr/colorSecondary</item>
 
         <item name="colorPrimaryText">@color/primaryTextColorNormal</item>
+        <item name="colorSecondaryText">@color/secondaryTextColorNormal</item>
+
+    </style>
+
+    <style name="AppTheme.Night" parent="AppTheme.DayNight">
+
+        <item name="colorPrimary">@color/primaryColorNight</item>
+        <item name="colorPrimaryLight">@color/primaryLightColorNight</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorNight</item>
+
+        <item name="colorSecondary">@color/secondaryColorNight</item>
+        <item name="colorSecondaryLight">@color/secondaryLightColorNight</item>
+        <item name="colorSecondaryDark">@color/secondaryDarkColorNight</item>
+
+        <item name="colorAccent" tools:ignore="PrivateResource">?attr/colorSecondary</item>
+
+        <item name="colorPrimaryText">@color/primaryTextColorNight</item>
         <item name="colorSecondaryText">@color/secondaryTextColorNormal</item>
 
     </style>

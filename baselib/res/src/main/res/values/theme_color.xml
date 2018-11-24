@@ -13,4 +13,17 @@
     <color name="primaryTextColorNormal">#e0f7fa</color>
     <color name="secondaryTextColorNormal">#000000</color>
 
+    <!-- 夜间主题 -->
+    <color name="primaryColorNight">#212121</color>
+    <color name="primaryLightColorNight">#484848</color>
+    <color name="primaryDarkColorNight">#000000</color>
+
+    <color name="secondaryColorNight">#424242</color>
+    <color name="secondaryLightColorNight">#6d6d6d</color>
+    <color name="secondaryDarkColorNight">#1b1b1b</color>
+
+    <color name="primaryTextColorNight">#ffffff</color>
+    <color name="secondaryTextColorNight">#ffffff</color>
+
+
 </resources>

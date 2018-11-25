@@ -6,13 +6,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import com.tangpj.github.BaseActivity
 import com.tangpj.oauth2.GithubOauth2.Companion.PARAM_CODE
 import com.tangpj.oauth2.R
 import com.tangpj.oauth2.databinding.ActivityOauth2Binding
 import dagger.android.support.DaggerAppCompatActivity
 
 
-class Oauth2Activity: DaggerAppCompatActivity() {
+class Oauth2Activity: BaseActivity() {
 
 
     lateinit var binding: ActivityOauth2Binding

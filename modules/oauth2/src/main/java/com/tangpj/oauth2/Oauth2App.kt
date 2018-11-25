@@ -29,7 +29,6 @@ class Oauth2App : GithubApp(){
                 }
             })
         }
-       theme.applyStyle(R.style.AppTheme_Night,true)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

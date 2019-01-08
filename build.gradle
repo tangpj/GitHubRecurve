@@ -3,7 +3,6 @@
 buildscript {
     apply from: './github.gradle'
     apply from: './versions.gradle'
-    addRepos(repositories)
     dependencies {
         classpath deps.kotlin.plugin
         classpath deps.apollo.plugin
@@ -14,9 +13,11 @@ buildscript {
     }
     repositories {
         google()
+        jcenter()
     }
-
 }
+
+
 
 plugins {
     id "calces.appconfig" version "1.2.42"

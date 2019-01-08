@@ -44,9 +44,19 @@ android {
 
 }
 
+kapt{
+    arguments{
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':baselib:github_base')
+    implementation project(':baselib:github_base')
+
+    implementation deps.arouter.api
+
+    kapt deps.arouter.compiler
 
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler

@@ -41,6 +41,8 @@ versions.databinding_compiler = "3.3.0-alpha08"
 versions.apollo = "1.0.0-alpha2"
 versions.apollo_converter = "0.1.0"
 versions.jetifier = "1.0.0-beta02"
+versions.arouter_api = "1.4.1"
+versions.arouter_compiler = "1.2.2"
 deps.version = versions
 
 def androidx = [:]
@@ -130,6 +132,12 @@ apollo.android_support = "com.apollographql.apollo:apollo-android-support:$versi
 apollo.converter = "com.apollographql.android:converter-pojo:$versions.apollo_converter"
 
 deps.apollo = apollo
+
+def arouter = [:]
+arouter.api = "com.alibaba:arouter-api:$versions.arouter_api"
+arouter.compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler"
+
+deps.arouter = arouter
 
 deps.paging = "androidx.paging:paging-runtime:$versions.paging"
 deps.glide = "com.github.bumptech.glide:glide:$versions.glide"

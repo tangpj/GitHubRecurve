@@ -11,7 +11,7 @@ import dagger.Module
 import javax.inject.Singleton
 
 @Module(includes = [Oauth2Module::class])
-class Oauth2AppModule{
+class Oauth2Module{
 
     @Singleton
     @Provides

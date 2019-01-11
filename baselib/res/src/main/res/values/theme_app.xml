@@ -2,15 +2,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
+    <!-- 普通主题 -->
     <style name="AppTheme.Normal" parent="AppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColorNormal</item>
-        <item name="colorPrimaryLight">@color/primaryLightColorNormal</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorNormal</item>
+        <item name="colorPrimaryLight">@color/primaryColorLightNormal</item>
+        <item name="colorPrimaryDark">@color/primaryColorDarkNormal</item>
 
         <item name="colorSecondary">@color/secondaryColorNormal</item>
-        <item name="colorSecondaryLight">@color/secondaryLightColorNormal</item>
-        <item name="colorSecondaryDark">@color/secondaryDarkColorNormal</item>
+        <item name="colorSecondaryLight">@color/secondaryColorLightNormal</item>
+        <item name="colorSecondaryDark">@color/secondaryColorDarkNormal</item>
 
         <item name="colorAccent" tools:ignore="PrivateResource">?attr/colorSecondary</item>
 
@@ -19,15 +20,17 @@
 
     </style>
 
+
+    <!-- 夜间主题 -->
     <style name="AppTheme.Night" parent="AppTheme.DayNight">
 
         <item name="colorPrimary">@color/primaryColorNight</item>
-        <item name="colorPrimaryLight">@color/primaryLightColorNight</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorNight</item>
+        <item name="colorPrimaryLight">@color/primaryColorLightNight</item>
+        <item name="colorPrimaryDark">@color/primaryColorDarkNight</item>
 
         <item name="colorSecondary">@color/secondaryColorNight</item>
-        <item name="colorSecondaryLight">@color/secondaryLightColorNight</item>
-        <item name="colorSecondaryDark">@color/secondaryDarkColorNight</item>
+        <item name="colorSecondaryLight">@color/secondaryColorLightNight</item>
+        <item name="colorSecondaryDark">@color/secondaryColorDarkNight</item>
 
         <item name="colorAccent" tools:ignore="PrivateResource">?attr/colorSecondary</item>
 

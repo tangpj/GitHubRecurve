@@ -3,26 +3,28 @@
 
     <!-- 正常主题颜色 -->
     <color name="primaryColorNormal">#37474f</color>
-    <color name="primaryLightColorNormal">#62727b</color>
-    <color name="primaryDarkColorNormal">#102027</color>
+    <color name="primaryColorLightNormal">#62727b</color>
+    <color name="primaryColorDarkNormal">#102027</color>
 
     <color name="secondaryColorNormal">#cfd8dc</color>
-    <color name="secondaryLightColorNormal">#ffffff</color>
-    <color name="secondaryDarkColorNormal">#9ea7aa</color>
+    <color name="secondaryColorLightNormal">#ffffff</color>
+    <color name="secondaryColorDarkNormal">#9ea7aa</color>
 
     <color name="primaryTextColorNormal">#e0f7fa</color>
+
     <color name="secondaryTextColorNormal">#000000</color>
 
     <!-- 夜间主题 -->
     <color name="primaryColorNight">#212121</color>
-    <color name="primaryLightColorNight">#484848</color>
-    <color name="primaryDarkColorNight">#000000</color>
+    <color name="primaryColorLightNight">#484848</color>
+    <color name="primaryColorDarkNight">#000000</color>
 
     <color name="secondaryColorNight">#424242</color>
-    <color name="secondaryLightColorNight">#6d6d6d</color>
-    <color name="secondaryDarkColorNight">#1b1b1b</color>
+    <color name="secondaryColorLightNight">#6d6d6d</color>
+    <color name="secondaryColorDarkNight">#1b1b1b</color>
 
     <color name="primaryTextColorNight">#ffffff</color>
+
     <color name="secondaryTextColorNight">#ffffff</color>
 
 

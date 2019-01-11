@@ -2,8 +2,13 @@
 <!-- app 主题属性 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <attr name="colorPrimaryTextLight" format="color|reference"/>
     <attr name="colorPrimaryText" format="color|reference"/>
+    <attr name="colorPrimaryTextDark" format="color|reference"/>
+
+    <attr name="colorSecondaryTextLight" format="color|reference"/>
     <attr name="colorSecondaryText" format="color|reference"/>
+    <attr name="colorSecondaryTextDark" format="color|reference"/>
 
 
 </resources>

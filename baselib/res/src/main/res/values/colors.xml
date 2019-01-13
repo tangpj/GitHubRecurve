@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 主题无关颜色 -->
-    <color name="textColorLight">#EEE</color>
+    <color name="textColorLight">#808080</color>
     <color name="textColor">#333</color>
     <color name="textColorDark">#000</color>
 

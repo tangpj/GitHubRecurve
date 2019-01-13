@@ -1,22 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:id="@+id/layout">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorSecondaryText"
-            tools:text="recurve"
-            style="@style/TextAppearance.Adaptive.Headline4"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_repo_title"
+                style="@style/TextAppearance.Adaptive.Headline5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_material"
+                android:layout_marginLeft="@dimen/margin_horizontal_material"
+                android:layout_marginTop="@dimen/margin_vertical_material"
+                android:layout_marginEnd="@dimen/margin_horizontal_material"
+                android:layout_marginRight="@dimen/margin_horizontal_material"
+                android:textColor="@color/textColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="recurve" />
+
+            <TextView
+                android:id="@+id/tv_repo_desc"
+                style="@style/TextAppearance.Adaptive.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical_material"
+                android:layout_marginEnd="@dimen/margin_horizontal_material"
+                android:layout_marginRight="@dimen/margin_horizontal_material"
+                android:maxLines="5"
+                android:ellipsize="end"
+                android:textColor="@color/textColorLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_repo_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_title"
+                tools:text="Recurve Github示例App" />
+
+            <TextView
+                android:id="@+id/tv_repo_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical_material"
+                android:layout_marginBottom="@dimen/margin_vertical_material"
+                android:drawableStart="@mipmap/ic_star_rate_black_18dp"
+                android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_repo_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_desc"
+                tools:text="2k"
+                />
+
+            <TextView
+                android:id="@+id/tv_repo_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical_material"
+                android:layout_marginBottom="@dimen/margin_vertical_material"
+                android:layout_marginStart="@dimen/margin_horizontal_material"
+                android:layout_marginLeft="@dimen/margin_horizontal_material"
+                android:drawableStart="@mipmap/ic_star_rate_black_18dp"
+                android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_repo_language"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_desc"
+                tools:text="2k"
+                />
+
+            <TextView
+                android:id="@+id/tv_repo_forked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical_material"
+                android:layout_marginBottom="@dimen/margin_vertical_material"
+                android:layout_marginStart="@dimen/margin_horizontal_material"
+                android:layout_marginLeft="@dimen/margin_horizontal_material"
+                android:drawableStart="@mipmap/ic_star_rate_black_18dp"
+                android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_repo_star"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_desc"
+                tools:text="1k"
+                />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+</layout>

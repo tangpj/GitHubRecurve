@@ -4,6 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout">
+    
+    <data>
+        <variable
+            name="repositor"
+            type="com.tangpj.repository.vo.Repository"/>
+    </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -15,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_repo_title"
+                android:id="@+id/tv_repository_title"
                 style="@style/TextAppearance.Adaptive.Headline5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,13 +31,14 @@
                 android:layout_marginEnd="@dimen/margin_horizontal_material"
                 android:layout_marginRight="@dimen/margin_horizontal_material"
                 android:textColor="@color/textColor"
+                android:text="@{repositor.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="recurve" />
 
             <TextView
-                android:id="@+id/tv_repo_desc"
+                android:id="@+id/tv_repository_desc"
                 style="@style/TextAppearance.Adaptive.Body2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -41,27 +48,29 @@
                 android:maxLines="5"
                 android:ellipsize="end"
                 android:textColor="@color/textColorLight"
+                android:text="@{repositor.desc}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tv_repo_title"
-                app:layout_constraintTop_toBottomOf="@+id/tv_repo_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_repository_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repository_title"
                 tools:text="Recurve Github示例App" />
 
             <TextView
-                android:id="@+id/tv_repo_language"
+                android:id="@+id/tv_repository_language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_vertical_material"
                 android:layout_marginBottom="@dimen/margin_vertical_material"
                 android:drawableStart="@mipmap/ic_star_rate_black_18dp"
                 android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
+                android:text="@{repositor.language}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tv_repo_title"
-                app:layout_constraintTop_toBottomOf="@+id/tv_repo_desc"
+                app:layout_constraintStart_toStartOf="@+id/tv_repository_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc"
                 tools:text="2k"
                 />
 
             <TextView
-                android:id="@+id/tv_repo_star"
+                android:id="@+id/tv_repository_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_vertical_material"
@@ -70,14 +79,15 @@
                 android:layout_marginLeft="@dimen/margin_horizontal_material"
                 android:drawableStart="@mipmap/ic_star_rate_black_18dp"
                 android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
+                android:text="@{repositor.star}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_repo_language"
-                app:layout_constraintTop_toBottomOf="@+id/tv_repo_desc"
+                app:layout_constraintStart_toEndOf="@+id/tv_repository_language"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc"
                 tools:text="2k"
                 />
 
             <TextView
-                android:id="@+id/tv_repo_forked"
+                android:id="@+id/tv_repository_forked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_vertical_material"
@@ -86,9 +96,10 @@
                 android:layout_marginLeft="@dimen/margin_horizontal_material"
                 android:drawableStart="@mipmap/ic_star_rate_black_18dp"
                 android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
+                android:text="@{repositor.forked}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_repo_star"
-                app:layout_constraintTop_toBottomOf="@+id/tv_repo_desc"
+                app:layout_constraintStart_toEndOf="@+id/tv_repository_star"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc"
                 tools:text="1k"
                 />
 

@@ -42,7 +42,7 @@ appConfig{
         }
 
         repositories{
-            name ':modules:repositories'
+            name ':modules:repository'
             applicationId "com.tangpj.user"
 
             isRunAlone true

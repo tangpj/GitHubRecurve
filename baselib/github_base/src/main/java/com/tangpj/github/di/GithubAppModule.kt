@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.tangpj.recurve.viewmodel.RecurevViewModelFactory
 import dagger.Module
 import dagger.Provides
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
-@Module(includes = [OkHttpModule::class, DbModule::class])
+@Module(includes = [OkHttpModule::class, DbModule::class, AndroidInjectionModule::class])
 class GithubAppModule{
 
     @Singleton

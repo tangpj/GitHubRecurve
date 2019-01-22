@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
     GithubAppModule::class,
-    Oauth2Module::class
+    Oauth2ComponentModule::class
 ])
 interface Oauth2AppComponent : AndroidInjector<GithubApp>{
 

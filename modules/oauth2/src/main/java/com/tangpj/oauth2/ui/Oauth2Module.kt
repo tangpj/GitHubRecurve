@@ -1,4 +1,4 @@
-package com.tangpj.oauth2.di
+package com.tangpj.oauth2.ui
 
 import androidx.lifecycle.ViewModel
 import com.tangpj.oauth2.ui.Oauth2Activity
@@ -11,7 +11,7 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class Oauth2ActivityModule{
+abstract class Oauth2Module{
 
     @ContributesAndroidInjector()
     abstract fun contributeMainActivity(): Oauth2Activity

@@ -9,7 +9,7 @@
     <application
         android:label="@string/app_name">
 
-        <activity android:name=".ui.Oauth2Activity"
+        <activity android:name=".ui.AuthorizationActivity"
             android:launchMode="singleTop">
 
             <intent-filter>

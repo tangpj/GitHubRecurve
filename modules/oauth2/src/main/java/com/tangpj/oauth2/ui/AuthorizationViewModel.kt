@@ -14,7 +14,7 @@ import com.tangpj.recurve.resource.Resource
 import javax.inject.Inject
 
 
-class Oauth2ViewModel @Inject constructor(repository: Oauth2Repository): ViewModel() {
+class AuthorizationViewModel @Inject constructor(repository: Oauth2Repository): ViewModel() {
     private val requestToken: MutableLiveData<RequestToken> = MutableLiveData()
 
     val token: LiveData<Resource<GithubToken>> = Transformations

@@ -13,9 +13,9 @@ import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
 
-class Oauth2Fragment : DaggerFragment() {
+class AuthorizationFragment : DaggerFragment() {
 
-    private lateinit var oauth2ViewModel: Oauth2ViewModel
+    private lateinit var authorizationViewModel: AuthorizationViewModel
     private lateinit var binding: FragmentOauth2Binding
 
     @Inject
@@ -28,10 +28,10 @@ class Oauth2Fragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        oauth2ViewModel = ViewModelProviders.of(this, viewModelFactory)[Oauth2ViewModel::class.java]
-        val params = Oauth2FragmentArgs.fromBundle(arguments)
+        authorizationViewModel = ViewModelProviders.of(this, viewModelFactory)[AuthorizationViewModel::class.java]
+        val params = AuthorizationFragmentArgs.fromBundle(arguments)
         getToken(params.code)
-        oauth2ViewModel.token.observeForever {
+        authorizationViewModel.token.observeForever {
             Timber.d(it.toString())
         }
 
@@ -44,13 +44,13 @@ class Oauth2Fragment : DaggerFragment() {
     }
 
     private fun authorize(){
-        val uri = oauth2ViewModel.buildAuthorizeUri()
+        val uri = authorizationViewModel.buildAuthorizeUri()
         openInCustomTabOrBrowser(context, uri)
     }
 
     private fun getToken(code: String?){
         code?.let { it ->
-            oauth2ViewModel.refreshCode(code)
+            authorizationViewModel.refreshCode(code)
 
         }
 

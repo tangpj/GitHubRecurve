@@ -5,7 +5,7 @@
     app:startDestination="@id/oauth2Fragment">
 
     <fragment android:id="@+id/oauth2Fragment"
-        android:name="com.tangpj.oauth2.ui.Oauth2Fragment"
+        android:name="com.tangpj.oauth2.ui.AuthorizationFragment"
         android:label="Oauth2Fragment">
 
         <argument android:name="code"

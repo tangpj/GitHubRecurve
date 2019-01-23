@@ -7,9 +7,15 @@ import com.tangpj.recurve.recyclerview.creator.ItemCreator
 import com.tangpj.recurve.recyclerview.creator.RecurveViewHolder
 import com.tangpj.repository.databinding.ItemRepositoryBinding
 import com.tangpj.repository.vo.Repository
+import javax.inject.Inject
 
-class RepositoryCreator(adapter: ModulesAdapter, creatorType: Int = 0)
+
+
+class RepositoryCreator constructor(adapter: ModulesAdapter, creatorType: Int)
     : ItemCreator<Repository, ItemRepositoryBinding>(adapter, creatorType) {
+
+    @Inject constructor(adapter: ModulesAdapter): this(adapter, 0)
+
     override fun onBindItemView(itemHolder: RecurveViewHolder<ItemRepositoryBinding>?,
                                 e: Repository?, inCreatorPosition: Int) {
         itemHolder?.let {

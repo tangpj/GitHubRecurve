@@ -49,9 +49,8 @@ class AuthorizationFragment : DaggerFragment() {
     }
 
     private fun getToken(code: String?){
-        code?.let { it ->
+        code?.let {
             authorizationViewModel.refreshCode(code)
-
         }
 
     }

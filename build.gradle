@@ -36,15 +36,16 @@ appConfig{
         oauth2{
             name ':modules:oauth2'
             applicationId "com.tangpj.oauth2"
-            mainActivity ".ui.Oauth2Activity"
+            mainActivity ".ui.AuthorizationActivity"
             applicationName "com.tangpj.oauth2.Oauth2App"
             isRunAlone true
         }
 
         repositories{
             name ':modules:repository'
-            applicationId "com.tangpj.user"
-
+            applicationId "com.tangpj.repository"
+            mainActivity ".ui.repositories.RepositoriesActivity"
+            applicationName "com.tangpj.repository.RepositoryApp"
             isRunAlone true
         }
 

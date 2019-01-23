@@ -11,8 +11,5 @@ abstract class RepositoriesModule{
     @ContributesAndroidInjector
     abstract fun contributesRepositoriesActivity() : RepositoriesActivity
 
-    @RepositoryScope
-    @ContributesAndroidInjector
-    abstract fun contributesRepositoriesFragment()
 }
 

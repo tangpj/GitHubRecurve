@@ -1,22 +1,13 @@
-package com.tangpj.oauth2
+package com.tangpj.repository
 
 import com.tangpj.github.BuildConfig
 import com.tangpj.github.GithubApp
-import com.tangpj.oauth2.di.DaggerOauth2AppComponent
+import com.tangpj.repository.di.DaggerRepositoryComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
 
-
-
-/**
- * 测试用Application
- *
- * @ClassName: Oauth2App
- * @author create by Tang
- * @date 2018/9/7 下午2:42
- */
-class Oauth2App : GithubApp(){
+class RepositoryApp : GithubApp(){
 
     override fun onCreate() {
         super.onCreate()
@@ -32,8 +23,6 @@ class Oauth2App : GithubApp(){
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return  DaggerOauth2AppComponent.builder().create(this)
+        return DaggerRepositoryComponent.builder().create(this)
     }
-
-
 }

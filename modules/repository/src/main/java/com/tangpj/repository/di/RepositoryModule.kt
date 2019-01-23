@@ -9,8 +9,6 @@ import dagger.Provides
 @Module(includes = [RepositoriesModule::class])
 class RepositoryModule{
 
-    @RepositoryScope
     @Provides
-    fun providesRepositoryCreator(adapter: ModulesAdapter): RepositoryCreator =
-            RepositoryCreator(adapter)
+    fun providesModulesAdapter() = ModulesAdapter()
 }

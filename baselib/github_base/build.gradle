@@ -79,7 +79,6 @@ dependencies {
     // RxJava
     api deps.rx_android
     api deps.rxjava2
-    kapt  'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
 
     api project(':baselib:res')
 
@@ -92,8 +91,6 @@ dependencies {
 
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
-
-    kapt 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
 
     androidTestImplementation deps.junit
     androidTestImplementation (deps.mock_web_server, {

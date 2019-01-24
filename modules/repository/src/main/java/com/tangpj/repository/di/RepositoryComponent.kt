@@ -10,7 +10,9 @@ import javax.inject.Singleton
 @Component(modules = [
     GithubAppModule::class,
     RepositoryModule::class])
+
 interface RepositoryComponent : AndroidInjector<GithubApp>{
+
     @Component.Builder
     abstract class Builder : AndroidInjector.Builder<GithubApp>()
 }

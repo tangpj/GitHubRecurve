@@ -3,9 +3,10 @@ package com.tangpj.github
 import android.os.Bundle
 import com.tangpj.github.di.THEME_ID
 import com.tangpj.github.di.installAppThemeSp
+import com.tangpj.recurve.dagger2.RecurveDaggerActivity
 import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity : DaggerAppCompatActivity(){
+abstract class BaseActivity : RecurveDaggerActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(GithubApp.getInstance().getAppThemeId())

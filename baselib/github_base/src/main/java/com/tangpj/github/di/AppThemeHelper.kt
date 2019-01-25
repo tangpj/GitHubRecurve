@@ -6,8 +6,8 @@ import com.tangpj.github.GithubApp
 import com.tangpj.github.R
 
 
-val THEME_ID = "theme_it"
-private val THEME_NAME = "theme_name"
+const val THEME_ID = "theme_it"
+private const val THEME_NAME = "theme_name"
 
 fun installAppThemeSp(app: GithubApp) : SharedPreferences{
     return app.getSharedPreferences(THEME_NAME, MODE_PRIVATE)

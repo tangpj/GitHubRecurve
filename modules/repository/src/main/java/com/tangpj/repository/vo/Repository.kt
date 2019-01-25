@@ -14,7 +14,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Repository(
         var title: String,
-        var desc: String,
-        var language: String,
-        var star: Int,
-        var forked: Int): Parcelable
+        var desc: String = "",
+        var language: String = "kotlin",
+        var star: Int = 2000,
+        var forked: Int = 2000): Parcelable

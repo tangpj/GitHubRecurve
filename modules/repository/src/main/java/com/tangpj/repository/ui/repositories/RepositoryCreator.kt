@@ -9,8 +9,6 @@ import com.tangpj.repository.databinding.ItemRepositoryBinding
 import com.tangpj.repository.vo.Repository
 import javax.inject.Inject
 
-
-
 class RepositoryCreator constructor(adapter: ModulesAdapter, creatorType: Int)
     : ItemCreator<Repository, ItemRepositoryBinding>(adapter, creatorType) {
 

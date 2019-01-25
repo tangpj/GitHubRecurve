@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_oauth2"
-    app:startDestination="@id/oauth2Fragment">
+    app:startDestination="@+id/oauth2Fragment">
 
     <fragment android:id="@+id/oauth2Fragment"
         android:name="com.tangpj.oauth2.ui.AuthorizationFragment"

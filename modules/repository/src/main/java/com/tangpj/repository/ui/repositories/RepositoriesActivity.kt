@@ -16,7 +16,7 @@ class RepositoriesActivity : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityRepositoriesBinding = DataBindingUtil.setContentView(this, R.layout.activity_repositories)
+        activityRepositoriesBinding = initContentBinding( R.layout.activity_repositories)
         appbar{
             title = getString(R.string.app_name)
         }

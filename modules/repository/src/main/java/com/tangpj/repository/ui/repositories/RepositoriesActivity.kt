@@ -16,7 +16,8 @@ class RepositoriesActivity : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityRepositoriesBinding = initContentBinding( R.layout.activity_repositories)
+        navController = initContentFragment<ActivityRepositoriesBinding>(
+                R.navigation.navigation_repositories)
         appbar{
             title = getString(R.string.app_name)
         }

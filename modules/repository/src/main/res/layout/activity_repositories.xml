@@ -6,12 +6,11 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:behavior="@string/appbar">
+        android:layout_height="match_parent">
 
         <fragment
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="match_parent"/>
 
     </FrameLayout>
 

@@ -20,8 +20,7 @@ class AuthorizationActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_oauth2)
-        navController = findNavController(R.id.fragment_container)
+        navController = initContentFragment<ActivityOauth2Binding>(R.navigation.navigation_oauth2)
         intent?.data?.getQueryParameter(PARAM_CODE)?.let {
             navController.navigate(AuthorizationFragmentDirections.refreshCode().setCode(it))
         }

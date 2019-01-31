@@ -4,7 +4,7 @@ import com.tangpj.github.BuildConfig
 import com.tangpj.github.GithubApp
 import com.tangpj.repository.di.DaggerRepositoryComponent
 import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
 class RepositoryApp : GithubApp(){

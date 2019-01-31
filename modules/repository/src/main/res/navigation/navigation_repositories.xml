@@ -6,8 +6,7 @@
 
     <fragment android:id="@+id/repositoriesFragment"
         android:name="com.tangpj.repository.ui.repositories.RepositoriesFragment"
-        android:label="RepositoriesFragment">
+        android:label="RepositoriesFragment"/>
 
-    </fragment>
 
 </navigation>

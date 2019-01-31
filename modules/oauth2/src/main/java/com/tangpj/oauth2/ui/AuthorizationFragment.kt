@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tangpj.github.GithubApp
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
+import com.tangpj.recurve.dagger2.RecurveDaggerFragment
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
-import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
 
-class AuthorizationFragment : DaggerFragment() {
+class AuthorizationFragment : RecurveDaggerFragment() {
+
 
     private lateinit var authorizationViewModel: AuthorizationViewModel
     private lateinit var binding: FragmentOauth2Binding
@@ -36,11 +38,12 @@ class AuthorizationFragment : DaggerFragment() {
         }
 
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateBinding(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?): ViewDataBinding? {
         binding = FragmentOauth2Binding.inflate(inflater,container, false)
         binding.authorizeListener = authorizeListener
-        return binding.root
+        return binding
     }
 
     private fun authorize(){

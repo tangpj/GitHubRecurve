@@ -5,7 +5,7 @@
     app:startDestination="@+id/repositoriesFragment">
 
     <fragment android:id="@+id/repositoriesFragment"
-        android:name="com.tangpj.repository.ui.repositories.RepositoriesFragment"
+        android:name="com.tangpj.repository.ui.repositories.RepoFragment"
         android:label="RepositoriesFragment"/>
 
 

@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import com.tangpj.github.BaseActivity
 import com.tangpj.repository.R
 
-class RepositoriesActivity : BaseActivity(){
+class RepoActivity : BaseActivity(){
 
     lateinit var navController: NavController
 
@@ -16,9 +16,5 @@ class RepositoriesActivity : BaseActivity(){
         appbar{
             title = getString(R.string.app_name)
         }
-
     }
-
-
-
 }

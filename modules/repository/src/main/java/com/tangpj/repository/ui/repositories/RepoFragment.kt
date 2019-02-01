@@ -6,7 +6,7 @@ import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 import com.tangpj.repository.vo.Repository
 import javax.inject.Inject
 
-class RepositoriesFragment: RecurveDaggerListFragment() {
+class RepoFragment: RecurveDaggerListFragment() {
 
     @Inject
     lateinit var repositoryCreator: RepositoryCreator

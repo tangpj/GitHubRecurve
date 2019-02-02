@@ -13,6 +13,7 @@ class RepoActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         navController = initContentFragment(
                 R.navigation.navigation_repositories)
+        navController.navigate(RepoFragmentDirections.init())
         appbar{
             title = getString(R.string.app_name)
         }

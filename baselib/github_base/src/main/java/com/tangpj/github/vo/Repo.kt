@@ -1,9 +1,11 @@
 package com.tangpj.github.vo
 
+import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Entity(
         indices = [
@@ -11,6 +13,8 @@ import com.google.gson.annotations.SerializedName
             , Index("owner_login")],
         primaryKeys = ["name", "owner_login"]
 )
+
+@Parcelize
 data class Repo(
         val id: Int,
         val name: String,
@@ -22,9 +26,10 @@ data class Repo(
         val owner: Owner,
         @field:SerializedName("stargazers_count")
         val stars: Int
-)
+): Parcelable
 
+@Parcelize
 data class Owner(
         val login: String,
         val url: String?
-)
+): Parcelable

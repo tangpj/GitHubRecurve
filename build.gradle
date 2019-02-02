@@ -44,7 +44,7 @@ appConfig{
         repositories{
             name ':modules:repository'
             applicationId "com.tangpj.repository"
-            mainActivity ".ui.repositories.RepositoriesActivity"
+            mainActivity ".ui.repositories.RepoActivity"
             applicationName "com.tangpj.repository.RepositoryApp"
             isRunAlone true
         }

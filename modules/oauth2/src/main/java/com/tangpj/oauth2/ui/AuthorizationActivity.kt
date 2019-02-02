@@ -25,7 +25,7 @@ class AuthorizationActivity: BaseActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         intent?.data?.getQueryParameter(PARAM_CODE)?.let {
-            navController?.navigate(AuthorizationFragmentDirections.refreshCode().setCode(it))
+            navController.navigate(AuthorizationFragmentDirections.refreshCode().setCode(it))
         }
     }
 

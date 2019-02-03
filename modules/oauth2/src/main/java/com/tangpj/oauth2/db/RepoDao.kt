@@ -1,4 +1,4 @@
-package com.tangpj.github.db
+package com.tangpj.oauth2.db
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'com.apollographql.android'
 
 
 android {
@@ -32,7 +33,13 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main{
+            java.srcDirs += 'src/main/kotlin'
+
+            graphql{
+                srcDirs = ["${getRootDir()}/baselib/github_base/src/main/graphql/com/tangpj/github"]
+            }
+        }
     }
 
     buildTypes {

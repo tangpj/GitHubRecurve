@@ -10,4 +10,5 @@ abstract class RepoDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(vararg repo: Repo)
 
+
 }

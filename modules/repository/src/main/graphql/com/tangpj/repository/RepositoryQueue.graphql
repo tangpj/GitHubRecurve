@@ -8,8 +8,6 @@ query StartRepositories ($login: String = "Tangpj",$startFirst: Int = 2){
   }
 }
 
-
-
 fragment repo on Repository{
   name
   owner{

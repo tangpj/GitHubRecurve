@@ -1,19 +1,44 @@
 package com.tangpj.repository.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
+import com.tangpj.github.StartRepositoriesQuery
 import com.tangpj.github.vo.Repo
-import com.tangpj.recurve.resource.Resource
+import com.tangpj.recurve.resource.ApiResponse
+import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
+import com.tangpj.repository.db.RepoDao
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class RepoRepository @Inject constructor(@Inject val apolloClient: ApolloClient){
+class RepoRepository @Inject constructor(
+        @Inject val apolloClient: ApolloClient,
+        @Inject val repoDao: RepoDao){
 
     private val repoRateLimiter = RateLimiter<Repo>(10, TimeUnit.MINUTES)
 
-    fun loadRepos(owner: String): LiveData<Resource<List<Repo>>>{
+    fun loadRepos(owner: String): NetworkBoundResource<List<Repo>, List<Repo>> =
+            object : NetworkBoundResource<List<Repo>, List<Repo>>(){
+                override fun saveCallResult(item: List<Repo>) {
+                    repoDao.insertRepos(item)
+                }
 
-    }
+                override fun shouldFetch(data: List<Repo>?): Boolean =
+                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(owner)
+
+                override fun loadFromDb(): LiveData<List<Repo>>  =
+                    repoDao.loadRepositories(owner)
+
+
+                override fun createCall(): LiveData<ApiResponse<List<Repo>>> {
+                    val callback : ApolloCall<StartRepositoriesQuery.StarredRepositories>{
+                        it ->
+                    }
+                    return MutableLiveData<ApiResponse<List<Repo>>>()
+                }
+
+            }
 
 }

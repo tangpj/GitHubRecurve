@@ -9,8 +9,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(
         indices = [
-            Index("id")
-            , Index("owner_login")],
+            Index("id"),
+            Index("owner_login")],
         primaryKeys = ["name", "owner_login"]
 )
 

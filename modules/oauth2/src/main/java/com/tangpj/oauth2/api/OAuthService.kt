@@ -1,4 +1,4 @@
-package com.tangpj.oauth.api
+package com.tangpj.oauth2.api
 
 import androidx.lifecycle.LiveData
 import retrofit2.http.Body

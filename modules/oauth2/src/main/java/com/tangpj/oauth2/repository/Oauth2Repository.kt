@@ -7,7 +7,7 @@ import com.tangpj.github.pojo.GithubToken
 import com.tangpj.oauth.api.OAuthService
 import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.resource.ApiResponse
-import com.tangpj.recurve.resource.NetWorkBoundResource
+import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.resource.Resource
 import com.tangpj.recurve.util.RateLimiter
 import java.util.concurrent.TimeUnit
@@ -20,7 +20,7 @@ constructor(val gitDb: GithubDb, val tokenDao: GithubTokenDao, val oauthService:
 
     fun getGithubToken(requestToken: RequestToken) : LiveData<Resource<GithubToken>> {
 
-        return object : NetWorkBoundResource<GithubToken, GithubToken>(){
+        return object : NetworkBoundResource<GithubToken, GithubToken>(){
             override fun saveCallResult(item: GithubToken) {
                 tokenDao.insert(item)
             }

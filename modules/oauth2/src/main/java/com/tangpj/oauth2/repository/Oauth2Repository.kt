@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.tangpj.github.db.GithubDb
 import com.tangpj.github.db.GithubTokenDao
 import com.tangpj.github.pojo.GithubToken
-import com.tangpj.oauth.api.OAuthService
+import com.tangpj.oauth2.api.OAuthService
 import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource

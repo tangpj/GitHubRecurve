@@ -13,11 +13,11 @@ import com.tangpj.repository.db.RepoDao
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class RepoRepository @Inject constructor(
-        @Inject val apolloClient: ApolloClient,
-        @Inject val repoDao: RepoDao){
+class RepoRepository  constructor(
+         val apolloClient: ApolloClient,
+         val repoDao: RepoDao){
 
-    private val repoRateLimiter = RateLimiter<Repo>(10, TimeUnit.MINUTES)
+    private val repoRateLimiter = RateLimiter<String>(10, TimeUnit.MINUTES)
 
     fun loadRepos(owner: String): NetworkBoundResource<List<Repo>, List<Repo>> =
             object : NetworkBoundResource<List<Repo>, List<Repo>>(){
@@ -33,9 +33,6 @@ class RepoRepository @Inject constructor(
 
 
                 override fun createCall(): LiveData<ApiResponse<List<Repo>>> {
-                    val callback : ApolloCall<StartRepositoriesQuery.StarredRepositories>{
-                        it ->
-                    }
                     return MutableLiveData<ApiResponse<List<Repo>>>()
                 }
 

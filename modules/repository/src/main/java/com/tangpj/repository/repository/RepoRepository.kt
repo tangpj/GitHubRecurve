@@ -1,17 +1,13 @@
 package com.tangpj.repository.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
-import com.tangpj.github.StartRepositoriesQuery
 import com.tangpj.github.vo.Repo
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.db.RepoDao
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class RepoRepository  constructor(
          val apolloClient: ApolloClient,
@@ -33,7 +29,6 @@ class RepoRepository  constructor(
 
 
                 override fun createCall(): LiveData<ApiResponse<List<Repo>>> {
-                    return MutableLiveData<ApiResponse<List<Repo>>>()
                 }
 
             }

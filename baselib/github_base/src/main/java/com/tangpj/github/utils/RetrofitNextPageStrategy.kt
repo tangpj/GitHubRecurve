@@ -5,7 +5,7 @@ import retrofit2.Response
 import timber.log.Timber
 import java.util.regex.Pattern
 
-class RetrofitNextPageStrategy: NextPageStrategy<Response<*>>() {
+class RetrofitNextPageStrategy : NextPageStrategy<Response<*>>{
 
 
     companion object {

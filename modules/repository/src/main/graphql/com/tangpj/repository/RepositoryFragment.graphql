@@ -1,0 +1,49 @@
+fragment star_field on StargazerConnection{
+  totalCount
+}
+
+fragment forks_field on RepositoryConnection{
+  totalCount
+}
+
+
+fragment watchers_field on UserConnection{
+  totalCount
+}
+
+fragment language_field on LanguageConnection{
+  nodes{
+    color
+    id
+    name
+  }
+}
+
+fragment owner_field on RepositoryOwner{
+  id
+  login
+}
+
+fragment repo_field on Repository{
+  name
+  description
+  updatedAt
+
+  owner{
+    ...owner_field
+  }
+
+  languages(first: 1){
+    ...language_field
+  }
+
+  stargazers{
+    ...star_field
+  }
+  forks{
+    ...forks_field
+  }
+  watchers{
+    ...watchers_field
+  }
+}

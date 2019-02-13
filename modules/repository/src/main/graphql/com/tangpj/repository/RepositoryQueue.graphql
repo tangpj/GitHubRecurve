@@ -1,33 +1,19 @@
-query StartRepositories ($login: String = "Tangpj",$startFirst: Int = 2){
+query StartReposiories ($login: String = "Tangpj",$startFirst: Int = 2){
   user(login: $login){
     starredRepositories(first: $startFirst,before: "Y3Vyc29yOnYyOpHOA9zbjw=="){
       nodes{
-        ...repo
+        ...repo_field
       }
     }
   }
 }
 
-fragment repo on Repository{
-  name
-  owner{
-    login
-  }
-  description
-  updatedAt
-  languages(first: 1){
-    nodes{
-      name
-      color
+query ForkRepositories($login: String = "Tangpj",$startFirst: Int = 10){
+  user(login: $login){
+    watching(first: $startFirst){
+      nodes{
+      ...repo_field
+      }
     }
-  }
-  stargazers{
-    totalCount
-  }
-  forks{
-    totalCount
-  }
-  watchers{
-    totalCount
   }
 }

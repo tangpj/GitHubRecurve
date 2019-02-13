@@ -7,8 +7,8 @@ import com.tangpj.github.pojo.GithubToken
 import com.tangpj.oauth2.api.OAuthService
 import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.resource.ApiResponse
+import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.resource.Resource
-import com.tangpj.recurve.retrofit2.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

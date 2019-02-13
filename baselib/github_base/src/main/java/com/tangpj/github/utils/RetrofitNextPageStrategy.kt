@@ -7,7 +7,6 @@ import java.util.regex.Pattern
 
 class RetrofitNextPageStrategy : NextPageStrategy<Response<*>>{
 
-
     companion object {
         private val LINK_PATTERN = Pattern.compile("<([^>]*)>[\\s]*;[\\s]*rel=\"([a-zA-Z0-9]+)\"")
         private val PAGE_PATTERN = Pattern.compile("\\bpage=(\\d+)")

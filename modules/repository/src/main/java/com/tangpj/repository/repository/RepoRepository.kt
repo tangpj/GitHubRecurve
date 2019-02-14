@@ -11,8 +11,9 @@ import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.db.RepoDao
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class RepoRepository  constructor(
+class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
          val repoDao: RepoDao){
 
@@ -21,6 +22,7 @@ class RepoRepository  constructor(
     fun loadRepos(owner: String) =
             object : NetworkBoundResource<List<Repo>, List<RepoField>>(){
                 override fun saveCallResult(item: List<RepoField>) {
+                    //todo cache
                 }
 
                 override fun shouldFetch(data: List<com.tangpj.github.vo.Repo>?): Boolean =

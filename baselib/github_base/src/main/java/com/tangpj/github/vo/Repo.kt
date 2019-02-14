@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Entity(
@@ -16,20 +15,20 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Repo(
-        val id: String,
         val name: String,
-        @field:SerializedName("full_name")
-        val fullName: String,
-        @field:SerializedName("description")
-        val description: String,
+        val id: String = "0",
+        val fullName: String? = null,
+        val language: String? = null,
+        val languageColor: String? = null,
+        val description: String? = null,
         @Embedded(prefix = "owner_")
-        val owner: Owner,
-        @field:SerializedName("stargazers_count")
-        val stars: Int
+        val owner: Owner = Owner("recurve"),
+        val stars: Int = 0,
+        val forked: Int = 0
 ): Parcelable
 
 @Parcelize
 data class Owner(
         val login: String,
-        val url: String?
+        val url: String? = null
 ): Parcelable

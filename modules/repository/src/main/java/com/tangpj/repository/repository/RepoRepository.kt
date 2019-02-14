@@ -3,7 +3,8 @@ package com.tangpj.repository.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.apollographql.apollo.ApolloClient
-import com.tangpj.github.fragment.Repo
+import com.tangpj.github.fragment.RepoField
+import com.tangpj.github.vo.Repo
 
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
@@ -18,9 +19,8 @@ class RepoRepository  constructor(
     private val repoRateLimiter = RateLimiter<String>(10, TimeUnit.MINUTES)
 
     fun loadRepos(owner: String) =
-            object : NetworkBoundResource<List<com.tangpj.github.vo.Repo>, List<Repo>>(){
-                override fun saveCallResult(item: List<Repo>) {
-                    repoDao.insertRepos(item)
+            object : NetworkBoundResource<List<Repo>, List<RepoField>>(){
+                override fun saveCallResult(item: List<RepoField>) {
                 }
 
                 override fun shouldFetch(data: List<com.tangpj.github.vo.Repo>?): Boolean =
@@ -30,7 +30,7 @@ class RepoRepository  constructor(
                     repoDao.loadRepositories(owner)
 
 
-                override fun createCall(): LiveData<ApiResponse<List<Repo>>> {
+                override fun createCall(): LiveData<ApiResponse<List<RepoField>>> {
                     return MediatorLiveData()
                 }
 

@@ -1,17 +1,17 @@
-fragment star_field on StargazerConnection{
+fragment starField on StargazerConnection{
   totalCount
 }
 
-fragment forks_field on RepositoryConnection{
+fragment forksField on RepositoryConnection{
   totalCount
 }
 
 
-fragment watchers_field on UserConnection{
+fragment watchersField on UserConnection{
   totalCount
 }
 
-fragment language_field on LanguageConnection{
+fragment languageField on LanguageConnection{
   nodes{
     color
     id
@@ -19,31 +19,32 @@ fragment language_field on LanguageConnection{
   }
 }
 
-fragment owner_field on RepositoryOwner{
+fragment ownerField on RepositoryOwner{
   id
   login
 }
 
-fragment repo_field on Repository{
+fragment repoField on Repository{
+  id
   name
   description
   updatedAt
 
   owner{
-    ...owner_field
+    ...ownerField
   }
 
   languages(first: 1){
-    ...language_field
+    ...languageField
   }
 
   stargazers{
-    ...star_field
+    ...starField
   }
   forks{
-    ...forks_field
+    ...forksField
   }
   watchers{
-    ...watchers_field
+    ...watchersField
   }
 }

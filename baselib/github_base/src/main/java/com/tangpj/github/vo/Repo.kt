@@ -16,7 +16,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Repo(
-        val id: Int,
+        val id: String,
         val name: String,
         @field:SerializedName("full_name")
         val fullName: String,

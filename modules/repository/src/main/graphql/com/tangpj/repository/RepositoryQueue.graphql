@@ -2,7 +2,7 @@ query StartReposiories ($login: String = "Tangpj",$startFirst: Int = 2){
   user(login: $login){
     starredRepositories(first: $startFirst,before: "Y3Vyc29yOnYyOpHOA9zbjw=="){
       nodes{
-        ...repo_field
+        ...repoField
       }
     }
   }
@@ -12,7 +12,7 @@ query ForkRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   user(login: $login){
     watching(first: $startFirst){
       nodes{
-      ...repo_field
+      ...repoField
       }
     }
   }

@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 class AuthorizationFragment : RecurveDaggerFragment() {
 
-
     private lateinit var authorizationViewModel: AuthorizationViewModel
     private lateinit var binding: FragmentOauth2Binding
 

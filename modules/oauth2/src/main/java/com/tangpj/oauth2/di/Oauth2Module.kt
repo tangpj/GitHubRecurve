@@ -13,12 +13,7 @@ import dagger.Module
 class Oauth2Module{
 
     @Provides
-    fun providerOauthService(): OAuthService {
-        return Retrofit.Builder()
-                .baseUrl("https://github.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(LiveDataCallAdapterFactory(RetrofitNextPageStrategy()))
-                .build()
-                .create(OAuthService::class.java)
+    fun providerOauthService(retrofit: Retrofit): OAuthService {
+        return retrofit.create(OAuthService::class.java)
     }
 }

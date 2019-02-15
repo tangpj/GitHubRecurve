@@ -1,4 +1,4 @@
-package com.tangpj.repository.db
+package com.tangpj.github.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -11,7 +11,7 @@ import com.tangpj.github.vo.Repo
 abstract class RepoDao{
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertRepos(vararg repo: List<Repo>)
+    abstract fun insertRepos(verepo: List<Repo>)
 
     @Query("""
         SELECT * FROM REPO

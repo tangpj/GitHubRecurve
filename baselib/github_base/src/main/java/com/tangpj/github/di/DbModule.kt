@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.tangpj.github.GithubApp
 import com.tangpj.github.db.GithubDb
 import com.tangpj.github.db.GithubTokenDao
+import com.tangpj.github.db.RepoDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,9 +21,13 @@ class DbModule{
                 .build()
     }
 
-    @Singleton
     @Provides
     fun providerGithubTokenDao(githubDb: GithubDb): GithubTokenDao =
             githubDb.tokenDao()
+
+    @Provides
+    fun providdrRepoDao(githubDb: GithubDb): RepoDao =
+            githubDb.repoDao()
+
 
 }

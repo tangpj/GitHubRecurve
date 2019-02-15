@@ -2,7 +2,7 @@ package com.tangpj.github
 
 import androidx.lifecycle.LiveData
 import com.tangpj.github.db.GithubTokenDao
-import com.tangpj.github.di.installThemeId
+import com.tangpj.github.utils.installThemeId
 import com.tangpj.github.pojo.GithubToken
 import dagger.android.support.DaggerApplication
 import javax.inject.Inject

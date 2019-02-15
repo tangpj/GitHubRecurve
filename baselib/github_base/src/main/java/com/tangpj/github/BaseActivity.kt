@@ -1,8 +1,8 @@
 package com.tangpj.github
 
 import android.os.Bundle
-import com.tangpj.github.di.THEME_ID
-import com.tangpj.github.di.installAppThemeSp
+import com.tangpj.github.utils.THEME_ID
+import com.tangpj.github.utils.installAppThemeSp
 import com.tangpj.recurve.dagger2.RecurveDaggerActivity
 
 abstract class BaseActivity : RecurveDaggerActivity(){

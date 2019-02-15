@@ -1,15 +1,17 @@
 package com.tangpj.repository.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.apollographql.apollo.ApolloClient
-import com.tangpj.github.fragment.RepoField
+import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.tangpj.github.StartReposioriesQuery
+import com.tangpj.github.db.RepoDao
+import com.tangpj.github.vo.Owner
 import com.tangpj.github.vo.Repo
+import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
-import com.tangpj.repository.db.RepoDao
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -19,21 +21,33 @@ class RepoRepository @Inject constructor(
 
     private val repoRateLimiter = RateLimiter<String>(10, TimeUnit.MINUTES)
 
-    fun loadRepos(owner: String) =
-            object : NetworkBoundResource<List<Repo>, List<RepoField>>(){
-                override fun saveCallResult(item: List<RepoField>) {
+    fun loadRepos(login: String) =
+            object : NetworkBoundResource<List<Repo>, StartReposioriesQuery.Data>(){
+                override fun saveCallResult(item: StartReposioriesQuery.Data) {
+                    item.user()?.starredRepositories()?.nodes()?.map {
+                        val repoField = it.fragments().repoField()
+                        val ownerField = repoField.owner().fragments().ownerField()
+                        val owner = Owner(id = ownerField.id(), login = ownerField.login())
+                        Repo(repoField.name(),owner,
+                                stars = repoField.stargazers().fragments().starField().totalCount())
+                    }
                     //todo cache
                 }
 
-                override fun shouldFetch(data: List<com.tangpj.github.vo.Repo>?): Boolean =
-                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(owner)
+                override fun shouldFetch(data: List<Repo>?): Boolean =
+                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(login)
 
-                override fun loadFromDb(): LiveData<List<com.tangpj.github.vo.Repo>>  =
-                    repoDao.loadRepositories(owner)
+                override fun loadFromDb(): LiveData<List<Repo>>  =
+                    repoDao.loadRepositories(login)
 
 
-                override fun createCall(): LiveData<ApiResponse<List<RepoField>>> {
-                    return MediatorLiveData()
+                override fun createCall(): LiveData<ApiResponse<StartReposioriesQuery.Data>> {
+                    val query = StartReposioriesQuery.builder().login(login).build()
+                    val repoCall =
+                            apolloClient
+                                    .query(query)
+                                    .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
+                    return LiveDataApollo.from(repoCall)
                 }
 
             }.asLiveData()

@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.tangpj.repository.repository.RepoRepository
 import javax.inject.Inject
 
-class RepositoryViewModel: ViewModel(){
-
-    @Inject
-    lateinit var repoRepository: RepoRepository
+class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRepository): ViewModel(){
 
     private val _login: MutableLiveData<String> = MutableLiveData()
 

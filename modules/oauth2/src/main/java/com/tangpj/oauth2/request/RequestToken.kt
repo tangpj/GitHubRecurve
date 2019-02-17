@@ -9,5 +9,5 @@ import kotlinx.android.parcel.Parcelize
 data class RequestToken(
         @SerializedName ("client_id") val clientId: String = BuildConfig.CLIENT_ID,
         @SerializedName("client_secret") val client_secret: String = BuildConfig.CLIENT_SECRET,
-        @SerializedName("redirect_uri") var redirectUri: String? = null,
+        @SerializedName("redirect_uri") var redirectUri: String? = BuildConfig.REDIRECTt_URI,
         @SerializedName("code") var code: String): Parcelable

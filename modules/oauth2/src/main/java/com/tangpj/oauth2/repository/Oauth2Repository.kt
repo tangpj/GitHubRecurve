@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class Oauth2Repository @Inject
-constructor(val gitDb: GithubDb, val tokenDao: GithubTokenDao, val oauthService: OAuthService){
+constructor(val tokenDao: GithubTokenDao, val oauthService: OAuthService){
 
     private val tokenRateLimiter = RateLimiter<RequestToken>(10, TimeUnit.MINUTES)
 

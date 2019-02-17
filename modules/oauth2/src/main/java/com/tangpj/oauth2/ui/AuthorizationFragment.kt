@@ -1,15 +1,19 @@
 package com.tangpj.oauth2.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tangpj.github.GithubApp
+import com.tangpj.github.pojo.GithubToken
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
 import com.tangpj.recurve.dagger2.RecurveDaggerFragment
+import com.tangpj.recurve.resource.Resource
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
 import timber.log.Timber
 import javax.inject.Inject
@@ -32,9 +36,12 @@ class AuthorizationFragment : RecurveDaggerFragment() {
         authorizationViewModel = ViewModelProviders.of(this, viewModelFactory)[AuthorizationViewModel::class.java]
         val params = AuthorizationFragmentArgs.fromBundle(arguments)
         getToken(params.code)
-        authorizationViewModel.token.observeForever {
-            Timber.d(it.toString())
-        }
+        authorizationViewModel.token.observe(this, Observer<Resource<GithubToken>>{
+            val intent = Intent("com.tangpj.github.loginTransfer")
+            intent.putExtra("access_token", it.data)
+            activity?.sendBroadcast(intent)
+        })
+
 
     }
     override fun onCreateBinding(

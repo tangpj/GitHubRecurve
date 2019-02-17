@@ -24,14 +24,17 @@ class RepoRepository @Inject constructor(
     fun loadRepos(login: String) =
             object : NetworkBoundResource<List<Repo>, StartReposioriesQuery.Data>(){
                 override fun saveCallResult(item: StartReposioriesQuery.Data) {
-                    item.user()?.starredRepositories()?.nodes()?.map {
+                    val cache = item.user()?.starredRepositories()?.nodes()?.map {
                         val repoField = it.fragments().repoField()
                         val ownerField = repoField.owner().fragments().ownerField()
                         val owner = Owner(id = ownerField.id(), login = ownerField.login())
                         Repo(repoField.name(),owner,
                                 stars = repoField.stargazers().fragments().starField().totalCount())
+                    }?.toList()
+
+                    cache?.let {
+                        repoDao.insertRepos(it)
                     }
-                    //todo cache
                 }
 
                 override fun shouldFetch(data: List<Repo>?): Boolean =

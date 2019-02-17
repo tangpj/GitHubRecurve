@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
+import com.tangpj.repository.creator.RepositoryCreator
 import timber.log.Timber
 import javax.inject.Inject
 

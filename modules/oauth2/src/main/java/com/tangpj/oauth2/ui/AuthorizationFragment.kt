@@ -14,6 +14,7 @@ import com.tangpj.github.pojo.GithubToken
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
 import com.tangpj.recurve.dagger2.RecurveDaggerFragment
 import com.tangpj.recurve.resource.Resource
+import com.tangpj.recurve.resource.Status
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,9 +38,13 @@ class AuthorizationFragment : RecurveDaggerFragment() {
         val params = AuthorizationFragmentArgs.fromBundle(arguments)
         getToken(params.code)
         authorizationViewModel.token.observe(this, Observer<Resource<GithubToken>>{
-            val intent = Intent("com.tangpj.github.loginTransfer")
-            intent.putExtra("access_token", it.data)
-            activity?.sendBroadcast(intent)
+            if(it.status == Status.SUCCESS){
+                val intent = Intent("com.tangpj.github.loginTransfer")
+                intent.putExtra("access_token", it.data)
+                activity?.sendBroadcast(intent)
+                authorizationViewModel.token.removeObservers(this)
+
+            }
         })
 
 

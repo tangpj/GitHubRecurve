@@ -26,7 +26,7 @@ class DbModule{
             githubDb.tokenDao()
 
     @Provides
-    fun providdrRepoDao(githubDb: GithubDb): RepoDao =
+    fun providerRepoDao(githubDb: GithubDb): RepoDao =
             githubDb.repoDao()
 
 

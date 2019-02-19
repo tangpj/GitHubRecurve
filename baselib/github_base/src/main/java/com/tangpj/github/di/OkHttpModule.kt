@@ -22,12 +22,12 @@ class OkHttpModule{
     @Singleton
     @Provides
     fun providerTokenInterceptor(tokenDao: GithubTokenDao): Interceptor{
-        val token = tokenDao.loadToken()
         return Interceptor {
+            val token = tokenDao.loadToken()
             val original: Request = it.request()
             val requestBuilder = original.newBuilder()
-            token.value?.let { token ->
-                requestBuilder.addHeader("Authorization","token ${token.accessToken}")
+            token.value?.let { _token ->
+                requestBuilder.addHeader("Authorization","token ${_token.accessToken}")
             }
             it.proceed(requestBuilder.build())
         }

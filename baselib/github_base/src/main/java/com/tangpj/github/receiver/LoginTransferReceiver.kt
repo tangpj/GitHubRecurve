@@ -25,7 +25,6 @@ class LoginTransferReceiver : DaggerBroadcastReceiver(){
         private val KEY_TOKEN = "access_token"
     }
 
-
     @Inject
     lateinit var tokenDao: GithubTokenDao
 
@@ -39,7 +38,6 @@ class LoginTransferReceiver : DaggerBroadcastReceiver(){
                     .subscribe{ result ->
                         tokenDao.insert(result)
                     }
-
         }
 
 

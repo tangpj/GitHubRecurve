@@ -1,16 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tangpj.github" >
-    
-    <permission android:name="com.tangpj.github.login_transfer"/>
-    <uses-permission android:name="com.tangpj.github.login_transfer"/>
-
-    <application>
-
-        <receiver android:name=".receiver.LoginTransferReceiver"
-            android:permission="com.tangpj.github.login_transfer">
-            <intent-filter>
-                <action android:name="com.tangpj.github.loginTransfer"/>
-            </intent-filter>
-        </receiver>
-    </application>
-</manifest>
+    package="com.tangpj.github" />

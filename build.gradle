@@ -43,6 +43,7 @@ appConfig{
 
         repositories{
             name ':modules:repository'
+            runAloneSuper ':gittestsuper'
             applicationId "com.tangpj.repository"
             mainActivity ".ui.repositories.RepoActivity"
             applicationName "com.tangpj.repository.RepositoryApp"

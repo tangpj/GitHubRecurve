@@ -12,6 +12,11 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class RepoModule{
 
+
+    @RepositoryScope
+    @ContributesAndroidInjector
+    abstract fun contributeRepoActivity(): RepoActivity
+
     @RepositoryScope
     @ContributesAndroidInjector
     abstract fun contributesRepositoriesFragment(): RepoFragment

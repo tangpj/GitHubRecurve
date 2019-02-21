@@ -2,7 +2,6 @@
     package="com.tangpj.gittestsuper" >
 
     <permission android:name="com.tangpj.github.login_transfer"/>
-    <uses-permission android:name="com.tangpj.github.login_transfer"/>
 
     <application>
 

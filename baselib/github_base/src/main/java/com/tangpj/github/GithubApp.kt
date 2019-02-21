@@ -14,14 +14,9 @@ abstract class GithubApp: DaggerApplication(){
     @Inject
     lateinit var githubTokenDao: GithubTokenDao
 
-    lateinit var token: LiveData<GithubToken>
-
-
     override fun onCreate() {
         super.onCreate()
         appThemeId = installThemeId(this)
-        instance = this
-        token = githubTokenDao.loadToken()
     }
 
     companion object {

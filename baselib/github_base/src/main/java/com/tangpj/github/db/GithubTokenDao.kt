@@ -11,10 +11,8 @@ abstract class GithubTokenDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(githubToken: GithubToken)
 
-    @Query("""
-        SELECT * FROM GithubToken WHERE id = :id
-        """)
-    abstract fun loadToken(id: Long = 0): LiveData<GithubToken>
+    @Query(" SELECT * FROM GithubToken WHERE id = :id")
+    abstract fun loadToken(id: Long = 0): LiveData<List<GithubToken>>
 
     @Delete
     abstract fun deleteToken(githubToken: GithubToken)

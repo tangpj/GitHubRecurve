@@ -2,6 +2,7 @@ package com.tangpj.oauth2.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.tangpj.github.db.GithubDb
 import com.tangpj.github.db.GithubTokenDao
 import com.tangpj.github.pojo.GithubToken

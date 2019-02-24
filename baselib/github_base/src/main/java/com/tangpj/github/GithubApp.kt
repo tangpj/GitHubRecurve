@@ -17,6 +17,7 @@ abstract class GithubApp: DaggerApplication(){
     override fun onCreate() {
         super.onCreate()
         appThemeId = installThemeId(this)
+        instance = this
     }
 
     companion object {

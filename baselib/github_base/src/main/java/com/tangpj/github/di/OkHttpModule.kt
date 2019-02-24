@@ -6,6 +6,7 @@ import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -23,14 +24,14 @@ class OkHttpModule{
     @Provides
     fun providerTokenInterceptor(tokenDao: GithubTokenDao): Interceptor{
         return Interceptor {
-            val tokens = tokenDao.loadToken()
+            val token = tokenDao.loadTokenForIO()
             val original: Request = it.request()
             val requestBuilder = original.newBuilder()
-            tokens.value?.let { _token ->
-                if (_token.isNotEmpty()){
-                    requestBuilder.addHeader("Authorization","token ${_token[0].accessToken}")
-                }
+            token?.let {
+                Timber.d("set authorization header")
+                requestBuilder.addHeader("Authorization","token ${it.accessToken}")
             }
+
             it.proceed(requestBuilder.build())
         }
     }

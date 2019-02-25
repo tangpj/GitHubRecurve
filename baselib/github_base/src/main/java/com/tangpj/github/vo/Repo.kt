@@ -35,3 +35,10 @@ data class Owner(
         val url: String? = null
 ): Parcelable
 
+
+enum class RepoType{
+    STAR,
+    FORK,
+    WATCH,
+    NORMAL
+}

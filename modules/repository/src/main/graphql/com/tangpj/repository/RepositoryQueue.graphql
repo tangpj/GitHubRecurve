@@ -34,7 +34,6 @@ fragment repo on Repository{
   }
 
   description
-  updatedAt
   languages(first: 1){
     nodes{
       name

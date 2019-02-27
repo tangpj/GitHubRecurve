@@ -5,13 +5,13 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.tangpj.github.StartReposioriesQuery
 import com.tangpj.github.db.RepoDao
-import com.tangpj.github.vo.Owner
 import com.tangpj.github.vo.Repo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -24,17 +24,7 @@ class RepoRepository @Inject constructor(
     fun loadRepos(login: String) =
             object : NetworkBoundResource<List<Repo>, StartReposioriesQuery.Data>(){
                 override fun saveCallResult(item: StartReposioriesQuery.Data) {
-                    val cache = item.user()?.starredRepositories()?.nodes()?.map {
-                        val repoField = it.fragments().repoField()
-                        val ownerField = repoField.owner().fragments().ownerField()
-                        val owner = Owner(id = ownerField.id(), login = ownerField.login())
-                        Repo(repoField.name(),owner,
-                                stars = repoField.stargazers().fragments().starField().totalCount())
-                    }?.toList()
-
-                    cache?.let {
-                        repoDao.insertRepos(it)
-                    }
+                    Timber.d("")
                 }
 
                 override fun shouldFetch(data: List<Repo>?): Boolean =

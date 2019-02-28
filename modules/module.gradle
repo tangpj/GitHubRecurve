@@ -6,6 +6,7 @@ apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'com.apollographql.android'
 
 
+
 android {
     compileSdkVersion build_versions.compile_sdk
 
@@ -61,6 +62,8 @@ apollo{
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':baselib:github_base')
+
+    implementation deps.kotlinx.serialization
 
     implementation deps.arouter.api
 

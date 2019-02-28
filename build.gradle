@@ -5,6 +5,7 @@ buildscript {
     apply from: './versions.gradle'
     dependencies {
         classpath deps.kotlin.plugin
+        classpath deps.kotlin.plugin_serialization
         classpath deps.apollo.plugin
         classpath deps.navigation.safe_args_plugin
 

@@ -3,7 +3,7 @@ package com.tangpj.github.receiver
 import android.content.Context
 import android.content.Intent
 import com.tangpj.github.db.GithubTokenDao
-import com.tangpj.github.pojo.GithubToken
+import com.tangpj.github.po.GithubToken
 import dagger.android.DaggerBroadcastReceiver
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

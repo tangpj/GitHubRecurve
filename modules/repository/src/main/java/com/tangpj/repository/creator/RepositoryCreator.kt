@@ -2,7 +2,7 @@ package com.tangpj.repository.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.tangpj.github.vo.Repo
+import com.tangpj.repository.vo.Repo
 import com.tangpj.recurve.recyclerview.adapter.ModulesAdapter
 import com.tangpj.recurve.recyclerview.creator.ItemCreator
 import com.tangpj.recurve.recyclerview.creator.RecurveViewHolder

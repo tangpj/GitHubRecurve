@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.tangpj.github.StartReposioriesQuery
-import com.tangpj.github.db.RepoDao
-import com.tangpj.github.vo.Repo
+import com.tangpj.repository.db.RepoDao
+import com.tangpj.repository.vo.Repo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
@@ -36,10 +36,9 @@ class RepoRepository @Inject constructor(
 
                 override fun createCall(): LiveData<ApiResponse<StartReposioriesQuery.Data>> {
                     val query = StartReposioriesQuery.builder().login(login).build()
-                    val repoCall =
-                            apolloClient
-                                    .query(query)
-                                    .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
+                    val repoCall = apolloClient
+                            .query(query)
+                            .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(repoCall)
                 }
 

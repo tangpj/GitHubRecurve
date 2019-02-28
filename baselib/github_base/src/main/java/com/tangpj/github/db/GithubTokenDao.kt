@@ -4,7 +4,7 @@ package com.tangpj.github.db
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.tangpj.github.pojo.GithubToken
+import com.tangpj.github.po.GithubToken
 
 @Dao
 abstract class GithubTokenDao {

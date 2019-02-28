@@ -1,4 +1,4 @@
-package com.tangpj.github.pojo
+package com.tangpj.github.po
 
 import android.os.Parcelable
 import androidx.room.Entity

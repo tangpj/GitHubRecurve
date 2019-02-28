@@ -1,16 +1,12 @@
 package com.tangpj.oauth2.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import com.tangpj.github.db.GithubDb
 import com.tangpj.github.db.GithubTokenDao
-import com.tangpj.github.pojo.GithubToken
+import com.tangpj.github.po.GithubToken
 import com.tangpj.oauth2.api.OAuthService
 import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
-import com.tangpj.recurve.resource.Resource
 import com.tangpj.recurve.util.RateLimiter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

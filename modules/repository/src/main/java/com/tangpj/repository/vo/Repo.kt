@@ -26,19 +26,3 @@ data class Repo @JvmOverloads constructor(
         val stars: Int = 0,
         val forked: Int = 0
 ): Parcelable
-
-@Parcelize
-@Entity(primaryKeys = ["id","login"])
-data class Owner(
-        val id: String,
-        val login: String,
-        val url: String? = null
-): Parcelable
-
-
-enum class RepoType{
-    STAR,
-    FORK,
-    WATCH,
-    NORMAL
-}

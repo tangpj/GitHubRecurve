@@ -1,4 +1,4 @@
-package com.tangpj.github.po
+package com.tangpj.github.domain
 
 import android.os.Parcelable
 import androidx.room.Entity

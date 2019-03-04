@@ -67,6 +67,7 @@ dependencies {
     api deps.navigation.fragment_ktx
     api deps.navigation.fragment
     api deps.navigation.runtime
+    api deps.cglib
 
     api deps.dagger.runtime
     api deps.dagger.android

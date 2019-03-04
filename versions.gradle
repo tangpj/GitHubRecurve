@@ -44,6 +44,7 @@ versions.apollo = "1.0.0-alpha5"
 versions.apollo_converter = "0.1.0"
 versions.arouter_api = "1.4.1"
 versions.arouter_compiler = "1.2.2"
+versions.cglib = "3.2.10"
 deps.versions = versions
 
 def androidx = [:]
@@ -141,7 +142,6 @@ apollo.runtime = "com.apollographql.apollo:apollo-runtime:$versions.apollo"
 apollo.plugin = "com.apollographql.apollo:apollo-gradle-plugin:$versions.apollo"
 apollo.android_support = "com.apollographql.apollo:apollo-android-support:$versions.apollo"
 apollo.converter = "com.apollographql.android:converter-pojo:$versions.apollo_converter"
-
 deps.apollo = apollo
 
 def arouter = [:]
@@ -163,6 +163,7 @@ deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.databinding_compiler = "androidx.databinding:databinding-compiler:$versions.databinding_compiler"
+deps.cglib = "cglib:cglib:$versions.cglib"
 ext.deps = deps
 
 def build_versions = [:]

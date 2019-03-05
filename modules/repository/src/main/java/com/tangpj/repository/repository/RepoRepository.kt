@@ -3,7 +3,6 @@ package com.tangpj.repository.repository
 import androidx.lifecycle.LiveData
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
-import com.tangpj.github.StartReposioriesQuery
 import com.tangpj.repository.db.RepoDao
 import com.tangpj.repository.vo.Repo
 import com.tangpj.recurve.apollo.LiveDataApollo
@@ -11,7 +10,7 @@ import com.tangpj.recurve.apollo.LiveDataApollo
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
-import com.tangpj.repository.domain.UserRepoResult
+import com.tangpj.repository.StartReposioriesQuery
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -26,7 +25,6 @@ class RepoRepository @Inject constructor(
             object : NetworkBoundResource<List<Repo>, StartReposioriesQuery.Data>(){
                 override fun saveCallResult(item: StartReposioriesQuery.Data) {
                     Timber.d("")
-                    UserRepoResult("", 1,2,50)
                 }
 
                 override fun shouldFetch(data: List<Repo>?): Boolean =

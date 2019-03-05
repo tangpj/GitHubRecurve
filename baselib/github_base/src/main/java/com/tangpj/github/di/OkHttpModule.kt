@@ -29,7 +29,7 @@ class OkHttpModule{
             val requestBuilder = original.newBuilder()
             token?.let {
                 Timber.d("set authorization header")
-                requestBuilder.addHeader("Authorization","token ${it.accessToken}")
+                requestBuilder.addHeader("Authorization","token ${token.accessToken}")
             }
 
             it.proceed(requestBuilder.build())

@@ -31,7 +31,7 @@ class RepoFragment: RecurveDaggerListFragment() {
                 repositoryCreator.addItems(items)
             }
         }
-        repoViewModel.setRepoOwner("tangpj")
+        repoViewModel.setRepoOwner("Tangpj")
     }
 
     override fun initRecyclerView(rv: RecyclerView) {

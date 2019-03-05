@@ -1,13 +1,11 @@
 query StartReposiories ($login: String = "Tangpj",$startFirst: Int = 2){
   user(login: $login){
     login
-    starredRepositories(first: $startFirst,before: "Y3Vyc29yOnYyOpHOA9zbjw=="){
+    starredRepositories(first: $startFirst){
       edges{
         cursor
         node{
-
         ...repo
-
         }
       }
     }

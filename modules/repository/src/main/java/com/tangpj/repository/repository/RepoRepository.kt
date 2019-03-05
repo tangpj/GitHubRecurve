@@ -11,6 +11,7 @@ import com.tangpj.recurve.apollo.LiveDataApollo
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
+import com.tangpj.repository.domain.UserRepoResult
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -25,6 +26,7 @@ class RepoRepository @Inject constructor(
             object : NetworkBoundResource<List<Repo>, StartReposioriesQuery.Data>(){
                 override fun saveCallResult(item: StartReposioriesQuery.Data) {
                     Timber.d("")
+                    UserRepoResult("", 1,2,50)
                 }
 
                 override fun shouldFetch(data: List<Repo>?): Boolean =

@@ -1,14 +1,16 @@
 package com.tangpj.github.domain
 
-import androidx.annotation.IntDef
+//RepoFlag
+const val CREATE = 0
+const val STAR = 1
+const val FORKED = 2
+const val WATCH = 3
+const val QUERY = 4
 
-@IntDef(value = [RepoFlag.NORMAL, RepoFlag.STAR, RepoFlag.FORKED, RepoFlag.WATCH])
-annotation class RepoFlag{
-    companion object {
-        const val NORMAL = 0
-        const val STAR = 1
-        const val FORKED = 2
-        const val WATCH = 3
-    }
 
-}
+
+
+
+
+
+

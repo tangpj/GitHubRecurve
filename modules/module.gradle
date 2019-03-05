@@ -54,9 +54,12 @@ kapt{
     }
 }
 
-apollo{
-    schemaFilePath= "${getRootDir()}/baselib/github_base/src/main/graphql/com/tangpj/github/schema.json"
+apollo {
+    schemaFilePath = "${getRootDir()}/baselib/github_base/src/main/graphql/com/tangpj/github/schema.json"
     outputPackageName = "com.tangpj.${project.getName()}"
+    customTypeMapping = [
+            "URI": "java.lang.String"
+    ]
 }
 
 dependencies {

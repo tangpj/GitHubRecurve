@@ -7,6 +7,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -17,6 +18,9 @@ class OkHttpModule{
     fun provideOkHttpClient(tokenInterceptor: Interceptor): OkHttpClient
             = OkHttpClient.Builder()
             .addInterceptor(tokenInterceptor)
+            .connectTimeout(3, TimeUnit.SECONDS)
+            .readTimeout(3, TimeUnit.SECONDS)
+            .writeTimeout(3, TimeUnit.SECONDS)
             .build()
 
 

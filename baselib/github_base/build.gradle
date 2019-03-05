@@ -52,6 +52,12 @@ android {
 
 }
 
+apollo{
+    customTypeMapping = [
+            "URI" : "java.lang.String"
+    ]
+}
+
 
 dependencies {
     api project(':recurve')

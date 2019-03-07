@@ -27,8 +27,9 @@ class RepoRepository @Inject constructor(
             object : NetworkBoundResource<List<RepoVo>, StartReposioriesQuery.Data>(){
                 override fun saveCallResult(item: StartReposioriesQuery.Data) {
                     item.user()?.starredRepositories()?.edges()?.map {
+                        Timber.d(it.node().fragments().repo().marshaller().toString())
                     }
-                    Timber.d("")
+
                 }
 
                 override fun shouldFetch(data: List<RepoVo>?): Boolean =

@@ -7,8 +7,8 @@
     
     <data>
         <variable
-            name="repo"
-            type="com.tangpj.repository.vo.Repo"/>
+            name="repoVo"
+            type="com.tangpj.repository.vo.RepoVo"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -31,7 +31,7 @@
                 android:layout_marginEnd="@dimen/margin_horizontal_material"
                 android:layout_marginRight="@dimen/margin_horizontal_material"
                 android:textColor="@color/textColor"
-                android:text="@{repo.name}"
+                android:text="@{repoVo.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
                 android:maxLines="5"
                 android:ellipsize="end"
                 android:textColor="@color/textColorLight"
-                android:text="@{repo.description}"
+                android:text="@{repoVo.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_repository_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_repository_title"
@@ -62,7 +62,7 @@
                 android:layout_marginBottom="@dimen/margin_vertical_material"
                 android:drawableStart="@mipmap/ic_star_rate_black_18dp"
                 android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
-                android:text="@{repo.language}"
+                android:text="@{repoVo.language}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_repository_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc"
@@ -79,7 +79,7 @@
                 android:layout_marginLeft="@dimen/margin_horizontal_material"
                 android:drawableStart="@mipmap/ic_star_rate_black_18dp"
                 android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
-                android:text="@{String.valueOf(repo.stars)}"
+                android:text="@{String.valueOf(repoVo.stars)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_repository_language"
                 app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc"
@@ -96,7 +96,7 @@
                 android:layout_marginLeft="@dimen/margin_horizontal_material"
                 android:drawableStart="@mipmap/ic_star_rate_black_18dp"
                 android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
-                android:text="@{String.valueOf(repo.forked)}"
+                android:text="@{String.valueOf(repoVo.forked)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_repository_star"
                 app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc"

@@ -3,8 +3,9 @@ package com.tangpj.repository.repository
 import androidx.lifecycle.LiveData
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.tangpj.github.utils.BeanCopierHelper
 import com.tangpj.repository.db.RepoDao
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.vo.RepoVo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
@@ -17,20 +18,23 @@ import javax.inject.Inject
 
 class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
-         val repoDao: RepoDao){
+         val repoDao: RepoDao,
+         val copier: BeanCopierHelper){
 
     private val repoRateLimiter = RateLimiter<String>(10, TimeUnit.MINUTES)
 
     fun loadRepos(login: String) =
-            object : NetworkBoundResource<List<Repo>, StartReposioriesQuery.Data>(){
+            object : NetworkBoundResource<List<RepoVo>, StartReposioriesQuery.Data>(){
                 override fun saveCallResult(item: StartReposioriesQuery.Data) {
+                    item.user()?.starredRepositories()?.edges()?.map {
+                    }
                     Timber.d("")
                 }
 
-                override fun shouldFetch(data: List<Repo>?): Boolean =
+                override fun shouldFetch(data: List<RepoVo>?): Boolean =
                         data == null || data.isEmpty() || repoRateLimiter.shouldFetch(login)
 
-                override fun loadFromDb(): LiveData<List<Repo>>  =
+                override fun loadFromDb(): LiveData<List<RepoVo>>  =
                     repoDao.loadRepositories(login)
 
 

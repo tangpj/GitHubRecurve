@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
-import com.tangpj.github.domain.Default.Companion.UNKNOWN_ID
+import com.tangpj.repository.domain.OwnerDo
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -15,12 +15,12 @@ import kotlinx.android.parcel.Parcelize
             Index("owner_login")],
         primaryKeys = ["name", "owner_login"]
 )
-data class Repo @JvmOverloads constructor(
+data class RepoVo @JvmOverloads constructor(
         val id: Int,
         val name: String,
         @Embedded(prefix = "owner_")
-        val owner: Owner,
-        val fullName: String,
+        val owner: OwnerDo,
+        val fullName: String? = null,
         val language: String? = null,
         val languageColor: String? = null,
         val description: String? = null,

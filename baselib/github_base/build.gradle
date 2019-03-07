@@ -84,6 +84,7 @@ dependencies {
     api deps.dagger.android
     api deps.dagger.android_support
 
+    api deps.mapstruct.mapstruct_jdk8
 
     api deps.constraint_layout
 

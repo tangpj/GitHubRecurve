@@ -77,6 +77,8 @@ dependencies {
 
     kapt deps.arouter.compiler
 
+    kapt deps.mapstruct.processor
+
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
 

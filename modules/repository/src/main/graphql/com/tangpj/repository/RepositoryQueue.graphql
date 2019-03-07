@@ -25,7 +25,6 @@ query ForkRepositories($login: String = "Tangpj",$startFirst: Int = 10){
 fragment repo on Repository{
   name
   owner{
-    __typename
     avatarUrl
     login
     id

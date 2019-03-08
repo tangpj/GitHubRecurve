@@ -3,7 +3,7 @@ package com.tangpj.repository.repository
 import androidx.lifecycle.LiveData
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
-import com.tangpj.github.utils.BeanCopierHelper
+import com.tangpj.github.utils.Mapping
 import com.tangpj.repository.db.RepoDao
 import com.tangpj.repository.vo.RepoVo
 import com.tangpj.recurve.apollo.LiveDataApollo
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
          val repoDao: RepoDao,
-         val copier: BeanCopierHelper){
+         val copier: Mapping){
 
     private val repoRateLimiter = RateLimiter<String>(10, TimeUnit.MINUTES)
 

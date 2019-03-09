@@ -5,7 +5,7 @@ query StartReposiories ($login: String = "Tangpj",$startFirst: Int = 2){
       edges{
         cursor
         node{
-        ...repo
+        ...repoDto
         }
       }
     }
@@ -16,13 +16,14 @@ query ForkRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   user(login: $login){
     watching(first: $startFirst){
       nodes{
-      ...repo
+      ...repoDto
       }
     }
   }
 }
 
-fragment repo on Repository{
+fragment repoDto on Repository{
+  id
   name
   owner{
     avatarUrl

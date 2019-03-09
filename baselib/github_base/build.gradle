@@ -78,7 +78,7 @@ dependencies {
     api deps.retrofit.rxjava_adapter
     api deps.navigation.fragment_ktx
     api deps.navigation.fragment
-    api deps.navigation.runtimeg
+    api deps.navigation.runtime
 
     api deps.dagger.runtime
     api deps.dagger.android

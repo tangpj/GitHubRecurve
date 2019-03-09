@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.tangpj.github.domain.RepoFlag
 import com.tangpj.repository.vo.RepoVo
 
 @Dao
@@ -15,7 +16,10 @@ abstract class RepoDao{
 
     @Query("""
         SELECT * FROM RepoVo
-        WHERE owner_login = :owner
+        WHERE id in (:repoIds)
         ORDER BY stars DESC""")
-    abstract fun loadRepositories(owner: String): LiveData<List<RepoVo>>
+    abstract fun loadRepositories(repoIds: List<Int>): LiveData<List<RepoVo>>
+
+    @Query("SELECT repoId FROM UserRepoResult WHERE login = :login AND type = :type")
+    abstract fun loadUserRepoResult(login: String, @RepoFlag type: Int): List<Int>
 }

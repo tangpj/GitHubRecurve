@@ -11,19 +11,18 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(
         indices = [
-            Index("id"),
-            Index("owner_login")],
-        primaryKeys = ["name", "owner_login"]
+            Index("id")],
+        primaryKeys = ["name"]
 )
 data class RepoVo @JvmOverloads constructor(
-        val id: Int,
-        val name: String,
-        @Embedded(prefix = "owner_")
-        val owner: OwnerDo,
-        val fullName: String? = null,
-        val language: String? = null,
-        val languageColor: String? = null,
-        val description: String? = null,
-        val stars: Int = 0,
-        val forked: Int = 0
-): Parcelable
+        var id: Int,
+        var name: String,
+        var fullName: String? = null,
+        var language: String? = null,
+        var languageColor: String? = null,
+        var description: String? = null,
+        var stars: Int = 0,
+        var forked: Int = 0
+): Parcelable{
+    constructor() : this(0,"", null)
+}

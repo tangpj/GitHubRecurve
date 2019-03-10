@@ -1,7 +1,5 @@
 package com.tangpj.repository.mapper
 
-import com.tangpj.github.domain.RepoFlag
-import com.tangpj.repository.domain.UserRepoResult
 import com.tangpj.repository.fragment.LanguageDto
 import com.tangpj.repository.fragment.RepoDto
 import com.tangpj.repository.vo.RepoVo
@@ -19,8 +17,5 @@ interface RepoMapper{
             Mapping(source = "repoDto.forks.totalCount", target = "forks"),
             Mapping(source = "languageDto.name", target = "language"),
             Mapping(source = "languageDto.color", target = "languageColor"))
-    fun from(repoDto: RepoDto, languageDto: LanguageDto): RepoVo
-
-
-    fun from(repoDto: RepoDto, login: String, @RepoFlag type: Int): UserRepoResult
+    fun from(repoDto: RepoDto, languageDto: LanguageDto?): RepoVo
 }

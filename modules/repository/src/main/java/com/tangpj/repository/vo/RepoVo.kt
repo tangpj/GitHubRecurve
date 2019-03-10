@@ -15,7 +15,7 @@ import kotlinx.android.parcel.Parcelize
         primaryKeys = ["name"]
 )
 data class RepoVo @JvmOverloads constructor(
-        var id: Int,
+        var id: String,
         var name: String,
         var fullName: String? = null,
         var language: String? = null,
@@ -24,5 +24,9 @@ data class RepoVo @JvmOverloads constructor(
         var stars: Int = 0,
         var forks: Int = 0
 ): Parcelable{
-    constructor() : this(0,"", null)
+    constructor() : this("","", null)
 }
+
+
+
+

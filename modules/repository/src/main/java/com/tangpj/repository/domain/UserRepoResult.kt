@@ -15,10 +15,10 @@ import kotlinx.android.parcel.Parcelize
                 Index("repoId")])
 class UserRepoResult @JvmOverloads @Ignore constructor(
         var login: String,
-        var repoId: Int,
+        var repoId: String,
         @RepoFlag
         var type: Int = QUERY): Parcelable{
 
-        constructor() : this("",0)
+        constructor() : this("","")
 }
 

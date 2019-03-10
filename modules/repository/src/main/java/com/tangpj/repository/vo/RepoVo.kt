@@ -22,7 +22,7 @@ data class RepoVo @JvmOverloads constructor(
         var languageColor: String? = null,
         var description: String? = null,
         var stars: Int = 0,
-        var forked: Int = 0
+        var forks: Int = 0
 ): Parcelable{
     constructor() : this(0,"", null)
 }

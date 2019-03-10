@@ -25,7 +25,6 @@ class RepoRepository @Inject constructor(
     fun loadRepos(login: String) =
             object : NetworkBoundResource<List<RepoVo>, StartReposioriesQuery.Data>(){
                 override fun saveCallResult(item: StartReposioriesQuery.Data) {
-
                 }
 
                 override fun shouldFetch(data: List<RepoVo>?): Boolean =

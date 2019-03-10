@@ -96,7 +96,7 @@
                 android:layout_marginLeft="@dimen/margin_horizontal_material"
                 android:drawableStart="@mipmap/ic_star_rate_black_18dp"
                 android:drawableLeft="@mipmap/ic_star_rate_black_18dp"
-                android:text="@{String.valueOf(repoVo.forked)}"
+                android:text="@{String.valueOf(repoVo.forks)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_repository_star"
                 app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc"

@@ -16,7 +16,6 @@ import kotlinx.android.parcel.Parcelize
 class UserRepoResult @JvmOverloads @Ignore constructor(
         var login: String,
         var repoId: Int,
-        var totalCount: Int = 0,
         @RepoFlag
         var type: Int = QUERY): Parcelable{
 

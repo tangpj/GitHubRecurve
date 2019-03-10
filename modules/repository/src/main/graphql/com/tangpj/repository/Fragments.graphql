@@ -1,0 +1,31 @@
+fragment repoDto on Repository{
+  id
+  name
+  owner{
+    avatarUrl
+    login
+    id
+  }
+
+  description
+  languages(first: 1){
+    nodes{
+       ...languageDto
+    }
+  }
+  stargazers{
+    totalCount
+  }
+  forks{
+    totalCount
+  }
+  watchers{
+    totalCount
+  }
+}
+
+fragment languageDto on Language{
+  id
+  name
+  color
+}

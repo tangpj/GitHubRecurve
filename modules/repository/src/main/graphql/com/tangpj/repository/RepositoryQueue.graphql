@@ -22,29 +22,3 @@ query ForkRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   }
 }
 
-fragment repoDto on Repository{
-  id
-  name
-  owner{
-    avatarUrl
-    login
-    id
-  }
-
-  description
-  languages(first: 1){
-    nodes{
-      name
-      color
-    }
-  }
-  stargazers{
-    totalCount
-  }
-  forks{
-    totalCount
-  }
-  watchers{
-    totalCount
-  }
-}

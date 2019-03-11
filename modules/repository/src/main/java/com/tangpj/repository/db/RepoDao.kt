@@ -18,10 +18,7 @@ abstract class RepoDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertUserRepoResult(userRepoResultsList: List<UserRepoResult>)
 
-    @Query("""
-        SELECT * FROM RepoVo
-        WHERE id in (:repoIds)
-        ORDER BY stars DESC""")
+    @Query(" SELECT * FROM RepoVo WHERE id IN (:repoIds)")
     abstract fun loadRepositories(repoIds: List<String>): LiveData<List<RepoVo>>
 
     @Query("SELECT repoId FROM UserRepoResult WHERE login = :login AND type = :type")

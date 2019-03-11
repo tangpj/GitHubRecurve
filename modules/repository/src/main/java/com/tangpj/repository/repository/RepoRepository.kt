@@ -1,7 +1,7 @@
 package com.tangpj.repository.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Transformations
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.tangpj.github.domain.RepoFlag
@@ -16,10 +16,7 @@ import com.tangpj.repository.StartReposioriesQuery
 import com.tangpj.repository.domain.UserRepoResult
 import com.tangpj.repository.mapper.RepoMapper
 import com.tangpj.repository.mapper.mapRepoVo
-import org.mapstruct.Mapper
-import org.mapstruct.Mapping
 import org.mapstruct.factory.Mappers
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -56,11 +53,9 @@ class RepoRepository @Inject constructor(
 
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
                     val repoIds = repoDao.loadUserRepoResult(login, RepoFlag.STAR)
-                    val dbResult = MediatorLiveData<List<RepoVo>>()
-                    dbResult.addSource(repoIds){
-                        dbResult.value = repoDao.loadRepositories(it).value
+                    return Transformations.switchMap(repoIds){
+                        repoDao.loadRepositories(it)
                     }
-                    return dbResult
                 }
 
 

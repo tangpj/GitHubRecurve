@@ -19,7 +19,13 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
     }
 
     val repos: LiveData<List<RepoVo>> = Transformations.map(starRepo){
-        resource.value = it
+        val dateEmpty = it?.data?.isEmpty()
+        if (dateEmpty != null && dateEmpty){
+            resource.postValue(Resource(it.status, null, it.message))
+        }else{
+            resource.postValue(it)
+
+        }
         it.data
     }
 

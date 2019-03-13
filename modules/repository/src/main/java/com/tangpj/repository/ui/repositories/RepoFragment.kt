@@ -43,7 +43,9 @@ class RepoFragment: RecurveDaggerListFragment() {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
         val binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
-        initRecyclerView(binding.recyclerContent.rv)
+        repoViewModel.resource.observeForever {
+            Timber.d("${it.status}")
+        }
         binding.loadingContent.resource = repoViewModel.resource.value
         binding.setLifecycleOwner(this)
         return binding

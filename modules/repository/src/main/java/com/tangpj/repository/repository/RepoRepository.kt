@@ -24,7 +24,7 @@ class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
          val repoDao: RepoDao){
 
-    private val repoRateLimiter = RateLimiter<String>(10, TimeUnit.SECONDS)
+    private val repoRateLimiter = RateLimiter<String>(1, TimeUnit.MINUTES)
 
     fun loadRepos(login: String) =
             object : NetworkBoundResource<List<RepoVo>, StartReposioriesQuery.Data>(){

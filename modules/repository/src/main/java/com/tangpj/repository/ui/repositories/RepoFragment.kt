@@ -48,6 +48,7 @@ class RepoFragment: RecurveDaggerListFragment() {
         }
         binding.resource = repoViewModel.resource
         binding.setLifecycleOwner(this)
+        initRecyclerView(binding.recyclerContent.rv)
         return binding
     }
 

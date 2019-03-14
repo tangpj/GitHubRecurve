@@ -46,7 +46,7 @@ class RepoFragment: RecurveDaggerListFragment() {
         repoViewModel.resource.observeForever {
             Timber.d("${it.status}")
         }
-        binding.loadingContent.resource = repoViewModel.resource.value
+        binding.resource = repoViewModel.resource
         binding.setLifecycleOwner(this)
         return binding
     }

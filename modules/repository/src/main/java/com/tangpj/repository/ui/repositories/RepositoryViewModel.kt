@@ -7,14 +7,15 @@ import androidx.lifecycle.ViewModel
 import com.tangpj.recurve.resource.Resource
 import com.tangpj.repository.repository.RepoRepository
 import com.tangpj.repository.vo.RepoVo
+import timber.log.Timber
 import javax.inject.Inject
 
 class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRepository): ViewModel(){
 
     private val _login = MutableLiveData<String>()
 
-
     private val starRepo: LiveData<Resource<List<RepoVo>>> = Transformations.switchMap(_login){
+        Timber.d(it)
         repoRepository.loadRepos(it)
     }
 
@@ -31,6 +32,10 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
     }
 
     val resource: MutableLiveData<Resource<*>> = MutableLiveData()
+
+    val retry: () -> Unit = {
+        _login.value = _login.value
+    }
 
     fun setRepoOwner(login: String){
         _login.value = login

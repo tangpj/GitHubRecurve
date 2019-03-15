@@ -74,8 +74,6 @@ dependencies {
 
     implementation deps.kotlinx.serialization
 
-    implementation deps.arouter.api
-
     kapt deps.arouter.compiler
 
     kapt deps.mapstruct.processor

@@ -6,6 +6,8 @@
 
         <import type="androidx.lifecycle.LiveData"/>
         <import type="com.tangpj.recurve.resource.Resource"/>
+        <import type="kotlin.Unit"/>
+        <import type="kotlin.jvm.functions.Function0"/>
 
         <variable
             name="resource"
@@ -13,7 +15,7 @@
 
         <variable
             name="retryCallback"
-            type="com.tangpj.recurve.common.RetryCallback"/>
+            type="Function0&lt;Unit>"/>
 
     </data>
 
@@ -31,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             app:resource="@{(Resource) resource}"
-            app:callback="@{() -> retryCallback.retry()}"/>
+            app:callback="@{() -> retryCallback.invoke()}"/>
 
     </FrameLayout>
 

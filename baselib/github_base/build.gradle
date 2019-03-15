@@ -100,6 +100,7 @@ dependencies {
     api deps.apollo.runtime
     api deps.apollo.android_support
 
+    api deps.arouter.api
 
     kapt deps.dagger.compiler
     kapt deps.dagger.android_support_compiler

@@ -47,6 +47,7 @@ class RepoFragment: RecurveDaggerListFragment() {
             Timber.d("${it.status}")
         }
         binding.resource = repoViewModel.resource
+        binding.retryCallback = repoViewModel.retry
         binding.setLifecycleOwner(this)
         initRecyclerView(binding.recyclerContent.rv)
         return binding

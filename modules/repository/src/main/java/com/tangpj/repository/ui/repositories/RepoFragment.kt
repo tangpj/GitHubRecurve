@@ -22,20 +22,18 @@ class RepoFragment: RecurveDaggerListFragment() {
 
     lateinit var repoViewModel: RepositoryViewModel
 
-    val repositoryCreator = RepositoryCreator(mAdapter)
+    private val repositoryCreator = RepositoryCreator(mAdapter)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Timber.d("onActivityCreated")
         val arg = RepoFragmentArgs.fromBundle(arguments)
-        Timber.d("user name = ${arg.userName}")
-        repoViewModel.setRepoOwner("Tangpj")
+        Timber.d("user name = ${arg.login}")
+        repoViewModel.setRepoOwner(arg.login)
     }
 
     override fun onCreateBinding(
             inflater: LayoutInflater,
             container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding {
-        Timber.d("onCreateBinding")
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
         val binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
@@ -44,7 +42,6 @@ class RepoFragment: RecurveDaggerListFragment() {
         }
         repoViewModel.repos.observeForever { repoVoList ->
             repoVoList?.let {
-                Timber.d("addItems")
                 if (repositoryCreator.getData().isEmpty())
                 repositoryCreator.setDataList(it)
 
@@ -59,7 +56,6 @@ class RepoFragment: RecurveDaggerListFragment() {
 
     override fun initRecyclerView(rv: RecyclerView) {
         super.initRecyclerView(rv)
-        Timber.d("initRecyclerView")
         addItemCreator(repositoryCreator)
 
     }

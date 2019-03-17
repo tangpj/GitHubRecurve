@@ -9,10 +9,15 @@
         android:label="RepositoriesFragment">
 
         <argument
-            android:name="user_name"
+            android:name="login"
             android:defaultValue="Tangpj"
             app:argType="string"
             />
+
+        <argument
+            android:name="type"
+            android:defaultValue="0"
+            app:argType="integer"/>
 
         <action
             android:id="@+id/init"

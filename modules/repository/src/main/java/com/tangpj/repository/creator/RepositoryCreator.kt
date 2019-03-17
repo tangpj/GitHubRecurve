@@ -12,7 +12,7 @@ import javax.inject.Inject
 class RepositoryCreator constructor(adapter: ModulesAdapter, creatorType: Int)
     : ItemCreator<RepoVo, ItemRepositoryBinding>(adapter, creatorType) {
 
-    @Inject constructor(adapter: ModulesAdapter): this(adapter, 0)
+    constructor(adapter: ModulesAdapter): this(adapter, 0)
 
     override fun onBindItemView(itemHolder: RecurveViewHolder<ItemRepositoryBinding>?,
                                 e: RepoVo?, inCreatorPosition: Int) {

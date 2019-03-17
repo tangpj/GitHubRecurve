@@ -21,8 +21,4 @@ class RepositoryModule{
     @Provides
     fun providerRepoDao(repositoryDb: RepositoryDb): RepoDao =
             repositoryDb.repoDao()
-
-    @Provides
-    fun providesModulesAdapter() = ModulesAdapter()
-
 }

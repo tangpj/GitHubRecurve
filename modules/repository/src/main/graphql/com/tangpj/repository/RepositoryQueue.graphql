@@ -1,19 +1,25 @@
-query StartReposiories ($login: String = "Tangpj",$startFirst: Int = 2){
+query StartRepositories (
+  $login: String = "Tangpj",
+  $startFirst: Int = 20,
+  $order: StarOrder){
   user(login: $login){
     login
-    starredRepositories(first: $startFirst){
-      edges{
-        cursor
-        node{
+    starredRepositories(first: $startFirst, orderBy: $order){
+      totalCount
+      nodes{
         ...repoDto
-        }
+      }
+      totalCount
+      pageInfo{
+        hasNextPage
       }
     }
   }
 }
 
-query ForkRepositories($login: String = "Tangpj",$startFirst: Int = 10){
+query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   user(login: $login){
+    login
     watching(first: $startFirst){
       nodes{
       ...repoDto

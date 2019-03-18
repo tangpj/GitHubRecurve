@@ -39,6 +39,7 @@ class RepoFragment: RecurveDaggerListFragment() {
         val binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
         repoViewModel.resource.observeForever {
             Timber.d("${it.status}")
+            Timber.d("${it.message}")
         }
         repoViewModel.repos.observeForever { repoVoList ->
             repoVoList?.let {

@@ -12,11 +12,15 @@ import com.tangpj.recurve.apollo.LiveDataApollo
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
-import com.tangpj.repository.StartReposioriesQuery
+import com.tangpj.repository.StartRepositoriesQuery
+import com.tangpj.repository.WatchRepositoriesQuery
 import com.tangpj.repository.domain.UserRepoResult
-import com.tangpj.repository.mapper.RepoMapper
+import com.tangpj.repository.fragment.RepoDto
+import com.tangpj.repository.mapper.getRepoDtoList
 import com.tangpj.repository.mapper.mapRepoVo
-import org.mapstruct.factory.Mappers
+import com.tangpj.repository.type.OrderDirection
+import com.tangpj.repository.type.StarOrder
+import com.tangpj.repository.type.StarOrderField
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -26,26 +30,11 @@ class RepoRepository @Inject constructor(
 
     private val repoRateLimiter = RateLimiter<String>(1, TimeUnit.MINUTES)
 
-    fun loadRepos(login: String) =
-            object : NetworkBoundResource<List<RepoVo>, StartReposioriesQuery.Data>(){
-                override fun saveCallResult(item: StartReposioriesQuery.Data) {
-                    val repoMapper: RepoMapper = Mappers.getMapper(RepoMapper::class.java)
-                    val repoEdges = item.user?.starredRepositories?.edges
-                    val repoVoList = mutableListOf<RepoVo>()
-                    val userRepoResultList = mutableListOf<UserRepoResult>()
-                    repoEdges?.forEach { edge ->
-                        val repoDto = edge.node.fragments.repoDto
-                        val languages = repoDto.languages?.nodes
-                        val languageDto = if (languages != null && languages.size > 0){
-                            languages[0].fragments.languageDto
-                        }else{
-                            null
-                        }
-                        repoVoList.add(repoDto.mapRepoVo(repoMapper, languageDto))
-                        userRepoResultList.add(UserRepoResult(login, repoDto.id, RepoFlag.STAR))
-                    }
-                    repoDao.insertRepos(repoVoList)
-                    repoDao.insertUserRepoResult(userRepoResultList)
+    fun loadStarRepos(login: String) =
+            object : NetworkBoundResource<List<RepoVo>, StartRepositoriesQuery.Data>(){
+                override fun saveCallResult(item: StartRepositoriesQuery.Data) {
+                    val repoDtoList = item.getRepoDtoList()
+                    repoDtoList?.let { saveRepoResult(login, RepoFlag.STAR, repoDtoList) }
                 }
 
                 override fun shouldFetch(data: List<RepoVo>?): Boolean =
@@ -58,9 +47,14 @@ class RepoRepository @Inject constructor(
                     }
                 }
 
-
-                override fun createCall(): LiveData<ApiResponse<StartReposioriesQuery.Data>> {
-                    val query = StartReposioriesQuery.builder().login(login).build()
+                override fun createCall(): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
+                    val order = StarOrder
+                            .builder()
+                            .field(StarOrderField.STARRED_AT)
+                            .direction(OrderDirection.DESC).build()
+                    val query = StartRepositoriesQuery.builder()
+                            .login(login)
+                            .order(order).build()
                     val repoCall = apolloClient
                             .query(query)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
@@ -68,5 +62,53 @@ class RepoRepository @Inject constructor(
                 }
 
             }.asLiveData()
+
+    fun loadWatchRepo(login: String) =
+            object : NetworkBoundResource<List<RepoVo>, WatchRepositoriesQuery.Data>(){
+                override fun saveCallResult(item: WatchRepositoriesQuery.Data) {
+                    val repoDtoList = item.getRepoDtoList()
+                    repoDtoList?.let { saveRepoResult(login, RepoFlag.WATCH, repoDtoList) }
+                }
+
+                override fun shouldFetch(data: List<RepoVo>?): Boolean =
+                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(login)
+
+                override fun loadFromDb(): LiveData<List<RepoVo>>  {
+                    val repoIds = repoDao.loadUserRepoResult(login, RepoFlag.WATCH)
+                    return Transformations.switchMap(repoIds){
+                        repoDao.loadRepositories(it)
+                    }
+                }
+
+                override fun createCall(): LiveData<ApiResponse<WatchRepositoriesQuery.Data>> {
+                    val query = WatchRepositoriesQuery.builder().login(login).build()
+                    val repoCall = apolloClient
+                            .query(query)
+                            .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
+                    return LiveDataApollo.from(repoCall)
+                }
+
+            }.asLiveData()
+
+
+    private fun saveRepoResult(login: String, @RepoFlag repoFlag: Int, repoDtoList: List<RepoDto>){
+        if (repoDtoList.isEmpty()) {
+            return
+        }
+        val userRepoResultList = mutableListOf<UserRepoResult>()
+        val repoVoList = repoDtoList.map { repoDto ->
+            val languages = repoDto.languages?.nodes
+            val languageDto = if (languages != null && languages.size > 0){
+                languages[0].fragments.languageDto
+            }else{
+                null
+            }
+            userRepoResultList.add(UserRepoResult(login, repoDto.id, repoFlag))
+            repoDto.mapRepoVo(languageDto)
+
+        }
+        repoDao.insertRepos(repoVoList)
+        repoDao.insertUserRepoResult(userRepoResultList)
+    }
 
 }

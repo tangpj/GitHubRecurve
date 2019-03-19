@@ -5,9 +5,11 @@ query StartRepositories (
   user(login: $login){
     login
     starredRepositories(first: $startFirst, orderBy: $order){
-      totalCount
-      nodes{
-        ...repoDto
+      edges{
+        starredAt
+        node{
+          ...repoDto
+        }
       }
       totalCount
       pageInfo{

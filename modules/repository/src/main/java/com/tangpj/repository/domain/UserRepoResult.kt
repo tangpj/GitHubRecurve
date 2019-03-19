@@ -7,6 +7,9 @@ import androidx.room.Index
 import com.tangpj.github.domain.RepoFlag
 import com.tangpj.github.domain.RepoFlag.QUERY
 import kotlinx.android.parcel.Parcelize
+import java.time.LocalDate
+import java.time.LocalTime
+import java.util.*
 
 @Parcelize
 @Entity(primaryKeys = ["login","repoId"],
@@ -16,7 +19,6 @@ import kotlinx.android.parcel.Parcelize
 class UserRepoResult @JvmOverloads @Ignore constructor(
         var login: String,
         var repoId: String,
-        @RepoFlag
         var type: Int = QUERY): Parcelable{
 
         constructor() : this("","")

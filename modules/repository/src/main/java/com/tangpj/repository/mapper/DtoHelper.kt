@@ -4,8 +4,8 @@ import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.WatchRepositoriesQuery
 
 fun StartRepositoriesQuery.Data.getRepoDtoList() =
-        this.user?.starredRepositories?.nodes?.map {
-            it.fragments.repoDto
+        this.user?.starredRepositories?.edges?.map {
+            it.node.fragments.repoDto
         }
 
 fun WatchRepositoriesQuery.Data.getRepoDtoList() =

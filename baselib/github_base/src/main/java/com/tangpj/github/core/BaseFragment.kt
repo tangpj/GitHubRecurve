@@ -1,4 +1,4 @@
-package com.tangpj.github
+package com.tangpj.github.core
 
 import android.os.Bundle
 import com.tangpj.recurve.ui.fragment.RecurveFragment

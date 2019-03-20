@@ -6,6 +6,7 @@ import androidx.room.Ignore
 import androidx.room.Index
 import com.tangpj.github.domain.RepoFlag
 import com.tangpj.github.domain.RepoFlag.QUERY
+import com.tangpj.repository.type.CustomType
 import kotlinx.android.parcel.Parcelize
 import java.time.LocalDate
 import java.time.LocalTime

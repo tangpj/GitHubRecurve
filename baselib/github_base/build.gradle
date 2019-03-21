@@ -61,7 +61,7 @@ android {
 apollo{
     customTypeMapping = [
             "URI" : "java.lang.String",
-            "DtaeTime" : "java.util.Date"
+            "DATETIME" : "java.util.Date"
     ]
 }
 

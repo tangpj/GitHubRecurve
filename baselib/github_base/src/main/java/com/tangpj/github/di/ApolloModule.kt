@@ -17,7 +17,6 @@ class ApolloModule{
     fun provideApolloClient(
             okHttpClient: OkHttpClient,
             dateCustomerAdapter: DateCustomerAdapter): ApolloClient =
-
             ApolloClient
                     .builder()
                     .okHttpClient(okHttpClient)

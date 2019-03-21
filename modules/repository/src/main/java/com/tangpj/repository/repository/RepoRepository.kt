@@ -18,6 +18,7 @@ import com.tangpj.repository.domain.UserRepoResult
 import com.tangpj.repository.fragment.RepoDto
 import com.tangpj.repository.mapper.getRepoDtoList
 import com.tangpj.repository.mapper.mapRepoVo
+import com.tangpj.repository.type.CustomType
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField

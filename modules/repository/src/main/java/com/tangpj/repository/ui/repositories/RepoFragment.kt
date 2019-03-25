@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 import com.tangpj.repository.creator.RepositoryCreator
-import com.tangpj.repository.vo.RepoVo
 import timber.log.Timber
 import javax.inject.Inject
 

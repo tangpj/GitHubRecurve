@@ -9,7 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class Retrofit2Module{
 
-    @Provides fun providerRetrofitBuilder()
+    @Suppress("HasPlatformType")
+    @Provides
+    fun providerRetrofitBuilder()
             = Retrofit.Builder()
             .baseUrl("https://github.com/")
             .addConverterFactory(GsonConverterFactory.create())

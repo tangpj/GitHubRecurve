@@ -15,11 +15,8 @@ class ApolloModule{
     @Singleton
     @Provides
     fun provideApolloClient(
-            okHttpClient: OkHttpClient,
-            dateCustomerAdapter: DateCustomerAdapter): ApolloClient =
+            okHttpClient: OkHttpClient): ApolloClient.Builder =
             ApolloClient
                     .builder()
                     .okHttpClient(okHttpClient)
-                    .serverUrl(BuildConfig.BASE_URL)
-                    .build()
 }

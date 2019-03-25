@@ -6,6 +6,7 @@ query StartRepositories (
     login
     starredRepositories(first: $startFirst, orderBy: $order){
       edges{
+        starredAt
         node{
           ...repoDto
         }

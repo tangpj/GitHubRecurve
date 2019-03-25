@@ -3,7 +3,7 @@ package com.tangpj.oauth2.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavController
-import com.tangpj.github.BaseActivity
+import com.tangpj.github.core.BaseActivity
 import com.tangpj.oauth2.GithubOauth2.Companion.PARAM_CODE
 import com.tangpj.oauth2.R
 

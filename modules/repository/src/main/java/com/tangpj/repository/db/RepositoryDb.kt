@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.tangpj.github.BuildConfig
 import com.tangpj.repository.domain.OwnerDo
-import com.tangpj.repository.domain.UserRepoResult
+import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.vo.RepoVo
 
 
@@ -12,7 +12,7 @@ import com.tangpj.repository.vo.RepoVo
         entities = [
             RepoVo::class,
             OwnerDo::class,
-            UserRepoResult::class],
+            StarRepoResult::class],
         version = BuildConfig.DB_VERSION_GITHUB)
 abstract class RepositoryDb: RoomDatabase(){
 

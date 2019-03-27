@@ -6,7 +6,6 @@ import com.tangpj.repository.di.DaggerRepositoryComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
-import java.time.LocalDate
 
 class RepositoryApp : GithubApp(){
 

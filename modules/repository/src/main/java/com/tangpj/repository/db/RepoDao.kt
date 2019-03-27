@@ -21,6 +21,6 @@ abstract class RepoDao{
     @Query(" SELECT * FROM RepoVo WHERE id IN (:repoIds)")
     abstract fun loadRepositories(repoIds: List<String>): LiveData<List<RepoVo>>
 
-    @Query("SELECT repoId FROM StarRepoResult WHERE login = :login ")
-    abstract fun loadUserRepoResult(login: String): LiveData<List<String>>
+    @Query("SELECT repoId FROM StarRepoResult WHERE login = :login ORDER BY starredAt DESC")
+    abstract fun loadStarRepoResult(login: String): LiveData<List<String>>
 }

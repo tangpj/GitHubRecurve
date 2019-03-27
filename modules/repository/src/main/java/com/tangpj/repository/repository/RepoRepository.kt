@@ -41,7 +41,7 @@ class RepoRepository @Inject constructor(
                         data == null || data.isEmpty() || repoRateLimiter.shouldFetch(login)
 
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
-                    val repoIds = repoDao.loadUserRepoResult(login)
+                    val repoIds = repoDao.loadStarRepoResult(login)
                     return Transformations.switchMap(repoIds){
                         repoDao.loadRepositories(it)
                     }

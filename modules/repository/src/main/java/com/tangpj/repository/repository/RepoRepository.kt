@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
-import com.tangpj.github.domain.RepoFlag
 import com.tangpj.repository.db.RepoDao
 import com.tangpj.repository.vo.RepoVo
 import com.tangpj.recurve.apollo.LiveDataApollo
@@ -13,7 +12,6 @@ import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.StartRepositoriesQuery
-import com.tangpj.repository.WatchRepositoriesQuery
 import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.fragment.RepoDto
 import com.tangpj.repository.mapper.getRepoDtoList
@@ -21,7 +19,7 @@ import com.tangpj.repository.mapper.mapRepoVo
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField
-import java.util.*
+import org.threeten.bp.ZoneId
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -96,7 +94,12 @@ class RepoRepository @Inject constructor(
         val userRepoResultList = mutableListOf<StarRepoResult>()
         val login = data.user?.login ?: ""
         val repoDtoList = data.getRepoDtoList { starredAt, repoDto ->
-            userRepoResultList.add(StarRepoResult(login, repoDto.id, starredAt.time))
+            val zoneId = ZoneId.systemDefault()
+
+            userRepoResultList.add(StarRepoResult(
+                    login,
+                    repoDto.id,
+                    starredAt.atZone(zoneId).toInstant().toEpochMilli()))
         }
         repoDao.insertUserRepoResult(userRepoResultList)
         saveRepoResult(repoDtoList.toList())

@@ -1,6 +1,7 @@
 package com.tangpj.github
 
 import com.alibaba.android.arouter.launcher.ARouter
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.tangpj.github.utils.installThemeId
 import dagger.android.support.DaggerApplication
 
@@ -10,6 +11,7 @@ abstract class GithubApp: DaggerApplication(){
 
     override fun onCreate() {
         super.onCreate()
+        AndroidThreeTen.init(this);
         appThemeId = installThemeId(this)
         instance = this
         if (BuildConfig.DEBUG){

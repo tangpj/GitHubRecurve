@@ -62,7 +62,7 @@ kapt{
 apollo {
     customTypeMapping = [
             "URI" : "java.lang.String",
-            "DateTime" : "java.util.Date"
+            "DateTime" : "org.threeten.bp.LocalDateTime"
     ]
     schemaFilePath = "${getRootDir()}/baselib/github_base/src/main/graphql/com/tangpj/github/schema.json"
     outputPackageName = "com.tangpj.${project.getName()}"

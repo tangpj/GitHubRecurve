@@ -2,13 +2,12 @@ package com.tangpj.repository.mapper
 
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.WatchRepositoriesQuery
-import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.fragment.RepoDto
-import java.util.*
+import org.threeten.bp.LocalDateTime
 
 @JvmOverloads
 fun StartRepositoriesQuery.Data.getRepoDtoList(
-        mapListener: ((starredAt: Date, RepoDto) -> Unit)? = null) =
+        mapListener: ((starredAt: LocalDateTime, RepoDto) -> Unit)? = null) =
         this.user?.starredRepositories?.edges?.map { edge ->
             val repoDto = edge.node.fragments.repoDto
             mapListener?.invoke(edge.starredAt, repoDto)

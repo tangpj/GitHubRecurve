@@ -14,7 +14,7 @@ import kotlinx.android.parcel.Parcelize
 class StarRepoResult @JvmOverloads @Ignore constructor(
         var login: String,
         var repoId: String,
-        var starredAt: Long =0): Parcelable{
+        var starredAt: Long = 0): Parcelable{
         constructor() : this("","")
 }
 

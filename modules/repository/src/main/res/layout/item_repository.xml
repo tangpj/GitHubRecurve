@@ -14,6 +14,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/elevation_material"
+        android:layout_marginBottom="@dimen/margin_vertical_material"
+        android:layout_marginStart="@dimen/margin_vertical_material"
+        android:layout_marginEnd="@dimen/margin_vertical_material"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +35,7 @@
                 android:layout_marginEnd="@dimen/margin_horizontal_material"
                 android:layout_marginRight="@dimen/margin_horizontal_material"
                 android:textColor="@color/textColor"
-                android:text="@{repoVo.name}"
+                android:text="@{repoVo.fullName}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

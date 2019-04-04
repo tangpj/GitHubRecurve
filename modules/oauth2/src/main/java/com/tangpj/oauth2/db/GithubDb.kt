@@ -1,9 +1,9 @@
-package com.tangpj.github.db
+package com.tangpj.oauth2.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.tangpj.github.BuildConfig
-import com.tangpj.github.domain.GithubToken
+import com.tangpj.oauth2.domain.GithubToken
 
 
 @Database(

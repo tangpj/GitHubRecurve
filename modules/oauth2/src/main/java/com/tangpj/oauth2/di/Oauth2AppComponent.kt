@@ -20,6 +20,7 @@ import javax.inject.Singleton
     GithubAppModule::class,
     ViewModelFactoryModule::class,
     Retrofit2Module::class,
+    DbModule::class,
     Oauth2Module::class
 ])
 interface Oauth2AppComponent : AndroidInjector<GithubApp>{

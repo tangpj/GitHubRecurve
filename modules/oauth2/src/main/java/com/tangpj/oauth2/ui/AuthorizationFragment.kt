@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tangpj.github.GithubApp
-import com.tangpj.github.domain.GithubToken
+import com.tangpj.oauth2.domain.GithubToken
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
 import com.tangpj.recurve.dagger2.RecurveDaggerFragment
 import com.tangpj.recurve.resource.Resource

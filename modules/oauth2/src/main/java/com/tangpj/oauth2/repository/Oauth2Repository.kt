@@ -1,8 +1,8 @@
 package com.tangpj.oauth2.repository
 
 import androidx.lifecycle.LiveData
-import com.tangpj.github.db.GithubTokenDao
-import com.tangpj.github.domain.GithubToken
+import com.tangpj.oauth2.db.GithubTokenDao
+import com.tangpj.oauth2.domain.GithubToken
 import com.tangpj.oauth2.api.OAuthService
 import com.tangpj.oauth2.request.RequestToken
 import com.tangpj.recurve.resource.ApiResponse

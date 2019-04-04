@@ -1,6 +1,5 @@
 package com.tangpj.github.di
 
-import com.tangpj.github.db.GithubTokenDao
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -26,15 +25,15 @@ class OkHttpModule{
 
     @Singleton
     @Provides
-    fun providerTokenInterceptor(tokenDao: GithubTokenDao): Interceptor{
+    fun providerTokenInterceptor(): Interceptor{
         return Interceptor {
-            val token = tokenDao.loadTokenForIO()
+//            val token = tokenDao.loadTokenForIO()
             val original: Request = it.request()
             val requestBuilder = original.newBuilder()
-            token?.let {
-                Timber.d("set authorization header")
-                requestBuilder.addHeader("Authorization","token ${token.accessToken}")
-            }
+//            token?.let {
+//                Timber.d("set authorization header")
+//                requestBuilder.addHeader("Authorization","token ${token.accessToken}")
+//            }
 
             it.proceed(requestBuilder.build())
         }

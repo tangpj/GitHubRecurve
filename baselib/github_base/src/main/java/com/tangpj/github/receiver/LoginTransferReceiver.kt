@@ -2,14 +2,10 @@ package com.tangpj.github.receiver
 
 import android.content.Context
 import android.content.Intent
-import com.tangpj.github.db.GithubTokenDao
-import com.tangpj.github.domain.GithubToken
 import dagger.android.DaggerBroadcastReceiver
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
-
 
 
 /**
@@ -25,20 +21,17 @@ class LoginTransferReceiver : DaggerBroadcastReceiver(){
         private val KEY_TOKEN = "access_token"
     }
 
-    @Inject
-    lateinit var tokenDao: GithubTokenDao
 
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
-        val token = intent?.getParcelableExtra<GithubToken>(KEY_TOKEN)
-        Timber.d("login succeed, token = $token")
-        token?.let {
-            Single.just(it)
-                    .observeOn(Schedulers.io())
-                    .subscribe{ result ->
-                        tokenDao.insert(result)
-                    }
-        }
+//        val token = intent?.getParcelableExtra<com.tangpj.oauth2.domain.GithubToken>(KEY_TOKEN)
+//        Timber.d("login succeed, token = $token")
+//        token?.let {
+//            Single.just(it)
+//                    .observeOn(Schedulers.io())
+//                    .subscribe{ result ->
+//                    }
+//        }
 
 
     }

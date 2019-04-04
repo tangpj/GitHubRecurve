@@ -1,9 +1,7 @@
-package com.tangpj.github.di
+package com.tangpj.oauth2.di
 
 import androidx.room.Room
 import com.tangpj.github.GithubApp
-import com.tangpj.github.db.GithubDb
-import com.tangpj.github.db.GithubTokenDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,13 +11,13 @@ class DbModule{
 
     @Singleton
     @Provides
-    fun provideDb(app: GithubApp): GithubDb =
-            Room.databaseBuilder(app, GithubDb::class.java, "github.db")
+    fun provideDb(app: GithubApp): com.tangpj.oauth2.db.GithubDb =
+            Room.databaseBuilder(app, com.tangpj.oauth2.db.GithubDb::class.java, "github.db")
                     .fallbackToDestructiveMigration()
                     .build()
 
     @Provides
-    fun providerGithubTokenDao(githubDb: GithubDb): GithubTokenDao =
+    fun providerGithubTokenDao(githubDb: com.tangpj.oauth2.db.GithubDb): com.tangpj.oauth2.db.GithubTokenDao =
             githubDb.tokenDao()
 
 

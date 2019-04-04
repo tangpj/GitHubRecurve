@@ -16,10 +16,12 @@ include ':modules:oauth2',
 //recurve支持库
 include 'recurve-retrofit2-support',
         'recurve-apollo-support',
-        'recurve-dagger2-support'
+        'recurve-dagger2-support',
+        'recurve-module-adapter'
 
 
 project(":recurve").projectDir = file("../MvvmRecurve/recurve")
 project(":recurve-retrofit2-support").projectDir = file("../MvvmRecurve/recurve-retrofit2-support")
 project(":recurve-apollo-support").projectDir = file("../MvvmRecurve/recurve-apollo-support")
 project(":recurve-dagger2-support").projectDir = file("../MvvmRecurve/recurve-dagger2-support")
+project(":recurve-module-adapter").projectDir = file("../MvvmRecurve/recurve-module-adapter")

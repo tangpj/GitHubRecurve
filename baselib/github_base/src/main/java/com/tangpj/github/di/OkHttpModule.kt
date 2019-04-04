@@ -1,5 +1,8 @@
 package com.tangpj.github.di
 
+import android.net.Uri
+import androidx.loader.content.CursorLoader
+import com.tangpj.github.GithubApp
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -25,11 +28,16 @@ class OkHttpModule{
 
     @Singleton
     @Provides
-    fun providerTokenInterceptor(): Interceptor{
+    fun providerTokenInterceptor(app: GithubApp): Interceptor{
         return Interceptor {
 //            val token = tokenDao.loadTokenForIO()
             val original: Request = it.request()
             val requestBuilder = original.newBuilder()
+            val uri = Uri.parse(
+                    "content://com.tangpj.oauth2.provider.tokenProvider/github_token")
+
+
+
 //            token?.let {
 //                Timber.d("set authorization header")
 //                requestBuilder.addHeader("Authorization","token ${token.accessToken}")

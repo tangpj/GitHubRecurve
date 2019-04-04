@@ -22,6 +22,12 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:authorities="com.tangpj.oauth2.provider.tokenProvider"
+            android:name=".provider.TokenProvider"
+            android:readPermission="com.tangpj.oauth2.provider.tokenProvider.READ"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

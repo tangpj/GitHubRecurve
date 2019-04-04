@@ -1,6 +1,7 @@
 package com.tangpj.oauth2.db
 
 
+import android.database.Cursor
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -15,6 +16,9 @@ abstract class GithubTokenDao {
     @Query(" SELECT * FROM github_token WHERE id = :id ")
     abstract fun loadToken(id: Long = 0): LiveData<GithubToken>
 
+    @WorkerThread
+    @Query(" SELECT * FROM github_token WHERE id = :id")
+    abstract fun loadTokenCursor(id: Long = 0): Cursor
 
     //不需要监听生命周期，并且非UI线程调用
     @WorkerThread

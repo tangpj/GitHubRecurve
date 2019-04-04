@@ -17,6 +17,7 @@ data class GithubToken(
         ): Parcelable{
         companion object {
                 const val TABLE_NAME = "github_token"
+                const val COLUMN_ID = "id"
         }
 
 }

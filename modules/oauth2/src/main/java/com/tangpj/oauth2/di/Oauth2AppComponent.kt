@@ -4,6 +4,7 @@ import com.tangpj.github.GithubApp
 import com.tangpj.github.di.GithubAppModule
 import com.tangpj.github.di.Retrofit2Module
 import com.tangpj.github.di.ViewModelFactoryModule
+import com.tangpj.oauth2.provider.TokenModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import javax.inject.Singleton
@@ -21,7 +22,8 @@ import javax.inject.Singleton
     ViewModelFactoryModule::class,
     Retrofit2Module::class,
     DbModule::class,
-    Oauth2Module::class
+    Oauth2Module::class,
+    TokenModule::class
 ])
 interface Oauth2AppComponent : AndroidInjector<GithubApp>{
 

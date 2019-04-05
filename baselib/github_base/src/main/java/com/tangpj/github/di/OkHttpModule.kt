@@ -15,6 +15,10 @@ import javax.inject.Singleton
 @Module
 class OkHttpModule{
 
+    companion object {
+        const val TOKEN_AUTHORITY = "com.tangpj.oauth2.provider.tokenProvider"
+    }
+
     @Singleton
     @Provides
     fun provideOkHttpClient(tokenInterceptor: Interceptor): OkHttpClient
@@ -30,18 +34,28 @@ class OkHttpModule{
     @Provides
     fun providerTokenInterceptor(app: GithubApp): Interceptor{
         return Interceptor {
-//            val token = tokenDao.loadTokenForIO()
             val original: Request = it.request()
             val requestBuilder = original.newBuilder()
             val uri = Uri.parse(
-                    "content://com.tangpj.oauth2.provider.tokenProvider/github_token")
+                    "content://$TOKEN_AUTHORITY/github_token")
+            val resolver = app.contentResolver.query(
+                    uri,
+                    arrayOf("name"),
+                    null, null, null)
+            resolver?.use { cursor ->
+                val token = if(cursor.moveToFirst()){
+                    cursor.getString(cursor.getColumnIndexOrThrow("accessToken"))
+                }else{
+                    null
+                }
+                token?.let {
+                    Timber.d("set authorization header")
+                    requestBuilder.addHeader("Authorization","token $token")
+                }
+            }
 
 
 
-//            token?.let {
-//                Timber.d("set authorization header")
-//                requestBuilder.addHeader("Authorization","token ${token.accessToken}")
-//            }
 
             it.proceed(requestBuilder.build())
         }

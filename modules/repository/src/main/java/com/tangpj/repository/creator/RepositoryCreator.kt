@@ -2,12 +2,11 @@ package com.tangpj.repository.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.tangpj.adapter.adapter.ModulesAdapter
+import com.tangpj.adapter.creator.ItemCreator
+import com.tangpj.adapter.creator.RecurveViewHolder
 import com.tangpj.repository.vo.RepoVo
-import com.tangpj.recurve.recyclerview.adapter.ModulesAdapter
-import com.tangpj.recurve.recyclerview.creator.ItemCreator
-import com.tangpj.recurve.recyclerview.creator.RecurveViewHolder
 import com.tangpj.repository.databinding.ItemRepositoryBinding
-import javax.inject.Inject
 
 class RepositoryCreator constructor(adapter: ModulesAdapter, creatorType: Int)
     : ItemCreator<RepoVo, ItemRepositoryBinding>(adapter, creatorType) {

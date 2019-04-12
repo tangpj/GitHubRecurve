@@ -4,7 +4,5 @@ import dagger.Module
 import dagger.android.support.AndroidSupportInjectionModule
 
 @Module(includes = [
-    OkHttpModule::class,
-    ReceiversModule::class,
-    AndroidSupportInjectionModule::class])
+    OkHttpModule::class])
 class GithubAppModule

@@ -21,7 +21,8 @@ class RepoFragment: RecurveDaggerListFragment() {
 
     lateinit var repoViewModel: RepositoryViewModel
 
-    private val repositoryCreator = RepositoryCreator(mAdapter)
+    @Inject
+    lateinit var repositoryCreator : RepositoryCreator
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

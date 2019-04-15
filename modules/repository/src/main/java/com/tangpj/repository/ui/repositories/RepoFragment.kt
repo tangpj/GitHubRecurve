@@ -21,7 +21,6 @@ class RepoFragment: RecurveDaggerListFragment() {
 
     lateinit var repoViewModel: RepositoryViewModel
 
-    @Inject
     lateinit var repositoryCreator : RepositoryCreator
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -36,6 +35,7 @@ class RepoFragment: RecurveDaggerListFragment() {
             container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
+        repositoryCreator = RepositoryCreator(mAdapter)
         val binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
         repoViewModel.resource.observeForever {
             Timber.d("${it.status}")

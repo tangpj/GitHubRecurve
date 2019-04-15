@@ -9,7 +9,6 @@ import javax.inject.Singleton
 
 @Module
 class ViewModelFactoryModule{
-    @Singleton
     @Provides
     fun bindViewModelFactory(creators: Map<Class< out ViewModel>, @JvmSuppressWildcards ViewModel>)
             : ViewModelProvider.Factory = RecurevViewModelFactory(creators)

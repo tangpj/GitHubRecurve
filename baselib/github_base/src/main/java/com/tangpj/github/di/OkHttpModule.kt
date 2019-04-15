@@ -19,7 +19,6 @@ class OkHttpModule{
         const val TOKEN_AUTHORITY = "com.tangpj.oauth2.provider.tokenProvider"
     }
 
-    @Singleton
     @Provides
     fun provideOkHttpClient(tokenInterceptor: Interceptor): OkHttpClient
             = OkHttpClient.Builder()
@@ -30,7 +29,6 @@ class OkHttpModule{
             .build()
 
 
-    @Singleton
     @Provides
     fun providerTokenInterceptor(app: GithubApp): Interceptor{
         return Interceptor {

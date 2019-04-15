@@ -12,11 +12,8 @@ import javax.inject.Singleton
 @Module
 class ApolloModule{
 
-    @Singleton
     @Provides
     fun provideApolloClient(
             okHttpClient: OkHttpClient): ApolloClient.Builder =
-            ApolloClient
-                    .builder()
-                    .okHttpClient(okHttpClient)
+            ApolloClient.builder().okHttpClient(okHttpClient)
 }

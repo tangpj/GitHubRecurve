@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.tangpj.adapter.creator.Creator
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 
@@ -16,24 +17,13 @@ import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
  */
 class ModulePagingFragment: RecurveDaggerListFragment(){
 
-    override fun onCreateBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?): ViewDataBinding? {
-
-        val binding = FragmentBaseRecyclerViewBinding
-                .inflate(inflater, container, false)
-        binding.resource = repoViewModel.resource
-        binding.retryCallback = repoViewModel.retry
-        binding.setLifecycleOwner(this)
-        initRecyclerView(binding.recyclerContent.rv)
+    override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?,
+                                 savedInstanceState: Bundle?): ViewDataBinding? {
+        return super.onCreateBinding(inflater, container, savedInstanceState)
 
     }
 
-
-    override fun initRecyclerView(rv: RecyclerView) {
-        super.initRecyclerView(rv)
-        addItemCreator(repositoryCreator)
+    override fun addItemCreator(creator: Creator) {
+        super.addItemCreator(creator)
     }
-
 }

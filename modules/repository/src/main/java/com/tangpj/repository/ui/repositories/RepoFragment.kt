@@ -32,7 +32,7 @@ class RepoFragment: RecurveDaggerListFragment() {
 
     override fun onCreateBinding(
             inflater: LayoutInflater,
-            container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding {
+            container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding?{
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
         repositoryCreator = RepositoryCreator(mAdapter)
@@ -47,11 +47,11 @@ class RepoFragment: RecurveDaggerListFragment() {
 
             }
         }
-        binding.resource = repoViewModel.resource
-        binding.retryCallback = repoViewModel.retry
-        binding.setLifecycleOwner(this)
-        initRecyclerView(binding.recyclerContent.rv)
-        return binding
+//        binding.resource = repoViewModel.resource
+//        binding.retryCallback = repoViewModel.retry
+//        binding.setLifecycleOwner(this)
+//        initRecyclerView(binding.recyclerContent.rv)
+        return null
     }
 
     override fun initRecyclerView(rv: RecyclerView) {

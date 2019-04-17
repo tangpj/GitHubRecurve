@@ -72,6 +72,7 @@ dependencies {
     api project(':recurve-dagger2-support')
     api project(':recurve-apollo-support')
     api project(':recurve-module-adapter')
+
     api deps.androidx.material
     api deps.room.runtime
     api deps.lifecycle.runtime
@@ -110,6 +111,8 @@ dependencies {
 
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
+
+    api 'javax.annotation:jsr250-api:1.0'
 
     androidTestImplementation deps.junit
     androidTestImplementation (deps.mock_web_server, {

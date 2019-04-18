@@ -6,6 +6,11 @@
     <attr name="colorPrimaryText" format="color|reference"/>
     <attr name="colorPrimaryTextDark" format="color|reference"/>
 
+    <attr name="colorPrimaryLight" format="color|reference"/>
+    <attr name="colorSecondaryLight" format="color|reference"/>
+    <attr name="colorSecondaryDark" format="color|reference"/>
+
+
     <attr name="colorSecondaryTextLight" format="color|reference"/>
     <attr name="colorSecondaryText" format="color|reference"/>
     <attr name="colorSecondaryTextDark" format="color|reference"/>

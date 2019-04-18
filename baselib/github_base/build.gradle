@@ -72,6 +72,7 @@ dependencies {
     api project(':recurve-dagger2-support')
     api project(':recurve-apollo-support')
     api project(':recurve-module-adapter')
+    api project(':recurve-module-paging-support')
 
     api deps.androidx.material
     api deps.room.runtime

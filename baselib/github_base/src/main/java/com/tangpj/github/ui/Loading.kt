@@ -3,9 +3,8 @@ package com.tangpj.github.ui
 import androidx.lifecycle.LiveData
 import com.tangpj.recurve.resource.Resource
 
-interface Loading{
+class Loading{
+    var resource: LiveData<Resource<Any>>? = null
 
-    fun onResource(resource: LiveData<Resource<Any>>)
-
-    fun onRetry(retry: () -> Unit)
+    var retry: (() -> Unit)? = null
 }

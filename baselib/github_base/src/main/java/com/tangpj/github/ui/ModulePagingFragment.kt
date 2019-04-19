@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.AsyncDifferConfig
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.adapter.creator.Creator
+import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
+import com.tangpj.paging.addPagedCreator
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 
 /**
@@ -17,13 +21,41 @@ import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
  */
 class ModulePagingFragment: RecurveDaggerListFragment(){
 
+    private lateinit var binding: FragmentBaseRecyclerViewBinding
+
     override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?,
                                  savedInstanceState: Bundle?): ViewDataBinding? {
-        return super.onCreateBinding(inflater, container, savedInstanceState)
+        binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
+
+        binding.setLifecycleOwner(this)
+        initRecyclerView(binding.recyclerContent.rv)
+        return binding
 
     }
 
-    override fun addItemCreator(creator: Creator) {
-        super.addItemCreator(creator)
+    fun loading(initInvoke: Loading.() -> Unit){
+        val loading = Loading()
+        loading.initInvoke()
+        binding.resource = loading.resource
+        binding.retryCallback = loading.retry
     }
+
+    fun init(initInvoke: Init.() -> Unit){
+        val init = Init()
+        init.initInvoke()
+        loading { init.loading }
+        init.creators?.let {
+            it.forEach { creator -> addItemCreator(creator = creator) }
+        }
+    }
+
+
+    fun <E> addItemCreator(creator: ItemCreator<E, *>, diffCallback: DiffUtil.ItemCallback<E>) {
+        adapter.addPagedCreator(creator, diffCallback)
+    }
+
+    fun <E> addItemCreator(creator: ItemCreator<E, *>,  config: AsyncDifferConfig<E>) {
+        adapter.addPagedCreator(creator, config)
+    }
+
 }

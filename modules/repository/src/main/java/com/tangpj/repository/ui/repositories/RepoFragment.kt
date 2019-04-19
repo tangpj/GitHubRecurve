@@ -35,7 +35,7 @@ class RepoFragment: RecurveDaggerListFragment() {
             container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding?{
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
-        repositoryCreator = RepositoryCreator(mAdapter)
+        repositoryCreator = RepositoryCreator(adapter)
         repoViewModel.resource.observeForever {
             Timber.d("${it.status}")
             Timber.d("${it.message}")
@@ -47,10 +47,7 @@ class RepoFragment: RecurveDaggerListFragment() {
 
             }
         }
-//        binding.resource = repoViewModel.resource
-//        binding.retryCallback = repoViewModel.retry
-//        binding.setLifecycleOwner(this)
-//        initRecyclerView(binding.recyclerContent.rv)
+
         return null
     }
 

@@ -33,22 +33,12 @@ class ModulePagingFragment: RecurveDaggerListFragment(){
 
     }
 
-    fun loading(initInvoke: Loading.() -> Unit){
+    fun loading(loadingInvoke: Loading.() -> Unit){
         val loading = Loading()
-        loading.initInvoke()
+        loading.loadingInvoke()
         binding.resource = loading.resource
         binding.retryCallback = loading.retry
     }
-
-    fun init(initInvoke: Init.() -> Unit){
-        val init = Init()
-        init.initInvoke()
-        loading { init.loading }
-        init.creators?.let {
-            it.forEach { creator -> addItemCreator(creator = creator) }
-        }
-    }
-
 
     fun <E> addItemCreator(creator: ItemCreator<E, *>, diffCallback: DiffUtil.ItemCallback<E>) {
         adapter.addPagedCreator(creator, diffCallback)

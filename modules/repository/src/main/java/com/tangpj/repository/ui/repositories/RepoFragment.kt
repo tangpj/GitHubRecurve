@@ -9,12 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
+import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 import com.tangpj.repository.creator.RepositoryCreator
 import timber.log.Timber
 import javax.inject.Inject
 
-class RepoFragment: RecurveDaggerListFragment() {
+class RepoFragment: ModulePagingFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -30,9 +31,7 @@ class RepoFragment: RecurveDaggerListFragment() {
         repoViewModel.setRepoOwner(arg.login)
     }
 
-    override fun onCreateBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding?{
+    override fun onBindingInit(binding: ViewDataBinding) {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter)
@@ -40,16 +39,22 @@ class RepoFragment: RecurveDaggerListFragment() {
             Timber.d("${it.status}")
             Timber.d("${it.message}")
         }
+
+        loading {
+            resource = repoViewModel.resource
+            retry = {
+            }
+        }
         repoViewModel.repos.observeForever { repoVoList ->
             repoVoList?.let {
                 if (repositoryCreator.getData().isEmpty())
-                repositoryCreator.setDataList(it)
-
+                    repositoryCreator.setDataList(it)
             }
         }
+        addItemCreator(repositoryCreator)
 
-        return null
     }
+
 
     override fun initRecyclerView(rv: RecyclerView) {
         super.initRecyclerView(rv)

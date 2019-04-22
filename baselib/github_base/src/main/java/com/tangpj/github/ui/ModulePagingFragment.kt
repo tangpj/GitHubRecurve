@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.tangpj.adapter.creator.Creator
 import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.paging.addPagedCreator
@@ -19,9 +17,11 @@ import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
  * @author: tangpengjian113
  * @createTime: 2019-04-15 15:45
  */
-class ModulePagingFragment: RecurveDaggerListFragment(){
+abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
     private lateinit var binding: FragmentBaseRecyclerViewBinding
+
+    abstract fun onBindingInit(binding: ViewDataBinding)
 
     override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?,
                                  savedInstanceState: Bundle?): ViewDataBinding? {
@@ -29,6 +29,7 @@ class ModulePagingFragment: RecurveDaggerListFragment(){
 
         binding.setLifecycleOwner(this)
         initRecyclerView(binding.recyclerContent.rv)
+        onBindingInit(binding)
         return binding
 
     }

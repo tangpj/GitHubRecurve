@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.tangpj.recurve.resource.Resource
 
 class Loading{
-    var resource: LiveData<Resource<Any>>? = null
+    var resource: LiveData<Resource<*>>? = null
 
     var retry: (() -> Unit)? = null
 }

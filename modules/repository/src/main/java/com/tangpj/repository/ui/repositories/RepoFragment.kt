@@ -52,15 +52,5 @@ class RepoFragment: ModulePagingFragment() {
             }
         }
         addItemCreator(repositoryCreator)
-
     }
-
-
-    override fun initRecyclerView(rv: RecyclerView) {
-        super.initRecyclerView(rv)
-        addItemCreator(repositoryCreator)
-
-    }
-
-
 }

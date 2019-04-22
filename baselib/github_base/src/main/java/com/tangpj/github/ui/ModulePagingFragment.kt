@@ -28,8 +28,8 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
         binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
 
         binding.setLifecycleOwner(this)
-        initRecyclerView(binding.recyclerContent.rv)
         onBindingInit(binding)
+        initRecyclerView(binding.recyclerContent.rv)
         return binding
 
     }

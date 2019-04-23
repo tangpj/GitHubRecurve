@@ -60,34 +60,6 @@ class RepoRepository @Inject constructor(
                 }
 
             }.asLiveData()
-//
-//    fun loadWatchRepo(login: String) =
-//            object : NetworkBoundResource<List<RepoVo>, WatchRepositoriesQuery.Data>(){
-//                override fun saveCallResult(item: WatchRepositoriesQuery.Data) {
-//                    val repoDtoList = item.getRepoDtoList()
-//                    repoDtoList?.let {
-//                        saveRepoResult(login, Date, repoDtoList)
-//                    }
-//                }
-//
-//                override fun shouldFetch(data: List<RepoVo>?): Boolean =
-//                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(login)
-//
-//                override fun loadFromDb(): LiveData<List<RepoVo>>  {
-//                    return Transformations.switchMap(repoIds){
-//                        repoDao.loadRepositories(it)
-//                    }
-//                }
-//
-//                override fun createCall(): LiveData<ApiResponse<WatchRepositoriesQuery.Data>> {
-//                    val query = WatchRepositoriesQuery.builder().login(login).build()
-//                    val repoCall = apolloClient
-//                            .query(query)
-//                            .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
-//                    return LiveDataApollo.from(repoCall)
-//                }
-//
-//            }.asLiveData()
 
 
     private fun saveStarRepo(data: StartRepositoriesQuery.Data){

@@ -36,8 +36,8 @@ class RepoFragment: ModulePagingFragment() {
                 .get(RepositoryViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter)
         repoViewModel.resource.observeForever {
-            Timber.d("${it.status}")
-            Timber.d("${it.message}")
+            Timber.d("${it.networkState.status}")
+            Timber.d("${it.networkState.msg}")
         }
 
         loading {

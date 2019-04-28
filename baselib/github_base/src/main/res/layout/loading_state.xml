@@ -19,11 +19,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="com.tangpj.recurve.resource.NetworkState"/>
         <import type="com.tangpj.recurve.resource.Resource"/>
         <import type="com.tangpj.recurve.resource.Status"/>
         <import type="kotlin.Unit"/>
         <import type="kotlin.jvm.functions.Function0"/>
 
+        <variable name="state" type="NetworkState"/>
         <variable name="resource" type="Resource"/>
         <variable name="callback" type="Function0&lt;Unit>"/>
     </data>
@@ -34,7 +36,7 @@
         android:padding="8dp"
         android:layout_height="wrap_content">
         <ProgressBar
-            app:visibleGone="@{resource.status == Status.LOADING}"
+            app:visibleGone="@{state.status == Status.LOADING}"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,12 +47,12 @@
             android:text="@string/retry"
             android:id="@+id/retry"
             android:onClick="@{() -> callback.invoke()}"
-            app:visibleGone="@{resource.status == Status.ERROR}"/>
+            app:visibleGone="@{state.status == Status.ERROR}"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/error_msg"
-            android:text="@{resource.message ?? @string/unknown_error}"
-            app:visibleGone="@{resource.status == Status.ERROR}"
+            android:text="@{state.msg ?? @string/unknown_error}"
+            app:visibleGone="@{state.status == Status.ERROR}"
             tools:visibility="visible"/>
     </LinearLayout>
 </layout>

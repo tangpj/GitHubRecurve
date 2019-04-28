@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.github.ui.ModulePagingFragment
+import com.tangpj.paging.addPagedCreator
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 import com.tangpj.repository.creator.RepositoryCreator
+import com.tangpj.repository.vo.RepoVo
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -35,22 +38,34 @@ class RepoFragment: ModulePagingFragment() {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter)
-        repoViewModel.resource.observeForever {
-            Timber.d("${it.networkState.status}")
+        repoViewModel.pageLoadState.observeForever {
+            Timber.d("load state = ${it.status}; netState = ${it.networkState.status}")
             Timber.d("${it.networkState.msg}")
         }
 
-        loading {
-            resource = repoViewModel.resource
-            retry = {
-            }
-        }
+//        loading {
+//            resource = repoViewModel.resource
+//            retry = {
+//            }
+//        }
+        val test = repositoryCreator.adapter.addPagedCreator(repositoryCreator, POST_COMPARATOR)
         repoViewModel.repos.observeForever { repoVoList ->
             repoVoList?.let {
-                if (repositoryCreator.getData().isEmpty())
-                    repositoryCreator.setDataList(it)
+                test.submitList(it)
             }
         }
-        addItemCreator(repositoryCreator)
+
+    }
+
+    val POST_COMPARATOR = object : DiffUtil.ItemCallback<RepoVo>() {
+        override fun areContentsTheSame(oldItem: RepoVo, newItem: RepoVo): Boolean =
+                oldItem == newItem
+
+        override fun areItemsTheSame(oldItem: RepoVo, newItem: RepoVo): Boolean =
+                oldItem.name == newItem.name
+
+        override fun getChangePayload(oldItem: RepoVo, newItem: RepoVo): Any? {
+           return newItem
+        }
     }
 }

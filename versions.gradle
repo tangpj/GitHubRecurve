@@ -134,6 +134,8 @@ def kotlinx = [:]
 kotlinx.serialization = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$versions.kotlinx"
 deps.kotlinx = kotlinx
 
+deps.paging_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
+
 def navigation = [:]
 navigation.runtime = "android.arch.navigation:navigation-runtime:$versions.navigation"
 navigation.runtime_ktx = "android.arch.navigation:navigation-runtime-ktx:$versions.navigation"

@@ -2,8 +2,11 @@ package com.tangpj.repository.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.Config
+import androidx.paging.ItemKeyedDataSource
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.tangpj.paging.ItemKeyedBoundResource
 import com.tangpj.repository.db.RepoDao
 import com.tangpj.repository.vo.RepoVo
 import com.tangpj.recurve.apollo.LiveDataApollo
@@ -29,8 +32,12 @@ class RepoRepository @Inject constructor(
 
     private val repoRateLimiter = RateLimiter<String>(1, TimeUnit.MINUTES)
 
+
+
     fun loadStarRepos(login: String) =
-            object : NetworkBoundResource<List<RepoVo>, StartRepositoriesQuery.Data>(){
+            object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
+
+
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
                     saveStarRepo(item)
                 }
@@ -45,7 +52,7 @@ class RepoRepository @Inject constructor(
                     }
                 }
 
-                override fun createCall(): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
+                override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
                     val order = StarOrder
                             .builder()
                             .field(StarOrderField.STARRED_AT)
@@ -59,7 +66,32 @@ class RepoRepository @Inject constructor(
                     return LiveDataApollo.from(repoCall)
                 }
 
-            }.asLiveData()
+                override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
+                    val order = StarOrder
+                            .builder()
+                            .field(StarOrderField.STARRED_AT)
+                            .direction(OrderDirection.DESC).build()
+                    val query = StartRepositoriesQuery.builder()
+                            .login(login)
+                            .order(order).build()
+                    val repoCall = apolloClient
+                            .query(query)
+                            .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
+                    return LiveDataApollo.from(repoCall)
+                }
+
+                override fun createBeforeCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun getKey(item: RepoVo): String {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+            }.asListing( Config(
+                    pageSize = 30,
+                    enablePlaceholders = false,
+                    initialLoadSizeHint = 30 * 2))
 
 
     private fun saveStarRepo(data: StartRepositoriesQuery.Data){

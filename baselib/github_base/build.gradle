@@ -84,6 +84,7 @@ dependencies {
     api deps.navigation.fragment
     api deps.navigation.runtime
     api deps.paging.common
+    api deps.paging_ktx
 
     api deps.dagger.runtime
     api deps.dagger.android

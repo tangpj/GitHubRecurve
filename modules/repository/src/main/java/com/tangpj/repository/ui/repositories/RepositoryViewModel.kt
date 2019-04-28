@@ -1,6 +1,10 @@
 package com.tangpj.repository.ui.repositories
 
 import androidx.lifecycle.*
+import androidx.paging.PagedList
+import com.tangpj.paging.Listing
+import com.tangpj.paging.PageLoadState
+import com.tangpj.recurve.resource.NetworkState
 import com.tangpj.recurve.resource.Resource
 import com.tangpj.repository.repository.RepoRepository
 import com.tangpj.repository.vo.RepoVo
@@ -10,25 +14,20 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
 
     private val _login = MutableLiveData<String>()
 
-    val resource = MediatorLiveData<Resource<*>>()
+    val pageLoadState = MediatorLiveData<PageLoadState>()
 
-    private val repoResource: LiveData<Resource<List<RepoVo>>> = Transformations.switchMap(_login){
+    var repoRetry: (() -> Unit)? = null
+
+    private val repoResource: LiveData<Listing<RepoVo>> = Transformations.map(_login){
         repoRepository.loadStarRepos(it)
     }
 
-    val repos: LiveData<List<RepoVo>> = Transformations.map(repoResource){
-        val dateEmpty = it?.data?.isEmpty()
-        val resourceValue = if (dateEmpty != null && dateEmpty){
-            Resource(it.networkState, null)
-        }else{
-            it
+    val repos: LiveData<PagedList<RepoVo>> = Transformations.switchMap(repoResource){
+        pageLoadState.addSource(it.networkState){ state ->
+            pageLoadState.postValue(state)
         }
-        resource.postValue(resourceValue)
-        it.data
-    }
-
-    val retry: () -> Unit = {
-        _login.value = _login.value
+        repoRetry = it.retry
+        it?.pagedList
     }
 
     fun setRepoOwner(login: String){

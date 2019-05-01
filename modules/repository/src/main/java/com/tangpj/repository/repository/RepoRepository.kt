@@ -84,9 +84,7 @@ class RepoRepository @Inject constructor(
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
-                override fun getKey(item: RepoVo): String {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
+                override fun getKey(item: RepoVo): String = item.id
 
             }.asListing( Config(
                     pageSize = 30,

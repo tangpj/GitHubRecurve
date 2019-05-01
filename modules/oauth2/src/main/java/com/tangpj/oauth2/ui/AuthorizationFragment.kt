@@ -37,7 +37,7 @@ class AuthorizationFragment : RecurveDaggerFragment() {
         val params = AuthorizationFragmentArgs.fromBundle(arguments)
         getToken(params.code)
         authorizationViewModel.token.observe(this, Observer<Resource<GithubToken>>{
-            if(it.status == Status.SUCCESS){
+            if(it.networkState.status == Status.SUCCESS){
                 val intent = Intent("com.tangpj.github.loginTransfer")
                 intent.putExtra("access_token", it.data)
                 activity?.sendBroadcast(intent)

@@ -2,17 +2,11 @@ package com.tangpj.repository.ui.repositories
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.github.ui.ModulePagingFragment
-import com.tangpj.paging.addPagedCreator
-import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 import com.tangpj.repository.creator.RepositoryCreator
 import com.tangpj.repository.vo.RepoVo
 import timber.log.Timber
@@ -37,7 +31,7 @@ class RepoFragment: ModulePagingFragment() {
     override fun onBindingInit(binding: ViewDataBinding) {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
-        repositoryCreator = RepositoryCreator(adapter)
+        repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
         repoViewModel.pageLoadState.observeForever {
             Timber.d("load state = ${it.status}; netState = ${it.networkState.status}")
             Timber.d("${it.networkState.msg}")
@@ -48,10 +42,11 @@ class RepoFragment: ModulePagingFragment() {
 //            retry = {
 //            }
 //        }
-        val test = repositoryCreator.adapter.addPagedCreator(repositoryCreator, POST_COMPARATOR)
+
+        addItemCreator(repositoryCreator)
         repoViewModel.repos.observeForever { repoVoList ->
             repoVoList?.let {
-                test.submitList(it)
+                repositoryCreator.submitList(it)
             }
         }
 

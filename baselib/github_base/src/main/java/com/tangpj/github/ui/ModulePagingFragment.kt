@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
-import com.tangpj.paging.addPagedCreator
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 
 /**
@@ -41,12 +40,6 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
         binding.retryCallback = loading.retry
     }
 
-    fun <E> addItemCreator(creator: ItemCreator<E, *>, diffCallback: DiffUtil.ItemCallback<E>) {
-        adapter.addPagedCreator(creator, diffCallback)
-    }
 
-    fun <E> addItemCreator(creator: ItemCreator<E, *>,  config: AsyncDifferConfig<E>) {
-        adapter.addPagedCreator(creator, config)
-    }
 
 }

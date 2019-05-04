@@ -66,7 +66,7 @@ class RepoRepository @Inject constructor(
                     return LiveDataApollo.from(repoCall)
                 }
 
-                override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
+                override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>>? {
                     val order = StarOrder
                             .builder()
                             .field(StarOrderField.STARRED_AT)
@@ -78,10 +78,6 @@ class RepoRepository @Inject constructor(
                             .query(query)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(repoCall)
-                }
-
-                override fun createBeforeCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
                 override fun getKey(item: RepoVo): String = item.id

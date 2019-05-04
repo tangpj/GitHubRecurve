@@ -4,15 +4,19 @@
     
     <data>
 
+        <import type="androidx.paging.PagedList"/>
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.recurve.resource.Resource"/>
-        <import type="com.tangpj.recurve.resource.NetworkState"/>
+        <import type="com.tangpj.paging.PageLoadState"/>
         <import type="kotlin.Unit"/>
         <import type="kotlin.jvm.functions.Function0"/>
 
         <variable
-            name="resource"
-            type="LiveData&lt;Resource&lt;Object>>"/>
+            name="pagedList"
+            type="LiveData&lt;PagedList>"/>
+
+        <variable
+            name="pageLoadState"
+            type="LiveData&lt;PageLoadState>"/>
 
         <variable
             name="retryCallback"
@@ -24,17 +28,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/recycler_content"
-            layout="@layout/fragment_recurve_recycler_view"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
 
         <include
-            layout="@layout/loading_state"
+            layout="@layout/page_loading_state"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            app:resource="@{(Resource) resource}"
-            app:state="@{(NetworkState) resource.networkState}"
+            app:state="@{(PageLoadState) pageLoadState}"
             app:callback="@{() -> retryCallback.invoke()}"/>
 
     </FrameLayout>

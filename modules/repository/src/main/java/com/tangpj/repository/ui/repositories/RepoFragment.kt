@@ -17,9 +17,9 @@ class RepoFragment: ModulePagingFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var repoViewModel: RepositoryViewModel
+    private lateinit var repoViewModel: RepositoryViewModel
 
-    lateinit var repositoryCreator : RepositoryCreator
+    private lateinit var repositoryCreator : RepositoryCreator
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -34,14 +34,15 @@ class RepoFragment: ModulePagingFragment() {
         repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
         repoViewModel.pageLoadState.observeForever {
             Timber.d("load state = ${it.status}; netState = ${it.networkState.status}")
-            Timber.d("${it.networkState.msg}")
+            Timber.d(it.networkState.msg)
         }
 
-//        loading {
-//            resource = repoViewModel.resource
-//            retry = {
-//            }
-//        }
+        loading {
+            pageLoadState = repoViewModel.pageLoadState
+            retry = {
+                repoViewModel.refresh
+            }
+        }
 
         addItemCreator(repositoryCreator)
         repoViewModel.repos.observeForever { repoVoList ->

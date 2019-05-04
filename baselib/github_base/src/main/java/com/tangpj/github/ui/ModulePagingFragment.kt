@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.AsyncDifferConfig
-import androidx.recyclerview.widget.DiffUtil
-import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 
@@ -28,15 +25,16 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
         binding.setLifecycleOwner(this)
         onBindingInit(binding)
-        initRecyclerView(binding.recyclerContent.rv)
+        initRecyclerView(binding.rvContent)
         return binding
 
     }
 
-    fun loading(loadingInvoke: Loading.() -> Unit){
-        val loading = Loading()
-        loading.loadingInvoke()
-        binding.resource = loading.resource
+    fun loading(pageLoadingInvoke: PageLoading.() -> Unit){
+        val loading = PageLoading()
+        loading.pageLoadingInvoke()
+        binding.pagedList = loading.pagedList
+        binding.pageLoadState = loading.pageLoadState
         binding.retryCallback = loading.retry
     }
 

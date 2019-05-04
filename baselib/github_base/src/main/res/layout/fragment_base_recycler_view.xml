@@ -4,19 +4,20 @@
     
     <data>
 
-        <import type="androidx.paging.PagedList"/>
+        <import type="com.tangpj.recurve.resource.Resource"/>
+
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.paging.PageLoadState"/>
+        <import type="com.tangpj.recurve.resource.NetworkState"/>
         <import type="kotlin.Unit"/>
         <import type="kotlin.jvm.functions.Function0"/>
 
         <variable
-            name="pagedList"
-            type="LiveData&lt;PagedList>"/>
+            name="resource"
+            type="LiveData&lt;Resource&lt;Object>>"/>
 
         <variable
-            name="pageLoadState"
-            type="LiveData&lt;PageLoadState>"/>
+            name="networkState"
+            type="LiveData&lt;NetworkState>"/>
 
         <variable
             name="retryCallback"
@@ -41,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            app:state="@{(PageLoadState) pageLoadState}"
+            app:resource="@{(Resource) resource}"
+            app:state="@{(NetworkState) networkState}"
             app:callback="@{() -> retryCallback.invoke()}"/>
 
     </FrameLayout>

@@ -30,11 +30,11 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
     }
 
-    fun loading(pageLoadingInvoke: PageLoading.() -> Unit){
-        val loading = PageLoading()
+    fun <T> loading(pageLoadingInvoke: PageLoading<T>.() -> Unit){
+        val loading = PageLoading<T>()
         loading.pageLoadingInvoke()
-        binding.pagedList = loading.pagedList
-        binding.pageLoadState = loading.pageLoadState
+        binding.resource = loading.resource
+        binding.networkState = loading.networkState
         binding.retryCallback = loading.retry
     }
 

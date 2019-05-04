@@ -21,15 +21,14 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
         repoRepository.loadStarRepos(it)
     }
 
-    val repos = Transformations.switchMap(repoListing){
+    private val resource_: LiveData<Resource<PagedList<RepoVo>>> = Transformations.switchMap(repoListing){
         repoRetry = it.retry
         refresh = it.refresh
-        it.pagedList
+        it.resource
     }
 
-
-    val pageLoadState = Transformations.switchMap(repoListing){
-        it.pageLoadState
+    val pageLoadState: LiveData<PageLoadState> = Transformations.switchMap(repoListing){
+        it?.pageLoadState
     }
 
 

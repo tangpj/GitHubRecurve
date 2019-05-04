@@ -3,10 +3,12 @@ package com.tangpj.repository.ui.repositories
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.github.ui.ModulePagingFragment
+import com.tangpj.recurve.resource.Resource
 import com.tangpj.repository.creator.RepositoryCreator
 import com.tangpj.repository.vo.RepoVo
 import timber.log.Timber
@@ -38,16 +40,16 @@ class RepoFragment: ModulePagingFragment() {
         }
 
         loading {
-            pageLoadState = repoViewModel.pageLoadState
+            resource =
             retry = {
                 repoViewModel.refresh
             }
         }
 
         addItemCreator(repositoryCreator)
-        repoViewModel.repos.observeForever { repoVoList ->
+        repoViewModel.resource.observeForever { repoVoList ->
             repoVoList?.let {
-                repositoryCreator.submitList(it)
+//                repositoryCreator.submitList(it)
             }
         }
 

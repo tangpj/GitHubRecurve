@@ -1,13 +1,13 @@
 package com.tangpj.github.ui
 
 import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
-import com.tangpj.paging.PageLoadState
+import com.tangpj.recurve.resource.NetworkState
+import com.tangpj.recurve.resource.Resource
 
-class PageLoading{
-    var pagedList: LiveData<PagedList<Any>>? = null
+class PageLoading<T>{
+    var resource: LiveData<Resource<T>>? = null
 
-    var pageLoadState: LiveData<PageLoadState>? = null
+    var networkState: LiveData<NetworkState>? = null
 
     var retry: (() -> Unit)? = null
 }

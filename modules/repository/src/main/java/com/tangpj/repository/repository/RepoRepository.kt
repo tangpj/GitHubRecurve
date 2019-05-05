@@ -37,7 +37,6 @@ class RepoRepository @Inject constructor(
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
 
-
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
                     saveStarRepo(item)
                 }

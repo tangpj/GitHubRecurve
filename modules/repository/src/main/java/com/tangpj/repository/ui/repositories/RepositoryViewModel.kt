@@ -21,16 +21,15 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
         repoRepository.loadStarRepos(it)
     }
 
-    private val resource_: LiveData<Resource<PagedList<RepoVo>>> = Transformations.switchMap(repoListing){
+    val repoResource: LiveData<Resource<PagedList<RepoVo>>> = Transformations.switchMap(repoListing){
         repoRetry = it.retry
         refresh = it.refresh
         it.resource
     }
 
-    val pageLoadState: LiveData<PageLoadState> = Transformations.switchMap(repoListing){
+    val pageLoadState: LiveData<PageLoadState> = Transformations.switchMap(repoListing) {
         it?.pageLoadState
     }
-
 
     fun setRepoOwner(login: String){
         _login.value = login

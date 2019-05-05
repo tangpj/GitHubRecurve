@@ -4,8 +4,11 @@ package com.tangpj.repository.ui.repositories
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.recurve.resource.Resource
@@ -39,20 +42,19 @@ class RepoFragment: ModulePagingFragment() {
             Timber.d(it.networkState.msg)
         }
 
-        loading {
-            resource =
+        loading<RepoVo> {
+            resource = repoViewModel.repoResource
             retry = {
                 repoViewModel.refresh
             }
         }
 
         addItemCreator(repositoryCreator)
-        repoViewModel.resource.observeForever { repoVoList ->
-            repoVoList?.let {
-//                repositoryCreator.submitList(it)
+        repoViewModel.repoResource.observe(this, Observer {
+            it?.data?.let { pageList ->
+                repositoryCreator.submitList(pageList)
             }
-        }
-
+        })
     }
 
     val POST_COMPARATOR = object : DiffUtil.ItemCallback<RepoVo>() {

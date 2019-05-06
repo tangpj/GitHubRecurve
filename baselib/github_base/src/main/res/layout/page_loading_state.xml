@@ -5,14 +5,12 @@
     <data>
         <import type="com.tangpj.recurve.resource.Resource"/>
         <import type="com.tangpj.paging.PageLoadState"/>
-        <import type="com.tangpj.recurve.resource.NetworkState"/>
         <import type="com.tangpj.recurve.resource.Status"/>
         <import type="androidx.paging.PagedList"/>
         <import type="kotlin.Unit"/>
         <import type="kotlin.jvm.functions.Function0"/>
 
         <variable name="resource" type="Resource"/>
-        <variable name="state" type="NetworkState"/>
         <variable name="callback" type="Function0&lt;Unit>"/>
     </data>
     <LinearLayout android:orientation="vertical"
@@ -22,7 +20,7 @@
         android:padding="@dimen/padding_horizontal_material"
         android:layout_height="wrap_content">
         <ProgressBar
-            app:visibleGone="@{state.status == Status.LOADING}"
+            app:visibleGone="@{resource.networkState.status == Status.LOADING}"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,12 +31,12 @@
             android:text="@string/retry"
             android:id="@+id/retry"
             android:onClick="@{() -> callback.invoke()}"
-            app:visibleGone="@{state.status == Status.ERROR}"/>
+            app:visibleGone="@{resource.networkState.status == Status.ERROR}"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/error_msg"
-            android:text="@{state.msg ?? @string/unknown_error}"
-            app:visibleGone="@{state.status == Status.ERROR}"
+            android:text="@{resource.networkState.msg ?? @string/unknown_error}"
+            app:visibleGone="@{resource.networkState.status == Status.ERROR}"
             tools:visibility="visible"/>
     </LinearLayout>
 </layout>

@@ -37,15 +37,15 @@ class RepoFragment: ModulePagingFragment() {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepositoryViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
-        repoViewModel.pageLoadState.observeForever {
-            Timber.d("load state = ${it.status}; netState = ${it.networkState.status}")
+        repoViewModel.repoResource.observeForever {
+            Timber.d("load state = ${it.networkState.status}; netState = ${it.networkState.status}")
             Timber.d(it.networkState.msg)
         }
 
         loading<RepoVo> {
             resource = repoViewModel.repoResource
             retry = {
-                repoViewModel.refresh
+                repoViewModel.repoRetry
             }
         }
 

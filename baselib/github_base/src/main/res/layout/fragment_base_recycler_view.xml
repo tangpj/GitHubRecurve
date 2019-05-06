@@ -43,7 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             app:resource="@{(Resource) resource}"
-            app:state="@{(NetworkState) networkState}"
             app:callback="@{() -> retryCallback.invoke()}"/>
 
     </FrameLayout>

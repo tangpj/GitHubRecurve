@@ -21,7 +21,7 @@
 
         <variable
             name="retryCallback"
-            type="Function0&lt;Unit>"/>
+            type="LiveData&lt;Function0&lt;Unit>>"/>
 
     </data>
 

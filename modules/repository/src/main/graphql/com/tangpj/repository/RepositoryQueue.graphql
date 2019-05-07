@@ -13,7 +13,7 @@ query StartRepositories (
       }
       totalCount
       pageInfo{
-        hasNextPage
+        ...pageInfo
       }
     }
   }

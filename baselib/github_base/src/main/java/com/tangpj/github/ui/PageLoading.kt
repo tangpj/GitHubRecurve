@@ -10,5 +10,5 @@ class PageLoading<T>{
 
     var networkState: LiveData<NetworkState>? = null
 
-    var retry: (() -> Unit)? = null
+    var retry: LiveData<(() -> Unit)>? = null
 }

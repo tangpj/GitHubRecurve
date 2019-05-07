@@ -1,6 +1,7 @@
 package com.tangpj.repository.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.Config
 import androidx.paging.ItemKeyedDataSource
@@ -37,7 +38,15 @@ class RepoRepository @Inject constructor(
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
 
+                private var pageInfo: StartRepositoriesQuery.PageInfo? = null
+
+                val order = StarOrder
+                        .builder()
+                        .field(StarOrderField.STARRED_AT)
+                        .direction(OrderDirection.DESC).build()
+
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
+                    pageInfo = item.user?.starredRepositories?.pageInfo
                     saveStarRepo(item)
                 }
 
@@ -52,10 +61,6 @@ class RepoRepository @Inject constructor(
                 }
 
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
-                    val order = StarOrder
-                            .builder()
-                            .field(StarOrderField.STARRED_AT)
-                            .direction(OrderDirection.DESC).build()
                     val query = StartRepositoriesQuery.builder()
                             .login(login)
                             .order(order).build()
@@ -65,13 +70,14 @@ class RepoRepository @Inject constructor(
                     return LiveDataApollo.from(repoCall)
                 }
 
-                override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>>? {
-                    val order = StarOrder
-                            .builder()
-                            .field(StarOrderField.STARRED_AT)
-                            .direction(OrderDirection.DESC).build()
+                override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
+                    if (pageInfo?.isHasNextPage == false){
+                        return MutableLiveData()
+                    }
                     val query = StartRepositoriesQuery.builder()
                             .login(login)
+                            .startFirst(params.requestedLoadSize)
+                            .after(pageInfo?.startCursor)
                             .order(order).build()
                     val repoCall = apolloClient
                             .query(query)

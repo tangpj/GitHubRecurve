@@ -1,10 +1,11 @@
 query StartRepositories (
   $login: String = "Tangpj",
   $startFirst: Int = 20,
+  $after: String,
   $order: StarOrder){
   user(login: $login){
     login
-    starredRepositories(first: $startFirst, orderBy: $order){
+    starredRepositories(first: $startFirst, orderBy: $order, after: $after){
       edges{
         starredAt
         node{
@@ -13,7 +14,10 @@ query StartRepositories (
       }
       totalCount
       pageInfo{
-        ...pageInfo
+         hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
       }
     }
   }

@@ -1,5 +1,6 @@
 package com.tangpj.repository.repository
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -24,6 +25,7 @@ import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField
 import org.threeten.bp.ZoneId
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -31,9 +33,7 @@ class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
          val repoDao: RepoDao){
 
-    private val repoRateLimiter = RateLimiter<String>(1, TimeUnit.MINUTES)
-
-
+    private val repoRateLimiter = RateLimiter<String>(2, TimeUnit.SECONDS)
 
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
@@ -47,6 +47,7 @@ class RepoRepository @Inject constructor(
 
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
                     pageInfo = item.user?.starredRepositories?.pageInfo
+                    Timber.d("saveCallResult")
                     saveStarRepo(item)
                 }
 
@@ -60,16 +61,24 @@ class RepoRepository @Inject constructor(
                     }
                 }
 
+                override fun hasNextPage(): Boolean {
+                    return pageInfo?.isHasNextPage ?: false
+                }
+
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
                     val query = StartRepositoriesQuery.builder()
                             .login(login)
+                            .startFirst(params.requestedLoadSize)
+                            .after(pageInfo?.startCursor)
                             .order(order).build()
+                    Timber.d("createInitialCall, start first = ${params.requestedLoadSize}, hasNextPage = ${pageInfo?.isHasNextPage}")
                     val repoCall = apolloClient
                             .query(query)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(repoCall)
                 }
 
+                @SuppressLint("BinaryOperationInTimber")
                 override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
                     if (pageInfo?.isHasNextPage == false){
                         return MutableLiveData()
@@ -79,6 +88,9 @@ class RepoRepository @Inject constructor(
                             .startFirst(params.requestedLoadSize)
                             .after(pageInfo?.startCursor)
                             .order(order).build()
+                    Timber.d("createAfterCall, start first = ${params.requestedLoadSize}," +
+                            " hasNextPage = ${pageInfo?.isHasNextPage}, " +
+                            "after = $pageInfo?.startCursor")
                     val repoCall = apolloClient
                             .query(query)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)

@@ -33,26 +33,30 @@ class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
          val repoDao: RepoDao){
 
-    private val repoRateLimiter = RateLimiter<String>(2, TimeUnit.SECONDS)
+    private val repoRateLimiter = RateLimiter<StartRepositoriesQuery>(1, TimeUnit.SECONDS)
 
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
 
                 private var pageInfo: StartRepositoriesQuery.PageInfo? = null
 
+
+
                 val order = StarOrder
                         .builder()
                         .field(StarOrderField.STARRED_AT)
                         .direction(OrderDirection.DESC).build()
 
+                var query: StartRepositoriesQuery? = null
+
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
                     pageInfo = item.user?.starredRepositories?.pageInfo
-                    Timber.d("saveCallResult")
+                    Timber.d("saveCallResult, pageInfo = $pageInfo")
                     saveStarRepo(item)
                 }
 
                 override fun shouldFetch(data: List<RepoVo>?): Boolean =
-                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(login)
+                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(query)
 
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
                     val repoIds = repoDao.loadStarRepoResult(login)
@@ -66,33 +70,28 @@ class RepoRepository @Inject constructor(
                 }
 
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
-                    val query = StartRepositoriesQuery.builder()
+                    val initialQuery = StartRepositoriesQuery.builder()
                             .login(login)
-                            .startFirst(params.requestedLoadSize)
-                            .after(pageInfo?.startCursor)
                             .order(order).build()
+                    query = initialQuery
                     Timber.d("createInitialCall, start first = ${params.requestedLoadSize}, hasNextPage = ${pageInfo?.isHasNextPage}")
                     val repoCall = apolloClient
-                            .query(query)
+                            .query(initialQuery)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(repoCall)
                 }
 
                 @SuppressLint("BinaryOperationInTimber")
                 override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
-                    if (pageInfo?.isHasNextPage == false){
-                        return MutableLiveData()
-                    }
-                    val query = StartRepositoriesQuery.builder()
+                    val afterQuery = StartRepositoriesQuery.builder()
                             .login(login)
                             .startFirst(params.requestedLoadSize)
-                            .after(pageInfo?.startCursor)
+                            .after(pageInfo?.endCursor)
                             .order(order).build()
-                    Timber.d("createAfterCall, start first = ${params.requestedLoadSize}," +
-                            " hasNextPage = ${pageInfo?.isHasNextPage}, " +
-                            "after = $pageInfo?.startCursor")
+                    query = afterQuery
+
                     val repoCall = apolloClient
-                            .query(query)
+                            .query(afterQuery)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(repoCall)
                 }

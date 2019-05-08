@@ -51,6 +51,7 @@ class RepoFragment: ModulePagingFragment() {
         repoViewModel.repoResource.observe(this, Observer {
             it?.data?.let { pageList ->
                 repositoryCreator.submitList(pageList)
+                Timber.d(pageList.size.toString())
             }
         })
     }

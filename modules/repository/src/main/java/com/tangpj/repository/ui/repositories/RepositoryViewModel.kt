@@ -19,8 +19,8 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
     }
 
 
-    val repoResource: LiveData<Resource<PagedList<RepoVo>>> = Transformations.switchMap(repoListing){
-        it.resource
+    val pagedList: LiveData<PagedList<RepoVo>> = Transformations.switchMap(repoListing){
+        it.pagedList
     }
 
     val repoRetry: LiveData<() -> Unit>  = Transformations.map(repoListing){

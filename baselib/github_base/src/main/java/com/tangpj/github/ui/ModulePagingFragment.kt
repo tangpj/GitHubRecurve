@@ -35,34 +35,12 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
     }
 
-    fun <T: Any> loading(pageLoadingInvoke: PageLoading<PagedList<T>>.() -> Unit){
-        val loading = PageLoading<PagedList<T>>()
+    fun loading(pageLoadingInvoke: PageLoading.() -> Unit){
+        val loading = PageLoading()
         loading.pageLoadingInvoke()
-        binding.networkState = loading.networkState
+        binding.pageLoadState = loading.pageLoadState
         binding.retryCallback = loading.retry
-        loading.resource?.let {
-            val resource: LiveData<Resource<Any>> = Transformations.map(it){ _resource ->
-                return@map when(_resource.networkState.status){
-                    Status.LOADING -> Resource.loading<Any>(getData(_resource.data))
-                    Status.ERROR -> Resource.error<Any>(
-                            _resource.networkState.msg ?: "", getData(_resource.data))
-                    Status.SUCCESS -> Resource.success<Any>(getData(_resource.data))
-                }
-        }
-            binding.resource = resource
-        }
-
 
     }
-
-    private fun <T> getData(pagedList: PagedList<T>?): PagedList<T>?{
-        return when {
-            pagedList == null -> null
-            pagedList.size == 0 -> null
-            else -> pagedList
-        }
-    }
-
-
 
 }

@@ -4,20 +4,16 @@
     
     <data>
 
-        <import type="com.tangpj.recurve.resource.Resource"/>
 
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.recurve.resource.NetworkState"/>
+        <import type="com.tangpj.paging.PageLoadState"/>
         <import type="kotlin.Unit"/>
         <import type="kotlin.jvm.functions.Function0"/>
 
-        <variable
-            name="resource"
-            type="LiveData&lt;Resource&lt;Object>>"/>
 
         <variable
-            name="networkState"
-            type="LiveData&lt;NetworkState>"/>
+            name="pageLoadState"
+            type="LiveData&lt;PageLoadState>"/>
 
         <variable
             name="retryCallback"
@@ -42,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            app:resource="@{(Resource) resource}"
+            app:pageLoadState="@{(PageLoadState) pageLoadState}"
             app:callback="@{() -> retryCallback.invoke()}"/>
 
     </FrameLayout>

@@ -42,18 +42,15 @@ class RepoFragment: ModulePagingFragment() {
             Timber.d(it.networkState.msg)
         }
 
-        loading<RepoVo> {
-            resource = repoViewModel.repoResource
+        loading {
+            pageLoadState = repoViewModel.pageLoadState
             retry = repoViewModel.refresh
         }
 
         addItemCreator(repositoryCreator)
-        repoViewModel.repoResource.observe(this, Observer {
-            it?.data?.let { pageList ->
-                repositoryCreator.submitList(pageList)
-                Timber.d(pageList.size.toString())
-            }
-        })
+        repoViewModel.pagedList.observe(this, Observer {
+            repositoryCreator.submitList(it)
+            Timber.d(it.size.toString())})
     }
 
     val POST_COMPARATOR = object : DiffUtil.ItemCallback<RepoVo>() {

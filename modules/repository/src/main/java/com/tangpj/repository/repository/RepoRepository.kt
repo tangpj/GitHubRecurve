@@ -40,8 +40,6 @@ class RepoRepository @Inject constructor(
 
                 private var pageInfo: StartRepositoriesQuery.PageInfo? = null
 
-
-
                 val order = StarOrder
                         .builder()
                         .field(StarOrderField.STARRED_AT)

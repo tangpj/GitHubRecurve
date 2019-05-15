@@ -3,16 +3,12 @@ package com.tangpj.repository.ui.repositories
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.github.ui.ModulePagingFragment
-import com.tangpj.recurve.resource.Resource
-import com.tangpj.repository.creator.RepositoryCreator
+import com.tangpj.repository.ui.creator.RepositoryCreator
 import com.tangpj.repository.vo.RepoVo
 import timber.log.Timber
 import javax.inject.Inject

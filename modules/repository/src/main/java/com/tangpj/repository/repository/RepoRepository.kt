@@ -19,8 +19,7 @@ import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.fragment.RepoDto
-import com.tangpj.repository.mapper.getRepoDtoList
-import com.tangpj.repository.mapper.mapRepoVo
+import com.tangpj.repository.mapper.*
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField
@@ -108,30 +107,12 @@ class RepoRepository @Inject constructor(
         val repoDtoList = data.getRepoDtoList { starredAt, repoDto ->
             val zoneId = ZoneId.systemDefault()
 
-            userRepoResultList.add(StarRepoResult(
-                    login,
-                    repoDto.id,
-                    starredAt.atZone(zoneId).toInstant().toEpochMilli()))
-        }
-        repoDao.insertUserRepoResult(userRepoResultList)
-        saveRepoResult(repoDtoList.toList())
-    }
-
-    private fun saveRepoResult(repoDtoList: List<RepoDto>){
-        if (repoDtoList.isEmpty()) {
-            return
-        }
-        val repoVoList = repoDtoList.map { repoDto ->
-            val languages = repoDto.languages?.nodes
-            val languageDto = if (languages != null && languages.size > 0){
-                languages[0].fragments.languageDto
-            }else{
-                null
-            }
-            repoDto.mapRepoVo(languageDto)
 
         }
-        repoDao.insertRepos(repoVoList)
+        repoDao.insertRepos((data.mapperToRepoVoList{
+            repoDao.insertUserRepoResult(it)
+
+        }))
     }
 
 }

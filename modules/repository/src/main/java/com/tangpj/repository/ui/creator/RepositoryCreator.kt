@@ -1,10 +1,9 @@
-package com.tangpj.repository.creator
+package com.tangpj.repository.ui.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.adapter.adapter.ModulesAdapter
-import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.adapter.creator.RecurveViewHolder
 import com.tangpj.paging.PagedItemCreator
 import com.tangpj.repository.vo.RepoVo

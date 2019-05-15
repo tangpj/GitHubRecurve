@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(primaryKeys = ["id","login"])
-data class OwnerDo(
-        val id: String,
-        val login: String,
-        val avatarUrl: String? = null
+data class Owner(
+        var id: String,
+        var login: String,
+        var avatarUrl: String? = null
 ): Parcelable

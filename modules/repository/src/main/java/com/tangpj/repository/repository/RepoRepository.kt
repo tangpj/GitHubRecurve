@@ -102,15 +102,8 @@ class RepoRepository @Inject constructor(
 
 
     private fun saveStarRepo(data: StartRepositoriesQuery.Data){
-        val userRepoResultList = mutableListOf<StarRepoResult>()
-        val login = data.user?.login ?: ""
-        val repoDtoList = data.getRepoDtoList { starredAt, repoDto ->
-            val zoneId = ZoneId.systemDefault()
-
-
-        }
-        repoDao.insertRepos((data.mapperToRepoVoList{
-            repoDao.insertUserRepoResult(it)
+        repoDao.insertRepos((data.mapperToRepoVoList {
+            starRepoResult, starRepoIds ->
 
         }))
     }

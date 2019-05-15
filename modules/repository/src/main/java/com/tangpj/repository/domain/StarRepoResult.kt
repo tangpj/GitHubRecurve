@@ -8,10 +8,11 @@ import androidx.room.Index
 @Entity(primaryKeys = ["login","repoId"],
         indices = [
                 Index("login")])
-data class StarRepoResult @JvmOverloads @Ignore constructor(
+data class StarRepoResult  @Ignore constructor(
         val login: String,
         val repoIds: String,
         @Embedded(prefix = "star_")
-        val pageInfo: PageInfo,
-        val starredAt: Long = 0)
+        val pageInfo: PageInfo)
+
+data class StarRepoId(val id: String, val starredAt: Long)
 

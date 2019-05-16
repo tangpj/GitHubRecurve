@@ -2,17 +2,25 @@ package com.tangpj.repository.domain
 
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.Index
+import androidx.room.TypeConverters
+import com.tangpj.github.db.StringListTypeConverters
+import com.tangpj.github.domain.PageInfo
 
-@Entity(primaryKeys = ["login","repoId"],
+@Entity(primaryKeys = ["login", "repoIds"],
         indices = [
                 Index("login")])
-data class StarRepoResult  @Ignore constructor(
+
+@TypeConverters(StringListTypeConverters::class)
+data class StarRepoResult constructor(
         val login: String,
-        val repoIds: String,
+        val repoIds: List<String>,
         @Embedded(prefix = "star_")
         val pageInfo: PageInfo)
 
-data class StarRepoId(val id: String, val starredAt: Long)
+
+@Entity(primaryKeys = ["id"])
+data class StarRepoId(
+        val id: String,
+        val starredAt: Long)
 

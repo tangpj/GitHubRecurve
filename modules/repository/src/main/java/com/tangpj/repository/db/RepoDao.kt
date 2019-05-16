@@ -3,6 +3,7 @@ package com.tangpj.repository.db
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.room.*
+import com.tangpj.repository.domain.StarRepoId
 import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.vo.RepoVo
 
@@ -15,11 +16,12 @@ abstract class RepoDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertUserRepoResult(starRepoResult: StarRepoResult)
 
-    @Query(" SELECT * FROM RepoVo TEST WHERE id IN (:repoIds)")
+    @Query("SELECT * FROM RepoVo TEST WHERE id IN (:repoIds)")
     abstract fun loadRepoById(repoIds: List<String>): LiveData<List<RepoVo>>
 
-    @Query("SELECT repoIds FROM StarRepoResult WHERE login = :login ORDER BY starredAt DESC")
-    abstract fun loadStarRepoResult(login: String): LiveData<List<String>>
+    @Query("SELECT * FROM StarRepoResult WHERE login = :login")
+    abstract fun loadStarRepoResult(login: String): LiveData<StarRepoResult?>
+
 
     fun loadRepoOrderById(repoIds: List<String>): LiveData<List<RepoVo>>{
         val order = mutableMapOf<String, Int>()

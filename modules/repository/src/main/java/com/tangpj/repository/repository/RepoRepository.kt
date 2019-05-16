@@ -2,7 +2,7 @@ package com.tangpj.repository.repository
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.Config
 import androidx.paging.ItemKeyedDataSource
@@ -14,16 +14,13 @@ import com.tangpj.repository.vo.RepoVo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
-import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.domain.StarRepoResult
-import com.tangpj.repository.fragment.RepoDto
 import com.tangpj.repository.mapper.*
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField
-import org.threeten.bp.ZoneId
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -37,7 +34,7 @@ class RepoRepository @Inject constructor(
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
 
-                private var pageInfo: StartRepositoriesQuery.PageInfo? = null
+                private var repoResult: StarRepoResult? = null
 
                 val order = StarOrder
                         .builder()
@@ -47,23 +44,29 @@ class RepoRepository @Inject constructor(
                 var query: StartRepositoriesQuery? = null
 
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
-                    pageInfo = item.user?.starredRepositories?.pageInfo
-                    Timber.d("saveCallResult, pageInfo = $pageInfo")
-                    saveStarRepo(item)
+                    Timber.d("saveCallResult, pageInfo = ${repoResult?.pageInfo}")
+                    saveStarRepo(item, repoResult)
                 }
 
                 override fun shouldFetch(data: List<RepoVo>?): Boolean =
-                        data == null || data.isEmpty() || repoRateLimiter.shouldFetch(query)
+                        (data == null || data.isEmpty() || repoRateLimiter.shouldFetch(query))
 
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
-                    val repoIds = repoDao.loadStarRepoResult(login)
-                    return Transformations.switchMap(repoIds){
-                        repoDao.loadRepoOrderById(it)
+                    val repoResultLive = repoDao.loadStarRepoResult(login)
+
+                    val result = MediatorLiveData<RepoVo>()
+                    result.addSource(repoResultLive){
+                        repoResult = it
+                        result.repoDao.loadRepoOrderById(it?.repoIds ?: emptyList())
+                    }
+                    return Transformations.switchMap(repoResultLive){
+
+
                     }
                 }
 
                 override fun hasNextPage(): Boolean {
-                    return pageInfo?.isHasNextPage ?: false
+                    return repoResult?.pageInfo?.hasNextPage ?: false
                 }
 
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
@@ -71,7 +74,7 @@ class RepoRepository @Inject constructor(
                             .login(login)
                             .order(order).build()
                     query = initialQuery
-                    Timber.d("createInitialCall, start first = ${params.requestedLoadSize}, hasNextPage = ${pageInfo?.isHasNextPage}")
+                    Timber.d("createInitialCall, start first = ${params.requestedLoadSize}, hasNextPage = ${repoResult?.pageInfo?.hasNextPage}")
                     val repoCall = apolloClient
                             .query(initialQuery)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
@@ -83,7 +86,7 @@ class RepoRepository @Inject constructor(
                     val afterQuery = StartRepositoriesQuery.builder()
                             .login(login)
                             .startFirst(params.requestedLoadSize)
-                            .after(pageInfo?.endCursor)
+                            .after(repoResult?.pageInfo?.endCursor)
                             .order(order).build()
                     query = afterQuery
 
@@ -101,10 +104,17 @@ class RepoRepository @Inject constructor(
                     initialLoadSizeHint = 30 * 2))
 
 
-    private fun saveStarRepo(data: StartRepositoriesQuery.Data){
+    private fun saveStarRepo(data: StartRepositoriesQuery.Data, starRepoResult: StarRepoResult?){
         repoDao.insertRepos((data.mapperToRepoVoList {
-            starRepoResult, starRepoIds ->
-
+            val ids = mutableListOf<String>()
+            starRepoResult?.let { result ->
+                ids.addAll(result.repoIds)
+            }
+            ids.addAll(it.repoIds)
+            repoDao.insertUserRepoResult(StarRepoResult(
+                    login = it.login,
+                    repoIds = ids,
+                    pageInfo = it.pageInfo))
         }))
     }
 

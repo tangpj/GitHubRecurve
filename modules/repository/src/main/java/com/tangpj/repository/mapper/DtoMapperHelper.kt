@@ -1,8 +1,8 @@
 package com.tangpj.repository.mapper
 
+import com.tangpj.github.domain.PageInfo
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.WatchRepositoriesQuery
-import com.tangpj.repository.domain.PageInfo
 import com.tangpj.repository.domain.StarRepoId
 import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.fragment.RepoDto
@@ -50,30 +50,25 @@ fun StartRepositoriesQuery.PageInfo.mapperToLocalPageInfo() = PageInfo(
  *
  */
 fun StartRepositoriesQuery.Data.mapperToRepoVoList(
-        starRepoResultListener: ((starRepoResult: StarRepoResult, starRepoIds: List<StarRepoId>) -> Unit)? = null) : List<RepoVo>{
+        starRepoResultListener: ((starRepoResult: StarRepoResult) -> Unit)? = null) : List<RepoVo>{
     val edges = this.user?.starredRepositories?.edges
     edges?.size ?: return mutableListOf()
-    val zoneId = ZoneId.systemDefault()
-    val idList = ArrayList<String>(edges.size)
-    val starRepoIds = ArrayList<StarRepoId>(edges.size)
+    val ids = ArrayList<String>(edges.size)
     val repoVoList = edges.map { edge ->
         val repoDto = edge.node.fragments.repoDto
         starRepoResultListener?.let {
-            idList.add(repoDto.id)
-            starRepoIds.add(StarRepoId(repoDto.id,
-                    edge.starredAt.atZone(zoneId).toInstant().toEpochMilli()))
+            ids.add(repoDto.id)
         }
         repoDto.mapperToRepoVo()
     }
 
     val pageInfo =  user?.starredRepositories?.pageInfo
-    if (idList.size > 0 && starRepoResultListener != null &&  pageInfo != null){
-        val ids = idList.joinToString()
+    if (ids.size > 0 && starRepoResultListener != null &&  pageInfo != null){
         val starRepoResult = StarRepoResult(
                 login = this.user?.login ?: "",
                 repoIds = ids,
                 pageInfo = pageInfo.mapperToLocalPageInfo())
-        starRepoResultListener.invoke(starRepoResult, starRepoIds)
+        starRepoResultListener.invoke(starRepoResult)
     }
 
     return repoVoList

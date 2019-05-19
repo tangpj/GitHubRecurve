@@ -2,8 +2,6 @@ package com.tangpj.repository.repository
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
 import androidx.paging.Config
 import androidx.paging.ItemKeyedDataSource
 import com.apollographql.apollo.ApolloClient
@@ -15,6 +13,7 @@ import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.util.RateLimiter
+import com.tangpj.recurve.util.singelSwitchMap
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.mapper.*
@@ -53,15 +52,8 @@ class RepoRepository @Inject constructor(
 
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
                     val repoResultLive = repoDao.loadStarRepoResult(login)
-
-                    val result = MediatorLiveData<RepoVo>()
-                    result.addSource(repoResultLive){
-                        repoResult = it
-                        result.repoDao.loadRepoOrderById(it?.repoIds ?: emptyList())
-                    }
-                    return Transformations.switchMap(repoResultLive){
-
-
+                    return repoResultLive.singelSwitchMap{
+                        repoDao.loadRepoOrderById(it?.repoIds ?: emptyList())
                     }
                 }
 

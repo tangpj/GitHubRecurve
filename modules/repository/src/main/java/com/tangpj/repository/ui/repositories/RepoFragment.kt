@@ -36,7 +36,6 @@ class RepoFragment: ModulePagingFragment() {
         repoViewModel.pageLoadState.observeForever {
             Timber.d("load status = ${it.status}; netState = ${it.networkState.status}")
             Timber.d(it.networkState.msg)
-            Timber.d(repositoryCreator.adapter.itemCount.toString())
         }
 
         loading {

@@ -8,7 +8,6 @@ import androidx.paging.ItemKeyedDataSource
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.tangpj.paging.ItemKeyedBoundResource
-import com.tangpj.repository.db.RepoDao
 import com.tangpj.repository.vo.RepoVo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
@@ -29,7 +28,7 @@ class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
          val repoDb: RepositoryDb){
 
-    private val repoRateLimiter = RateLimiter<StartRepositoriesQuery>(1, TimeUnit.SECONDS)
+    private val repoRateLimiter = RateLimiter<StartRepositoriesQuery>(1, TimeUnit.MILLISECONDS)
 
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
@@ -54,7 +53,12 @@ class RepoRepository @Inject constructor(
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
                     val repoResultLive = repoDb.repoDao().loadStarRepoResult(login)
                     return Transformations.switchMap(repoResultLive){
-                        repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
+                        Timber.d("ids = ${it?.repoIds?.size}")
+                        val test = repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
+                        test.observeForever {
+                            Timber.d("loadFromDb: ${it.joinToString {s -> s.toString() }}")
+                        }
+                        test
                     }
                 }
 
@@ -102,19 +106,10 @@ class RepoRepository @Inject constructor(
         Timber.d("saveStarRepo: %s; size: %d",data.mapperToRepoVoList().joinToString { it.name },data.mapperToRepoVoList().size)
         repoDb.runInTransaction {
         repoDb.repoDao().insertRepos((data.mapperToRepoVoList {
-            val ids = mutableListOf<String>()
-            val updateResult = if (starRepoResult == null){
-                StarRepoResult( login = it.login,
-                        repoIds = it.repoIds,
-                        pageInfo = it.pageInfo)
-            }else{
-                ids.addAll(it.repoIds)
-                ids.addAll(starRepoResult.repoIds)
-                StarRepoResult(
-                        login = it.login,
-                        repoIds = ids,
-                        pageInfo = it.pageInfo)
-            }
+            val updateResult =  StarRepoResult(
+                    login = it.login,
+                    repoIds = it.repoIds,
+                    pageInfo = it.pageInfo)
             repoDb.repoDao().insertUserRepoResult(updateResult)
             result = updateResult
         }))

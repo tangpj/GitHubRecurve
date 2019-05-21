@@ -7,7 +7,7 @@ import androidx.room.TypeConverters
 import com.tangpj.github.db.StringListTypeConverters
 import com.tangpj.github.domain.PageInfo
 
-@Entity(primaryKeys = ["login", "repoIds"],
+@Entity(primaryKeys = ["login"],
         indices = [
                 Index("login")])
 

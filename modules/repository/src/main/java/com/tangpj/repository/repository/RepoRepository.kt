@@ -15,6 +15,7 @@ import com.tangpj.recurve.apollo.LiveDataApollo
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.StartRepositoriesQuery
+import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.mapper.*
 import com.tangpj.repository.type.OrderDirection
@@ -26,7 +27,7 @@ import javax.inject.Inject
 
 class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
-         val repoDao: RepoDao){
+         val repoDb: RepositoryDb){
 
     private val repoRateLimiter = RateLimiter<StartRepositoriesQuery>(1, TimeUnit.SECONDS)
 
@@ -43,22 +44,22 @@ class RepoRepository @Inject constructor(
                 var query: StartRepositoriesQuery? = null
 
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
+                    repoResult = saveStarRepo(item, repoResult)
                     Timber.d("saveCallResult, pageInfo = ${repoResult?.pageInfo}")
-                    saveStarRepo(item, repoResult)
                 }
 
                 override fun shouldFetch(data: List<RepoVo>?): Boolean =
                         (data == null || data.isEmpty() || repoRateLimiter.shouldFetch(query))
 
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
-                    val repoResultLive = repoDao.loadStarRepoResult(login)
+                    val repoResultLive = repoDb.repoDao().loadStarRepoResult(login)
                     return Transformations.switchMap(repoResultLive){
-                        repoDao.loadRepoOrderById(it?.repoIds ?: emptyList())
+                        repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
                     }
                 }
 
                 override fun hasNextPage(): Boolean {
-                    return true
+                    return repoResult?.pageInfo?.hasNextPage ?: false
                 }
 
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
@@ -96,18 +97,29 @@ class RepoRepository @Inject constructor(
                     initialLoadSizeHint = 30 * 2))
 
 
-    private fun saveStarRepo(data: StartRepositoriesQuery.Data, starRepoResult: StarRepoResult?){
-        repoDao.insertRepos((data.mapperToRepoVoList {
+    private fun saveStarRepo(data: StartRepositoriesQuery.Data, starRepoResult: StarRepoResult?): StarRepoResult?{
+        var result: StarRepoResult? = null
+        Timber.d("saveStarRepo: %s; size: %d",data.mapperToRepoVoList().joinToString { it.name },data.mapperToRepoVoList().size)
+        repoDb.runInTransaction {
+        repoDb.repoDao().insertRepos((data.mapperToRepoVoList {
             val ids = mutableListOf<String>()
-            starRepoResult?.let { result ->
-                ids.addAll(result.repoIds)
+            val updateResult = if (starRepoResult == null){
+                StarRepoResult( login = it.login,
+                        repoIds = it.repoIds,
+                        pageInfo = it.pageInfo)
+            }else{
+                ids.addAll(it.repoIds)
+                ids.addAll(starRepoResult.repoIds)
+                StarRepoResult(
+                        login = it.login,
+                        repoIds = ids,
+                        pageInfo = it.pageInfo)
             }
-            ids.addAll(it.repoIds)
-            repoDao.insertUserRepoResult(StarRepoResult(
-                    login = it.login,
-                    repoIds = ids,
-                    pageInfo = it.pageInfo))
+            repoDb.repoDao().insertUserRepoResult(updateResult)
+            result = updateResult
         }))
+        }
+        return result
     }
 
 }

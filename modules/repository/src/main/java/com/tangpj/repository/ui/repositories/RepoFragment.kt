@@ -36,6 +36,7 @@ class RepoFragment: ModulePagingFragment() {
         repoViewModel.pageLoadState.observeForever {
             Timber.d("load status = ${it.status}; netState = ${it.networkState.status}")
             Timber.d(it.networkState.msg)
+            Timber.d(repositoryCreator.adapter.itemCount.toString())
         }
 
         loading {
@@ -46,7 +47,7 @@ class RepoFragment: ModulePagingFragment() {
         addItemCreator(repositoryCreator)
         repoViewModel.pagedList.observe(this, Observer {
             repositoryCreator.submitList(it)
-            Timber.d(it.size.toString())})
+           })
     }
 
     val POST_COMPARATOR = object : DiffUtil.ItemCallback<RepoVo>() {

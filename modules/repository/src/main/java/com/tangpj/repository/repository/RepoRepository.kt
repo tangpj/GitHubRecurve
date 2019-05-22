@@ -53,12 +53,7 @@ class RepoRepository @Inject constructor(
                 override fun loadFromDb(): LiveData<List<RepoVo>>  {
                     val repoResultLive = repoDb.repoDao().loadStarRepoResult(login)
                     return Transformations.switchMap(repoResultLive){
-                        Timber.d("ids = ${it?.repoIds?.size}")
-                        val test = repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
-                        test.observeForever {
-                            Timber.d("loadFromDb: ${it.joinToString {s -> s.toString() }}")
-                        }
-                        test
+                        repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
                     }
                 }
 
@@ -69,6 +64,7 @@ class RepoRepository @Inject constructor(
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
                     val initialQuery = StartRepositoriesQuery.builder()
                             .login(login)
+                            .startFirst(params.requestedLoadSize)
                             .order(order).build()
                     query = initialQuery
                     Timber.d("createInitialCall, start first = ${params.requestedLoadSize}, hasNextPage = ${repoResult?.pageInfo?.hasNextPage}")
@@ -96,9 +92,9 @@ class RepoRepository @Inject constructor(
                 override fun getKey(item: RepoVo): String = item.id
 
             }.asListing( Config(
-                    pageSize = 30,
+                    pageSize = 20,
                     enablePlaceholders = false,
-                    initialLoadSizeHint = 30 * 2))
+                    initialLoadSizeHint = 20))
 
 
     private fun saveStarRepo(data: StartRepositoriesQuery.Data, starRepoResult: StarRepoResult?): StarRepoResult?{

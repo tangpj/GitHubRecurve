@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2017 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="kotlin.jvm.functions.Function0"/>
+        <import type="androidx.lifecycle.LiveData"/>
+        <import type="kotlin.Unit"/>
+        <import type="com.tangpj.recurve.resource.NetworkState"/>
+        <import type="com.tangpj.recurve.resource.Status"/>
+
+        <variable
+            name="networkState"
+            type="LiveData&lt;NetworkState>" />
+
+        <variable
+            name="retryCallback"
+            type="LiveData&lt;Function0&lt;Unit>>"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+        <TextView
+            android:id="@+id/error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@{networkState.msg ?? @string/unknown_error}"
+            app:visibleGone="@{networkState.status == Status.ERROR}"/>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:visibleGone="@{networkState.status == Status.LOADING}"
+           />
+        <Button
+            android:id="@+id/retry_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{() -> retryCallback.invoke()}"
+            app:visibleGone="@{networkState.status == Status.ERROR}"
+            android:text="@string/retry"/>
+    </LinearLayout>
+</layout>

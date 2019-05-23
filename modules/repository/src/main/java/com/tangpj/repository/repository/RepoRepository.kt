@@ -99,7 +99,7 @@ class RepoRepository @Inject constructor(
 
     private fun saveStarRepo(data: StartRepositoriesQuery.Data, starRepoResult: StarRepoResult?): StarRepoResult?{
         var result: StarRepoResult? = null
-        Timber.d("saveStarRepo: %s; size: %d",data.mapperToRepoVoList().joinToString { it.name },data.mapperToRepoVoList().size)
+        Timber.d("saveStarRepo:  size: %d",data.mapperToRepoVoList().size)
         repoDb.runInTransaction {
         repoDb.repoDao().insertRepos((data.mapperToRepoVoList {
             val updateResult =  StarRepoResult(

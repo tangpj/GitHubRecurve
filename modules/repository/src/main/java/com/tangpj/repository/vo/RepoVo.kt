@@ -21,12 +21,7 @@ data class RepoVo constructor(
         val description: String,
         val stars: Int,
         val forks: Int
-): Parcelable{
-    override fun toString(): String {
-        return name
-    }
-}
-
+): Parcelable
 
 
 

@@ -26,6 +26,7 @@ class OkHttpModule{
             .connectTimeout(3, TimeUnit.SECONDS)
             .readTimeout(3, TimeUnit.SECONDS)
             .writeTimeout(3, TimeUnit.SECONDS)
+            .callTimeout(3, TimeUnit.SECONDS)
             .build()
 
 

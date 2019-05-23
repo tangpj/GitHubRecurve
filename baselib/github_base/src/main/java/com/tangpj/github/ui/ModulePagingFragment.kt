@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
-import androidx.paging.PagedList
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
+import com.tangpj.github.ui.creator.ItemLoadingCreator
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
-import com.tangpj.recurve.resource.Resource
-import com.tangpj.recurve.resource.Status
 
 /**
  *
@@ -21,6 +19,7 @@ import com.tangpj.recurve.resource.Status
 abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
     private lateinit var binding: FragmentBaseRecyclerViewBinding
+    private lateinit var loadingCreator: ItemLoadingCreator
 
     abstract fun onBindingInit(binding: ViewDataBinding)
 
@@ -31,6 +30,7 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
         binding.setLifecycleOwner(this)
         onBindingInit(binding)
         initRecyclerView(binding.rvContent)
+        adapter.addCreator(loadingCreator)
         return binding
 
     }
@@ -40,6 +40,17 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
         loading.pageLoadingInvoke()
         binding.pageLoadState = loading.pageLoadState
         binding.retryCallback = loading.retry
+        loadingCreator = ItemLoadingCreator(adapter)
+        loading.pageLoadState?.let {
+            loadingCreator.networkState = Transformations.map(it){ pageLoadState ->
+                pageLoadState.networkState
+            }
+
+        }
+        loading.retry?.let {
+            loadingCreator.retry = it
+        }
+
 
     }
 

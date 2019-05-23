@@ -9,10 +9,13 @@ import com.tangpj.paging.PagedItemCreator
 import com.tangpj.repository.vo.RepoVo
 import com.tangpj.repository.databinding.ItemRepositoryBinding
 
-class RepositoryCreator constructor(val adapter: ModulesAdapter,diffUtil: DiffUtil.ItemCallback<RepoVo>, creatorType: Int = 0)
+class RepositoryCreator constructor(
+        adapter: ModulesAdapter,
+        diffUtil: DiffUtil.ItemCallback<RepoVo>,
+        creatorType: Int = 0)
     : PagedItemCreator<RepoVo, ItemRepositoryBinding>(adapter, creatorType, diffUtil) {
 
-    override fun onBindItemView(itemHolder: RecurveViewHolder<ItemRepositoryBinding>?,
+    override fun onBindItemView(itemHolder: RecurveViewHolder<ItemRepositoryBinding>,
                                 e: RepoVo?, inCreatorPosition: Int) {
         itemHolder?.let {
             it.binding.repoVo = e

@@ -34,13 +34,13 @@ class RepoFragment: ModulePagingFragment() {
                 .get(RepositoryViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
         repoViewModel.pageLoadState.observeForever {
-            Timber.d("load status = ${it.status}; netState = ${it.networkState.status}")
-            Timber.d(it.networkState.msg)
+            Timber.d("load status = ${it.status}; netState = ${it.networkState.status}; msg = ${it.networkState.msg}")
         }
 
         loading {
             pageLoadState = repoViewModel.pageLoadState
-            retry = repoViewModel.refresh
+            refresh = repoViewModel.refresh
+            retry = repoViewModel.repoRetry
         }
 
         addItemCreator(repositoryCreator)

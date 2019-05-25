@@ -8,12 +8,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.github.ui.creator.ItemLoadingCreator
+import com.tangpj.paging.PageLoadStatus
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 
 /**
  *
  * @className: 模块化Paging
- * @author: tangpengjian113
+ * @author: Tang
  * @createTime: 2019-04-15 15:45
  */
 abstract class ModulePagingFragment: RecurveDaggerListFragment(){
@@ -39,16 +40,23 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
         val loading = PageLoading()
         loading.pageLoadingInvoke()
         binding.pageLoadState = loading.pageLoadState
-        binding.retryCallback = loading.retry
+        binding.retryCallback = loading.refresh
         loadingCreator = ItemLoadingCreator(adapter)
         loading.pageLoadState?.let {
-            loadingCreator.networkState = Transformations.map(it){ pageLoadState ->
-                pageLoadState.networkState
-            }
+            it.observe(this, Observer { pageLoadState ->
+                if (pageLoadState.status != PageLoadStatus.REFRESH){
+                    loadingCreator.networkState = pageLoadState.networkState
+                }else{
+                    loadingCreator.networkState = null
+                }
+            })
 
         }
         loading.retry?.let {
-            loadingCreator.retry = it
+            it.observe(this, Observer { retry ->
+                loadingCreator.retry = retry
+
+            })
         }
 
 

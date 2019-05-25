@@ -2,7 +2,6 @@ package com.tangpj.github.ui.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import com.tangpj.adapter.adapter.ModulesAdapter
 import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.adapter.creator.RecurveViewHolder
@@ -18,13 +17,29 @@ import com.tangpj.recurve.resource.Status
  * @createTime: 2019-05-23 21:11
  */
 class ItemLoadingCreator(adapter: ModulesAdapter)
-    : ItemCreator<Unit, ItemLoadStateBinding>(adapter, 99999){
+    : ItemCreator<NetworkState, ItemLoadStateBinding>(adapter, 99999){
 
-    var networkState: LiveData<NetworkState>? = null
+    var networkState: NetworkState? = null
+    set(value) {
+        val previousState = this.networkState
+        val hadExtraRow = hasExtraRow()
+        field = value
+        val hasExtraRow = hasExtraRow()
+        if (hadExtraRow != hasExtraRow) {
+            if (hadExtraRow) {
+                adapter.notifyModulesItemRemoved(this, super.getItemCount())
+            } else {
+                adapter.notifyModulesItemInserted(this, super.getItemCount())
+            }
+        } else if (hasExtraRow && previousState != value) {
+            adapter.notifyModulesItemChanged(this,getItemCount() - 1)
+        }
+        field = value
+    }
 
-    var retry: LiveData<() -> Unit>? = null
+    var retry: (() -> Unit)? = null
 
-    override fun onBindItemView(itemHolder: RecurveViewHolder<ItemLoadStateBinding>, e: Unit?, inCreatorPosition: Int) {
+    override fun onBindItemView(itemHolder: RecurveViewHolder<ItemLoadStateBinding>, e: NetworkState?, inCreatorPosition: Int) {
         itemHolder.binding.networkState = networkState
         itemHolder.binding.retryCallback = retry
     }
@@ -35,17 +50,9 @@ class ItemLoadingCreator(adapter: ModulesAdapter)
         return RecurveViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        networkState?.value?.let {
-            return@getItemCount if (it.status == Status.LOADING || it.status == Status.ERROR){
-                1
-            }else {
-                0
-            }
-        }
-        return 0
+    override fun getItemCount(): Int = if (hasExtraRow()) 1 else 0
 
-    }
+    private fun hasExtraRow() = networkState != null && networkState != NetworkState.SUCCESS
 
 
 }

@@ -18,7 +18,7 @@ android {
 screen{
 
     dimens{
-        designPx 360
+        designPx 720
         smallesWidths 360,411,480
         scale BigDecimal.ROUND_UP
         auto true

@@ -49,7 +49,7 @@
                 android:layout_marginTop="@dimen/margin_vertical_material"
                 android:layout_marginEnd="@dimen/margin_horizontal_material"
                 android:layout_marginRight="@dimen/margin_horizontal_material"
-                android:maxLines="5"
+                android:lines="5"
                 android:ellipsize="end"
                 android:textColor="@color/textColorLight"
                 android:text="@{repoVo.description}"

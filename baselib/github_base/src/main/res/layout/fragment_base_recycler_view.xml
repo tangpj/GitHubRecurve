@@ -25,13 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
+        <include
+            android:id="@+id/in_rv"
+            layout="@layout/recycler_view" />
 
         <include
             layout="@layout/page_loading_state"

@@ -74,7 +74,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':baselib:github_base')
 
-    implementation deps.kotlinx.serialization
+    implementation deps.markdown4j
 
     kapt deps.arouter.compiler
 

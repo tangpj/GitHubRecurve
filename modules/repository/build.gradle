@@ -1,1 +1,4 @@
 apply from: '../module.gradle'
+dependencies {
+    implementation deps.markdown4j
+}

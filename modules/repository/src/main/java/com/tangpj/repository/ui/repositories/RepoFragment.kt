@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.ui.creator.RepositoryCreator
-import com.tangpj.repository.vo.RepoVo
+import com.tangpj.repository.vo.Repo
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,14 +49,14 @@ class RepoFragment: ModulePagingFragment() {
            })
     }
 
-    val POST_COMPARATOR = object : DiffUtil.ItemCallback<RepoVo>() {
-        override fun areContentsTheSame(oldItem: RepoVo, newItem: RepoVo): Boolean =
+    val POST_COMPARATOR = object : DiffUtil.ItemCallback<Repo>() {
+        override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean =
                 oldItem == newItem
 
-        override fun areItemsTheSame(oldItem: RepoVo, newItem: RepoVo): Boolean =
+        override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean =
                 oldItem.name == newItem.name
 
-        override fun getChangePayload(oldItem: RepoVo, newItem: RepoVo): Any? {
+        override fun getChangePayload(oldItem: Repo, newItem: Repo): Any? {
            return newItem
         }
     }

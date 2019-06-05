@@ -29,3 +29,10 @@ fragment languageDto on Language{
   name
   color
 }
+
+fragment pageInfoDto on PageInfo{
+  hasNextPage
+  hasPreviousPage
+  startCursor
+  endCursor
+}

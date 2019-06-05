@@ -4,9 +4,8 @@ import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.tangpj.paging.Listing
 import com.tangpj.paging.PageLoadState
-import com.tangpj.recurve.resource.Resource
 import com.tangpj.repository.repository.RepoRepository
-import com.tangpj.repository.vo.RepoVo
+import com.tangpj.repository.vo.Repo
 import javax.inject.Inject
 
 class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRepository): ViewModel(){
@@ -14,12 +13,12 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
     private val _login = MutableLiveData<String>()
 
 
-    private val repoListing: LiveData<Listing<RepoVo>> = Transformations.map(_login){
+    private val repoListing: LiveData<Listing<Repo>> = Transformations.map(_login){
         repoRepository.loadStarRepos(it)
     }
 
 
-    val pagedList: LiveData<PagedList<RepoVo>> = Transformations.switchMap(repoListing){
+    val pagedList: LiveData<PagedList<Repo>> = Transformations.switchMap(repoListing){
         it.pagedList
     }
 

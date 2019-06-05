@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.detail.RepoDetailActivity"
+            android:launchMode="singleTop"/>
+
     </application>
 
 </manifest>

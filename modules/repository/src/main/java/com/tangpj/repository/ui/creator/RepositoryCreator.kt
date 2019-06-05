@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.adapter.adapter.ModulesAdapter
 import com.tangpj.adapter.creator.RecurveViewHolder
 import com.tangpj.paging.PagedItemCreator
-import com.tangpj.repository.vo.RepoVo
+import com.tangpj.repository.vo.Repo
 import com.tangpj.repository.databinding.ItemRepositoryBinding
 
 class RepositoryCreator constructor(
         adapter: ModulesAdapter,
-        diffUtil: DiffUtil.ItemCallback<RepoVo>,
+        diffUtil: DiffUtil.ItemCallback<Repo>,
         creatorType: Int = 0)
-    : PagedItemCreator<RepoVo, ItemRepositoryBinding>(adapter, creatorType, diffUtil) {
+    : PagedItemCreator<Repo, ItemRepositoryBinding>(adapter, creatorType, diffUtil) {
 
     override fun onBindItemView(itemHolder: RecurveViewHolder<ItemRepositoryBinding>,
-                                e: RepoVo?, inCreatorPosition: Int) {
+                                e: Repo?, inCreatorPosition: Int) {
         itemHolder?.let {
             it.binding.repoVo = e
         }

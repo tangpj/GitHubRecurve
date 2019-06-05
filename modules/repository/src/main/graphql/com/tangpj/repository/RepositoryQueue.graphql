@@ -14,10 +14,8 @@ query StartRepositories (
       }
       totalCount
       pageInfo{
-         hasNextPage
-          hasPreviousPage
-          startCursor
-          endCursor
+          ...pageInfoDto
+
       }
     }
   }

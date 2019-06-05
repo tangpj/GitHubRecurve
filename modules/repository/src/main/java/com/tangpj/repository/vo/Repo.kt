@@ -1,8 +1,11 @@
 package com.tangpj.repository.vo
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
+import com.tangpj.repository.domain.Owner
+import com.tangpj.repository.fragment.RepoDto
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -12,8 +15,10 @@ import kotlinx.android.parcel.Parcelize
             Index("id")],
         primaryKeys = ["name"]
 )
-data class RepoVo constructor(
+data class Repo constructor(
         val id: String,
+        @Embedded(prefix = "owner")
+        val owner: Owner,
         val name: String,
         val fullName: String,
         val language: String,

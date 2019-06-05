@@ -8,7 +8,7 @@ import androidx.paging.ItemKeyedDataSource
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.tangpj.paging.ItemKeyedBoundResource
-import com.tangpj.repository.vo.RepoVo
+import com.tangpj.repository.vo.Repo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
@@ -31,7 +31,7 @@ class RepoRepository @Inject constructor(
     private val repoRateLimiter = RateLimiter<StartRepositoriesQuery>(1, TimeUnit.MILLISECONDS)
 
     fun loadStarRepos(login: String) =
-            object : ItemKeyedBoundResource<String, RepoVo, StartRepositoriesQuery.Data>(){
+            object : ItemKeyedBoundResource<String, Repo, StartRepositoriesQuery.Data>(){
 
                 private var repoResult: StarRepoResult? = null
 
@@ -47,10 +47,10 @@ class RepoRepository @Inject constructor(
                     Timber.d("saveCallResult, pageInfo = ${repoResult?.pageInfo}")
                 }
 
-                override fun shouldFetch(data: List<RepoVo>?): Boolean =
+                override fun shouldFetch(data: List<Repo>?): Boolean =
                         (data == null || data.isEmpty() || repoRateLimiter.shouldFetch(query))
 
-                override fun loadFromDb(): LiveData<List<RepoVo>>  {
+                override fun loadFromDb(): LiveData<List<Repo>>  {
                     val repoResultLive = repoDb.repoDao().loadStarRepoResult(login)
                     return Transformations.switchMap(repoResultLive){
                         repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
@@ -89,7 +89,7 @@ class RepoRepository @Inject constructor(
                     return LiveDataApollo.from(repoCall)
                 }
 
-                override fun getKey(item: RepoVo): String = item.id
+                override fun getKey(item: Repo): String = item.id
 
             }.asListing( Config(
                     pageSize = 20,

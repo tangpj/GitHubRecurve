@@ -3,22 +3,22 @@ package com.tangpj.repository.mapper
 import com.tangpj.github.domain.PageInfo
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.WatchRepositoriesQuery
-import com.tangpj.repository.domain.StarRepoId
 import com.tangpj.repository.domain.StarRepoResult
+import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
-import com.tangpj.repository.vo.RepoVo
-import org.threeten.bp.ZoneId
+import com.tangpj.repository.vo.Repo
 
-fun RepoDto.mapperToRepoVo(): RepoVo{
+fun RepoDto.mapperToRepoVo(): Repo{
     val languages = languages?.nodes
     val languageDto = if (languages != null && languages.size > 0){
         languages[0].fragments.languageDto
     }else{
         null
     }
-    return RepoVo(
+    return Repo(
             id = id,
             name = name,
+
             fullName = "${owner.login}/$name",
             language = languageDto?.name ?: "unknown",
             languageColor = languageDto?.color ?: "unknown",
@@ -34,7 +34,7 @@ fun RepoDto.mapperToRepoVo(): RepoVo{
  * @author create by Tang
  * @date 2019-05-15 21:53
  */
-fun StartRepositoriesQuery.PageInfo.mapperToLocalPageInfo() = PageInfo(
+fun PageInfoDto.mapperToLocalPageInfo() = PageInfo(
         hasNextPage = isHasNextPage,
         hasPreviousPage = isHasPreviousPage,
         startCursor = startCursor ?: "",
@@ -50,7 +50,7 @@ fun StartRepositoriesQuery.PageInfo.mapperToLocalPageInfo() = PageInfo(
  *
  */
 fun StartRepositoriesQuery.Data.mapperToRepoVoList(
-        starRepoResultListener: ((starRepoResult: StarRepoResult) -> Unit)? = null) : List<RepoVo>{
+        starRepoResultListener: ((starRepoResult: StarRepoResult) -> Unit)? = null) : List<Repo>{
     val edges = this.user?.starredRepositories?.edges
     edges?.size ?: return mutableListOf()
     val ids = ArrayList<String>(edges.size)
@@ -62,7 +62,7 @@ fun StartRepositoriesQuery.Data.mapperToRepoVoList(
         repoDto.mapperToRepoVo()
     }
 
-    val pageInfo =  user?.starredRepositories?.pageInfo
+    val pageInfo =  user?.starredRepositories?.pageInfo?.fragments?.pageInfoDto
     if (ids.size > 0 && starRepoResultListener != null &&  pageInfo != null){
         val starRepoResult = StarRepoResult(
                 login = this.user?.login ?: "",

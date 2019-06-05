@@ -6,12 +6,12 @@ import com.tangpj.github.BuildConfig
 import com.tangpj.repository.domain.Owner
 import com.tangpj.repository.domain.StarRepoId
 import com.tangpj.repository.domain.StarRepoResult
-import com.tangpj.repository.vo.RepoVo
+import com.tangpj.repository.vo.Repo
 
 
 @Database(
         entities = [
-            RepoVo::class,
+            Repo::class,
             Owner::class,
             StarRepoId::class,
             StarRepoResult::class],

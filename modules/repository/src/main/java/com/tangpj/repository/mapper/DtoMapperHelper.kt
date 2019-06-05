@@ -3,6 +3,7 @@ package com.tangpj.repository.mapper
 import com.tangpj.github.domain.PageInfo
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.WatchRepositoriesQuery
+import com.tangpj.repository.domain.Owner
 import com.tangpj.repository.domain.StarRepoResult
 import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
@@ -15,10 +16,14 @@ fun RepoDto.mapperToRepoVo(): Repo{
     }else{
         null
     }
+    val localOwner = Owner(
+            id = owner.id,
+            login = owner.login,
+            avatarUrl = owner.avatarUrl)
     return Repo(
             id = id,
             name = name,
-
+            owner = localOwner,
             fullName = "${owner.login}/$name",
             language = languageDto?.name ?: "unknown",
             languageColor = languageDto?.color ?: "unknown",

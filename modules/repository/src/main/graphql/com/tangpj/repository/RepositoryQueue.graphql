@@ -32,3 +32,15 @@ query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   }
 }
 
+
+query BlodDetail($owner: String = "Tangpj", $name: String, expression:"String"){
+  repository(owner:"Tangpj", name:"Android-advanced-blueprint"){
+    object(expression:"master:README.md"){
+      ... on Blob{
+        text
+        byteSize
+      }
+    }
+  }
+}
+

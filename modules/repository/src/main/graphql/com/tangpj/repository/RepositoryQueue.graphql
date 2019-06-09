@@ -1,3 +1,4 @@
+# 查看所有着star过的仓库
 query StartRepositories (
   $login: String = "Tangpj",
   $startFirst: Int = 20,
@@ -21,6 +22,7 @@ query StartRepositories (
   }
 }
 
+
 query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   user(login: $login){
     login
@@ -32,10 +34,13 @@ query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   }
 }
 
-
-query BlodDetail($owner: String = "Tangpj", $name: String, expression:"String"){
-  repository(owner:"Tangpj", name:"Android-advanced-blueprint"){
-    object(expression:"master:README.md"){
+# 根据所有者和仓库名查看文件详情
+query BlodDetail(
+  $owner: String = "Tangpj",
+  $name: String = "Android-advanced-blueprint",
+  $expression:String = "master:README.md"){
+  repository(owner:$owner, name:$name){
+    object(expression:$expression){
       ... on Blob{
         text
         byteSize

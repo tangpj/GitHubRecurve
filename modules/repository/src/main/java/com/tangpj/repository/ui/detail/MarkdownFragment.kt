@@ -7,18 +7,21 @@ import androidx.databinding.ViewDataBinding
 import com.tangpj.github.core.BaseFragment
 import com.tangpj.repository.databinding.FragmentMarkdownBinding
 
-class MarkdownFragment : BaseFragment(){
+class MarkdownFragment : BaseFragment<FragmentMarkdownBinding>(){
 
     lateinit var binding: FragmentMarkdownBinding
 
     override fun onCreateBinding(
             inflater: LayoutInflater,
             container: ViewGroup?,
-            savedInstanceState: Bundle?): ViewDataBinding{
+            savedInstanceState: Bundle?): FragmentMarkdownBinding{
         binding = FragmentMarkdownBinding.inflate(inflater, container, false)
         return binding
     }
 
-
+    override fun initBinding(binding: FragmentMarkdownBinding) {
+        super.initBinding(binding)
+        binding.webView
+    }
 
 }

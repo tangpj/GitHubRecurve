@@ -6,6 +6,7 @@ import com.tangpj.github.BuildConfig
 import com.tangpj.repository.domain.Owner
 import com.tangpj.repository.domain.StarRepoId
 import com.tangpj.repository.domain.StarRepoResult
+import com.tangpj.repository.vo.RepoFileContent
 import com.tangpj.repository.vo.Repo
 
 
@@ -14,11 +15,13 @@ import com.tangpj.repository.vo.Repo
             Repo::class,
             Owner::class,
             StarRepoId::class,
-            StarRepoResult::class],
+            StarRepoResult::class,
+            RepoFileContent::class],
         version = BuildConfig.DB_VERSION_GITHUB)
 abstract class RepositoryDb: RoomDatabase(){
 
-    abstract fun repoDao(): RepoDao
+    abstract fun repoDao() : RepoDao
 
+    abstract fun repoDeatilDao() : RepoDetailDao
 
 }

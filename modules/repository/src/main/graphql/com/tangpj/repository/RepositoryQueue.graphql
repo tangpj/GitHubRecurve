@@ -42,6 +42,7 @@ query BlodDetail(
   repository(owner:$owner, name:$name){
     object(expression:$expression){
       ... on Blob{
+        id
         text
         byteSize
       }

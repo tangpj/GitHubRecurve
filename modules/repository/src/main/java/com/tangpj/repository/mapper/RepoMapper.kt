@@ -9,7 +9,7 @@ import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
 import com.tangpj.repository.vo.Repo
 
-fun RepoDto.mapperToRepoVo(): Repo{
+fun RepoDto.mapperToRepo(): Repo{
     val languages = languages?.nodes
     val languageDto = if (languages != null && languages.size > 0){
         languages[0].fragments.languageDto
@@ -64,7 +64,7 @@ fun StartRepositoriesQuery.Data.mapperToRepoVoList(
         starRepoResultListener?.let {
             ids.add(repoDto.id)
         }
-        repoDto.mapperToRepoVo()
+        repoDto.mapperToRepo()
     }
 
     val pageInfo =  user?.starredRepositories?.pageInfo?.fragments?.pageInfoDto

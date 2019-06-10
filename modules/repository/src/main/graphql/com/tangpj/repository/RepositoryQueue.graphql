@@ -46,6 +46,9 @@ query BlodDetail(
         text
         byteSize
       }
+      ... on Tree{
+              id
+            }
     }
   }
 }

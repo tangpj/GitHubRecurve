@@ -4,8 +4,7 @@ import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
-import com.tangpj.repository.domain.Owner
-import com.tangpj.repository.fragment.RepoDto
+import com.tangpj.repository.valueObject.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

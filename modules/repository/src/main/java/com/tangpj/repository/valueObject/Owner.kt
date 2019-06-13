@@ -1,4 +1,4 @@
-package com.tangpj.repository.domain
+package com.tangpj.repository.valueObject
 
 import android.os.Parcelable
 import androidx.room.Entity

@@ -3,10 +3,11 @@ package com.tangpj.repository.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.tangpj.github.BuildConfig
-import com.tangpj.repository.domain.Owner
-import com.tangpj.repository.domain.StarRepoId
-import com.tangpj.repository.domain.StarRepoResult
-import com.tangpj.repository.vo.RepoFileContent
+import com.tangpj.repository.valueObject.FileContentResult
+import com.tangpj.repository.valueObject.Owner
+import com.tangpj.repository.valueObject.StarRepoId
+import com.tangpj.repository.valueObject.StarRepoResult
+import com.tangpj.repository.vo.FileContent
 import com.tangpj.repository.vo.Repo
 
 
@@ -16,7 +17,8 @@ import com.tangpj.repository.vo.Repo
             Owner::class,
             StarRepoId::class,
             StarRepoResult::class,
-            RepoFileContent::class],
+            FileContent::class,
+            FileContentResult::class],
         version = BuildConfig.DB_VERSION_GITHUB)
 abstract class RepositoryDb: RoomDatabase(){
 

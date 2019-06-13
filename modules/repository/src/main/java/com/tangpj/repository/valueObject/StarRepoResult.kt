@@ -1,4 +1,4 @@
-package com.tangpj.repository.domain
+package com.tangpj.repository.valueObject
 
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -16,7 +16,7 @@ data class StarRepoResult constructor(
         val login: String,
         val repoIds: List<String>,
         @Embedded(prefix = "star_")
-        val pageInfo: PageInfo)
+        val pageInfo: PageInfo?)
 
 
 @Entity(primaryKeys = ["id"])

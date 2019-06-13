@@ -3,8 +3,8 @@ package com.tangpj.repository.mapper
 import com.tangpj.github.domain.PageInfo
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.WatchRepositoriesQuery
-import com.tangpj.repository.domain.Owner
-import com.tangpj.repository.domain.StarRepoResult
+import com.tangpj.repository.valueObject.Owner
+import com.tangpj.repository.valueObject.StarRepoResult
 import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
 import com.tangpj.repository.vo.Repo
@@ -54,31 +54,19 @@ fun PageInfoDto.mapperToLocalPageInfo() = PageInfo(
  * @date 2019-05-15 21:47
  *
  */
-fun StartRepositoriesQuery.Data.mapperToRepoVoList(
-        starRepoResultListener: ((starRepoResult: StarRepoResult) -> Unit)? = null) : List<Repo>{
+fun StartRepositoriesQuery.Data.mapperToRepoVoList() : List<Repo>{
     val edges = this.user?.starredRepositories?.edges
     edges?.size ?: return mutableListOf()
-    val ids = ArrayList<String>(edges.size)
     val repoVoList = edges.map { edge ->
         val repoDto = edge.node.fragments.repoDto
-        starRepoResultListener?.let {
-            ids.add(repoDto.id)
-        }
         repoDto.mapperToRepo()
     }
-
-    val pageInfo =  user?.starredRepositories?.pageInfo?.fragments?.pageInfoDto
-    if (ids.size > 0 && starRepoResultListener != null &&  pageInfo != null){
-        val starRepoResult = StarRepoResult(
-                login = this.user?.login ?: "",
-                repoIds = ids,
-                pageInfo = pageInfo.mapperToLocalPageInfo())
-        starRepoResultListener.invoke(starRepoResult)
-    }
-
     return repoVoList
 
 }
+
+fun StartRepositoriesQuery.Data.getPageInfo() : PageInfo? =
+        user?.starredRepositories?.pageInfo?.fragments?.pageInfoDto?.mapperToLocalPageInfo()
 
 fun WatchRepositoriesQuery.Data.getRepoDtoList() =
         this.user?.watching?.nodes?.map {

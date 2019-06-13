@@ -15,7 +15,7 @@ import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.db.RepositoryDb
-import com.tangpj.repository.domain.StarRepoResult
+import com.tangpj.repository.valueObject.StarRepoResult
 import com.tangpj.repository.mapper.*
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
@@ -100,15 +100,15 @@ class RepoRepository @Inject constructor(
     private fun saveStarRepo(data: StartRepositoriesQuery.Data, starRepoResult: StarRepoResult?): StarRepoResult?{
         var result: StarRepoResult? = null
         Timber.d("saveStarRepo:  size: %d",data.mapperToRepoVoList().size)
+        val repoList = data.mapperToRepoVoList()
+        val repoIds = repoList.map { it.id }
+        val starRepoResult = StarRepoResult(
+                login = data.user?.login ?: "",
+                repoIds = repoIds,
+                pageInfo = data.getPageInfo())
         repoDb.runInTransaction {
-        repoDb.repoDao().insertRepos((data.mapperToRepoVoList {
-            val updateResult =  StarRepoResult(
-                    login = it.login,
-                    repoIds = it.repoIds,
-                    pageInfo = it.pageInfo)
-            repoDb.repoDao().insertUserRepoResult(updateResult)
-            result = updateResult
-        }))
+        repoDb.repoDao().insertRepos(repoList)
+        repoDb.repoDao().insertUserRepoResult(starRepoResult)
         }
         return result
     }

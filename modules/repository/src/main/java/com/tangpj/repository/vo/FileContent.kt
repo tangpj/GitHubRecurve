@@ -20,10 +20,7 @@ import kotlinx.android.parcel.Parcelize
         indices = [Index("id")]
 )
 @Parcelize
-data class RepoFileContent(
+data class FileContent(
         val id: String,
-        val owner: String,
-        val repoName: String,
-        val expression: String,
         val content: String,
         val byteSize: Int) : Parcelable

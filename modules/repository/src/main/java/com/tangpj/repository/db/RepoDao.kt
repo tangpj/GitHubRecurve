@@ -3,7 +3,7 @@ package com.tangpj.repository.db
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.room.*
-import com.tangpj.repository.domain.StarRepoResult
+import com.tangpj.repository.valueObject.StarRepoResult
 import com.tangpj.repository.vo.Repo
 
 /**

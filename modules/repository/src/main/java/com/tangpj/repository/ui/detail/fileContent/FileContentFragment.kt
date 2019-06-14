@@ -1,13 +1,12 @@
-package com.tangpj.repository.ui.detail
+package com.tangpj.repository.ui.detail.fileContent
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import com.tangpj.github.core.BaseFragment
 import com.tangpj.repository.databinding.FragmentMarkdownBinding
 
-class MarkdownFragment : BaseFragment<FragmentMarkdownBinding>(){
+class FileContentFragment : BaseFragment<FragmentMarkdownBinding>(){
 
     lateinit var binding: FragmentMarkdownBinding
 

@@ -11,6 +11,9 @@ import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.BlodDetailQuery
 import com.tangpj.repository.db.RepositoryDb
+import com.tangpj.repository.mapper.getFileContent
+import com.tangpj.repository.valueObject.query.FileContentQuery
+import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.vo.FileContent
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -21,24 +24,34 @@ class RepoDetailRepository @Inject constructor(
 
     private val blodDetailRateLimiter = RateLimiter<BlodDetailQuery>(5, TimeUnit.MINUTES)
 
-    fun loadFileContent(owner: String, name: String, expression: String) =
+    fun loadFileContent(fileContentQuery: FileContentQuery) =
             object : NetworkBoundResource<FileContent, BlodDetailQuery.Data>(){
 
                 var preQuery: BlodDetailQuery? = null
 
                 override fun saveCallResult(item: BlodDetailQuery.Data) {
-
+                    val fileContent = item.getFileContent()
+                    fileContent ?: return
+                    val fileContentResult = FileContentResult(
+                            owner = fileContentQuery.owner,
+                            repoName = fileContentQuery.name,
+                            expression = fileContentQuery.expression,
+                            fileContentId = fileContent.id)
+                    repoDb.runInTransaction {
+                        repoDb.repoDetailDao().insertFileContent(fileContent)
+                        repoDb.repoDetailDao().insertFileContentResult(fileContentResult)
+                    }
                 }
 
                 override fun shouldFetch(data: FileContent?): Boolean =
                         data == null || blodDetailRateLimiter.shouldFetch(preQuery)
 
                 override fun loadFromDb(): LiveData<FileContent> =  Transformations.switchMap(
-                        repoDb.repoDeatilDao().loadFileContentResult(owner, name, expression)){ fileContent ->
+                        repoDb.repoDetailDao().loadFileContentResult(fileContentQueryowner, name, expression)){ fileContent ->
                     if (fileContent == null){
                         AbsentLiveData.create()
                     }else{
-                        repoDb.repoDeatilDao().loadFileContentById(fileContent.fileContentId)
+                        repoDb.repoDetailDao().loadFileContentById(fileContent.fileContentId)
                     }
                 }
 

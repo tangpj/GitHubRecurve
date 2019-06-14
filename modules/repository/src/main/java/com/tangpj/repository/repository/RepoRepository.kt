@@ -15,7 +15,7 @@ import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.db.RepositoryDb
-import com.tangpj.repository.valueObject.StarRepoResult
+import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.mapper.*
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder

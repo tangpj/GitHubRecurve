@@ -17,9 +17,7 @@ class RepositoryCreator constructor(
 
     override fun onBindItemView(itemHolder: RecurveViewHolder<ItemRepositoryBinding>,
                                 e: Repo?, inCreatorPosition: Int) {
-        itemHolder.let {
-            it.binding.repo = e
-        }
+        itemHolder.binding.repo = e
     }
 
     override fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): RecurveViewHolder<*> =

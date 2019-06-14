@@ -1,4 +1,4 @@
-package com.tangpj.repository.valueObject
+package com.tangpj.repository.valueObject.result
 
 import androidx.room.Entity
 

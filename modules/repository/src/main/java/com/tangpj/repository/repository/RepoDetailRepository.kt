@@ -22,12 +22,10 @@ class RepoDetailRepository @Inject constructor(
         val apolloClient: ApolloClient,
         val repoDb: RepositoryDb){
 
-    private val blodDetailRateLimiter = RateLimiter<BlodDetailQuery>(5, TimeUnit.MINUTES)
+    private val blodDetailRateLimiter = RateLimiter<FileContentQuery>(5, TimeUnit.MINUTES)
 
     fun loadFileContent(fileContentQuery: FileContentQuery) =
             object : NetworkBoundResource<FileContent, BlodDetailQuery.Data>(){
-
-                var preQuery: BlodDetailQuery? = null
 
                 override fun saveCallResult(item: BlodDetailQuery.Data) {
                     val fileContent = item.getFileContent()
@@ -44,10 +42,11 @@ class RepoDetailRepository @Inject constructor(
                 }
 
                 override fun shouldFetch(data: FileContent?): Boolean =
-                        data == null || blodDetailRateLimiter.shouldFetch(preQuery)
+                        data == null || blodDetailRateLimiter.shouldFetch(fileContentQuery)
 
                 override fun loadFromDb(): LiveData<FileContent> =  Transformations.switchMap(
-                        repoDb.repoDetailDao().loadFileContentResult(fileContentQueryowner, name, expression)){ fileContent ->
+
+                        repoDb.repoDetailDao().loadFileContentResult(fileContentQuery)){ fileContent ->
                     if (fileContent == null){
                         AbsentLiveData.create()
                     }else{
@@ -60,7 +59,6 @@ class RepoDetailRepository @Inject constructor(
                             .owner(owner)
                             .name(name)
                             .expression(expression).build()
-                    preQuery = blodDetailQuery
                     val blodCall = apolloClient.query(blodDetailQuery)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(blodCall)

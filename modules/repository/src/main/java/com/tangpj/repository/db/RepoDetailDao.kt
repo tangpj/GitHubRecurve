@@ -28,8 +28,10 @@ abstract class RepoDetailDao{
 
     @Query("""
         SELECT * FROM FileContentResult
-        WHERE owner = (:fileContentQuery) AND repoName = :fileContentQuery.repoName AND expression = :expression
+        WHERE owner = :owner AND repoName = :name AND expression = :expression
     """)
-    abstract fun loadFileContentResult(fileContentQuery: FileContentQuery): LiveData<FileContentResult>
+    abstract fun loadFileContentResult(owner: String, name: String, expression: String): LiveData<FileContentResult>
+
+
 
 }

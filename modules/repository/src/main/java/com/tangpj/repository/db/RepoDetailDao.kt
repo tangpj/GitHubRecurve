@@ -22,11 +22,6 @@ abstract class RepoDetailDao{
     abstract fun loadFileContentById(id: String): LiveData<FileContent>
 
     @Query("""
-        SELECT * FROM FileContent
-        WHERE id = :id""")
-    abstract fun loadFileContentByRepo(id: String): LiveData<FileContent>
-
-    @Query("""
         SELECT * FROM FileContentResult
         WHERE owner = :owner AND repoName = :name AND expression = :expression
     """)

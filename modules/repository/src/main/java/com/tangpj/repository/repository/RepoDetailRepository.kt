@@ -46,7 +46,10 @@ class RepoDetailRepository @Inject constructor(
 
                 override fun loadFromDb(): LiveData<FileContent> =  Transformations.switchMap(
 
-                        repoDb.repoDetailDao().loadFileContentResult(fileContentQuery)){ fileContent ->
+                        repoDb.repoDetailDao().loadFileContentResult(
+                                fileContentQuery.owner,
+                                fileContentQuery.name,
+                                fileContentQuery.expression)){ fileContent ->
                     if (fileContent == null){
                         AbsentLiveData.create()
                     }else{
@@ -56,9 +59,9 @@ class RepoDetailRepository @Inject constructor(
 
                 override fun createCall(): LiveData<ApiResponse<BlodDetailQuery.Data>> {
                     val blodDetailQuery = BlodDetailQuery.builder()
-                            .owner(owner)
-                            .name(name)
-                            .expression(expression).build()
+                            .owner(fileContentQuery.owner)
+                            .name(fileContentQuery.name)
+                            .expression(fileContentQuery.expression).build()
                     val blodCall = apolloClient.query(blodDetailQuery)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(blodCall)

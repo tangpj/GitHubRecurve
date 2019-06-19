@@ -43,7 +43,7 @@ class RepoRepository @Inject constructor(
                 var query: StartRepositoriesQuery? = null
 
                 override fun saveCallResult(item: StartRepositoriesQuery.Data) {
-                    repoResult = saveStarRepo(item, repoResult)
+                    repoResult = saveStarRepo(item)
                     Timber.d("saveCallResult, pageInfo = ${repoResult?.pageInfo}")
                 }
 
@@ -97,18 +97,17 @@ class RepoRepository @Inject constructor(
                     initialLoadSizeHint = 20))
 
 
-    private fun saveStarRepo(data: StartRepositoriesQuery.Data, starRepoResult: StarRepoResult?): StarRepoResult?{
-        var result: StarRepoResult? = null
+    private fun saveStarRepo(data: StartRepositoriesQuery.Data): StarRepoResult?{
         Timber.d("saveStarRepo:  size: %d",data.mapperToRepoVoList().size)
         val repoList = data.mapperToRepoVoList()
         val repoIds = repoList.map { it.id }
-        val starRepoResult = StarRepoResult(
+        val result = StarRepoResult(
                 login = data.user?.login ?: "",
                 repoIds = repoIds,
                 pageInfo = data.getPageInfo())
         repoDb.runInTransaction {
         repoDb.repoDao().insertRepos(repoList)
-        repoDb.repoDao().insertUserRepoResult(starRepoResult)
+        repoDb.repoDao().insertUserRepoResult(result)
         }
         return result
     }

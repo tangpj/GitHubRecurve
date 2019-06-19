@@ -18,11 +18,6 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas".toString())
-            }
-        }
     }
 
     dataBinding{
@@ -55,6 +50,7 @@ android {
 
 kapt{
     arguments{
+        arg("room.schemaLocation", "$projectDir/schemas".toString())
         arg("AROUTER_MODULE_NAME", project.getName())
     }
 }

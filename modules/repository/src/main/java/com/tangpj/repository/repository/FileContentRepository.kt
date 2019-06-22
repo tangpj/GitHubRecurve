@@ -18,7 +18,7 @@ import com.tangpj.repository.vo.FileContent
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class RepoDetailRepository @Inject constructor(
+class FileContentRepository @Inject constructor(
         val apolloClient: ApolloClient,
         val repoDb: RepositoryDb){
 
@@ -58,10 +58,8 @@ class RepoDetailRepository @Inject constructor(
                 }
 
                 override fun createCall(): LiveData<ApiResponse<BlodDetailQuery.Data>> {
-                    val blodDetailQuery = BlodDetailQuery.builder()
-                            .owner(fileContentQuery.owner)
-                            .name(fileContentQuery.name)
-                            .expression(fileContentQuery.expression).build()
+                    val blodDetailQuery = fileContentQuery.getApolloQuery()
+
                     val blodCall = apolloClient.query(blodDetailQuery)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
                     return LiveDataApollo.from(blodCall)

@@ -12,7 +12,6 @@ class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRe
 
     private val _login = MutableLiveData<String>()
 
-
     private val repoListing: LiveData<Listing<Repo>> = Transformations.map(_login){
         repoRepository.loadStarRepos(it)
     }

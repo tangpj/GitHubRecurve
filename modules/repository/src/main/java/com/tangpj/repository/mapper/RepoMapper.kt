@@ -3,10 +3,10 @@ package com.tangpj.repository.mapper
 import com.tangpj.github.domain.PageInfo
 import com.tangpj.repository.StartRepositoriesQuery
 import com.tangpj.repository.WatchRepositoriesQuery
-import com.tangpj.repository.valueObject.Owner
 import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
+import com.tangpj.repository.valueObject.Owner
 import com.tangpj.repository.vo.Repo
 
 fun RepoDto.mapperToRepo(): Repo{

@@ -15,7 +15,6 @@ import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.valueObject.result.StarRepoResult
-import com.tangpj.repository.mapper.*
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField
@@ -98,7 +97,6 @@ class RepoRepository @Inject constructor(
 
 
     private fun saveStarRepo(data: StartRepositoriesQuery.Data): StarRepoResult?{
-        Timber.d("saveStarRepo:  size: %d",data.mapperToRepoVoList().size)
         val repoList = data.mapperToRepoVoList()
         val repoIds = repoList.map { it.id }
         val result = StarRepoResult(

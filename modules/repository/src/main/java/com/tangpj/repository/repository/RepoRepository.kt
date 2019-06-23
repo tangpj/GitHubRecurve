@@ -19,6 +19,8 @@ import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField
 import com.tangpj.repository.StartRepositoriesQuery
+import com.tangpj.repository.mapper.getPageInfo
+import com.tangpj.repository.mapper.mapperToRepoVoList
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

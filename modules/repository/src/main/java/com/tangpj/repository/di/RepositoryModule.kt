@@ -8,7 +8,6 @@ import com.tangpj.github.core.apollo.DateCustomerAdapter
 import com.tangpj.repository.db.RepoDao
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.type.CustomType
-import com.tangpj.repository.ui.repositories.RepoFragment
 import dagger.Module
 import dagger.Provides
 

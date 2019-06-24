@@ -67,6 +67,6 @@ class FileContentRepository @Inject constructor(
 
                 }
 
-            }
+            }.asLiveData()
 
 }

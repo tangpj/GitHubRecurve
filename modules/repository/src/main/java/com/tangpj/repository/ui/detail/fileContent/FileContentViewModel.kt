@@ -11,7 +11,7 @@ class FileContentViewModel @Inject constructor(private val fileContentRepository
 
     private val _fileContentQuery = MutableLiveData<FileContentQuery>()
 
-    val fileContent = Transformations.map(_fileContentQuery){
+    private val fileContent = Transformations.map(_fileContentQuery){
         fileContentRepository.loadFileContent(it)
     }
 

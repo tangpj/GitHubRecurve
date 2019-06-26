@@ -18,9 +18,4 @@ class FileContentFragment : BaseFragment<FragmentMarkdownBinding>(){
         return binding
     }
 
-    override fun initBinding(binding: FragmentMarkdownBinding) {
-        super.initBinding(binding)
-        binding.webView
-    }
-
 }

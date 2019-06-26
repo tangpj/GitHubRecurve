@@ -23,4 +23,5 @@ import kotlinx.android.parcel.Parcelize
 data class FileContent(
         val id: String,
         val content: String,
+        val fileExtensions: String,
         val byteSize: Int) : Parcelable

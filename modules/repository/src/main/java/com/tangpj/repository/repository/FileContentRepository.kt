@@ -28,7 +28,7 @@ class FileContentRepository @Inject constructor(
             object : NetworkBoundResource<FileContent, BlodDetailQuery.Data>(){
 
                 override fun saveCallResult(item: BlodDetailQuery.Data) {
-                    val fileContent = item.getFileContent()
+                    val fileContent = item.getFileContent(fileContentQuery.expression)
                     fileContent ?: return
                     val fileContentResult = FileContentResult(
                             owner = fileContentQuery.owner,

@@ -4,18 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.tangpj.github.core.BaseFragment
-import com.tangpj.repository.databinding.FragmentMarkdownBinding
+import com.tangpj.repository.databinding.FragmentFileContentBinding
 
-class FileContentFragment : BaseFragment<FragmentMarkdownBinding>(){
+class FileContentFragment : BaseFragment<FragmentFileContentBinding>(){
 
-    lateinit var binding: FragmentMarkdownBinding
+    lateinit var binding: FragmentFileContentBinding
 
     override fun onCreateBinding(
             inflater: LayoutInflater,
             container: ViewGroup?,
-            savedInstanceState: Bundle?): FragmentMarkdownBinding{
-        binding = FragmentMarkdownBinding.inflate(inflater, container, false)
+            savedInstanceState: Bundle?): FragmentFileContentBinding{
+        binding = FragmentFileContentBinding.inflate(inflater, container, false)
         return binding
     }
+
+
 
 }

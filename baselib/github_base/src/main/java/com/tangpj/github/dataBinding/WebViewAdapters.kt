@@ -3,9 +3,9 @@ package com.tangpj.github.dataBinding
 import android.webkit.WebView
 import androidx.databinding.BindingAdapter
 
-@BindingAdapter(value = ["data"], requireAll = false)
-fun WebView.loadData(data: String?=""){
-    loadData(data, "text/html", "UTF-8")
+@BindingAdapter(value = ["html"], requireAll = false)
+fun WebView.loadHtml(html: String?=""){
+    loadData(html, "text/html", "UTF-8")
 }
 
 @BindingAdapter(value = ["javaScript","adaptive"], requireAll = false)

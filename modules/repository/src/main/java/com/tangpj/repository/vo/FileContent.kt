@@ -23,5 +23,11 @@ import kotlinx.android.parcel.Parcelize
 data class FileContent(
         val id: String,
         val content: String,
-        val fileExtensions: String,
-        val byteSize: Int) : Parcelable
+        val type: Type,
+        val byteSize: Int) : Parcelable{
+
+    enum class Type{
+        MARK_DOWN
+    }
+}
+

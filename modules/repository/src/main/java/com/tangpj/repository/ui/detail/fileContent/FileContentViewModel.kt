@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.tangpj.repository.repository.FileContentRepository
 import com.tangpj.repository.valueObject.query.FileContentQuery
+import com.tangpj.repository.vo.FileContent
 import org.markdown4j.Markdown4jProcessor
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class FileContentViewModel @Inject constructor(private val fileContentRepository
     }
 
     val html =  Transformations.map(fileContent){
-        if ("md" == it.data?.fileExtensions){
+        if (FileContent.Type.MARK_DOWN == it.data?.type){
             Markdown4jProcessor().process(it.data?.content)
         }else{
             it.data?.content

@@ -1,4 +1,4 @@
-package com.tangpj.github.core
+package com.tangpj.github.ui
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
@@ -11,5 +11,7 @@ abstract class BaseFragment<Binding: ViewDataBinding> : RecurveFragment(){
         super.onActivityCreated(savedInstanceState)
 
     }
+
+    abstract fun onBindingInit(binding: Binding)
 
 }

@@ -6,10 +6,11 @@ import com.tangpj.repository.vo.FileContent
 object FileContentTypeConverter{
 
     @TypeConverter
+    @JvmStatic
     fun typeToInt(type: FileContent.Type) = type.ordinal
 
     @TypeConverter
+    @JvmStatic
     fun intToType(value: Int) :  FileContent.Type = FileContent.Type.values()[value]
-
 
 }

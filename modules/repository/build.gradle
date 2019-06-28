@@ -1,4 +1,5 @@
 apply from: '../module.gradle'
 dependencies {
     implementation deps.markdown4j
+    implementation deps.androidx.viewpager2
 }

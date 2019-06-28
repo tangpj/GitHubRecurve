@@ -3,6 +3,8 @@ package com.tangpj.repository.vo
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Index
+import androidx.room.TypeConverters
+import com.tangpj.repository.db.typeConverters.FileContentTypeConverter
 import kotlinx.android.parcel.Parcelize
 
 
@@ -19,6 +21,7 @@ import kotlinx.android.parcel.Parcelize
         primaryKeys = ["id"],
         indices = [Index("id")]
 )
+@TypeConverters(FileContentTypeConverter::class)
 @Parcelize
 data class FileContent(
         val id: String,
@@ -26,8 +29,9 @@ data class FileContent(
         val type: Type,
         val byteSize: Int) : Parcelable{
 
-    enum class Type{
-        MARK_DOWN
-    }
+        enum class Type{
+                DEFAULT,
+                MARK_DOWN
+        }
 }
 

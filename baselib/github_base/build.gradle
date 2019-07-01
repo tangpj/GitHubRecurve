@@ -101,7 +101,6 @@ dependencies {
 
     api project(':baselib:res')
 
-    api deps.apollo.converter
     api deps.apollo.runtime
     api deps.apollo.android_support
 

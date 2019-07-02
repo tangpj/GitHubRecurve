@@ -75,6 +75,8 @@ dependencies {
     api project(':recurve-module-paging-support')
 
     api deps.androidx.material
+    implementation deps.androidx.viewpager2
+
     api deps.room.runtime
     api deps.lifecycle.runtime
     api deps.lifecycle.extensions

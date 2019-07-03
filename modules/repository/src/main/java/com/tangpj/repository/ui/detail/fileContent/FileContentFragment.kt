@@ -10,8 +10,8 @@ import com.tangpj.repository.databinding.FragmentFileContentBinding
 import com.tangpj.repository.valueObject.query.FileContentQuery
 import javax.inject.Inject
 
-private const val KEY_FILE_CONTNET_QUERY =
-        "com.tangpj.repository.ui.detail.fileContent.KEY_FILE_CONTNET_QUERY"
+private const val KEY_FILE_CONTENT_QUERY =
+        "com.tangpj.repository.ui.detail.fileContent.KEY_FILE_CONTENT_QUERY"
 
 class FileContentFragment : BaseFragment<FragmentFileContentBinding>(){
 
@@ -25,7 +25,7 @@ class FileContentFragment : BaseFragment<FragmentFileContentBinding>(){
         fun create(query: FileContentQuery) =
                 FileContentFragment().apply {
                     arguments = Bundle(1).apply {
-                        putParcelable(KEY_FILE_CONTNET_QUERY, query)
+                        putParcelable(KEY_FILE_CONTENT_QUERY, query)
                     }
                 }
     }

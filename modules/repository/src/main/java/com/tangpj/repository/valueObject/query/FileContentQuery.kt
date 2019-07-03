@@ -5,11 +5,12 @@ import com.tangpj.repository.BlodDetailQuery
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class FileContentQuery(val owner: String, val name: String, val expression: String) : Parcelable{
+data class FileContentQuery(
+        val repoDetailQuery: RepoDetailQuery, val expression: String) : Parcelable{
 
     fun getApolloQuery() =  BlodDetailQuery.builder()
-            .owner(owner)
-            .name(name)
+            .owner(repoDetailQuery.owner)
+            .name(repoDetailQuery.name)
             .expression(expression)
             .build()
 

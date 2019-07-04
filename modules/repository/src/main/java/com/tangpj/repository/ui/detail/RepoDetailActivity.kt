@@ -4,17 +4,20 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.ui.TabLayoutMediator
+import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDeatilBinding
 import com.tangpj.repository.ui.detail.fileContent.FileContentFragment
 import com.tangpj.repository.valueObject.query.FileContentQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
 
-private const val KEY_REPO_DETAIL_QUERY = "com.tangpj.repository.ui.detail.KEY_FILE_CONTENT_QUERY25"
-private const val EXPERSSION_README = "master:README.md"
+const val KEY_REPO_DETAIL_QUERY = "com.tangpj.repository.ui.detail.KEY_FILE_CONTENT_QUERY"
+private const val EXPRESSION_README = "master:README.md"
 
+@Route(path = PATH_REPO_DETAILS)
 class RepoDetailActivity : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +25,7 @@ class RepoDetailActivity : BaseActivity(){
         val binding = initContentBinding<ActivityRepoDeatilBinding>(R.layout.activity_repo_deatil)
         binding.vpRepoContent.adapter = createViewPagerAdapter()
         TabLayoutMediator(binding.tlRepoTitle, binding.vpRepoContent){ tab, position ->
-            TODO("set tab text")
+            tab.text = "README"
         }.attach()
     }
 
@@ -42,12 +45,10 @@ private class RepoDetailAdapter(
                         TODO()
                     }
                     else -> {
-                        val fileContentQuery = FileContentQuery(repoDetailQuery, EXPERSSION_README)
+                        val fileContentQuery = FileContentQuery(repoDetailQuery, EXPRESSION_README)
                         FileContentFragment.create(fileContentQuery)
                     }
                 }
-
-
 
             override fun getItemCount(): Int = 1
 

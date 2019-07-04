@@ -31,8 +31,8 @@ class FileContentRepository @Inject constructor(
                     val fileContent = item.getFileContent(fileContentQuery.expression)
                     fileContent ?: return
                     val fileContentResult = FileContentResult(
-                            owner = fileContentQuery.owner,
-                            repoName = fileContentQuery.name,
+                            owner = fileContentQuery.repoDetailQuery.owner,
+                            repoName = fileContentQuery.repoDetailQuery.name,
                             expression = fileContentQuery.expression,
                             fileContentId = fileContent.id)
                     repoDb.runInTransaction {
@@ -47,8 +47,8 @@ class FileContentRepository @Inject constructor(
                 override fun loadFromDb(): LiveData<FileContent> =  Transformations.switchMap(
 
                         repoDb.repoDetailDao().loadFileContentResult(
-                                fileContentQuery.owner,
-                                fileContentQuery.name,
+                                fileContentQuery.repoDetailQuery.owner,
+                                fileContentQuery.repoDetailQuery.name,
                                 fileContentQuery.expression)){ fileContent ->
                     if (fileContent == null){
                         AbsentLiveData.create()

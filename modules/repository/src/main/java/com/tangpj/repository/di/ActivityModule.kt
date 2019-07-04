@@ -1,5 +1,6 @@
 package com.tangpj.repository.di
 
+import com.tangpj.repository.ui.detail.RepoDetailActivity
 import com.tangpj.repository.ui.repositories.RepoActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -10,4 +11,6 @@ abstract class ActivityModule{
     @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
     abstract fun contributeRepoActivity(): RepoActivity
 
+    @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
+    abstract fun contributeRepoDetailActivity() : RepoDetailActivity
 }

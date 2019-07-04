@@ -25,8 +25,8 @@ class FileContentViewModel @Inject constructor(private val fileContentRepository
         }
     }
 
-    fun loadFinleContentByQuery(fileContentQuery: FileContentQuery){
-        _fileContentQuery.postValue(fileContentQuery)
+    fun loadFileContentByQuery(fileContentQuery: FileContentQuery){
+        _fileContentQuery.value = fileContentQuery
     }
 
 }

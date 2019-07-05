@@ -6,7 +6,8 @@ import com.tangpj.repository.vo.FileContent
 import org.markdown4j.Markdown4jProcessor
 
 @BindingAdapter("fileContent")
-fun WebView.loadFileContent(fileContent: FileContent){
+fun WebView.loadFileContent(fileContent: FileContent?){
+    fileContent ?: return
     val html = if (fileContent.type == FileContent.Type.MARK_DOWN){
         Markdown4jProcessor().process(fileContent.content)
     }else{

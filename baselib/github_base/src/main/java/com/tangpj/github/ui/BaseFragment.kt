@@ -26,6 +26,8 @@ abstract class BaseFragment : RecurveDaggerFragment(){
     final override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding? {
         _binding = FragmentBaseBinding.inflate(inflater, container, false)
         val contentBinding = onCreateContentBinding(inflater, _binding.root as? ViewGroup)
+        _binding.setLifecycleOwner(this)
+        contentBinding.setLifecycleOwner(this)
         _binding.flRoot.addView(contentBinding.root)
         contentBinding.root.layoutParams.height = FrameLayout.LayoutParams.MATCH_PARENT
         contentBinding.root.layoutParams.width = FrameLayout.LayoutParams.MATCH_PARENT

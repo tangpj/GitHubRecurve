@@ -93,9 +93,9 @@ class RepoRepository @Inject constructor(
                 override fun getKey(item: Repo): String = item.id
 
             }.asListing( Config(
-                    pageSize = 20,
+                    pageSize = 10,
                     enablePlaceholders = false,
-                    initialLoadSizeHint = 20))
+                    initialLoadSizeHint = 10))
 
 
     private fun saveStarRepo(data: StartRepositoriesQuery.Data): StarRepoResult?{

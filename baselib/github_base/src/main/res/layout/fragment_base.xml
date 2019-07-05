@@ -3,36 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
 
-        <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.paging.PageLoadState"/>
-        <import type="kotlin.Unit"/>
+        <import type="com.tangpj.recurve.resource.Resource"/>
         <import type="kotlin.jvm.functions.Function0"/>
+        <import type="kotlin.Unit"/>
 
         <variable
-            name="pageLoadState"
-            type="LiveData&lt;PageLoadState>"/>
+            name="resource"
+            type="Resource" />
 
         <variable
-            name="retryCallback"
-            type="LiveData&lt;Function0&lt;Unit>>"/>
+            name="retry"
+            type="Function0&lt;Unit>" />
 
     </data>
 
     <FrameLayout
+        android:id="@+id/fl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/in_rv"
-            layout="@layout/recycler_view" />
-
-        <include
-            layout="@layout/page_loading_state"
+            layout="@layout/loading_state"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            app:pageLoadState="@{(PageLoadState) pageLoadState}"
-            app:callback="@{() -> retryCallback.invoke()}"/>
+            app:resource="@{(Resource)resource}"
+            app:callback="@{() -> retry.invoke()}"/>
 
     </FrameLayout>
 

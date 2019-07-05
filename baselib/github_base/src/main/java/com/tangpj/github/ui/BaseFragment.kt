@@ -3,6 +3,7 @@ package com.tangpj.github.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.tangpj.github.databinding.FragmentBaseBinding
@@ -14,40 +15,28 @@ import com.tangpj.recurve.ui.strategy.LoadingStrategy
 
 abstract class BaseFragment : RecurveDaggerFragment(){
 
-    lateinit var binding: FragmentBaseBinding
+    private lateinit var _binding: FragmentBaseBinding
+
+    abstract fun onCreateContentBinding(inflater: LayoutInflater, container: ViewGroup?) : ViewDataBinding
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
     }
 
-    override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding? {
-        binding = FragmentBaseBinding.inflate(inflater, container, false)
-        return binding
+    final override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding? {
+        _binding = FragmentBaseBinding.inflate(inflater, container, false)
+        val contentBinding = onCreateContentBinding(inflater, _binding.root as? ViewGroup)
+        _binding.flRoot.addView(contentBinding.root)
+        contentBinding.root.layoutParams.height = FrameLayout.LayoutParams.MATCH_PARENT
+        contentBinding.root.layoutParams.width = FrameLayout.LayoutParams.MATCH_PARENT
+        return _binding
     }
 
-    fun loading(pageLoadingInvoke: PageLoading.() -> Unit){
-        val loading = PageLoading()
-        loading.pageLoadingInvoke()
-        binding.pageLoadState = loading.pageLoadState
-        binding.retryCallback = loading.refresh
-        loading.pageLoadState?.let {
-            it.observe(this, Observer { pageLoadState ->
-                if (pageLoadState.status != PageLoadStatus.REFRESH){
-                    loadingCreator.networkState = pageLoadState.networkState
-                }else{
-                    loadingCreator.networkState = null
-                }
-            })
-
-        }
-        loading.retry?.let {
-            it.observe(this, Observer { retry ->
-                loadingCreator.retry = retry
-
-            })
-        }
-
+    fun <Data> loading(loadingInvoke : Loading<Data>.() -> Unit){
+        val loading = Loading<Data>()
+        loading.loadingInvoke()
+        loading.resource = loading.resource
+        loading.retry = loading.retry
 
     }
 }

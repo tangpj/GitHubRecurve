@@ -4,15 +4,17 @@
 
     <data>
         <import type="androidx.lifecycle.LiveData"/>
+        <import type="com.tangpj.repository.vo.FileContent"/>
+        <import type="com.tangpj.recurve.resource.Resource"/>
 
         <variable
-            name="html"
-            type="LiveData&lt;String>" />
+            name="fileContent"
+            type="LiveData&lt;Resource&lt;FileContent>>" />
     </data>
 
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:html="@{html}"/>
+        app:fileContent="@{fileContent.data}"/>
 </layout>

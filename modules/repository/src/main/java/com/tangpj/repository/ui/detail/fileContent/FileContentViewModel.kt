@@ -17,14 +17,6 @@ class FileContentViewModel @Inject constructor(private val fileContentRepository
         fileContentRepository.loadFileContent(it)
     }
 
-    val html =  Transformations.map(fileContent){
-        if (FileContent.Type.MARK_DOWN == it.data?.type){
-            Markdown4jProcessor().process(it.data?.content)
-        }else{
-            it.data?.content
-        }
-    }
-
     fun loadFileContentByQuery(fileContentQuery: FileContentQuery){
         _fileContentQuery.value = fileContentQuery
     }

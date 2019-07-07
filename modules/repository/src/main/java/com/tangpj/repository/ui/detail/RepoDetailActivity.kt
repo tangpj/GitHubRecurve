@@ -23,15 +23,30 @@ class RepoDetailActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = initContentBinding<ActivityRepoDeatilBinding>(R.layout.activity_repo_deatil)
-        binding.vpRepoContent.adapter = createViewPagerAdapter()
+        val repoDetailQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
+        binding.vpRepoContent.adapter = createViewPagerAdapter(repoDetailQuery)
         TabLayoutMediator(binding.tlRepoTitle, binding.vpRepoContent){ tab, position ->
-            tab.text = "README"
+            tab.text = "Code"
         }.attach()
+
+        appbar {
+            scrollEnable = true
+            scrollFlags = "scroll|exitUntilCollapsed"
+            collapsingToolbar {
+                contentScrimColor = R.color.colorAccent
+                toolBar {
+                    title = ""
+                }
+                collapsingView { inflater, collapsingToolbarLayout ->
+                    val content = CollasingTestBinding.inflate(inflater, collapsingToolbarLayout, false)
+                    content.root
+                }
+            }
+        }
     }
 
-    private fun createViewPagerAdapter() : FragmentStateAdapter{
-        val repoQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
-        return RepoDetailAdapter(this, repoQuery)
+    private fun createViewPagerAdapter(repoDetailQuery: RepoDetailQuery) : FragmentStateAdapter{
+        return RepoDetailAdapter(this, repoDetailQuery)
     }
 
 }

@@ -10,6 +10,7 @@ import com.tangpj.github.ui.TabLayoutMediator
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDeatilBinding
+import com.tangpj.repository.databinding.CollasingRepoDetailBinding
 import com.tangpj.repository.ui.detail.fileContent.FileContentFragment
 import com.tangpj.repository.valueObject.query.FileContentQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
@@ -38,7 +39,7 @@ class RepoDetailActivity : BaseActivity(){
                     title = ""
                 }
                 collapsingView { inflater, collapsingToolbarLayout ->
-                    val content = CollasingTestBinding.inflate(inflater, collapsingToolbarLayout, false)
+                    val content = CollasingRepoDetailBinding.inflate(inflater, collapsingToolbarLayout, false)
                     content.root
                 }
             }

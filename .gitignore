@@ -13,3 +13,6 @@ calces/
 libs/
 sampledata/
 schemas/
+/gradle
+gradlew
+gradlew.bat

@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.ui.TabLayoutMediator
+import com.tangpj.recurve.util.resolveColor
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDeatilBinding
@@ -34,9 +35,9 @@ class RepoDetailActivity : BaseActivity(){
             scrollEnable = true
             scrollFlags = "scroll|exitUntilCollapsed"
             collapsingToolbar {
-                contentScrimColor = R.color.colorAccent
+                contentScrimColorInt = resolveColor(this@RepoDetailActivity, R.attr.colorPrimary)
                 toolBar {
-                    title = ""
+                    title = "test"
                 }
                 collapsingView { inflater, collapsingToolbarLayout ->
                     val content = CollasingRepoDetailBinding.inflate(inflater, collapsingToolbarLayout, false)

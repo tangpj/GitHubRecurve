@@ -77,6 +77,9 @@ dependencies {
     api deps.androidx.material
     implementation deps.androidx.viewpager2
 
+    implementation deps.markwon_core
+    implementation deps.markwon_html
+
     api deps.room.runtime
     api deps.lifecycle.runtime
     api deps.lifecycle.extensions

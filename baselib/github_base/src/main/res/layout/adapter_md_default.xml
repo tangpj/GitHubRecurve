@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_horizontal_material"
+    android:layout_marginRight="@dimen/margin_horizontal_material"
+    android:lineSpacingExtra="@dimen/text_view_line_spacing"
+    android:paddingTop="@dimen/margin_vertical_material"
+    android:paddingBottom="@dimen/margin_vertical_material"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textColor="@color/textColor"
+    android:textSize="@dimen/text_size_body_1_material"
+    tools:text="Hello" />

@@ -21,6 +21,7 @@
     <!--text view dimens-->
     <dimen name="text_view_min_height_material">48dp</dimen>
     <dimen name="text_view_min_width_material">88dp</dimen>
+    <dimen name="text_view_line_spacing">2dp</dimen>
 
 
 

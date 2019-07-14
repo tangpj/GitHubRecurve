@@ -13,6 +13,7 @@
   <dimen name='button_min_width_material'>88dp</dimen>
   <dimen name='text_view_min_height_material'>48dp</dimen>
   <dimen name='text_view_min_width_material'>88dp</dimen>
+  <dimen name='text_view_line_spacing'>2dp</dimen>
   <dimen name='text_size_caption_material'>12sp</dimen>
   <dimen name='text_size_body_2_material'>14sp</dimen>
   <dimen name='text_size_button_material'>14sp</dimen>

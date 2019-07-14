@@ -70,8 +70,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':baselib:github_base')
 
-    implementation deps.markdown4j
-
     kapt deps.arouter.compiler
 
     kapt deps.dagger.android_support_compiler

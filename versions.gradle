@@ -168,9 +168,14 @@ deps.mapstruct = mapstruct
 def arouter = [:]
 arouter.api = "com.alibaba:arouter-api:$versions.arouter_api"
 arouter.compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler"
-
 deps.arouter = arouter
 
+def markwon = [:]
+markwon.core = "io.noties.markwon:core:$versions.markwon"
+markwon.html = "io.noties.markwon:html:$versions.markwon"
+markwon.recycler = "io.noties.markwon:recycler:$versions.markwon"
+markwon.glide = "io.noties.markwon:image-glide:$versions.markwon"
+deps.markwon = markwon
 
 deps.glide = "com.github.bumptech.glide:glide:$versions.glide"
 deps.glide_transformations = "jp.wasabeef:glide-transformations:$versions.glide_transformations"
@@ -185,9 +190,6 @@ deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.ext_junit = "androidx.test.ext:junit:$versions.ext_junit"
 deps.threetenabp = "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
-deps.markdown4j = "org.commonjava.googlecode.markdown4j:markdown4j:$versions.markdown4j"
-deps.markwon_core = "io.noties.markwon:core:$versions.markwon"
-deps.markwon_html = "io.noties.markwon:html:$versions.markwon"
 
 ext.deps = deps
 

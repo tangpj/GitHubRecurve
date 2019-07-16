@@ -81,6 +81,9 @@ dependencies {
     implementation deps.markwon.html
     implementation deps.markwon.recycler
     implementation deps.markwon.glide
+    implementation deps.markwon.table
+
+    implementation deps.okhttp.okhttp3
 
     api deps.room.runtime
     api deps.lifecycle.runtime

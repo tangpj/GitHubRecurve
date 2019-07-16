@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:orientation="horizontal"
+    android:layout_marginStart="@dimen/margin_horizontal_material"
+    android:layout_marginEnd="@dimen/margin_horizontal_material"
+    android:scrollbarStyle="outsideInset">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0f000000"
+        android:fontFamily="monospace"
+        android:lineSpacingExtra="@dimen/text_view_line_spacing"
+        android:layout_marginTop="@dimen/margin_vertical_material"
+        android:layout_marginBottom="@dimen/margin_vertical_material"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/text_size_body_2_material" />
+
+</androidx.core.widget.NestedScrollView >

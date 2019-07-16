@@ -8,6 +8,7 @@ import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -32,31 +33,31 @@ class OkHttpModule{
 
     @Provides
     fun providerTokenInterceptor(app: GithubApp): Interceptor{
-        return Interceptor {
-            val original: Request = it.request()
-            val requestBuilder = original.newBuilder()
-            val uri = Uri.parse(
-                    "content://$TOKEN_AUTHORITY/github_token")
-            val resolver = app.contentResolver.query(
-                    uri,
-                    arrayOf("name"),
-                    null, null, null)
-            resolver?.use { cursor ->
-                val token = if(cursor.moveToFirst()){
-                    cursor.getString(cursor.getColumnIndexOrThrow("accessToken"))
-                }else{
-                    null
+        return object : Interceptor {
+            override fun intercept(chain: Interceptor.Chain): Response {
+                val original: Request = chain.request()
+                val requestBuilder = original.newBuilder()
+                val uri = Uri.parse(
+                        "content://$TOKEN_AUTHORITY/github_token")
+                val resolver = app.contentResolver.query(
+                        uri,
+                        arrayOf("name"),
+                        null, null, null)
+                resolver?.use { cursor ->
+                    val token = if(cursor.moveToFirst()){
+                        cursor.getString(cursor.getColumnIndexOrThrow("accessToken"))
+                    }else{
+                        null
+                    }
+                    token?.let {
+                        Timber.d("set authorization header")
+                        requestBuilder.addHeader("Authorization","token $token")
+                    }
                 }
-                token?.let {
-                    Timber.d("set authorization header")
-                    requestBuilder.addHeader("Authorization","token $token")
-                }
+
+                return chain.proceed(requestBuilder.build())
             }
 
-
-
-
-            it.proceed(requestBuilder.build())
         }
     }
 

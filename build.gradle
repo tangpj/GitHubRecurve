@@ -60,6 +60,9 @@ appConfig{
 
 allprojects {
     addRepos(repositories)
+    configurations.all {
+        resolutionStrategy.force deps.okhttp.okhttp3
+    }
 }
 
 task clean(type: Delete) {

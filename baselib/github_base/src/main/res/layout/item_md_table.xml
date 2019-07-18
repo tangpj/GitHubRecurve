@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tl_md"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:fillViewport="true"
-    android:orientation="horizontal"
     android:layout_marginStart="@dimen/margin_horizontal_material"
     android:layout_marginEnd="@dimen/margin_horizontal_material"
-    android:scrollbarStyle="outsideInset">
+    android:stretchColumns="*" />
 
-    <TableLayout
-        android:id="@+id/table_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*" />
-
-</androidx.core.widget.NestedScrollView >

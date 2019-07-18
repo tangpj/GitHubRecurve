@@ -3,7 +3,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="150dp"
         android:background="?attr/colorPrimaryLight">
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,14 +25,15 @@ class MarkwonAdapters{
         val markwon = markwon(context)
         layoutManager = LinearLayoutManager(context)
         setHasFixedSize(true)
-        val adapter = MarkwonAdapter.builder(R.layout.item_md_default, R.id.text)
+        val mdAdapter = MarkwonAdapter.builder(R.layout.item_md_default, R.id.text)
                 .include(FencedCodeBlock::class.java, SimpleEntry.create(R.layout.item_md_code_bock, R.id.text))
                 .include(TableBlock::class.java, TableEntry.create { builder -> builder
-                        .tableLayout(R.layout.item_md_table, R.id.table_layout)
-                        .tableLayoutIsRoot(R.layout.tv_table_entry_cell)
+                        .tableLayout(R.layout.item_md_table, R.id.tl_md)
+                        .textLayoutIsRoot(R.layout.tv_table_entry_cell)
                 }).build()
 
-        adapter.setMarkdown(markwon, markdownStr)
+        adapter = mdAdapter
+        mdAdapter.setMarkdown(markwon, markdownStr)
     }
 
     private fun markwon(context: Context) =

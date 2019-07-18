@@ -13,6 +13,7 @@ versions.paging = "2.1.0"
 versions.androidx = "1.0.0"
 versions.room = "2.1.0-alpha06"
 versions.viewpager2 = "1.0.0-alpha05"
+versions.flexbox_layout = "1.1.0"
 
 versions.dagger = "2.16"
 versions.junit = "4.12"
@@ -62,6 +63,8 @@ androidx.customtabs = "androidx.browser:browser:$versions.androidx"
 androidx.material = "com.google.android.material:material:$versions.androidx"
 androidx.core_utils = "androidx.legacy:legacy-support-core-utils:$versions.androidx"
 androidx.viewpager2 = "androidx.viewpager2:viewpager2:$versions.viewpager2"
+//androidx flexbox_layout
+androidx.flexbox_layout = "com.google.android:flexbox:1.1.0"
 deps.androidx = androidx
 
 def room = [:]

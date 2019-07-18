@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.ui.TabLayoutMediator
 import com.tangpj.recurve.util.resolveColor

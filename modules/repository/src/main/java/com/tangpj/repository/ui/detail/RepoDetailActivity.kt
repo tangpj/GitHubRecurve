@@ -39,7 +39,7 @@ class RepoDetailActivity : BaseActivity(){
                 contentScrimColorInt = resolveColor(this@RepoDetailActivity, R.attr.colorPrimary)
                 expandedTitleGravity = "top"
                 toolBar {
-                    title = "test"
+                    title = "${repoDetailQuery.owner}/${repoDetailQuery.name}"
                 }
                 collapsingView { inflater, collapsingToolbarLayout ->
                     val content = CollasingRepoDetailBinding.inflate(inflater, collapsingToolbarLayout, false)

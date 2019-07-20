@@ -3,3 +3,14 @@ dependencies {
     implementation deps.androidx.viewpager2
     implementation deps.androidx.flexbox_layout
 }
+
+
+screen{
+
+    mipmap{
+        designDensity "xxxhdpi"
+        mipmapDensity 'xxhdpi','xhdpi','hdpi','mdpi'
+        auto true
+    }
+
+}

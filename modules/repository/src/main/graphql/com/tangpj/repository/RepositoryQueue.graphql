@@ -40,15 +40,30 @@ query BlodDetail(
   $name: String = "Android-advanced-blueprint",
   $expression:String = "master:README.md"){
   repository(owner:$owner, name:$name){
-    object(expression:$expression){
+    object(expression: $expression){
       ... on Blob{
         id
         text
         byteSize
       }
+    }
+  }
+
+}
+
+#根据仓库所有者和仓库名查看文件列表
+query FileTree(
+  $owner: String = "Tangpj",
+  $name: String = "Android-advanced-blueprint",
+  $expression: String = "master:"){
+  repository(owner: $owner, name: $name) {
+    gitObject: object(expression: $expression) {
       ... on Tree{
-              id
-            }
+        entries{
+          name
+          type
+        }
+      }
     }
   }
 }

@@ -8,11 +8,11 @@ fragment repoDto on Repository{
   }
 
   description
-  languages(first: 1){
-    nodes{
-       ...languageDto
-    }
+
+  primaryLanguage{
+    ...languageDto
   }
+
   stargazers{
     totalCount
   }

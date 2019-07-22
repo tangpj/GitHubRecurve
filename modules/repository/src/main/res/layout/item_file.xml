@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_material"
+        android:drawablePadding="@dimen/margin_horizontal_material"
+        android:layout_marginTop="@dimen/margin_vertical_material"
+        android:layout_marginBottom="@dimen/margin_vertical_material"
+        android:drawableStart="@drawable/ic_folder_black_24dp"
+        tool:text="README.md"
+        style="@style/TextAppearance.Adaptive.Body2" />
+
+</layout>
+

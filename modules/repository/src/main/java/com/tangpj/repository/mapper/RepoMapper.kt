@@ -10,12 +10,7 @@ import com.tangpj.repository.valueObject.Owner
 import com.tangpj.repository.vo.Repo
 
 fun RepoDto.mapperToRepo(): Repo{
-    val languages = languages?.nodes
-    val languageDto = if (languages != null && languages.size > 0){
-        languages[0].fragments.languageDto
-    }else{
-        null
-    }
+    val languageDto = primaryLanguage?.fragments?.languageDto
     val localOwner = Owner(
             id = owner.id,
             login = owner.login,

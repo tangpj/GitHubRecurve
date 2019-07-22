@@ -27,4 +27,8 @@
   <dimen name='text_size_h3_material'>64sp</dimen>
   <dimen name='text_size_h2_material'>80sp</dimen>
   <dimen name='text_size_h1_material'>128sp</dimen>
+  <dimen name='icon_xxhdpi'>64dp</dimen>
+  <dimen name='icon_xhdpi'>48dp</dimen>
+  <dimen name='icon_hdpi'>32dp</dimen>
+  <dimen name='icon_mdpi'>24dp</dimen>
 </resources>

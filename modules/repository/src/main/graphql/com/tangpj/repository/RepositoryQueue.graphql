@@ -35,7 +35,7 @@ query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
 }
 
 # 根据所有者和仓库名查看文件详情
-query BlodDetail(
+query BlobDetail(
   $owner: String = "Tangpj",
   $name: String = "Android-advanced-blueprint",
   $expression:String = "master:README.md"){

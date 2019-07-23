@@ -21,8 +21,7 @@ class RepositoryCreator constructor(
     }
 
     override fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): RecurveViewHolder<*> =
-            RecurveViewHolder(
-                    ItemRepositoryBinding
+            RecurveViewHolder(ItemRepositoryBinding
                     .inflate(LayoutInflater.from(parent.context), parent, false))
 
 }

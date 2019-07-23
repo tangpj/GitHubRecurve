@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_response_is_null">response data is null!!</string>
+
+</resources>

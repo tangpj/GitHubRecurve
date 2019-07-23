@@ -5,9 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.tangpj.repository.valueObject.query.FileContentQuery
 import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.vo.FileContent
+import com.tangpj.repository.vo.FileItem
 
 @Dao
 abstract class RepoDetailDao{
@@ -20,6 +20,12 @@ abstract class RepoDetailDao{
 
     @Query("SELECT * FROM FileContent WHERE id = :id")
     abstract fun loadFileContentById(id: String): LiveData<FileContent>
+
+    @Query("""
+        SELECT * FROM FileItem 
+        WHERE id IN (:ids)
+    """)
+    abstract fun loadFilesById(ids: List<String>): LiveData<List<FileItem>>
 
     @Query("""
         SELECT * FROM FileContentResult

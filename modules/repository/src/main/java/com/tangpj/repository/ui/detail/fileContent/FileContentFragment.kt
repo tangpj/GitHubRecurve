@@ -8,10 +8,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tangpj.github.ui.BaseFragment
-import com.tangpj.recurve.dagger2.RecurveDaggerFragment
-import com.tangpj.recurve.resource.Resource.Companion.loading
 import com.tangpj.repository.databinding.FragmentFileContentBinding
-import com.tangpj.repository.valueObject.query.FileContentQuery
+import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.vo.FileContent
 import javax.inject.Inject
 
@@ -27,7 +25,7 @@ class FileContentFragment : BaseFragment(){
     private lateinit var fileContentViewModel: FileContentViewModel
 
     companion object{
-        fun create(query: FileContentQuery) =
+        fun create(query: GitObjectQuery) =
                 FileContentFragment().apply {
                     arguments = Bundle(1).apply {
                         putParcelable(KEY_FILE_CONTENT_QUERY, query)
@@ -48,7 +46,7 @@ class FileContentFragment : BaseFragment(){
         fileContentViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FileContentViewModel::class.java)
         binding.fileContent = fileContentViewModel.fileContent
-        val fileContentQuery = arguments?.getParcelable<FileContentQuery>(KEY_FILE_CONTENT_QUERY)
+        val fileContentQuery = arguments?.getParcelable<GitObjectQuery>(KEY_FILE_CONTENT_QUERY)
         fileContentQuery?.let {
             fileContentViewModel.loadFileContentByQuery(it)
         }

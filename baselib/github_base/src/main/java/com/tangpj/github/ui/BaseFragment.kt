@@ -41,11 +41,13 @@ abstract class BaseFragment : RecurveDaggerFragment(){
         val loading = Loading<Data>()
         loading.loadingInvoke()
         loading.resource?.observe(this, Observer {
-            contentBinding.root.visibility = if (it.networkState.status == Status.SUCCESS){
-                View.VISIBLE
-            }else{
-                View.GONE
-            }
+            contentBinding.root.visibility =
+                    if (it.networkState.status == Status.SUCCESS
+                            && it.data != null){
+                        View.VISIBLE
+                    }else{
+                        View.GONE
+                    }
             _binding.resource = it
         })
 

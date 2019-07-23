@@ -5,34 +5,34 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.tangpj.recurve.resource.Resource
-import com.tangpj.repository.repository.FileContentRepository
-import com.tangpj.repository.valueObject.query.FileContentQuery
+import com.tangpj.repository.repository.FileRepository
+import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.vo.FileContent
 import javax.inject.Inject
 
-class FileContentViewModel @Inject constructor(private val fileContentRepository: FileContentRepository) : ViewModel(){
+class FileContentViewModel @Inject constructor(private val fileRepository: FileRepository) : ViewModel(){
 
-    private val _fileContentQuery = MutableLiveData<FileContentQuery>()
+    private val _gitObjectQuery = MutableLiveData<GitObjectQuery>()
 
     val fileContent: LiveData<Resource<FileContent>>
-            = Transformations.switchMap(_fileContentQuery){
+            = Transformations.switchMap(_gitObjectQuery){
         it.ifExists { fileContentQuery->
-            fileContentRepository.loadFileContent(fileContentQuery)
+            fileRepository.loadFileContent(fileContentQuery)
         }
     }
 
-    fun loadFileContentByQuery(fileContentQuery: FileContentQuery){
-        val update = FileContentQuery(fileContentQuery.repoDetailQuery, fileContentQuery.expression)
-        if (update == _fileContentQuery.value){
+    fun loadFileContentByQuery(gitObjectQuery: GitObjectQuery){
+        val update = GitObjectQuery(gitObjectQuery.repoDetailQuery, gitObjectQuery.branch, gitObjectQuery.path)
+        if (update == _gitObjectQuery.value){
             return
         }
-        _fileContentQuery.value = update
+        _gitObjectQuery.value = update
     }
 
     fun retry(){
-        val fileContentQuery = _fileContentQuery.value
-        fileContentQuery ?: return
-        _fileContentQuery.value = FileContentQuery(fileContentQuery.repoDetailQuery, fileContentQuery.expression)
+        val gitObjectQuery = _gitObjectQuery.value
+        gitObjectQuery ?: return
+        _gitObjectQuery.value = GitObjectQuery(gitObjectQuery.repoDetailQuery, gitObjectQuery.branch, gitObjectQuery.path)
     }
 
 }

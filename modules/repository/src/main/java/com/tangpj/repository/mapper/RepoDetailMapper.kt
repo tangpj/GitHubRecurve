@@ -1,11 +1,11 @@
 package com.tangpj.repository.mapper
 
-import com.tangpj.repository.BlodDetailQuery
+import com.tangpj.repository.BlobDetailQuery
 import com.tangpj.repository.vo.FileContent
 
-fun BlodDetailQuery.Data.getFileContent(expression: String): FileContent?{
+fun BlobDetailQuery.Data.getFileContent(expression: String): FileContent?{
 
-    val asBlob = repository?.`object` as? BlodDetailQuery.AsBlob
+    val asBlob = repository?.`object` as? BlobDetailQuery.AsBlob
     asBlob?: return null
     return FileContent(
             id = asBlob.id,
@@ -14,7 +14,7 @@ fun BlodDetailQuery.Data.getFileContent(expression: String): FileContent?{
             type = extOfType(expression))
 }
 
-fun BlodDetailQuery.Data.extOfType(expression: String): FileContent.Type{
+fun BlobDetailQuery.Data.extOfType(expression: String): FileContent.Type{
     val temp = expression.split(".")
     if (temp.size <= 1){
        return FileContent.Type.DEFAULT

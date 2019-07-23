@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.ui.TabLayoutMediator
 import com.tangpj.recurve.util.resolveColor
@@ -14,11 +13,12 @@ import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDeatilBinding
 import com.tangpj.repository.databinding.CollasingRepoDetailBinding
 import com.tangpj.repository.ui.detail.fileContent.FileContentFragment
-import com.tangpj.repository.valueObject.query.FileContentQuery
+import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
 
 const val KEY_REPO_DETAIL_QUERY = "com.tangpj.repository.ui.detail.KEY_FILE_CONTENT_QUERY"
-private const val EXPRESSION_README = "master:README.md"
+private const val PATH_README = "README.md"
+private const val BRANCH_MASTER = "master"
 
 @Route(path = PATH_REPO_DETAILS)
 class RepoDetailActivity : BaseActivity(){
@@ -64,7 +64,7 @@ private class RepoDetailAdapter(
                         TODO()
                     }
                     else -> {
-                        val fileContentQuery = FileContentQuery(repoDetailQuery, EXPRESSION_README)
+                        val fileContentQuery = GitObjectQuery(repoDetailQuery, BRANCH_MASTER, PATH_README)
                         FileContentFragment.create(fileContentQuery)
                     }
                 }

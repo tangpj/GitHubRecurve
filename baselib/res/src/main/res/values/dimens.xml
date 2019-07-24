@@ -15,7 +15,7 @@
     <dimen name="content_margin_horizontal_material">72dp</dimen>
 
     <!--  toolbar  -->
-    <dimen name="toolbar_collapsing_content">192dp</dimen>
+    <dimen name="toolbar_collapsing_content_height">128dp</dimen>
 
 
     <!--button dimens-->

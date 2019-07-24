@@ -18,7 +18,7 @@ class FilesFragment : ModulePagingFragment(){
 
     private lateinit var filesViewModel: FilesViewModel
 
-    lateinit var fileICreator: FileItemCreator
+    lateinit var fileItemCreator: FileItemCreator
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

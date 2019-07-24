@@ -7,8 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimaryLight"
-        android:minHeight="@dimen/toolbar_collapsing_content"
+        android:minHeight="@dimen/toolbar_collapsing_content_height"
         android:paddingStart="@dimen/margin_horizontal_material"
+        android:paddingBottom="@dimen/margin_vertical_material"
+        android:paddingTop="@dimen/text_view_min_height_material"
         android:paddingEnd="@dimen/margin_horizontal_material">
 
         <TextView
@@ -30,7 +32,6 @@
             android:id="@+id/tv_repository_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_view_min_height_material"
             android:ellipsize="end"
             android:maxLines="4"
             app:layout_constraintEnd_toEndOf="parent"

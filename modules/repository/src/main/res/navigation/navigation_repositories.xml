@@ -2,9 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_repositories"
-    app:startDestination="@+id/repositoriesFragment"    >
+    app:startDestination="@+id/repositories"    >
 
-    <fragment android:id="@+id/repositoriesFragment"
+    <fragment android:id="@+id/repositories"
         android:name="com.tangpj.repository.ui.repositories.RepoFragment"
         android:label="RepositoriesFragment">
 
@@ -21,7 +21,7 @@
 
         <action
             android:id="@+id/init"
-            app:destination="@+id/repositoriesFragment"
+            app:destination="@+id/repositories"
             />
 
     </fragment>

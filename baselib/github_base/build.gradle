@@ -94,6 +94,7 @@ dependencies {
     api deps.navigation.fragment_ktx
     api deps.navigation.fragment
     api deps.navigation.runtime
+    api deps.navigation.runtime_ktx
     api deps.paging.common
     api deps.paging_ktx
 
@@ -126,8 +127,8 @@ dependencies {
 
     api 'javax.annotation:jsr250-api:1.0'
 
-    androidTestApi deps.junit
-    androidTestApi (deps.mock_web_server, {
+    androidTestImplementation deps.junit
+    androidTestImplementation (deps.mock_web_server, {
         exclude group: 'com.android.support'
     })
 
@@ -135,30 +136,30 @@ dependencies {
         all*.exclude group: 'com.android.support'
     }
 
-    androidTestApi(deps.espresso.core, {
+    androidTestImplementation(deps.espresso.core, {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
-    androidTestApi(deps.espresso.contrib, {
+    androidTestImplementation(deps.espresso.contrib, {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-utils'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
 
-    androidTestApi(deps.arch_core.testing, {
+    androidTestImplementation(deps.arch_core.testing, {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
-    androidTestApi (deps.dexmaker, {
+    androidTestImplementation (deps.dexmaker, {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
-    androidTestApi (deps.mockito.core, {
+    androidTestImplementation (deps.mockito.core, {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'

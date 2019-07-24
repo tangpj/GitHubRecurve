@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import com.tangpj.github.BuildConfig
 import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.valueObject.Owner
+import com.tangpj.repository.valueObject.result.FileItemsResult
 import com.tangpj.repository.valueObject.result.StarRepoId
 import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.vo.FileContent
@@ -19,6 +20,7 @@ import com.tangpj.repository.vo.Repo
             StarRepoId::class,
             StarRepoResult::class,
             FileItem::class,
+            FileItemsResult::class,
             FileContent::class,
             FileContentResult::class],
         version = BuildConfig.DB_VERSION_GITHUB)

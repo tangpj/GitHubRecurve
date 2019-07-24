@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import com.tangpj.github.ui.BaseFragment
 import com.tangpj.repository.databinding.FragmentFileContentBinding
 import com.tangpj.repository.valueObject.query.GitObjectQuery
@@ -52,7 +53,7 @@ class FileContentFragment : BaseFragment(){
         }
 
         loading<FileContent> {
-            resource = fileContentViewModel.fileContent
+           resource = fileContentViewModel.fileContent
         }
     }
 

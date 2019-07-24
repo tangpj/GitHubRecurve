@@ -13,10 +13,12 @@ import com.tangpj.repository.BlobDetailQuery
 import com.tangpj.repository.FileTreeQuery
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.mapper.getFileContent
+import com.tangpj.repository.mapper.getFileItems
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.getApolloBlobQuery
 import com.tangpj.repository.valueObject.query.getApolloFileTreeQuery
 import com.tangpj.repository.valueObject.result.FileContentResult
+import com.tangpj.repository.valueObject.result.FileItemsResult
 import com.tangpj.repository.vo.FileContent
 import com.tangpj.repository.vo.FileItem
 import java.util.concurrent.TimeUnit
@@ -29,17 +31,34 @@ class FileRepository @Inject constructor(
 
     private val fileTreeRateLimiter = RateLimiter<GitObjectQuery>(5, TimeUnit.MINUTES)
 
-    fun loadDirectory(gitObjectQuery: GitObjectQuery) =
-            object : NetworkBoundResource<FileItem, FileTreeQuery.Data>(){
+    fun loadFileDirectory(gitObjectQuery: GitObjectQuery) =
+            object : NetworkBoundResource<List<FileItem>, FileTreeQuery.Data>(){
                 override fun saveCallResult(item: FileTreeQuery.Data) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    val fileItems = item.getFileItems()
+                    val fileItemsResult = FileItemsResult(
+                            owner = gitObjectQuery.repoDetailQuery.owner,
+                            repoName = gitObjectQuery.repoDetailQuery.name,
+                            expression = gitObjectQuery.getExpression(),
+                            itemIds = fileItems.map { it.id })
+                    repoDb.runInTransaction {
+                        repoDb.repoDetailDao().inserFileItems(fileItems)
+                        repoDb.repoDetailDao().insertFileItemResult(fileItemsResult)
+                    }
                 }
 
-                override fun shouldFetch(data: FileItem?): Boolean =
+                override fun shouldFetch(data: List<FileItem>?): Boolean =
                         data == null || fileTreeRateLimiter.shouldFetch(gitObjectQuery)
 
-                override fun loadFromDb(): LiveData<FileItem> {
-                    TODO()
+                override fun loadFromDb(): LiveData<List<FileItem>> = Transformations.switchMap(repoDb.repoDetailDao().loadFileItemsResult(
+                        gitObjectQuery.repoDetailQuery.owner,
+                        gitObjectQuery.repoDetailQuery.name,
+                        gitObjectQuery.getExpression())){
+                    if (it == null){
+                        AbsentLiveData.create()
+                    }else{
+                        repoDb.repoDetailDao().loadFileItemsById(it.itemIds)
+                    }
+
                 }
 
                 override fun createCall(): LiveData<ApiResponse<FileTreeQuery.Data>> {
@@ -49,7 +68,7 @@ class FileRepository @Inject constructor(
 
                 }
 
-            }
+            }.asLiveData()
 
     fun loadFileContent(gitObjectQuery: GitObjectQuery) =
             object : NetworkBoundResource<FileContent, BlobDetailQuery.Data>(){

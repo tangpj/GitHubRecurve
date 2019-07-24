@@ -60,6 +60,9 @@ query FileTree(
     gitObject: object(expression: $expression) {
       ... on Tree{
         entries{
+          gitObject: object{
+            id
+          }
           name
           type
         }

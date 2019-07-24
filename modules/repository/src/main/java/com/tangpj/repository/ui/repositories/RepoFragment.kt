@@ -28,9 +28,11 @@ class RepoFragment: ModulePagingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val arg = RepoFragmentArgs.fromBundle(arguments)
-        Timber.d("user name = ${arg.login}")
-        repoViewModel.setRepoOwner(arg.login)
+        arguments?.let {
+            val arg = RepoFragmentArgs.fromBundle(it)
+            Timber.d("user name = ${arg.login}")
+            repoViewModel.setRepoOwner(arg.login)
+        }
     }
 
     override fun onBindingInit(binding: ViewDataBinding) {

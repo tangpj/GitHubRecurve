@@ -9,7 +9,7 @@
   <dimen name='common_icon_height_material'>55dp</dimen>
   <dimen name='common_icon_width_material'>55dp</dimen>
   <dimen name='content_margin_horizontal_material'>83dp</dimen>
-  <dimen name='toolbar_collapsing_content'>220dp</dimen>
+  <dimen name='toolbar_collapsing_content_height'>147dp</dimen>
   <dimen name='button_min_height_material'>55dp</dimen>
   <dimen name='button_min_width_material'>101dp</dimen>
   <dimen name='text_view_min_height_material'>55dp</dimen>

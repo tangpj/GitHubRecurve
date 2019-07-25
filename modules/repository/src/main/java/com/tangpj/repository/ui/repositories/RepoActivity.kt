@@ -22,7 +22,7 @@ class RepoActivity : BaseActivity(){
                 .build()
                 .toBundle()
 
-        navController.navigate(R.id.repositoriesFragment, defaultArgs)
+        navController.navigate(R.id.repositories, defaultArgs)
         appbar{
             title = getString(R.string.app_name)
         }

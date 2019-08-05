@@ -18,7 +18,7 @@ import com.tangpj.recurve.resource.Status
 import com.tangpj.recurve.util.openInCustomTabOrBrowser
 import javax.inject.Inject
 
-class AuthorizationFragment : RecurveDaggerFragment() {
+class AuthorizationFragment : RecurveDaggerFragment(){
 
     private lateinit var authorizationViewModel: AuthorizationViewModel
     private lateinit var binding: FragmentOauth2Binding
@@ -29,7 +29,7 @@ class AuthorizationFragment : RecurveDaggerFragment() {
     @Inject
     lateinit var githubApp : GithubApp
 
-    private val authorizeListener = View.OnClickListener{  _: View -> authorize() }
+    private val authorizeListener = View.OnClickListener{ authorize() }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

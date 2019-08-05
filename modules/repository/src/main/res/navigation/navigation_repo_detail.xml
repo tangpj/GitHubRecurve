@@ -8,7 +8,8 @@
     <fragment android:id="@+id/files">
 
         <argument
-            app:argType="<type>"/>
+            android:name="filesQuery"
+            app:argType="com.tangpj.repository.valueObject.query.GitObjectQuery"/>
 
     </fragment>
 

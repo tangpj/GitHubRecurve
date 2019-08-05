@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
-import com.tangpj.github.ui.TabLayoutMediator
 import com.tangpj.recurve.util.resolveColor
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
@@ -15,6 +14,7 @@ import com.tangpj.repository.databinding.CollasingRepoDetailBinding
 import com.tangpj.repository.ui.detail.fileContent.FileContentFragment
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
+import com.tangpj.viewpager.setupWithNavController
 
 const val KEY_REPO_DETAIL_QUERY = "com.tangpj.repository.ui.detail.KEY_FILE_CONTENT_QUERY"
 private const val PATH_README = "README.md"
@@ -27,10 +27,8 @@ class RepoDetailActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         val binding = initContentBinding<ActivityRepoDeatilBinding>(R.layout.activity_repo_deatil)
         val repoDetailQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
-        binding.vpRepoContent.adapter = createViewPagerAdapter(repoDetailQuery)
-        TabLayoutMediator(binding.tlRepoTitle, binding.vpRepoContent){ tab, position ->
-            tab.text = "Code"
-        }.attach()
+        val graphIds = listOf(R.navigation.navigation_repositories)
+        binding.vpRepoContent.setupWithNavController(this, graphIds, intent )
 
         appbar {
             scrollEnable = true
@@ -47,6 +45,7 @@ class RepoDetailActivity : BaseActivity(){
                 }
             }
         }
+
     }
 
     private fun createViewPagerAdapter(repoDetailQuery: RepoDetailQuery) : FragmentStateAdapter{
@@ -70,6 +69,5 @@ private class RepoDetailAdapter(
                 }
 
             override fun getItemCount(): Int = 1
-
 
         }

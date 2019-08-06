@@ -151,6 +151,7 @@ deps.paging_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
 def navigation = [:]
 navigation.runtime = "androidx.navigation:navigation-runtime:$versions.navigation"
 navigation.runtime_ktx = "androidx.navigation:navigation-runtime-ktx:$versions.navigation"
+navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 navigation.fragment = "androidx.navigation:navigation-fragment:$versions.navigation"
 navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
 navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"

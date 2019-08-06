@@ -14,9 +14,6 @@ import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.vo.FileContent
 import javax.inject.Inject
 
-private const val KEY_FILE_CONTENT_QUERY =
-        "com.tangpj.repository.ui.detail.fileContent.KEY_FILE_CONTENT_QUERY"
-
 class FileContentFragment : BaseFragment(){
 
     @Inject
@@ -24,15 +21,6 @@ class FileContentFragment : BaseFragment(){
 
     lateinit var binding: FragmentFileContentBinding
     private lateinit var fileContentViewModel: FileContentViewModel
-
-    companion object{
-        fun create(query: GitObjectQuery) =
-                FileContentFragment().apply {
-                    arguments = Bundle(1).apply {
-                        putParcelable(KEY_FILE_CONTENT_QUERY, query)
-                    }
-                }
-    }
 
     override fun onCreateContentBinding(
             inflater: LayoutInflater,
@@ -43,18 +31,31 @@ class FileContentFragment : BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         fileContentViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FileContentViewModel::class.java)
         binding.fileContent = fileContentViewModel.fileContent
-        val fileContentQuery = arguments?.getParcelable<GitObjectQuery>(KEY_FILE_CONTENT_QUERY)
-        fileContentQuery?.let {
+        val gitObjectQuery = arguments?.let{
+            val fileContentQuery = FileContentFragmentArgs.fromBundle(it)
+            fileContentQuery.convertToGitObject()
+        }
+
+        gitObjectQuery?.let {
             fileContentViewModel.loadFileContentByQuery(it)
         }
 
         loading<FileContent> {
-           resource = fileContentViewModel.fileContent
+            resource = fileContentViewModel.fileContent
         }
     }
 
+}
+
+internal fun FileContentFragmentArgs.convertToGitObject() : GitObjectQuery? {
+    return repoDetailQuery?.let {
+        GitObjectQuery(
+                repoDetailQuery = it,
+                branch = branch,
+                path = path)
+    }
 }

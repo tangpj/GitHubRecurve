@@ -34,8 +34,10 @@ class AuthorizationFragment : RecurveDaggerFragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         authorizationViewModel = ViewModelProviders.of(this, viewModelFactory)[AuthorizationViewModel::class.java]
-        val params = AuthorizationFragmentArgs.fromBundle(arguments)
-        getToken(params.code)
+        arguments?.let{
+            val params = AuthorizationFragmentArgs.fromBundle(it)
+            getToken(params.code)
+        }
         authorizationViewModel.token.observe(this, Observer<Resource<GithubToken>>{
             if(it.networkState.status == Status.SUCCESS){
                 val intent = Intent("com.tangpj.github.loginTransfer")

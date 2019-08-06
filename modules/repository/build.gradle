@@ -2,6 +2,7 @@ apply from: '../module.gradle'
 dependencies {
     implementation deps.androidx.viewpager2
     implementation deps.androidx.flexbox_layout
+    implementation deps.navigation.ui_ktx
 }
 
 

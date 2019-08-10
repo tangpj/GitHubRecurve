@@ -11,11 +11,10 @@ import com.tangpj.repository.valueObject.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-
 @Entity(
         indices = [
             Index("id")],
-        primaryKeys = ["name"]
+        primaryKeys = ["owner", "name"]
 )
 data class Repo constructor(
         val id: String,

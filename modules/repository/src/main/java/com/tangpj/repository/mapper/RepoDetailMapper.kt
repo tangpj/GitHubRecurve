@@ -2,8 +2,16 @@ package com.tangpj.repository.mapper
 
 import com.tangpj.repository.ApolloBlobDetailQuery
 import com.tangpj.repository.ApolloFileTreeQuery
+import com.tangpj.repository.ApolloRepoDetailQuery
 import com.tangpj.repository.vo.FileContent
 import com.tangpj.repository.vo.FileItem
+import com.tangpj.repository.vo.RepoDetail
+
+
+fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{
+    val data = repository ?: return null
+
+}
 
 fun ApolloFileTreeQuery.Data.getFileItems() : List<FileItem>{
     val tree = repository?.gitObject as? ApolloFileTreeQuery.AsTree

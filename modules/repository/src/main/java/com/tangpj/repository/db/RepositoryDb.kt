@@ -11,11 +11,13 @@ import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.vo.FileContent
 import com.tangpj.repository.vo.FileItem
 import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.vo.RepoDetail
 
 
 @Database(
         entities = [
             Repo::class,
+            RepoDetail::class,
             Owner::class,
             StarRepoId::class,
             StarRepoResult::class,

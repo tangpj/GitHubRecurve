@@ -7,7 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.tabs.TabLayout
 import com.tangpj.github.ui.BaseActivity
+import com.tangpj.github.ui.TabLayoutMediator
 import com.tangpj.recurve.util.resolveColor
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
@@ -30,7 +32,6 @@ class RepoDetailActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         val binding = initContentBinding<ActivityRepoDeatilBinding>(R.layout.activity_repo_deatil)
         val repoDetailQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
-        val graphIds = listOf(R.navigation.navigation_repo_detail)
 
 
         appbar {
@@ -49,6 +50,8 @@ class RepoDetailActivity : BaseActivity(){
             }
         }
 
+
+        val graphIds = listOf(R.navigation.navigation_repo_detail)
         val navController =
                 binding.vpRepoContent.setupWithNavController(this, graphIds, intent )
         navController.observe(this, Observer {
@@ -62,7 +65,18 @@ class RepoDetailActivity : BaseActivity(){
             }
         })
 
+        TabLayoutMediator(
+                binding.tlRepoTitle,
+                binding.vpRepoContent){ tab, position ->
+                    tab.text = when(position){
+                        1 -> "FILED"
+                        else -> "README"
+                    }
+                }.attach()
+
     }
+
+
 
 
 }

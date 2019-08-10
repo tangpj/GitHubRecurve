@@ -9,8 +9,8 @@ import com.tangpj.recurve.apollo.LiveDataApollo
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
 import com.tangpj.recurve.util.RateLimiter
-import com.tangpj.repository.BlobDetailQuery
-import com.tangpj.repository.FileTreeQuery
+import com.tangpj.repository.ApolloBlobDetailQuery
+import com.tangpj.repository.ApolloFileTreeQuery
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.mapper.getFileContent
 import com.tangpj.repository.mapper.getFileItems
@@ -32,8 +32,8 @@ class FileRepository @Inject constructor(
     private val fileTreeRateLimiter = RateLimiter<GitObjectQuery>(5, TimeUnit.MINUTES)
 
     fun loadFileDirectory(gitObjectQuery: GitObjectQuery) =
-            object : NetworkBoundResource<List<FileItem>, FileTreeQuery.Data>(){
-                override fun saveCallResult(item: FileTreeQuery.Data) {
+            object : NetworkBoundResource<List<FileItem>, ApolloFileTreeQuery.Data>(){
+                override fun saveCallResult(item: ApolloFileTreeQuery.Data) {
                     val fileItems = item.getFileItems()
                     val fileItemsResult = FileItemsResult(
                             owner = gitObjectQuery.repoDetailQuery.owner,
@@ -61,7 +61,7 @@ class FileRepository @Inject constructor(
 
                 }
 
-                override fun createCall(): LiveData<ApiResponse<FileTreeQuery.Data>> {
+                override fun createCall(): LiveData<ApiResponse<ApolloFileTreeQuery.Data>> {
                     val fileTreeQuery = gitObjectQuery.getApolloFileTreeQuery()
                     val fileTreeCall = apolloClient.query(fileTreeQuery)
                     return LiveDataApollo.from(fileTreeCall)
@@ -71,9 +71,9 @@ class FileRepository @Inject constructor(
             }.asLiveData()
 
     fun loadFileContent(gitObjectQuery: GitObjectQuery) =
-            object : NetworkBoundResource<FileContent, BlobDetailQuery.Data>(){
+            object : NetworkBoundResource<FileContent, ApolloBlobDetailQuery.Data>(){
 
-                override fun saveCallResult(item: BlobDetailQuery.Data) {
+                override fun saveCallResult(item: ApolloBlobDetailQuery.Data) {
                     val fileContent = item.getFileContent(gitObjectQuery.getExpression())
                     fileContent ?: return
                     val fileContentResult = FileContentResult(
@@ -103,7 +103,7 @@ class FileRepository @Inject constructor(
                     }
                 }
 
-                override fun createCall(): LiveData<ApiResponse<BlobDetailQuery.Data>> {
+                override fun createCall(): LiveData<ApiResponse<ApolloBlobDetailQuery.Data>> {
                     val blobDetailQuery = gitObjectQuery.getApolloBlobQuery()
 
                     val blobCall = apolloClient.query(blobDetailQuery)

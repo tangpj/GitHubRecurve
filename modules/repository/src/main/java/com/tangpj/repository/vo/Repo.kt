@@ -28,13 +28,12 @@ data class Repo constructor(
         val description: String,
         val stars: Int,
         val forks: Int
-): Parcelable{
+): Parcelable
 
-    fun startRepoDetail(context: Context){
-        //todo 暂时这样写，后续介入ARouter框架
-        val intent: Intent = Intent(context, RepoDetailActivity::class.java)
-        context.startActivity(intent)
-    }
+fun Repo.startRepoDetail(context: Context){
+    //todo 暂时这样写，后续介入ARouter框架
+    val intent: Intent = Intent(context, RepoDetailActivity::class.java)
+    context.startActivity(intent)
 }
 
 

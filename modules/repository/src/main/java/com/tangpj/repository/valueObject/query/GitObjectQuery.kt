@@ -3,8 +3,8 @@ package com.tangpj.repository.valueObject.query
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import com.tangpj.github.utils.AbsentLiveData
-import com.tangpj.repository.BlobDetailQuery
-import com.tangpj.repository.FileTreeQuery
+import com.tangpj.repository.ApolloBlobDetailQuery
+import com.tangpj.repository.ApolloFileTreeQuery
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -30,13 +30,13 @@ data class GitObjectQuery(
     }
 }
 
-fun GitObjectQuery.getApolloFileTreeQuery() : FileTreeQuery = FileTreeQuery.builder()
+fun GitObjectQuery.getApolloFileTreeQuery() = ApolloFileTreeQuery.builder()
         .owner(repoDetailQuery.owner)
         .name(repoDetailQuery.name)
         .expression(getExpression())
         .build()
 
-fun GitObjectQuery.getApolloBlobQuery() : BlobDetailQuery =  BlobDetailQuery.builder()
+fun GitObjectQuery.getApolloBlobQuery()  =  ApolloBlobDetailQuery.builder()
         .owner(repoDetailQuery.owner)
         .name(repoDetailQuery.name)
         .expression(getExpression())

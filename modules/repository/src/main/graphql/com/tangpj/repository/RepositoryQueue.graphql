@@ -1,5 +1,5 @@
 # 查看所有着star过的仓库
-query StartRepositories (
+query ApolloStartRepositories (
   $login: String = "Tangpj",
   $startFirst: Int = 20,
   $after: String,
@@ -23,7 +23,7 @@ query StartRepositories (
 }
 
 
-query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
+query ApolloWatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   user(login: $login){
     login
     watching(first: $startFirst){
@@ -34,8 +34,38 @@ query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   }
 }
 
+# 获取仓库详情的基本信息
+query ApolloRepoDetail(
+  $owner: String = "Tangpj"
+  $name: String = "calces-gradle-plugin"){
+   repository(owner:$owner, name:$name) {
+    stargazers{
+      totalCount
+    }
+    forks{
+      totalCount
+    }
+    watchers{
+      totalCount
+    }
+    description
+    url
+    sshUrl
+
+    repositoryTopics(first: 10){
+      nodes{
+        topic{
+          name
+        }
+      }
+    }
+  }
+
+}
+
+
 # 根据所有者和仓库名查看文件详情
-query BlobDetail(
+query ApolloBlobDetail(
   $owner: String = "Tangpj",
   $name: String = "Android-advanced-blueprint",
   $expression:String = "master:README.md"){
@@ -52,7 +82,7 @@ query BlobDetail(
 }
 
 #根据仓库所有者和仓库名查看文件列表
-query FileTree(
+query ApolloFileTree(
   $owner: String = "Tangpj",
   $name: String = "Android-advanced-blueprint",
   $expression: String = "master:"){

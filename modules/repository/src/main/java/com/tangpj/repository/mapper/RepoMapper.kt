@@ -1,8 +1,8 @@
 package com.tangpj.repository.mapper
 
 import com.tangpj.github.domain.PageInfo
-import com.tangpj.repository.StartRepositoriesQuery
-import com.tangpj.repository.WatchRepositoriesQuery
+import com.tangpj.repository.ApolloStartRepositoriesQuery
+import com.tangpj.repository.ApolloWatchRepositoriesQuery
 import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
@@ -49,7 +49,7 @@ fun PageInfoDto.mapperToLocalPageInfo() = PageInfo(
  * @date 2019-05-15 21:47
  *
  */
-fun StartRepositoriesQuery.Data.mapperToRepoVoList() : List<Repo>{
+fun ApolloStartRepositoriesQuery.Data.mapperToRepoVoList() : List<Repo>{
     val edges = this.user?.starredRepositories?.edges
     edges?.size ?: return mutableListOf()
     val repoVoList = edges.map { edge ->
@@ -60,10 +60,10 @@ fun StartRepositoriesQuery.Data.mapperToRepoVoList() : List<Repo>{
 
 }
 
-fun StartRepositoriesQuery.Data.getPageInfo() : PageInfo? =
+fun ApolloStartRepositoriesQuery.Data.getPageInfo() : PageInfo? =
         user?.starredRepositories?.pageInfo?.fragments?.pageInfoDto?.mapperToLocalPageInfo()
 
-fun WatchRepositoriesQuery.Data.getRepoDtoList() =
+fun ApolloWatchRepositoriesQuery.Data.getRepoDtoList() =
         this.user?.watching?.nodes?.map {
             it.fragments.repoDto
         }

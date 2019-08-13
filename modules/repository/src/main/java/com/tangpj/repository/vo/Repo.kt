@@ -14,11 +14,11 @@ import kotlinx.android.parcel.Parcelize
 @Entity(
         indices = [
             Index("id")],
-        primaryKeys = ["owner", "name"]
+        primaryKeys = ["owner_login", "name"]
 )
 data class Repo constructor(
         val id: String,
-        @Embedded(prefix = "owner")
+        @Embedded(prefix = "owner_")
         val owner: Owner,
         val name: String,
         val fullName: String,

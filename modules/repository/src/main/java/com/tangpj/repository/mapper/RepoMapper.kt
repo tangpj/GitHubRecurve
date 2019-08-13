@@ -3,6 +3,7 @@ package com.tangpj.repository.mapper
 import com.tangpj.github.domain.PageInfo
 import com.tangpj.repository.ApolloStartRepositoriesQuery
 import com.tangpj.repository.ApolloWatchRepositoriesQuery
+import com.tangpj.repository.fragment.OwnerDto
 import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
@@ -11,21 +12,21 @@ import com.tangpj.repository.vo.Repo
 
 fun RepoDto.mapperToRepo(): Repo{
     val languageDto = primaryLanguage?.fragments?.languageDto
-    val localOwner = Owner(
-            id = owner.id,
-            login = owner.login,
-            avatarUrl = owner.avatarUrl)
+    val ownerDto = owner.fragments.ownerDto
+    val localOwner = ownerDto.getOwner()
     return Repo(
             id = id,
             name = name,
             owner = localOwner,
-            fullName = "${owner.login}/$name",
+            fullName = "${ownerDto.login}/$name",
             language = languageDto?.name ?: "unknown",
             languageColor = languageDto?.color ?: "unknown",
             description = description ?: "",
             stars = stargazers.totalCount,
             forks = forks.totalCount)
 }
+
+fun OwnerDto.getOwner() = Owner(id, login, avatarUrl)
 
 /**
  * 把Apollo框架生成的PageInfo转换成本地的[PageInfo]
@@ -39,6 +40,7 @@ fun PageInfoDto.mapperToLocalPageInfo() = PageInfo(
         hasPreviousPage = isHasPreviousPage,
         startCursor = startCursor ?: "",
         endCursor = endCursor ?: "")
+
 
 /**
  * [starRepoResultListener] 如果不为空，则生成并回调[StarRepoResult]的值对象

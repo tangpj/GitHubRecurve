@@ -1,21 +1,24 @@
 package com.tangpj.repository.vo
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.github.db.StringListTypeConverters
+import com.tangpj.repository.valueObject.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @TypeConverters(StringListTypeConverters::class)
 @Entity(
         indices = [Index("id")],
-        primaryKeys = ["owner","name"]
+        primaryKeys = ["owner_login","name"]
 )
-class RepoDetail(
+data class RepoDetail constructor(
         val id: String,
-        val owner: String,
+        @Embedded(prefix = "owner_")
+        val owner: Owner,
         val name: String,
         val description: String,
         val stars: Int,
@@ -23,6 +26,6 @@ class RepoDetail(
         val watchers: Int,
         val url: String,
         val sshUrl: String,
-        val topics: List<String>
+        val topics: List<String> = emptyList()
 
 ) : Parcelable

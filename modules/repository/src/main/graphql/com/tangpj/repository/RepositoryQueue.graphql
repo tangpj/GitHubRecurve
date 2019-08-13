@@ -39,30 +39,10 @@ query ApolloRepoDetail(
   $owner: String = "Tangpj"
   $name: String = "calces-gradle-plugin"){
    repository(owner:$owner, name:$name) {
-       id
-       stargazers{
-         totalCount
-       }
-       forks{
-         totalCount
-       }
-       watchers{
-         totalCount
-       }
-       description
-       url
-       sshUrl
-
-       repositoryTopics(first: 8){
-         nodes{
-           topic{
-             name
-           }
-         }
-       }
+     ...repoDetailDto
+   }
   }
 
-}
 
 
 # 根据所有者和仓库名查看文件详情

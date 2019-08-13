@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools">
 
+    <data>
+        <import type="androidx.lifecycle.LiveData"/>
+        <import type="com.tangpj.recurve.resource.Resource"/>
+        <import type="com.tangpj.repository.vo.RepoDetail"/>
+        <variable
+            name="repoDetail"
+            type="LiveData&lt;Resource&lt;RepoDetail>>" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +43,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="4"
+            android:text="@{repoDetail.data.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,6 +66,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
+            android:text="@{String.valueOf(repoDetail.data.watchers)}"
             android:maxWidth="@dimen/button_min_width_material"
             android:layout_marginTop="@dimen/margin_vertical_material"
             app:layout_constraintTop_toBottomOf="@id/rv_repo_tag"
@@ -72,6 +83,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:maxWidth="@dimen/button_min_width_material"
+            android:text="@{String.valueOf(repoDetail.data.stars)}"
             app:layout_constraintEnd_toStartOf="@+id/tv_forks_num"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_watch_num"
@@ -86,6 +98,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:maxWidth="@dimen/button_min_width_material"
+            android:text="@{String.valueOf(repoDetail.data.forks)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_star_num"

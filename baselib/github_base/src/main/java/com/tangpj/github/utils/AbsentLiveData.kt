@@ -33,3 +33,11 @@ class AbsentLiveData<T : Any?> private constructor(): LiveData<T>() {
         }
     }
 }
+
+fun <T: Any?> AbsentLiveData<T>.form(value: T?){
+    if (value == null){
+        AbsentLiveData.create<T>()
+    }else{
+
+    }
+}

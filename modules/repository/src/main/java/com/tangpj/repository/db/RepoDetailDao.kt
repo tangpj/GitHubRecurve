@@ -9,9 +9,13 @@ import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.valueObject.result.FileItemsResult
 import com.tangpj.repository.vo.FileContent
 import com.tangpj.repository.vo.FileItem
+import com.tangpj.repository.vo.RepoDetail
 
 @Dao
 abstract class RepoDetailDao{
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertRepoDetail(repoDetail: RepoDetail)
 
     /**
      *
@@ -20,10 +24,16 @@ abstract class RepoDetailDao{
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun inserFileItems(fileItems: List<FileItem>)
+    abstract fun insertFileItems(fileItems: List<FileItem>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertFileItemResult(fileItemsResult: FileItemsResult)
+
+    @Query("""
+        SELECT * FROM RepoDetail
+        WHERE owner_login = :login AND name = :name
+    """)
+    abstract fun loadRepoDetail(login: String, name: String): LiveData<RepoDetail>
 
     @Query("""
         SELECT * FROM FileItem 

@@ -17,6 +17,7 @@ import com.tangpj.repository.mapper.getFileItems
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.getApolloBlobQuery
 import com.tangpj.repository.valueObject.query.getApolloFileTreeQuery
+import com.tangpj.repository.valueObject.query.getExpression
 import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.valueObject.result.FileItemsResult
 import com.tangpj.repository.vo.FileContent
@@ -36,12 +37,12 @@ class FileRepository @Inject constructor(
                 override fun saveCallResult(item: ApolloFileTreeQuery.Data) {
                     val fileItems = item.getFileItems()
                     val fileItemsResult = FileItemsResult(
-                            owner = gitObjectQuery.repoDetailQuery.owner,
+                            owner = gitObjectQuery.repoDetailQuery.login,
                             repoName = gitObjectQuery.repoDetailQuery.name,
                             expression = gitObjectQuery.getExpression(),
                             itemIds = fileItems.map { it.id })
                     repoDb.runInTransaction {
-                        repoDb.repoDetailDao().inserFileItems(fileItems)
+                        repoDb.repoDetailDao().insertFileItems(fileItems)
                         repoDb.repoDetailDao().insertFileItemResult(fileItemsResult)
                     }
                 }
@@ -50,7 +51,7 @@ class FileRepository @Inject constructor(
                         data == null || fileTreeRateLimiter.shouldFetch(gitObjectQuery)
 
                 override fun loadFromDb(): LiveData<List<FileItem>> = Transformations.switchMap(repoDb.repoDetailDao().loadFileItemsResult(
-                        gitObjectQuery.repoDetailQuery.owner,
+                        gitObjectQuery.repoDetailQuery.login,
                         gitObjectQuery.repoDetailQuery.name,
                         gitObjectQuery.getExpression())){
                     if (it == null){
@@ -77,7 +78,7 @@ class FileRepository @Inject constructor(
                     val fileContent = item.getFileContent(gitObjectQuery.getExpression())
                     fileContent ?: return
                     val fileContentResult = FileContentResult(
-                            owner = gitObjectQuery.repoDetailQuery.owner,
+                            owner = gitObjectQuery.repoDetailQuery.login,
                             repoName = gitObjectQuery.repoDetailQuery.name,
                             expression = gitObjectQuery.getExpression(),
                             fileContentId = fileContent.id)
@@ -93,7 +94,7 @@ class FileRepository @Inject constructor(
                 override fun loadFromDb(): LiveData<FileContent> =  Transformations.switchMap(
 
                         repoDb.repoDetailDao().loadFileContentResult(
-                                gitObjectQuery.repoDetailQuery.owner,
+                                gitObjectQuery.repoDetailQuery.login,
                                 gitObjectQuery.repoDetailQuery.name,
                                 gitObjectQuery.getExpression())){ fileContentResult ->
                     if (fileContentResult == null){

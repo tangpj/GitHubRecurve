@@ -9,8 +9,21 @@ import com.tangpj.repository.vo.RepoDetail
 
 
 fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{
-    val data = repository ?: return null
-
+    val repoDetailDto = repository?.fragments?.repoDetailDto ?: return null
+    val owner = repoDetailDto.owner.fragments.ownerDto.getOwner()
+    return RepoDetail(
+            id = repoDetailDto.id,
+            owner = owner,
+            name = repoDetailDto.name,
+            description = repoDetailDto.description ?:  "",
+            stars = repoDetailDto.stargazers.totalCount,
+            forks = repoDetailDto.forks.totalCount,
+            watchers = repoDetailDto.watchers.totalCount,
+            url = repoDetailDto.url,
+            sshUrl = "",
+            topics = repoDetailDto.repositoryTopics.nodes?.map {
+                it.topic.name } ?: emptyList()
+    )
 }
 
 fun ApolloFileTreeQuery.Data.getFileItems() : List<FileItem>{

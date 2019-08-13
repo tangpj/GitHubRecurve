@@ -1,14 +1,10 @@
 fragment repoDto on Repository{
   id
   name
-  owner{
-    avatarUrl
-    login
-    id
-  }
-
   description
-
+  owner{
+    ...ownerDto
+  }
   primaryLanguage{
     ...languageDto
   }
@@ -24,6 +20,39 @@ fragment repoDto on Repository{
   }
 }
 
+fragment repoDetailDto on Repository{
+  id
+  name
+  owner{
+    ...ownerDto
+  }
+  stargazers{
+    totalCount
+  }
+  forks{
+    totalCount
+  }
+  watchers{
+    totalCount
+  }
+  description
+  url
+  repositoryTopics(first: 8){
+    nodes{
+      topic{
+        name
+      }
+    }
+  }
+}
+
+
+fragment ownerDto on RepositoryOwner{
+    avatarUrl
+    login
+    id
+}
+
 fragment languageDto on Language{
   id
   name
@@ -36,3 +65,4 @@ fragment pageInfoDto on PageInfo{
   startCursor
   endCursor
 }
+

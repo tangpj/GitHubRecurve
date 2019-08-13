@@ -51,7 +51,7 @@ class RepoFragment: ModulePagingFragment() {
 
         addItemCreator(repositoryCreator)
         repositoryCreator.setOnItemClickListener { _ , e, _ ->
-            val repoDetailQuery = RepoDetailQuery(owner = e.owner.login, name = e.name)
+            val repoDetailQuery = RepoDetailQuery(login = e.owner.login, name = e.name)
             ARouter.getInstance().build(PATH_REPO_DETAILS).withParcelable(KEY_REPO_DETAIL_QUERY, repoDetailQuery).navigation()
         }
         repoViewModel.pagedList.observe(this, Observer {

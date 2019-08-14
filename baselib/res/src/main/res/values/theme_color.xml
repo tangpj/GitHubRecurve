@@ -2,15 +2,15 @@
 <resources>
 
     <!-- 正常主题颜色 -->
-    <color name="primaryColorNormal">#37474f</color>
-    <color name="primaryColorLightNormal">#62727b</color>
-    <color name="primaryColorDarkNormal">#102027</color>
+    <color name="primaryColorNormal">#90a4ae</color>
+    <color name="primaryColorLightNormal">#c1d5e0</color>
+    <color name="primaryColorDarkNormal">#62757f</color>
 
-    <color name="secondaryColorNormal">#cfd8dc</color>
-    <color name="secondaryColorLightNormal">#ffffff</color>
-    <color name="secondaryColorDarkNormal">#9ea7aa</color>
+    <color name="secondaryColorNormal">#4fc3f7</color>
+    <color name="secondaryColorLightNormal">#8bf6ff</color>
+    <color name="secondaryColorDarkNormal">#0093c4</color>
 
-    <color name="primaryTextColorNormal">#e0f7fa</color>
+    <color name="primaryTextColorNormal">#000000</color>
 
     <color name="secondaryTextColorNormal">#000000</color>
 

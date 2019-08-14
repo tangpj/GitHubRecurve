@@ -4,6 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textColor="#000"
+    android:textColor="#333"
     android:textSize="@dimen/text_size_body_1_material"
     tools:text="Table content" />

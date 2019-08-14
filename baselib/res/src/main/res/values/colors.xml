@@ -5,4 +5,6 @@
     <color name="textColor">#333</color>
     <color name="textColorDark">#000</color>
 
+    <color name="block_bg">#f6f8fa</color>
+
 </resources>

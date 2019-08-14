@@ -82,7 +82,10 @@ dependencies {
     implementation deps.markwon.html
     implementation deps.markwon.recycler
     implementation deps.markwon.glide
+    implementation deps.markwon.image
     implementation deps.markwon.table
+
+    implementation deps.svg
 
     implementation deps.okhttp.okhttp3
 
@@ -122,6 +125,8 @@ dependencies {
 
     kapt deps.dagger.compiler
     kapt deps.dagger.android_support_compiler
+
+    kapt deps.glide.compiler
 
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler

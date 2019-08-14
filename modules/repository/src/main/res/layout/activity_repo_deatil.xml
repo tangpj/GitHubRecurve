@@ -2,8 +2,6 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,6 +10,7 @@
             android:id="@+id/tl_repo_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimaryLight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>

@@ -14,7 +14,7 @@ abstract class GithubApp: DaggerApplication(){
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this);
-        appThemeId = installThemeId(this)
+//        appThemeId = installThemeId(this)
         instance = this
         if (BuildConfig.DEBUG){
             ARouter.openLog()

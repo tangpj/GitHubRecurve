@@ -55,7 +55,7 @@ class RepoDetailActivity : BaseActivity(){
             scrollFlags = "scroll|exitUntilCollapsed"
             collapsingToolbar {
                 contentScrimColorInt = resolveColor(this@RepoDetailActivity, R.attr.colorPrimary)
-                expandedTitleGravity = "top"
+                expandedTitleGravity = "top|start"
                 toolBar {
                     title = "${repoDetailQuery.login}/${repoDetailQuery.name}"
                 }

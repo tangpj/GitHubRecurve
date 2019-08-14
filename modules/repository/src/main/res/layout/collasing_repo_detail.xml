@@ -15,11 +15,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimaryLight"
+        android:background="?attr/colorPrimary"
         android:minHeight="@dimen/toolbar_collapsing_content_height"
         android:paddingStart="@dimen/margin_horizontal_material"
         android:paddingBottom="@dimen/margin_vertical_material"
-        android:paddingTop="@dimen/text_view_min_height_material"
+        android:paddingTop="@dimen/content_margin_vertical_material"
         android:paddingEnd="@dimen/margin_horizontal_material">
 
         <TextView

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_repo_detail"
+    app:startDestination="@id/filesScreen"
+    tools:ignore="UnusedNavigation">
+
+
+
+    <fragment android:id="@+id/filesScreen"
+        android:name="com.tangpj.repository.ui.detail.fileContent.FileContentFragment"
+        android:label="FileContent"
+        tools:layout="@layout/fragment_file_content"
+        >
+        <argument
+            android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument
+            android:name="branch"
+            android:defaultValue="master"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="path"
+            android:defaultValue="README.md"
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/file_content_init"
+            app:popUpTo="@+id/filesScreen"
+            app:popUpToInclusive="true"
+            app:destination="@+id/filesScreen"/>
+
+    </fragment>
+
+
+</navigation>

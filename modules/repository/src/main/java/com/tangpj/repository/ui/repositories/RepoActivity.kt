@@ -13,7 +13,7 @@ class RepoActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navController = initContentFragment(
-                R.navigation.navigation_repositories)
+                R.navigation.repositories)
 
         val defaultArgs = RepoFragmentArgs
                 .Builder()

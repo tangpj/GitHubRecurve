@@ -1,15 +1,13 @@
 package com.tangpj.repository.ui.detail.files
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.ui.creator.FileItemCreator
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import javax.inject.Inject
-
-private const val KEY_FILES_QUERY =
-        "com.tangpj.repository.ui.detail.files.KEY_FILES_QUERY"
 
 class FilesFragment : ModulePagingFragment(){
 
@@ -20,24 +18,8 @@ class FilesFragment : ModulePagingFragment(){
 
     lateinit var fileItemCreator: FileItemCreator
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val arg = FilesFragment
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
-
-    companion object{
-        fun create(query: GitObjectQuery) =
-                FilesFragment().apply {
-                    arguments = Bundle(1).apply {
-                        putParcelable(KEY_FILES_QUERY, query)
-                    }
-                }
-    }
-
-    override fun onBindingInit(binding: ViewDataBinding) {
-
-    }
-
 
 }

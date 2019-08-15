@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
+import com.tangpj.github.databinding.RecyclerViewBinding
 import com.tangpj.github.ui.creator.ItemLoadingCreator
 import com.tangpj.paging.PageLoadStatus
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
-import kotlinx.android.synthetic.main.recycler_view.view.*
 
 /**
  *
@@ -23,15 +22,19 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
     private lateinit var binding: FragmentBaseRecyclerViewBinding
     private lateinit var loadingCreator: ItemLoadingCreator
 
-    abstract fun onBindingInit(binding: ViewDataBinding)
+    open fun onBindingInit(binding: ViewDataBinding){}
 
+    @Suppress("CAST_NEVER_SUCCEEDS")
     override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?,
                                  savedInstanceState: Bundle?): ViewDataBinding? {
         binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         onBindingInit(binding)
-        initRecyclerView(binding.inRv.rvContent)
-        adapter.addCreator(loadingCreator)
+        //强转DataBinding的bug
+        val recyclerViewBinding = binding.inRv as? RecyclerViewBinding
+        recyclerViewBinding?.let {
+            initRecyclerView(it.rvContent)
+        }
         return binding
 
     }
@@ -42,6 +45,7 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
         binding.pageLoadState = loading.pageLoadState
         binding.retryCallback = loading.refresh
         loadingCreator = ItemLoadingCreator(adapter)
+        adapter.addCreator(loadingCreator)
         loading.pageLoadState?.let {
             it.observe(this, Observer { pageLoadState ->
                 if (pageLoadState.status != PageLoadStatus.REFRESH){

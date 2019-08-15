@@ -18,9 +18,8 @@ import com.tangpj.recurve.ui.strategy.LoadingStrategy
 abstract class BaseFragment : RecurveDaggerFragment(){
 
     private lateinit var _binding: FragmentBaseBinding
-    private lateinit var contentBinding: ViewDataBinding
-
-    abstract fun onCreateContentBinding(inflater: LayoutInflater, container: ViewGroup?) : ViewDataBinding
+    private var contentBinding: ViewDataBinding? = null
+    abstract fun onCreateContentBinding(inflater: LayoutInflater, container: ViewGroup?) : ViewDataBinding?
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -29,11 +28,14 @@ abstract class BaseFragment : RecurveDaggerFragment(){
     final override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding? {
         _binding = FragmentBaseBinding.inflate(inflater, container, false)
         contentBinding = onCreateContentBinding(inflater, _binding.root as? ViewGroup)
-        _binding.setLifecycleOwner(this)
-        contentBinding.setLifecycleOwner(this)
-        _binding.flRoot.addView(contentBinding.root)
-        contentBinding.root.layoutParams.height = FrameLayout.LayoutParams.MATCH_PARENT
-        contentBinding.root.layoutParams.width = FrameLayout.LayoutParams.MATCH_PARENT
+        _binding.lifecycleOwner = this
+        contentBinding?.apply {
+            _binding.flRoot.addView(this.root)
+            lifecycleOwner = this@BaseFragment
+            root.layoutParams.height = FrameLayout.LayoutParams.MATCH_PARENT
+            root.layoutParams.width = FrameLayout.LayoutParams.MATCH_PARENT
+
+        }
         return _binding
     }
 
@@ -41,7 +43,7 @@ abstract class BaseFragment : RecurveDaggerFragment(){
         val loading = Loading<Data>()
         loading.loadingInvoke()
         loading.resource?.observe(this, Observer {
-            contentBinding.root.visibility =
+            contentBinding?.root?.visibility =
                     if (it.networkState.status == Status.SUCCESS
                             && it.data != null){
                         View.VISIBLE

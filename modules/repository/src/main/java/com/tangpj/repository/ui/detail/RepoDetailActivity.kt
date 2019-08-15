@@ -1,15 +1,12 @@
 package com.tangpj.repository.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import android.util.SparseIntArray
+import androidx.core.util.containsKey
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.google.android.material.tabs.TabLayout
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.ui.TabLayoutMediator
 import com.tangpj.recurve.util.resolveColor
@@ -17,8 +14,9 @@ import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDeatilBinding
 import com.tangpj.repository.databinding.CollasingRepoDetailBinding
-import com.tangpj.repository.ui.detail.fileContent.FileContentFragment
+import com.tangpj.repository.ui.detail.fileContent.FileContentFragmentArgs
 import com.tangpj.repository.ui.detail.fileContent.FileContentFragmentDirections
+import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
 import com.tangpj.viewpager.setupWithNavController
@@ -36,6 +34,8 @@ class RepoDetailActivity : BaseActivity(){
 
     private lateinit var repoDetailViewModel: RepoDetailViewModel
 
+    private val isFirstPager = SparseIntArray()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = initContentBinding<ActivityRepoDeatilBinding>(R.layout.activity_repo_deatil)
@@ -49,7 +49,7 @@ class RepoDetailActivity : BaseActivity(){
     }
 
 
-    private fun initView(repoDetailQuery: RepoDetailQuery, binding: ActivityRepoDeatilBinding){
+    private fun initView(repoDetailQuery: RepoDetailQuery, binding: ActivityRepoDeatilBinding) {
         appbar {
             scrollEnable = true
             scrollFlags = "scroll|exitUntilCollapsed"
@@ -67,17 +67,37 @@ class RepoDetailActivity : BaseActivity(){
                 }
             }
         }
+        initViewPager(binding, repoDetailQuery, "master", "README.md")
 
-        val graphIds = listOf(R.navigation.navigation_repo_detail)
+    }
+
+    private fun initViewPager(
+            binding: ActivityRepoDeatilBinding,
+            repoDetailQuery: RepoDetailQuery,
+            branch: String,
+            path: String){
+        val graphIds = listOf(R.navigation.repo_file_content, R.navigation.repo_files)
         val navController =
                 binding.vpRepoContent.setupWithNavController(this, graphIds, intent )
         navController.observe(this, Observer {
+            val currentId = it.currentDestination?.id ?: return@Observer
+            if (isFirstPager.containsKey(currentId)){
+                return@Observer
+            }
+            isFirstPager.append(currentId, -1)
             when(it.currentDestination?.id){
                 R.id.filesScreen -> {
                     val fileContent =
-                            FileContentFragmentDirections.fileContentInit()
-                    fileContent.repoDetailQuery = repoDetailQuery
-                    it.navigate(fileContent)
+                            FileContentFragmentDirections.fileContentInit().apply {
+                                this.repoDetailQuery = repoDetailQuery
+                                this.branch = branch
+                                this.path = path
+                            }.arguments
+                    it.setGraph(it.graph, fileContent)
+                }
+                R.id.files ->{
+                    val filesDirection = FilesFragmentDirections.filesInit()
+                    filesDirection.repoDetailQuery = repoDetailQuery
                 }
             }
         })
@@ -90,10 +110,17 @@ class RepoDetailActivity : BaseActivity(){
                 else -> "README"
             }
         }.attach()
-
     }
 
 
 }
 
+internal fun FileContentFragmentArgs.convertToGitObject() : GitObjectQuery? {
+    return repoDetailQuery?.let {
+        GitObjectQuery(
+                repoDetailQuery = it,
+                branch = branch,
+                path = path)
+    }
+}
 

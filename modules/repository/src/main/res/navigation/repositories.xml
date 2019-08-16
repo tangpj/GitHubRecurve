@@ -7,7 +7,7 @@
     tools:ignore="UnusedNavigation">
 
     <fragment android:id="@+id/repositories"
-        android:name="com.tangpj.repository.ui.repositories.RepoFragment"
+        android:name="com.tangpj.repository.ui.repositories.ReposFragment"
         android:label="RepositoriesFragment"
         tools:layout="@layout/fragment_base_recycler_view"
         >

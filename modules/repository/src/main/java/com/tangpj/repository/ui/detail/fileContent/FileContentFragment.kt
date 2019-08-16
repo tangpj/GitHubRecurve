@@ -24,38 +24,29 @@ class FileContentFragment : BaseFragment(){
     override fun onCreateContentBinding(
             inflater: LayoutInflater,
             container: ViewGroup?): ViewDataBinding?{
-        if (mBinding == null){
-            val binding = FragmentFileContentBinding.inflate(inflater, container, false)
-            fileContentViewModel = ViewModelProviders.of(this, viewModelFactory)
-                    .get(FileContentViewModel::class.java)
-            binding.fileContent = fileContentViewModel.fileContent
-            val gitObjectQuery = arguments?.let{
-                val fileContentQuery = FileContentFragmentArgs.fromBundle(it)
-                fileContentQuery.convertToGitObject()
-            }
-
-            gitObjectQuery?.let {
-                fileContentViewModel.loadFileContentByQuery(it)
-            }
-
-            loading<FileContent> {
-                resource = fileContentViewModel.fileContent
-            }
-            binding.lifecycleOwner = this
-            mBinding = binding
-        }
-
+        val binding = FragmentFileContentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        mBinding = binding
         return mBinding
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       fileContentViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(FileContentViewModel::class.java)
+        mBinding?.fileContent = fileContentViewModel.fileContent
+        val gitObjectQuery = arguments?.let{
+            val fileContentQuery = FileContentFragmentArgs.fromBundle(it)
+            fileContentQuery.convertToGitObject()
+        }
 
-    }
+        gitObjectQuery?.let {
+            fileContentViewModel.loadFileContentByQuery(it)
+        }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
+        loading<FileContent> {
+            resource = fileContentViewModel.fileContent
+        }
+   }
 }
 

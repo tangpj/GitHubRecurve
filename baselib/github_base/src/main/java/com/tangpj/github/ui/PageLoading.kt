@@ -1,12 +1,8 @@
 package com.tangpj.github.ui
 
-import androidx.lifecycle.LiveData
-import com.tangpj.paging.PageLoadState
+import com.tangpj.paging.Listing
 
 class PageLoading{
-    var pageLoadState: LiveData<PageLoadState>? = null
+    var listing: Listing<*>? = null
 
-    var refresh: LiveData<(() -> Unit)>? = null
-
-    var retry: LiveData<(() -> Unit)>? = null
 }

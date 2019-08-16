@@ -4,18 +4,13 @@
     
     <data>
 
-        <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.paging.PageLoadState"/>
-        <import type="kotlin.Unit"/>
-        <import type="kotlin.jvm.functions.Function0"/>
+        <import type="com.tangpj.paging.Listing"/>
 
         <variable
-            name="pageLoadState"
-            type="LiveData&lt;PageLoadState>"/>
+            name="isShowLoading"
+            type="boolean" />
 
-        <variable
-            name="retryCallback"
-            type="LiveData&lt;Function0&lt;Unit>>"/>
+        <variable name="listing" type="Listing"/>
 
     </data>
 
@@ -33,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            app:pageLoadState="@{(PageLoadState) pageLoadState}"
-            app:callback="@{() -> retryCallback.invoke()}"/>
+            app:isShowLoading="@{isShowLoading}"
+            app:listing="@{listing}"/>
 
     </FrameLayout>
 

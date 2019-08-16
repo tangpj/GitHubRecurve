@@ -6,7 +6,7 @@ import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.domain.RepoFlag
 import com.tangpj.repository.R
 
-class RepoActivity : BaseActivity(){
+class ReposActivity : BaseActivity(){
 
     private lateinit var navController: NavController
 
@@ -15,7 +15,7 @@ class RepoActivity : BaseActivity(){
         navController = initContentFragment(
                 R.navigation.repositories)
 
-        val defaultArgs = RepoFragmentArgs
+        val defaultArgs = ReposFragmentArgs
                 .Builder()
                 .setLogin("Tangpj")
                 .setType(RepoFlag.STAR)

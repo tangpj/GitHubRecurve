@@ -17,19 +17,19 @@ import com.tangpj.repository.vo.Repo
 import timber.log.Timber
 import javax.inject.Inject
 
-class RepoFragment: ModulePagingFragment() {
+class ReposFragment: ModulePagingFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var repoViewModel: RepositoryViewModel
+    private lateinit var repoViewModel: ReposViewModel
 
     private lateinit var repositoryCreator : RepositoryCreator
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         arguments?.let {
-            val arg = RepoFragmentArgs.fromBundle(it)
+            val arg = ReposFragmentArgs.fromBundle(it)
             Timber.d("user name = ${arg.login}")
             repoViewModel.setRepoOwner(arg.login)
         }
@@ -37,17 +37,14 @@ class RepoFragment: ModulePagingFragment() {
 
     override fun onBindingInit(binding: ViewDataBinding) {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(RepositoryViewModel::class.java)
+                .get(ReposViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
-        repoViewModel.pageLoadState.observeForever {
-            Timber.d("load status = ${it.status}; netState = ${it.networkState.status}; msg = ${it.networkState.msg}")
-        }
+        repoViewModel.repoListing.observe(this, Observer { it ->
+            loading {
+                listing = it
+            }
 
-        loading {
-            pageLoadState = repoViewModel.pageLoadState
-            refresh = repoViewModel.refresh
-            retry = repoViewModel.repoRetry
-        }
+        })
 
         addItemCreator(repositoryCreator)
         repositoryCreator.setOnItemClickListener { _ , e, _ ->
@@ -59,7 +56,7 @@ class RepoFragment: ModulePagingFragment() {
            })
     }
 
-    val POST_COMPARATOR = object : DiffUtil.ItemCallback<Repo>() {
+    private val POST_COMPARATOR = object : DiffUtil.ItemCallback<Repo>() {
         override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean =
                 oldItem == newItem
 

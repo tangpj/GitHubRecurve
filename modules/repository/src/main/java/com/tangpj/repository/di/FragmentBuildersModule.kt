@@ -2,7 +2,7 @@ package com.tangpj.repository.di
 
 import com.tangpj.repository.ui.detail.fileContent.FileContentFragment
 import com.tangpj.repository.ui.detail.files.FilesFragment
-import com.tangpj.repository.ui.repositories.RepoFragment
+import com.tangpj.repository.ui.repositories.ReposFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -10,7 +10,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentBuildersModule{
 
     @ContributesAndroidInjector
-    abstract fun contributesRepositoriesFragment(): RepoFragment
+    abstract fun contributesRepositoriesFragment(): ReposFragment
 
     @ContributesAndroidInjector
     abstract fun contributesFilesFragment() : FilesFragment

@@ -3,24 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.tangpj.paging.PageLoadState"/>
-        <import type="com.tangpj.paging.PageLoadStatus"/>
         <import type="com.tangpj.recurve.resource.Status"/>
-        <import type="kotlin.Unit"/>
-        <import type="kotlin.jvm.functions.Function0"/>
+        <import type="com.tangpj.paging.Listing"/>
 
-        <variable name="callback" type="Function0&lt;Unit>"/>
-        <variable name="pageLoadState" type="PageLoadState"/>
+        <variable
+            name="isShowLoading"
+            type="boolean" />
+
+        <variable name="listing" type="Listing"/>
 
     </data>
-    <LinearLayout android:orientation="vertical"
-        app:visibleGone="@{ (pageLoadState.status == PageLoadStatus.REFRESH) &amp;&amp; (pageLoadState.networkState.status != Status.SUCCESS) }"
+    <LinearLayout
+        android:id="@+id/ll_page_loading_content"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:gravity="center"
         android:padding="@dimen/padding_horizontal_material"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:visibleGone="@{isShowLoading}"
+        >
         <ProgressBar
-            app:visibleGone="@{pageLoadState.networkState.status == Status.LOADING}"
+            app:visibleGone="@{listing.pageLoadState.networkState.status == Status.LOADING}"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,13 +33,13 @@
             android:layout_height="wrap_content"
             android:text="@string/retry"
             android:id="@+id/retry"
-            android:onClick="@{() -> callback.invoke()}"
-            app:visibleGone="@{pageLoadState.networkState.status == Status.ERROR}"/>
+            android:onClick="@{() -> listing.refresh.invoke()}"
+            app:visibleGone="@{listing.pageLoadState.networkState.status == Status.ERROR}"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/error_msg"
-            android:text="@{pageLoadState.networkState.msg ?? @string/unknown_error}"
-            app:visibleGone="@{pageLoadState.networkState.status == Status.ERROR}"
+            android:text="@{listing.pageLoadState.networkState.msg ?? @string/unknown_error}"
+            app:visibleGone="@{listing.pageLoadState.networkState.status == Status.ERROR}"
             tools:visibility="visible"/>
     </LinearLayout>
 </layout>

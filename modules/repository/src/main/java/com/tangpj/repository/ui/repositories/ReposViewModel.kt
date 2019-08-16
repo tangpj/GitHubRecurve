@@ -8,11 +8,11 @@ import com.tangpj.repository.repository.RepoRepository
 import com.tangpj.repository.vo.Repo
 import javax.inject.Inject
 
-class RepositoryViewModel @Inject constructor(private val repoRepository: RepoRepository): ViewModel(){
+class ReposViewModel @Inject constructor(private val repoRepository: RepoRepository): ViewModel(){
 
     private val _login = MutableLiveData<String>()
 
-    private val repoListing: LiveData<Listing<Repo>> = Transformations.map(_login){
+    val repoListing: LiveData<Listing<Repo>> = Transformations.map(_login){
         repoRepository.loadStarRepos(it)
     }
 

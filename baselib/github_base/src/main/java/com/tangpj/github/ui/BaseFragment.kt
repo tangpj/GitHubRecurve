@@ -19,6 +19,7 @@ abstract class BaseFragment : RecurveDaggerFragment(){
 
     private lateinit var _binding: FragmentBaseBinding
     private var contentBinding: ViewDataBinding? = null
+
     abstract fun onCreateContentBinding(inflater: LayoutInflater, container: ViewGroup?) : ViewDataBinding?
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,8 +45,7 @@ abstract class BaseFragment : RecurveDaggerFragment(){
         loading.loadingInvoke()
         loading.resource?.observe(this, Observer {
             contentBinding?.root?.visibility =
-                    if (it.networkState.status == Status.SUCCESS
-                            && it.data != null){
+                    if (it.data != null){
                         View.VISIBLE
                     }else{
                         View.GONE

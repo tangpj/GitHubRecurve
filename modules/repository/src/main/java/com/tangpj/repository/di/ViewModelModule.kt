@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.tangpj.recurve.dagger2.ViewModelKey
 import com.tangpj.repository.ui.detail.RepoDetailViewModel
 import com.tangpj.repository.ui.detail.fileContent.FileContentViewModel
-import com.tangpj.repository.ui.repositories.RepositoryViewModel
+import com.tangpj.repository.ui.detail.files.FilesViewModel
+import com.tangpj.repository.ui.repositories.ReposViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -13,8 +14,8 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule{
     @Binds
     @IntoMap
-    @ViewModelKey(RepositoryViewModel::class)
-    abstract fun bindRepositoryViewModule(repositoryViewModel: RepositoryViewModel): ViewModel
+    @ViewModelKey(ReposViewModel::class)
+    abstract fun bindRepositoryViewModule(reposViewModel: ReposViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -25,4 +26,9 @@ abstract class ViewModelModule{
     @IntoMap
     @ViewModelKey(FileContentViewModel::class)
     abstract fun bindFileContentViewModel(fileContentViewModel: FileContentViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FilesViewModel::class)
+    abstract fun bindFilesViewModel(filesViewModel: FilesViewModel) : ViewModel
 }

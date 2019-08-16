@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_repo_detail"
-    app:startDestination="@id/filesScreen"
+    app:startDestination="@id/files_screen"
     tools:ignore="UnusedNavigation">
 
 
 
-    <fragment android:id="@+id/filesScreen"
+    <fragment android:id="@+id/files_screen"
         android:name="com.tangpj.repository.ui.detail.fileContent.FileContentFragment"
         android:label="FileContent"
         tools:layout="@layout/fragment_file_content"
@@ -32,9 +32,9 @@
 
         <action
             android:id="@+id/file_content_init"
-            app:popUpTo="@+id/filesScreen"
+            app:popUpTo="@+id/files_screen"
             app:popUpToInclusive="true"
-            app:destination="@+id/filesScreen"/>
+            app:destination="@+id/files_screen"/>
 
     </fragment>
 

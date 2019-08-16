@@ -86,7 +86,7 @@ class RepoDetailActivity : BaseActivity(){
             }
             isFirstPager.append(currentId, -1)
             when(it.currentDestination?.id){
-                R.id.filesScreen -> {
+                R.id.files_screen -> {
                     val fileContent =
                             FileContentFragmentDirections.fileContentInit().apply {
                                 this.repoDetailQuery = repoDetailQuery

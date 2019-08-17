@@ -59,8 +59,9 @@ abstract class RepoDao{
      * @author create by Tang
      * @date 2019-06-09 17:29
      */
-    @Query("SELECT * FROM StarRepoResult WHERE login = :login")
-    abstract fun loadStarRepoResult(login: String): LiveData<StarRepoResult?>
+    @Query("""SELECT * FROM StarRepoResult WHERE 
+        login = :login AND startFirst = :startFirst AND `after` = :after""")
+    abstract fun loadStarRepoResult(login: String, startFirst: Int, after: String): LiveData<StarRepoResult?>
 
     fun loadRepoOrderById(repoIds: List<String>): LiveData<List<Repo>>{
         val order = mutableMapOf<String, Int>()

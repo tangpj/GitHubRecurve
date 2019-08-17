@@ -44,19 +44,29 @@ class RepoRepository @Inject constructor(
                 var query: ApolloStartRepositoriesQuery? = null
 
                 override fun saveCallResult(item: ApolloStartRepositoriesQuery.Data) {
-                    repoResult = saveStarRepo(item)
+                    repoResult = saveStarRepo(query, item)
                     Timber.d("saveCallResult, pageInfo = ${repoResult?.pageInfo}")
                 }
 
                 override fun shouldFetch(data: List<Repo>?): Boolean =
                         (data == null || data.isEmpty() || reposRateLimiter.shouldFetch(query))
 
+                override fun onFetchFailed() {
+                    super.onFetchFailed()
+                    reposRateLimiter.reset(query)
+                }
+
                 override fun loadFromDb(): LiveData<List<Repo>>  {
-                    val repoResultLive = repoDb.repoDao().loadStarRepoResult(login)
+                    val repoResultLive =
+                            repoDb.repoDao().loadStarRepoResult(
+                                    login = login,
+                                    startFirst = query?.startFirst() ?: 0,
+                                    after = query?.after() ?: "")
                     return Transformations.switchMap(repoResultLive){
                         repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
                     }
                 }
+
 
                 override fun hasNextPage(): Boolean {
                     return repoResult?.pageInfo?.hasNextPage ?: false
@@ -100,12 +110,17 @@ class RepoRepository @Inject constructor(
                     initialLoadSizeHint = 10))
 
 
-    private fun saveStarRepo(data: ApolloStartRepositoriesQuery.Data): StarRepoResult?{
+    private fun saveStarRepo(
+            query: ApolloStartRepositoriesQuery?,
+            data: ApolloStartRepositoriesQuery.Data): StarRepoResult? {
+        query ?: return null
         val repoList = data.mapperToRepoVoList()
         val repoIds = repoList.map { it.id }
         val result = StarRepoResult(
                 login = data.user?.login ?: "",
                 repoIds = repoIds,
+                startFirst = query.startFirst(),
+                after = query.after() ?: "",
                 pageInfo = data.getPageInfo())
         repoDb.runInTransaction {
         repoDb.repoDao().insertRepos(repoList)
@@ -114,4 +129,9 @@ class RepoRepository @Inject constructor(
         return result
     }
 
+    private fun ApolloStartRepositoriesQuery.startFirst() =
+            variables().startFirst().value ?: 0
+
+    private fun ApolloStartRepositoriesQuery.after() =
+            variables().after().value
 }

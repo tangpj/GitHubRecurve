@@ -1,4 +1,4 @@
-package com.tangpj.github.ui
+package com.tangpj.github.ui.loadState
 
 import androidx.lifecycle.LiveData
 import com.tangpj.paging.Listing

@@ -39,7 +39,7 @@ class ReposFragment: ModulePagingFragment() {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ReposViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
-        loading<Repo> {
+        pagedLoading<Repo> {
             listing = repoViewModel.repoListing
         }
 

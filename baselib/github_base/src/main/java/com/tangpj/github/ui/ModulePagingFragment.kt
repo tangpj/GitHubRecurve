@@ -8,9 +8,14 @@ import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
+import com.tangpj.github.databinding.LoadingStateBinding
 import com.tangpj.github.databinding.PageLoadingStateBinding
 import com.tangpj.github.databinding.RecyclerViewBinding
 import com.tangpj.github.ui.creator.ItemLoadingCreator
+import com.tangpj.github.ui.loadState.LoadStateInit
+import com.tangpj.github.ui.loadState.Loading
+import com.tangpj.github.ui.loadState.PageLoading
+import com.tangpj.github.ui.loadState.RealLoadState
 import com.tangpj.paging.Listing
 import com.tangpj.paging.PageLoadStatus
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
@@ -44,7 +49,7 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
     }
 
-    fun <T> loading(pageLoadingInvoke: PageLoading<T>.() -> Unit){
+    fun <T> pagedLoading(pageLoadingInvoke: PageLoading<T>.() -> Unit){
         val loading = PageLoading<T>()
         loading.pageLoadingInvoke()
         val layoutInflater = LayoutInflater.from(binding.flContent.context)
@@ -64,6 +69,22 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
         })
 
+    }
+
+    fun <T> loading(loadingInvoke: Loading<T>.() -> Unit) {
+        val realLoadState =
+                RealLoadState<T>(binding.flContent)
+        realLoadState.createLoadBinding { container, loading ->
+            val inflater = LayoutInflater.from(container.context)
+            val loadStateBinding = LoadingStateBinding.inflate(inflater, container, false)
+            loadStateBinding.lifecycleOwner = this
+            loadStateBinding.retry = loading.retry
+            loading.resource?.observe(this, Observer {
+                loadStateBinding.resource = it
+            })
+            loadStateBinding
+        }
+        realLoadState.loading(loadingInvoke)
     }
 
     private fun observerListing(listing: Listing<*>, pageLoadingStateBinding: PageLoadingStateBinding){

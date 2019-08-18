@@ -1,19 +1,17 @@
 package com.tangpj.github.ui
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.tangpj.github.databinding.FragmentBaseBinding
-import com.tangpj.github.ui.creator.ItemLoadingCreator
-import com.tangpj.paging.PageLoadStatus
+import com.tangpj.github.databinding.LoadingStateBinding
+import com.tangpj.github.ui.loadState.Loading
+import com.tangpj.github.ui.loadState.RealLoadState
 import com.tangpj.recurve.dagger2.RecurveDaggerFragment
-import com.tangpj.recurve.resource.Status
-import com.tangpj.recurve.ui.fragment.RecurveFragment
-import com.tangpj.recurve.ui.strategy.LoadingStrategy
 
 abstract class BaseFragment : RecurveDaggerFragment(){
 
@@ -40,18 +38,19 @@ abstract class BaseFragment : RecurveDaggerFragment(){
         return _binding
     }
 
-    fun <Data > loading(loadingInvoke : Loading<Data>.() -> Unit){
-        val loading = Loading<Data>()
-        loading.loadingInvoke()
-        loading.resource?.observe(this, Observer {
-            contentBinding?.root?.visibility =
-                    if (it.data != null){
-                        View.VISIBLE
-                    }else{
-                        View.GONE
-                    }
-            _binding.resource = it
-        })
-
+    fun <T> loading(loadingInvoke: Loading<T>.() -> Unit){
+        val realLoadState =
+                RealLoadState<T>(_binding.flRoot)
+        realLoadState.createLoadBinding { container, loading ->
+            val inflater = LayoutInflater.from(container.context)
+            val loadStateBinding = LoadingStateBinding.inflate(inflater, container, false)
+            loadStateBinding.lifecycleOwner = this
+            loadStateBinding.retry = loading.retry
+            loading.resource?.observe(this, Observer {
+                loadStateBinding.resource = it
+            })
+            loadStateBinding
+        }
+        realLoadState.loading(loadingInvoke)
     }
 }

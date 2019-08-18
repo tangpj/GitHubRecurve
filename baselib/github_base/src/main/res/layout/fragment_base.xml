@@ -20,16 +20,6 @@
     <FrameLayout
         android:id="@+id/fl_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            layout="@layout/loading_state"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            app:resource="@{(Resource)resource}"
-            app:callback="@{() -> retry.invoke()}"/>
-
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 
 </layout>

@@ -1,11 +1,11 @@
-package com.tangpj.github.ui
+package com.tangpj.github.ui.loadState
 
 import androidx.lifecycle.LiveData
 import com.tangpj.recurve.resource.Resource
-import java.util.*
 
-class Loading<Data>{
-    var resource: LiveData<Resource<Data>>? = null
+class Loading<T>{
+
+    var resource: LiveData<Resource<T>>? = null
 
     var retry: (() -> Unit)? = null
 }

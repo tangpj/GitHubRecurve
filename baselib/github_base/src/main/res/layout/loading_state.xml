@@ -25,8 +25,9 @@
         <import type="kotlin.jvm.functions.Function0"/>
         <import type="android.text.TextUtils"/>
 
+
         <variable name="resource" type="Resource"/>
-        <variable name="callback" type="Function0&lt;Unit>"/>
+        <variable name="retry" type="Function0&lt;Unit>"/>
     </data>
     <LinearLayout android:orientation="vertical"
         app:visibleGone="@{resource.data == null}"
@@ -44,12 +45,12 @@
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/retry"
-            android:id="@+id/retry"
-            android:onClick="@{() -> callback.invoke()}"
+            android:id="@+id/btn_retry"
+            android:onClick="@{() -> retry.invoke()}"
             app:visibleGone="@{resource.networkState.status == Status.ERROR}"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/error_msg"
+            android:id="@+id/tv_error_msg"
             android:text="@{resource.networkState.msg ?? (resource.data == null ? @string/error_response_is_null : @string/unknown_error)}"
             app:visibleGone="@{resource.networkState.status == Status.ERROR || resource.data == null}"
             tools:visibility="visible"/>

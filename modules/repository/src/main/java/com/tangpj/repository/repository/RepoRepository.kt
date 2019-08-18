@@ -30,6 +30,10 @@ class RepoRepository @Inject constructor(
          val repoDb: RepositoryDb){
 
     private val reposRateLimiter = RateLimiter<ApolloStartRepositoriesQuery>(1, TimeUnit.MINUTES)
+    private companion object{
+        private const val INITIAL_LOAD_SIZE_HINT = 10
+        private const val PAGE_SIZE = 10
+    }
 
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, Repo, ApolloStartRepositoriesQuery.Data>(){
@@ -60,9 +64,10 @@ class RepoRepository @Inject constructor(
                     val repoResultLive =
                             repoDb.repoDao().loadStarRepoResult(
                                     login = login,
-                                    startFirst = query?.startFirst() ?: 0,
+                                    startFirst = query?.startFirst() ?: INITIAL_LOAD_SIZE_HINT,
                                     after = query?.after() ?: "")
                     return Transformations.switchMap(repoResultLive){
+                        repoResult = it
                         repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
                     }
                 }

@@ -39,7 +39,7 @@ class FilesFragment : ModulePagingFragment(){
             filesViewModel.loadFileTreeByQuery(fileTreeQuery = it )
         }
 
-        loading{
+        loading<Any>{
 //            refresh = filesViewModel.
         }
     }

@@ -39,12 +39,9 @@ class ReposFragment: ModulePagingFragment() {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ReposViewModel::class.java)
         repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
-        repoViewModel.repoListing.observe(this, Observer { it ->
-            loading {
-                listing = it
-            }
-
-        })
+        loading<Repo> {
+            listing = repoViewModel.repoListing
+        }
 
         addItemCreator(repositoryCreator)
         repositoryCreator.setOnItemClickListener { _ , e, _ ->

@@ -31,13 +31,13 @@ data class GitObjectQuery(
         }
     }
 
-    fun GitObjectQuery.getApolloFileTreeQuery() = ApolloFileTreeQuery.builder()
+    fun GitObjectQuery.getApolloFileTreeQuery(): ApolloFileTreeQuery = ApolloFileTreeQuery.builder()
             .owner(repoDetailQuery.login)
             .name(repoDetailQuery.name)
             .expression(getExpression())
             .build()
 
-    fun GitObjectQuery.getApolloBlobQuery()  =  ApolloBlobDetailQuery.builder()
+    fun GitObjectQuery.getApolloBlobQuery(): ApolloBlobDetailQuery =  ApolloBlobDetailQuery.builder()
             .owner(repoDetailQuery.login)
             .name(repoDetailQuery.name)
             .expression(getExpression())

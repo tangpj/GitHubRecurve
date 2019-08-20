@@ -67,46 +67,49 @@ class RepoDetailActivity : BaseActivity(){
                 }
             }
         }
-        initViewPager(binding, repoDetailQuery, "master", "README.md")
+        initViewPager(binding, repoDetailQuery, "master")
 
     }
 
     private fun initViewPager(
             binding: ActivityRepoDeatilBinding,
             repoDetailQuery: RepoDetailQuery,
-            branch: String,
-            path: String){
+            branch: String){
         val graphIds = listOf(R.navigation.repo_file_content, R.navigation.repo_files)
         val navController =
                 binding.vpRepoContent.setupWithNavController(this, graphIds, intent )
         navController.observe(this, Observer {
-            val currentId = it.currentDestination?.id ?: return@Observer
+            val currentId =  it.currentDestination?.id
+            currentId ?: return@Observer
             if (isFirstPager.containsKey(currentId)){
                 return@Observer
             }
             isFirstPager.append(currentId, -1)
-            when(it.currentDestination?.id){
+            val args: Bundle = when(it.currentDestination?.id){
                 R.id.files_screen -> {
-                    val fileContent =
-                            FileContentFragmentDirections.fileContentInit().apply {
-                                this.repoDetailQuery = repoDetailQuery
-                                this.branch = branch
-                                this.path = path
-                            }.arguments
-                    it.setGraph(it.graph, fileContent)
+                    FileContentFragmentDirections.fileContentInit().apply {
+                        this.repoDetailQuery = repoDetailQuery
+                        this.branch = branch
+                        this.path = "README.md"
+                    }.arguments
                 }
                 R.id.files ->{
-                    val filesDirection = FilesFragmentDirections.filesInit()
-                    filesDirection.repoDetailQuery = repoDetailQuery
+                    FilesFragmentDirections.filesInit().apply {
+                        this.repoDetailQuery = repoDetailQuery
+                        this.branch = branch
+                        this.path = ""
+                    }.arguments
                 }
+                else -> Bundle()
             }
+            it.setGraph(it.graph, args)
         })
 
         TabLayoutMediator(
                 binding.tlRepoTitle,
                 binding.vpRepoContent){ tab, position ->
             tab.text = when(position){
-                1 -> "FILED"
+                1 -> "FILES"
                 else -> "README"
             }
         }.attach()

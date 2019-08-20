@@ -3,6 +3,7 @@ package com.tangpj.repository.ui.detail.files
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
@@ -39,8 +40,15 @@ class FilesFragment : ModulePagingFragment(){
             filesViewModel.loadFileTreeByQuery(fileTreeQuery = it )
         }
 
-        loading<Any>{
-//            refresh = filesViewModel.
+        addItemCreator(fileItemCreator)
+
+        filesViewModel.fileItems.observe(this, Observer { resource ->
+            resource?.data?.let {
+                fileItemCreator.addItems(it)
+            }
+        })
+        loading<List<FileItem>>{
+            resource = filesViewModel.fileItems
         }
     }
 

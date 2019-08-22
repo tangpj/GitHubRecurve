@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.adapter.adapter.ModulesAdapter
 import com.tangpj.adapter.creator.RecurveViewHolder
 import com.tangpj.paging.PagedItemCreator
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.entry.vo.Repo
 import com.tangpj.repository.databinding.ItemRepositoryBinding
 
 class RepositoryCreator constructor(

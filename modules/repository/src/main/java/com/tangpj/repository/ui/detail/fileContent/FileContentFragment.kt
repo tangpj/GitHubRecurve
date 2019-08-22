@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.tangpj.github.ui.BaseFragment
 import com.tangpj.repository.databinding.FragmentFileContentBinding
 import com.tangpj.repository.ui.detail.convertToGitObject
-import com.tangpj.repository.vo.FileContent
+import com.tangpj.repository.entry.vo.FileContent
 import javax.inject.Inject
 
 class FileContentFragment : BaseFragment(){

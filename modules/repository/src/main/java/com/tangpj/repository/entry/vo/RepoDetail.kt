@@ -1,4 +1,4 @@
-package com.tangpj.repository.vo
+package com.tangpj.repository.entry.vo
 
 import android.os.Parcelable
 import androidx.room.Embedded

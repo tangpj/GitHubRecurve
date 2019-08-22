@@ -1,4 +1,4 @@
-package com.tangpj.repository.vo
+package com.tangpj.repository.entry.vo
 
 import android.content.Context
 import android.content.Intent
@@ -17,7 +17,7 @@ import kotlinx.android.parcel.Parcelize
         primaryKeys = ["owner_login", "name"]
 )
 data class Repo constructor(
-        val id: String,
+        override val id: String,
         @Embedded(prefix = "owner_")
         val owner: Owner,
         val name: String,
@@ -27,7 +27,7 @@ data class Repo constructor(
         val description: String,
         val stars: Int,
         val forks: Int
-): Parcelable
+): Entry(id)
 
 fun Repo.startRepoDetail(context: Context){
     //todo 暂时这样写，后续介入ARouter框架

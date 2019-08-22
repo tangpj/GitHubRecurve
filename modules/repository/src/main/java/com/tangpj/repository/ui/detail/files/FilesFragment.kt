@@ -6,12 +6,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.ui.creator.FileItemCreator
-import com.tangpj.repository.ui.repositories.ReposViewModel
 import com.tangpj.repository.valueObject.query.GitObjectQuery
-import com.tangpj.repository.vo.FileItem
+import com.tangpj.repository.entry.vo.FileItem
 import javax.inject.Inject
 
 class FilesFragment : ModulePagingFragment(){
@@ -44,7 +42,7 @@ class FilesFragment : ModulePagingFragment(){
 
         filesViewModel.fileItems.observe(this, Observer { resource ->
             resource?.data?.let {
-                fileItemCreator.addItems(it)
+                fileItemCreator.setDataList(it)
             }
         })
         loading<List<FileItem>>{

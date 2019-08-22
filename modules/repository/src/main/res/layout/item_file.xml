@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fileItem"
-            type="com.tangpj.repository.vo.FileItem" />
+            type="com.tangpj.repository.entry.vo.FileItem" />
     </data>
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_marginTop="@dimen/margin_vertical_material"
         android:layout_marginBottom="@dimen/margin_vertical_material"
         android:gravity="center_vertical"
-        android:drawableStart="@drawable/ic_folder"
+        android:drawableStart="@{fileItem.fileIconId}"
         android:text="@{fileItem.name}"
         tool:text="README.md"
         tool:drawableStart="@drawable/ic_folder"

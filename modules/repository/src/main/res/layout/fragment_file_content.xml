@@ -4,7 +4,7 @@
 
     <data>
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.repository.vo.FileContent"/>
+        <import type="com.tangpj.repository.entry.vo.FileContent"/>
         <import type="com.tangpj.recurve.resource.Resource"/>
 
         <variable

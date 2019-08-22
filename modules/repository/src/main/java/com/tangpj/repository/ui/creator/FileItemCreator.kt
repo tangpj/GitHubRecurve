@@ -6,7 +6,7 @@ import com.tangpj.adapter.adapter.ModulesAdapter
 import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.adapter.creator.RecurveViewHolder
 import com.tangpj.repository.databinding.ItemFileBinding
-import com.tangpj.repository.vo.FileItem
+import com.tangpj.repository.entry.vo.FileItem
 
 class FileItemCreator constructor(adapter: ModulesAdapter)
     : ItemCreator<FileItem, ItemFileBinding>(adapter){

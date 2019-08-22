@@ -2,10 +2,8 @@ package com.tangpj.repository.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
-import com.tangpj.github.utils.AbsentLiveData
 import com.tangpj.recurve.apollo.LiveDataApollo
 import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.resource.NetworkBoundResource
@@ -15,7 +13,7 @@ import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.mapper.getRepoDetail
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
 import com.tangpj.repository.valueObject.query.getApolloRepoDetailQuery
-import com.tangpj.repository.vo.RepoDetail
+import com.tangpj.repository.entry.vo.RepoDetail
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.tangpj.repository.vo
+package com.tangpj.repository.entry.vo
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -23,11 +23,11 @@ import kotlinx.android.parcel.Parcelize
 )
 @TypeConverters(FileContentTypeConverter::class)
 @Parcelize
-data class FileContent(
-        val id: String,
+ class FileContent(
+        override val id: String,
         val content: String,
         val type: Type,
-        val byteSize: Int) : Parcelable{
+        val byteSize: Int) :Entry(id){
 
         enum class Type{
                 DEFAULT,

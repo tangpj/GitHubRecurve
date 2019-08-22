@@ -3,9 +3,10 @@ package com.tangpj.repository.mapper
 import com.tangpj.repository.ApolloBlobDetailQuery
 import com.tangpj.repository.ApolloFileTreeQuery
 import com.tangpj.repository.ApolloRepoDetailQuery
-import com.tangpj.repository.vo.FileContent
-import com.tangpj.repository.vo.FileItem
-import com.tangpj.repository.vo.RepoDetail
+import com.tangpj.repository.entry.vo.FileContent
+import com.tangpj.repository.entry.vo.FileItem
+import com.tangpj.repository.entry.vo.FileType
+import com.tangpj.repository.entry.vo.RepoDetail
 
 
 fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{
@@ -28,10 +29,21 @@ fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{
 
 fun ApolloFileTreeQuery.Data.getFileItems() : List<FileItem>{
     val tree = repository?.gitObject as? ApolloFileTreeQuery.AsTree
-    return tree?.entries?.map { FileItem(
+    val groupList = tree?.entries?.map { FileItem(
             id = it.gitObject?.id ?: "",
             name = it.name,
-            type = it.type) } ?: listOf()
+            type = it.type) }?.sortedBy { it.name }?.groupBy {
+        it.type
+    }
+    groupList ?: return emptyList()
+    val count = groupList.entries.map { it.value.size }.reduce { acc, i -> acc + i }
+    val result =  ArrayList<FileItem>(count)
+    groupList[FileType.TREE]?.let { result.addAll(it) }
+    groupList[FileType.BLOB]?.let { result.addAll(it) }
+    groupList.filter { it.key != FileType.TREE && it.key != FileType.BLOB }.forEach {
+        result.addAll(it.value)
+    }
+    return result
 }
 
 fun ApolloBlobDetailQuery.Data.getFileContent(expression: String): FileContent?{

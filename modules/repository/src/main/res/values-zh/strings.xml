@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">知识库</string>
+    <string name="files">文件</string>
+    <string name="file_content">文件内容</string>
 </resources>

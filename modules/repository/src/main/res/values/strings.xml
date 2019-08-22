@@ -3,4 +3,8 @@
     <string name="watch" translatable="false">watch</string>
     <string name="star" translatable="false">star</string>
     <string name="forks" translatable="false">forks</string>
+    <string name="files">Files</string>
+    <string name="file_content">File Content</string>
+
+
 </resources>

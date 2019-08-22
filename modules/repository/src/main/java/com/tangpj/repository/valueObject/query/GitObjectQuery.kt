@@ -1,6 +1,7 @@
 package com.tangpj.repository.valueObject.query
 
 import android.os.Parcelable
+import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import com.tangpj.github.utils.AbsentLiveData
 import com.tangpj.github.valueObject.Query
@@ -21,6 +22,12 @@ data class GitObjectQuery(
                 }
 
             }
+
+    fun nextPath(fileName: String) = if(TextUtils.isEmpty(path)){
+        fileName
+    }else{
+        "$path/$fileName"
+    }
 }
 
     fun GitObjectQuery.getExpression() :String{

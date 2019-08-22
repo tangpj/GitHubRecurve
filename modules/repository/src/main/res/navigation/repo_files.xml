@@ -8,7 +8,7 @@
 
     <fragment android:id="@+id/files"
         android:name="com.tangpj.repository.ui.detail.files.FilesFragment"
-        android:label="Files"
+        android:label="@string/files"
         tools:layout="@layout/recycler_view">
 
         <argument
@@ -29,8 +29,37 @@
             app:argType="string"/>
 
         <action
-            android:id="@+id/files_init"
+            android:id="@+id/action_files"
             app:destination="@+id/files"/>
+
+        <action
+            android:id="@+id/action_files_to_fl_content"
+            app:destination="@id/fl_content" />
+
+    </fragment>
+
+    <fragment android:id="@+id/fl_content"
+        android:name="com.tangpj.repository.ui.detail.fileContent.FileContentFragment"
+        android:label="@string/file_content"
+        tools:layout="@layout/fragment_file_content"
+        >
+
+        <argument
+            android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument
+            android:name="branch"
+            android:defaultValue="master"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="path"
+            android:defaultValue="README.md"
+            app:argType="string"/>
 
     </fragment>
 

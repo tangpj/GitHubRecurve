@@ -94,7 +94,7 @@ class RepoDetailActivity : BaseActivity(){
                     }.arguments
                 }
                 R.id.files ->{
-                    FilesFragmentDirections.filesInit().apply {
+                    FilesFragmentDirections.actionFiles().apply {
                         this.repoDetailQuery = repoDetailQuery
                         this.branch = branch
                         this.path = ""

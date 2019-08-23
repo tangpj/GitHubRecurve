@@ -3,7 +3,7 @@ package com.tangpj.repository.di
 import androidx.lifecycle.ViewModel
 import com.tangpj.recurve.dagger2.ViewModelKey
 import com.tangpj.repository.ui.detail.RepoDetailViewModel
-import com.tangpj.repository.ui.detail.fileContent.FileContentViewModel
+import com.tangpj.repository.ui.detail.viewer.ViewerViewModel
 import com.tangpj.repository.ui.detail.files.FilesViewModel
 import com.tangpj.repository.ui.repositories.ReposViewModel
 import dagger.Binds
@@ -24,8 +24,8 @@ abstract class ViewModelModule{
 
     @Binds
     @IntoMap
-    @ViewModelKey(FileContentViewModel::class)
-    abstract fun bindFileContentViewModel(fileContentViewModel: FileContentViewModel) : ViewModel
+    @ViewModelKey(ViewerViewModel::class)
+    abstract fun bindFileContentViewModel(viewerViewModel: ViewerViewModel) : ViewModel
 
     @Binds
     @IntoMap

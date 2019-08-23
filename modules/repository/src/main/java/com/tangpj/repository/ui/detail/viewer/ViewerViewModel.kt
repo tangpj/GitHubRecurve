@@ -1,4 +1,4 @@
-package com.tangpj.repository.ui.detail.fileContent
+package com.tangpj.repository.ui.detail.viewer
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.entry.vo.FileContent
 import javax.inject.Inject
 
-class FileContentViewModel @Inject constructor(private val fileRepository: FileRepository) : ViewModel(){
+class ViewerViewModel @Inject constructor(private val fileRepository: FileRepository) : ViewModel(){
 
     private val _gitObjectQuery = MutableLiveData<GitObjectQuery>()
 

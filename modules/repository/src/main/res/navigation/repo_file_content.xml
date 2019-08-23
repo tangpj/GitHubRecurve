@@ -9,7 +9,7 @@
 
 
     <fragment android:id="@+id/files_screen"
-        android:name="com.tangpj.repository.ui.detail.fileContent.FileContentFragment"
+        android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
         android:label="FileContent"
         tools:layout="@layout/fragment_file_content"
         >

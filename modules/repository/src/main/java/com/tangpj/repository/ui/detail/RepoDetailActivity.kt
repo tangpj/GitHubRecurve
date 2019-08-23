@@ -9,14 +9,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.ui.TabLayoutMediator
-import com.tangpj.recurve.util.resolveColor
+import com.tangpj.recurve.util.getColorByAttr
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDeatilBinding
 import com.tangpj.repository.databinding.CollasingRepoDetailBinding
-import com.tangpj.repository.ui.detail.fileContent.FileContentFragmentArgs
-import com.tangpj.repository.ui.detail.fileContent.FileContentFragmentDirections
 import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
+import com.tangpj.repository.ui.detail.viewer.ViewerFragmentArgs
+import com.tangpj.repository.ui.detail.viewer.ViewerFragmentDirections
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
 import com.tangpj.viewpager.setupWithNavController
@@ -54,7 +54,7 @@ class RepoDetailActivity : BaseActivity(){
             scrollEnable = true
             scrollFlags = "scroll|exitUntilCollapsed"
             collapsingToolbar {
-                contentScrimColorInt = resolveColor(this@RepoDetailActivity, R.attr.colorPrimary)
+                contentScrimColorInt = getColorByAttr(this@RepoDetailActivity, R.attr.colorPrimary)
                 expandedTitleGravity = "top|start"
                 toolBar {
                     title = "${repoDetailQuery.login}/${repoDetailQuery.name}"
@@ -87,7 +87,7 @@ class RepoDetailActivity : BaseActivity(){
             isFirstPager.append(currentId, -1)
             val args: Bundle = when(it.currentDestination?.id){
                 R.id.files_screen -> {
-                    FileContentFragmentDirections.fileContentInit().apply {
+                    ViewerFragmentDirections.fileContentInit().apply {
                         this.repoDetailQuery = repoDetailQuery
                         this.branch = branch
                         this.path = "README.md"
@@ -118,7 +118,7 @@ class RepoDetailActivity : BaseActivity(){
 
 }
 
-internal fun FileContentFragmentArgs.convertToGitObject() : GitObjectQuery? {
+internal fun ViewerFragmentArgs.convertToGitObject() : GitObjectQuery? {
     return repoDetailQuery?.let {
         GitObjectQuery(
                 repoDetailQuery = it,

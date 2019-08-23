@@ -12,10 +12,24 @@
             type="LiveData&lt;Resource&lt;FileContent>>" />
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_file_content"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:md="@{fileContent.data.content}"/>
+        android:layout_height="wrap_content">
+
+        <com.prettifier.pretty.PrettifyWebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:fileContent="@{fileContent.data}"
+            app:webview_background="?android:windowBackground"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_file_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:md="@{fileContent.data.content}"/>
+
+    </FrameLayout>
 
 </layout>

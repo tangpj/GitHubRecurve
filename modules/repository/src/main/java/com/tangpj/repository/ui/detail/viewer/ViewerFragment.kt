@@ -1,4 +1,4 @@
-package com.tangpj.repository.ui.detail.fileContent
+package com.tangpj.repository.ui.detail.viewer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,19 +7,20 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.prettifier.pretty.PrettifyWebView
 import com.tangpj.github.ui.BaseFragment
 import com.tangpj.repository.databinding.FragmentFileContentBinding
 import com.tangpj.repository.ui.detail.convertToGitObject
 import com.tangpj.repository.entry.vo.FileContent
 import javax.inject.Inject
 
-class FileContentFragment : BaseFragment(){
+class ViewerFragment : BaseFragment(), PrettifyWebView.OnContentChangedListener{
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     var mBinding: FragmentFileContentBinding? = null
-    private lateinit var fileContentViewModel: FileContentViewModel
+    private lateinit var viewerViewModel: ViewerViewModel
 
     override fun onCreateContentBinding(
             inflater: LayoutInflater,
@@ -32,21 +33,29 @@ class FileContentFragment : BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       fileContentViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(FileContentViewModel::class.java)
-        mBinding?.fileContent = fileContentViewModel.fileContent
+        viewerViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(ViewerViewModel::class.java)
+        mBinding?.fileContent = viewerViewModel.fileContent
         val gitObjectQuery = arguments?.let{
-            val fileContentQuery = FileContentFragmentArgs.fromBundle(it)
-            fileContentQuery.convertToGitObject()
+            val viewerQuery= ViewerFragmentArgs.fromBundle(it)
+            viewerQuery.convertToGitObject()
         }
 
         gitObjectQuery?.let {
-            fileContentViewModel.loadFileContentByQuery(it)
+            viewerViewModel.loadFileContentByQuery(it)
         }
 
         loading<FileContent> {
-            resource = fileContentViewModel.fileContent
+            resource = viewerViewModel.fileContent
         }
-   }
+    }
+
+    override fun onContentChanged(progress: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onScrollChanged(reachedTop: Boolean, scroll: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
 

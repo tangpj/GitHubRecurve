@@ -1,6 +1,6 @@
 package com.tangpj.repository.di
 
-import com.tangpj.repository.ui.detail.fileContent.FileContentFragment
+import com.tangpj.repository.ui.detail.viewer.ViewerFragment
 import com.tangpj.repository.ui.detail.files.FilesFragment
 import com.tangpj.repository.ui.repositories.ReposFragment
 import dagger.Module
@@ -16,5 +16,5 @@ abstract class FragmentBuildersModule{
     abstract fun contributesFilesFragment() : FilesFragment
 
     @ContributesAndroidInjector
-    abstract fun contributesFileContentFragment(): FileContentFragment
+    abstract fun contributesFileContentFragment(): ViewerFragment
 }

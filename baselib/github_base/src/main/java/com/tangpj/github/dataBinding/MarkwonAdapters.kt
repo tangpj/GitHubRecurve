@@ -55,25 +55,29 @@ class MarkwonAdapters{
         mdAdapter.setMarkdown(markwon, markdownStr)
     }
 
-    private fun markwon(context: Context) : Markwon{
-        return Markwon.builder(context)
-                .usePlugin(CorePlugin.create())
-                .usePlugin(GlideImagesPlugin.create(context))
-                .usePlugin(ImagesPlugin.create(ImagesPlugin.ImagesConfigure {
-                    it.addMediaDecoder(SvgMediaDecoder.create(context.resources))
-                    it.addMediaDecoder(SvgMediaDecoder.create())
-                }))
-                .usePlugin(HtmlPlugin.create())
-                .usePlugin(TableEntryPlugin.create(context))
-                .usePlugin(object : AbstractMarkwonPlugin() {
+
+}
 
 
-                    override fun configureVisitor(builder: MarkwonVisitor.Builder) {
+fun markwon(context: Context) : Markwon{
+    return Markwon.builder(context)
+            .usePlugin(CorePlugin.create())
+            .usePlugin(GlideImagesPlugin.create(context))
+            .usePlugin(ImagesPlugin.create(ImagesPlugin.ImagesConfigure {
+                it.addMediaDecoder(SvgMediaDecoder.create(context.resources))
+                it.addMediaDecoder(SvgMediaDecoder.create())
+            }))
+            .usePlugin(HtmlPlugin.create())
+            .usePlugin(TableEntryPlugin.create(context))
+            .usePlugin(object : AbstractMarkwonPlugin() {
+
+
+                override fun configureVisitor(builder: MarkwonVisitor.Builder) {
 //                        builder.on(FencedCodeBlock::class.java) { visitor, fencedCodeBlock ->
-                            // we actually won't be applying code spans here, as our custom view will
-                            // draw background and apply mono typeface
-                            //
-                            // NB the `trim` operation on literal (as code will have a new line at the end)
+                    // we actually won't be applying code spans here, as our custom view will
+                    // draw background and apply mono typeface
+                    //
+                    // NB the `trim` operation on literal (as code will have a new line at the end)
 //                            val code = visitor.configuration().syntaxHighlight()
 //                                    .highlight(fencedCodeBlock.info,
 //                                            fencedCodeBlock.literal.trim { it <= ' ' })
@@ -81,13 +85,11 @@ class MarkwonAdapters{
 //                            visitor.builder().append(code)
 //                        }
 
-                        builder.on(SoftLineBreak::class.java){ visitor, softLineBreak->
-                            visitor.forceNewLine()
-                        }
-
+                    builder.on(SoftLineBreak::class.java){ visitor, softLineBreak->
+                        visitor.forceNewLine()
                     }
-                })
-                .build()
-    }
-}
 
+                }
+            })
+            .build()
+}

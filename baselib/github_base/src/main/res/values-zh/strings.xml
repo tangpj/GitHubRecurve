@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_response_is_null">返回的数据为空!!</string>
+    <string name="success_copied">已复制</string>
+
+</resources>

@@ -2,5 +2,6 @@
 <resources>
 
     <string name="error_response_is_null">response data is null!!</string>
+    <string name="success_copied">Copied</string>
 
 </resources>

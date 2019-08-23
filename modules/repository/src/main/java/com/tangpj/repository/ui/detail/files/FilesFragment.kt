@@ -1,7 +1,6 @@
 package com.tangpj.repository.ui.detail.files
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -14,7 +13,6 @@ import com.tangpj.repository.ui.creator.FileItemCreator
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.entry.vo.FileItem
 import com.tangpj.repository.entry.vo.FileType
-import com.tangpj.repository.ui.detail.fileContent.FileContentFragmentDirections
 import javax.inject.Inject
 
 class FilesFragment : ModulePagingFragment(){

@@ -23,15 +23,16 @@ import kotlinx.android.parcel.Parcelize
 )
 @TypeConverters(FileContentTypeConverter::class)
 @Parcelize
- class FileContent(
+class FileContent(
         override val id: String,
         val content: String,
         val type: Type,
         val byteSize: Int) :Entry(id){
 
-        enum class Type{
-                DEFAULT,
-                MARK_DOWN
-        }
+    enum class Type{
+        DEFAULT,
+        MARK_DOWN,
+        CODE
+    }
 }
 

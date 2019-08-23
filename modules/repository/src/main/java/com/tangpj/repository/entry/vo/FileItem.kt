@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity
 @Parcelize
-class FileItem(
+data class FileItem(
         @field:PrimaryKey
         override val id: String,
         val name: String,

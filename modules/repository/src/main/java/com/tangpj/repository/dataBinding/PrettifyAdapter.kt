@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.prettifier.pretty.PrettifyWebView
 import com.tangpj.github.dataBinding.markwon
 import com.tangpj.repository.entry.vo.FileContent
+import org.markdown4j.Markdown4jProcessor
 
 /**
  *
@@ -20,23 +21,23 @@ import com.tangpj.repository.entry.vo.FileContent
 @BindingAdapter(value = ["fileContent"])
 fun PrettifyWebView.loadFileContent(fileContent: FileContent?){
     fileContent ?: return
-    if (fileContent.type == FileContent.Type.MARK_DOWN){
-        onSetMdText(this, fileContent.content)
-    }else{
-        onSetCode(this, fileContent.content)
-    }
+//    if (fileContent.type == FileContent.Type.MARK_DOWN){
+//        onSetMdText(this, fileContent.content)
+//    }else{
+//        onSetCode(this, fileContent.content)
+//    }
+    onSetImageUrl(this, "https://img.shields.io/badge/calces.screen-1.3.4--alpha02-brightgreen.svg", true)
 }
-
 private fun onSetMdText(webView: PrettifyWebView, text: String) {
     webView.visibility = View.VISIBLE
-    val markwon = markwon(webView.context)
-    val markdownStr = markwon.toMarkdown(text).toSpannable().toString()
+    Markdown4jProcessor().registerPlugins()
+    val markdownStr = Markdown4jProcessor().process(text)
     //todo theme可配置
     webView.setGithubContentWithReplace(markdownStr)
 }
 
 private fun onSetCode(webView: PrettifyWebView, @NonNull text: String) {
-    webView.setVisibility(View.VISIBLE)
+    webView.visibility = View.VISIBLE
     //todo isWrap可配置
     webView.setSource(text, false)
 }

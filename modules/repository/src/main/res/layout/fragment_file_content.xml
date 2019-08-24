@@ -22,14 +22,6 @@
             android:layout_height="wrap_content"
             app:fileContent="@{fileContent.data}"
             app:webview_background="?android:windowBackground"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_file_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:md="@{fileContent.data.content}"/>
-
     </FrameLayout>
 
 </layout>

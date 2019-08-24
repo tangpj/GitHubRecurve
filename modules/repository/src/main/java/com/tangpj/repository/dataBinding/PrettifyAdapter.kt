@@ -2,10 +2,8 @@ package com.tangpj.repository.dataBinding
 
 import android.view.View
 import androidx.annotation.NonNull
-import androidx.core.text.toSpannable
 import androidx.databinding.BindingAdapter
 import com.prettifier.pretty.PrettifyWebView
-import com.tangpj.github.dataBinding.markwon
 import com.tangpj.repository.entry.vo.FileContent
 import org.markdown4j.Markdown4jProcessor
 
@@ -21,12 +19,11 @@ import org.markdown4j.Markdown4jProcessor
 @BindingAdapter(value = ["fileContent"])
 fun PrettifyWebView.loadFileContent(fileContent: FileContent?){
     fileContent ?: return
-//    if (fileContent.type == FileContent.Type.MARK_DOWN){
-//        onSetMdText(this, fileContent.content)
-//    }else{
-//        onSetCode(this, fileContent.content)
-//    }
-    onSetImageUrl(this, "https://img.shields.io/badge/calces.screen-1.3.4--alpha02-brightgreen.svg", true)
+    if (fileContent.type == FileContent.Type.MARK_DOWN){
+        onSetMdText(this, fileContent.content)
+    }else{
+        onSetCode(this, fileContent.content)
+    }
 }
 private fun onSetMdText(webView: PrettifyWebView, text: String) {
     webView.visibility = View.VISIBLE

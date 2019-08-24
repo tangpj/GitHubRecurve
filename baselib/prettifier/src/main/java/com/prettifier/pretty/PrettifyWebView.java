@@ -86,7 +86,12 @@ public class PrettifyWebView extends NestedWebView {
         } else {
             setWebViewClient(new WebClientCompat());
         }
+
         WebSettings settings = getSettings();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
         settings.setJavaScriptEnabled(true);
         settings.setAppCachePath(getContext().getCacheDir().getPath());
         settings.setAppCacheEnabled(true);

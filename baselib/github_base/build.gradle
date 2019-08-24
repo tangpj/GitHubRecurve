@@ -78,13 +78,7 @@ dependencies {
     api deps.androidx.material
     implementation deps.androidx.viewpager2
 
-    api deps.markwon.core
-    api deps.markwon.html
-    implementation deps.markwon.recycler
-    implementation deps.markwon.glide
-    api deps.markwon.image
-    implementation deps.markwon.table
-
+    implementation deps.glide.core
     implementation deps.svg
 
     implementation deps.okhttp.okhttp3

@@ -2,19 +2,44 @@ package com.tangpj.repository.ui.detail.viewer
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.prettifier.pretty.PrettifyWebView
+import com.prettifier.pretty.PrettifyWebView.OnContentChangedListener
 import com.tangpj.github.ui.BaseFragment
 import com.tangpj.repository.databinding.FragmentFileContentBinding
 import com.tangpj.repository.ui.detail.convertToGitObject
 import com.tangpj.repository.entry.vo.FileContent
+import kotlinx.android.synthetic.main.fragment_file_content.*
 import javax.inject.Inject
 
-class ViewerFragment : BaseFragment(), PrettifyWebView.OnContentChangedListener{
+class ViewerFragment : BaseFragment() {
+
+    val onContentListener = object : OnContentChangedListener{
+        override fun onContentChanged(progress: Int) {
+//            if (loader != null) {
+//                loader.setProgress(progress)
+//                if (progress == 100) {
+//                    hideProgress()
+//                    if (!getPresenter().isMarkDown() && !getPresenter().isImage()) {
+//                        webView.scrollToLine(getPresenter().url())
+//                    }
+//                }
+//            }
+        }
+
+        override fun onScrollChanged(reachedTop: Boolean, scroll: Int) {
+            val shouldExpand = mBinding?.webView?.scrollY == 0
+            if (shouldExpand) {
+
+                webView.isNestedScrollingEnabled = shouldExpand
+                webView.onTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0f, 0f, 0))
+            }
+        }
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -41,6 +66,7 @@ class ViewerFragment : BaseFragment(), PrettifyWebView.OnContentChangedListener{
             viewerQuery.convertToGitObject()
         }
 
+        mBinding?.webView?.setOnContentChangedListener(onContentListener)
         gitObjectQuery?.let {
             viewerViewModel.loadFileContentByQuery(it)
         }
@@ -50,12 +76,5 @@ class ViewerFragment : BaseFragment(), PrettifyWebView.OnContentChangedListener{
         }
     }
 
-    override fun onContentChanged(progress: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onScrollChanged(reachedTop: Boolean, scroll: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
 

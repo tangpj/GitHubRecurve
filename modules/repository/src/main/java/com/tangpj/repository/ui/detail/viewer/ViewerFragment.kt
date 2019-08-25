@@ -16,19 +16,18 @@ import com.tangpj.repository.entry.vo.FileContent
 import kotlinx.android.synthetic.main.fragment_file_content.*
 import javax.inject.Inject
 
+/**
+ * viewer file,img,commit
+ *
+ * @className: ViewerFragment
+ * @author create by Tang
+ * @date  20:48
+ */
 class ViewerFragment : BaseFragment() {
 
     val onContentListener = object : OnContentChangedListener{
         override fun onContentChanged(progress: Int) {
-//            if (loader != null) {
-//                loader.setProgress(progress)
-//                if (progress == 100) {
-//                    hideProgress()
-//                    if (!getPresenter().isMarkDown() && !getPresenter().isImage()) {
-//                        webView.scrollToLine(getPresenter().url())
-//                    }
-//                }
-//            }
+            //loading
         }
 
         override fun onScrollChanged(reachedTop: Boolean, scroll: Int) {

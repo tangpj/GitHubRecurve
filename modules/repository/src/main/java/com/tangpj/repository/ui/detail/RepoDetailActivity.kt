@@ -1,11 +1,16 @@
 package com.tangpj.repository.ui.detail
 
 import android.os.Bundle
+import android.util.SparseArray
 import android.util.SparseIntArray
 import androidx.core.util.containsKey
+import androidx.core.util.set
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.github.ui.TabLayoutMediator
@@ -29,12 +34,14 @@ private const val BRANCH_MASTER = "master"
 @Route(path = PATH_REPO_DETAILS)
 class RepoDetailActivity : BaseActivity(){
 
+    private var currentNavController: LiveData<NavController>? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var repoDetailViewModel: RepoDetailViewModel
 
-    private val isFirstPager = SparseIntArray()
+    private val isInitPage = SparseArray<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +51,6 @@ class RepoDetailActivity : BaseActivity(){
         repoDetailViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepoDetailViewModel::class.java)
         initView(repoDetailQuery, binding)
-
         repoDetailViewModel.loadRepoDetail(repoDetailQuery.login, repoDetailQuery.name)
     }
 
@@ -75,17 +81,19 @@ class RepoDetailActivity : BaseActivity(){
             binding: ActivityRepoDeatilBinding,
             repoDetailQuery: RepoDetailQuery,
             branch: String){
+        isInitPage.append(R.id.files_screen, false)
+        isInitPage.append(R.id.files, false)
         val graphIds = listOf(R.navigation.repo_file_content, R.navigation.repo_files)
         val navController =
                 binding.vpRepoContent.setupWithNavController(this, graphIds, intent )
         navController.observe(this, Observer {
+            it ?: return@Observer
             val currentId =  it.currentDestination?.id
-            currentId ?: return@Observer
-            if (isFirstPager.containsKey(currentId)){
+            setupActionBarWithNavController(it)
+            if (currentId == null || !isInitPage.containsKey(currentId) || isInitPage.get(currentId)){
                 return@Observer
             }
-            isFirstPager.append(currentId, -1)
-            val args: Bundle = when(it.currentDestination?.id){
+            val args: Bundle = when(currentId){
                 R.id.files_screen -> {
                     ViewerFragmentDirections.fileContentInit().apply {
                         this.repoDetailQuery = repoDetailQuery
@@ -102,8 +110,11 @@ class RepoDetailActivity : BaseActivity(){
                 }
                 else -> Bundle()
             }
+            isInitPage[currentId] = true
             it.setGraph(it.graph, args)
         })
+
+        currentNavController = navController
 
         TabLayoutMediator(
                 binding.tlRepoTitle,
@@ -115,6 +126,9 @@ class RepoDetailActivity : BaseActivity(){
         }.attach()
     }
 
+    override fun onNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
+    }
 
 }
 

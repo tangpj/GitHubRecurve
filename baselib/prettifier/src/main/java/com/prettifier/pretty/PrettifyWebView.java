@@ -157,7 +157,8 @@ public class PrettifyWebView extends NestedWebView {
     }
 
     private void loadCode(String page) {
-        post(() -> loadDataWithBaseURL("file:///android_asset/highlight/", page, "text/html", "utf-8", null));
+        addJavascriptInterface(new MarkDownInterceptorInterface(this, false), "Android");
+        post(() -> loadDataWithBaseURL("file:///android_asset/", page, "text/html", "utf-8", null));
     }
 
     public void scrollToLine(@NonNull String url) {

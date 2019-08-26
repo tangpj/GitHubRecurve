@@ -36,7 +36,7 @@ private fun onSetMdText(webView: PrettifyWebView, text: String) {
 private fun onSetCode(webView: PrettifyWebView, @NonNull text: String) {
     webView.visibility = View.VISIBLE
     //todo isWrap可配置
-    webView.setSource(text, false)
+    webView.setSource(text, true)
 }
 
 private fun onSetImageUrl(webView: PrettifyWebView, url: String, isSvg: Boolean) {

@@ -7,6 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.recurve.resource.Status
 import com.tangpj.repository.ui.creator.FileItemCreator
@@ -22,7 +24,7 @@ class FilesFragment : ModulePagingFragment(){
 
     private lateinit var filesViewModel: FilesViewModel
 
-    var fileItemCreator = FileItemCreator(adapter)
+    lateinit var fileItemCreator: FileItemCreator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +33,7 @@ class FilesFragment : ModulePagingFragment(){
 
     override fun onBindingInit(binding: ViewDataBinding) {
         super.onBindingInit(binding)
+        fileItemCreator = FileItemCreator(adapter)
         filesViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FilesViewModel::class.java)
         val gitObjectQuery = arguments?.let{
@@ -42,9 +45,10 @@ class FilesFragment : ModulePagingFragment(){
         addItemCreator(fileItemCreator)
 
         filesViewModel.fileItems.observe(this, Observer { resource ->
-            if (resource.networkState.status != Status.LOADING){
-                fileItemCreator.setDataList(resource.data ?: emptyList())
+            resource.data?.let {
+                fileItemCreator.setDataList(it)
             }
+
         })
 
         fileItemCreator.setOnItemClickListener { view, e, creatorPosition ->
@@ -68,7 +72,13 @@ class FilesFragment : ModulePagingFragment(){
 
         loading<List<FileItem>>{
             resource = filesViewModel.fileItems
+            retry = { filesViewModel.retry() }
         }
+    }
+
+    override fun initRecyclerView(rv: RecyclerView) {
+        super.initRecyclerView(rv)
+        (rv.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
     }
 
 }

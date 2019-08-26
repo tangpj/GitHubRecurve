@@ -15,18 +15,19 @@ public class PrettifyHelper {
                 "<html>\n" +
                 "<head>\n" +
                 "    <meta charset=\"utf-8\">\n" +
-                "    <link rel=\"stylesheet\" href=\"./styles/" + css + "\">\n" +
+                "    <link rel=\"stylesheet\" href=\"./highlight/styles/" + css + "\">\n" +
                 "" + (!wrap ? "<meta name=\"viewport\" content=\"width=device-width, height=device-height, " +
                 "initial-scale=.5,user-scalable=yes\"/>\n" : "") + "" +
                 LINE_NO_CSS + "\n" +
                 "    " + (wrap ? WRAPPED_STYLE : "") + "\n" +
-                "<script src=\"./js/prettify.js\"></script>\n" +
-                "<script src=\"./js/prettify_line_number.js\"></script>\n" +
+                "<script src=\"./highlight/js/prettify.js\"></script>\n" +
+                "<script src=\"./highlight/js/prettify_line_number.js\"></script>\n" +
                 "</head>\n" +
                 "<body style=\"" + (isDark && textTooLarge(text) ? "color:white;" : "") + "\">\n" +
                 "<pre><code>" + text + "</code></pre>\n" +
                 "<script>" + (textTooLarge(text) ? "" : "hljs.initHighlightingOnLoad();\nhljs.initLineNumbersOnLoad();") + "</script>\n" +
-                "<script src=\"./js/scrollto.js\"></script>\n" +
+                "<script src=\"./highlight/js/scrollto.js\"></script>\n" +
+                "\n<script src=\"./md/intercept-touch.js\"></script>\n" +
                 "</body>\n" +
                 "</html>";
     }

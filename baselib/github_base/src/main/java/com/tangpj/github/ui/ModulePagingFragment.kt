@@ -80,6 +80,8 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
             loadStateBinding.lifecycleOwner = this
             loadStateBinding.retry = loading.retry
             loading.resource?.observe(this, Observer {
+                Timber.d("""netState = ${it.networkState.status}; 
+                    msg = ${it.networkState.msg}""")
                 loadStateBinding.resource = it
             })
             loadStateBinding

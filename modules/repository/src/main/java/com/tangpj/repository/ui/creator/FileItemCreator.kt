@@ -2,22 +2,21 @@ package com.tangpj.repository.ui.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.tangpj.adapter.adapter.ModulesAdapter
 import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.adapter.creator.RecurveViewHolder
 import com.tangpj.repository.databinding.ItemFileBinding
 import com.tangpj.repository.entry.vo.FileItem
 
-class FileItemCreator constructor(adapter: ModulesAdapter)
-    : ItemCreator<FileItem, ItemFileBinding>(adapter){
+class FileItemCreator
+    : ItemCreator<FileItem, ItemFileBinding>(){
     override fun onBindItemView(
-            itemHolder: RecurveViewHolder<ItemFileBinding>, e: FileItem?, inCreatorPosition: Int) {
-        itemHolder.binding.fileItem = e
+            binding: ItemFileBinding, e: FileItem, inCreatorPosition: Int) {
+        binding.fileItem = e
     }
 
-    override fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): RecurveViewHolder<*> =
-            RecurveViewHolder(ItemFileBinding
-                    .inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemFileBinding =
+            ItemFileBinding
+                    .inflate(LayoutInflater.from(parent.context), parent, false)
 
 
 

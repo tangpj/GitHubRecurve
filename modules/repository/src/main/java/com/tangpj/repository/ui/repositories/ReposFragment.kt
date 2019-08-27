@@ -38,7 +38,7 @@ class ReposFragment: ModulePagingFragment() {
     override fun onBindingInit(binding: ViewDataBinding) {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ReposViewModel::class.java)
-        repositoryCreator = RepositoryCreator(adapter, POST_COMPARATOR)
+        repositoryCreator = RepositoryCreator(POST_COMPARATOR)
         pagedLoading<Repo> {
             listing = repoViewModel.repoListing
         }

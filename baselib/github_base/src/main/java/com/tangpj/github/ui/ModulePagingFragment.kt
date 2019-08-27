@@ -63,7 +63,7 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
         binding.flContent.addView(pageLoadingStateBinding.root, params)
         loading.listing?.observe(this, Observer {
-            loadingCreator = ItemLoadingCreator(adapter)
+            loadingCreator = ItemLoadingCreator()
             adapter.addCreator(loadingCreator)
             observerListing(it, pageLoadingStateBinding)
 

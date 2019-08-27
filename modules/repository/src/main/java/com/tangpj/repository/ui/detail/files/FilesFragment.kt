@@ -15,6 +15,7 @@ import com.tangpj.repository.ui.creator.FileItemCreator
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.entry.vo.FileItem
 import com.tangpj.repository.entry.vo.FileType
+import com.tangpj.repository.ui.creator.PathCreator
 import javax.inject.Inject
 
 class FilesFragment : ModulePagingFragment(){
@@ -24,7 +25,8 @@ class FilesFragment : ModulePagingFragment(){
 
     private lateinit var filesViewModel: FilesViewModel
 
-    lateinit var fileItemCreator: FileItemCreator
+    private lateinit var fileItemCreator: FileItemCreator
+    private lateinit var pathCreator: PathCreator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,17 +35,18 @@ class FilesFragment : ModulePagingFragment(){
 
     override fun onBindingInit(binding: ViewDataBinding) {
         super.onBindingInit(binding)
-        fileItemCreator = FileItemCreator(adapter)
+        fileItemCreator = FileItemCreator()
+        pathCreator = PathCreator()
         filesViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FilesViewModel::class.java)
         val gitObjectQuery = arguments?.let{
             val filesArgs= FilesFragmentArgs.fromBundle(it)
             filesArgs.convertToGitObjectQuery()
         }
+
         gitObjectQuery?: return
         filesViewModel.loadFileTreeByQuery(fileTreeQuery = gitObjectQuery )
         addItemCreator(fileItemCreator)
-
         filesViewModel.fileItems.observe(this, Observer { resource ->
             resource.data?.let {
                 fileItemCreator.setDataList(it)
@@ -51,7 +54,7 @@ class FilesFragment : ModulePagingFragment(){
 
         })
 
-        fileItemCreator.setOnItemClickListener { view, e, creatorPosition ->
+        fileItemCreator.setOnItemClickListener { _, e, _ ->
             e ?: return@setOnItemClickListener
             val action = if (e.type == FileType.TREE){
                 FilesFragmentDirections.actionFiles().apply {
@@ -74,6 +77,10 @@ class FilesFragment : ModulePagingFragment(){
             resource = filesViewModel.fileItems
             retry = { filesViewModel.retry() }
         }
+    }
+
+    private fun initIndicator(){
+
     }
 
     override fun initRecyclerView(rv: RecyclerView) {

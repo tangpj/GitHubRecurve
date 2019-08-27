@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="text"
+            type="String" />
+        <variable
+            name="isRoot"
+            type="boolean" />
+    </data>
 
-    <ImageView
-        android:id="@+id/ic_start"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_horizontal_material"
-        android:src="@mipmap/ic_home_black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_vertical_material"
-        android:layout_marginStart="@dimen/margin_horizontal_material"
-        android:layout_marginEnd="@dimen/margin_horizontal_material"
-        android:layout_marginBottom="@dimen/margin_vertical_material"
-        android:drawablePadding="@dimen/padding_horizontal_material"
-        android:gravity="center_vertical"
-        style="@style/TextAppearance.Adaptive.Body1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ic_start"
-        tools:text="root"
-        tools:drawableEnd="@drawable/ic_keyboard_arrow_right"
-        />
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal_material"
+            android:src="@mipmap/ic_home_black"
+            app:visibleGone="@{isRoot}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical_material"
+            android:layout_marginStart="@dimen/margin_horizontal_material"
+            android:layout_marginEnd="@dimen/margin_horizontal_material"
+            android:layout_marginBottom="@dimen/margin_vertical_material"
+            android:drawablePadding="@dimen/padding_horizontal_material"
+            android:gravity="center_vertical"
+            android:text="@{text}"
+            style="@style/TextAppearance.Adaptive.Body1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_home"
+            tools:text="root"
+            tools:drawableEnd="@drawable/ic_keyboard_arrow_right"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

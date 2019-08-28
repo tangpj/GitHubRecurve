@@ -53,6 +53,7 @@ versions.mapstruct = "1.3.0.Final"
 versions.threetenabp = "1.2.0"
 versions.markdown4j = "2.2-cj-1.1"
 versions.svg = "1.4"
+versions.arrow = "0.10.0-SNAPSHOT"
 deps.versions = versions
 
 def androidx = [:]
@@ -181,6 +182,14 @@ glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
 glide.transformations = "jp.wasabeef:glide-transformations:$versions.glide_transformations"
 deps.glide = glide
 
+def arrow = [:]
+arrow.core = "io.arrow-kt:arrow-core:$versions.arrow"
+arrow.fx = "io.arrow-kt:arrow-fx:$versions.arrow"
+arrow.optics = "io.arrow-kt:arrow-optics:$versions.arrow"
+arrow.syntax = "io.arrow-kt:arrow-syntax:$versions.arrow"
+arrow.meta = "io.arrow-kt:arrow-meta:$versions.arrow"
+deps.arrow = arrow
+
 deps.svg = "com.caverock:androidsvg-aar:$versions.svg"
 deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
 deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
@@ -221,5 +230,6 @@ static def addRepos(RepositoryHandler handler) {
     handler.maven { url 'https://jitpack.io' }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     handler.maven { url "https://kotlin.bintray.com/kotlinx" }
+    handler.maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 ext.addRepos = this.&addRepos

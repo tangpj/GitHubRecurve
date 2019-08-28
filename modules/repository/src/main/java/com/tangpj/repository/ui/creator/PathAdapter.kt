@@ -9,26 +9,18 @@ import com.tangpj.repository.databinding.ItemFilePathBinding
 import com.tangpj.repository.databinding.ItemHorizontalRvBinding
 import com.tangpj.repository.entry.vo.FileItem
 
-class PathCreator : ItemCreator<FileItem, ItemHorizontalRvBinding>(){
-    override fun onBindItemView(binding: ItemHorizontalRvBinding, e: FileItem, inCreatorPosition: Int) {
+class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
 
-    }
-
-    override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemHorizontalRvBinding {
-        val inflater = LayoutInflater.from(parent.context)
-        return ItemHorizontalRvBinding.inflate(inflater, parent, false)
-    }
-}
-
-private class PathAdapter : DataBindingAdapter<FileItem, ItemFilePathBinding>(){
     override fun onCreateBinding(parent: ViewGroup, viewType: Int): ItemFilePathBinding {
         val inflater = LayoutInflater.from(parent.context)
         return ItemFilePathBinding.inflate(inflater, parent, false)
     }
 
-    override fun onBindBinding(binding: ItemFilePathBinding, e: FileItem, position: Int) {
+    override fun onBindBinding(binding: ItemFilePathBinding, e: PathItem, position: Int) {
         binding.isRoot = position== 0
         binding.text = e.name
     }
 
 }
+
+class PathItem(val path: String, val name: String)

@@ -25,7 +25,7 @@ import javax.inject.Inject
  */
 class ViewerFragment : BaseFragment() {
 
-    val onContentListener = object : OnContentChangedListener{
+    private val onContentListener = object : OnContentChangedListener{
         override fun onContentChanged(progress: Int) {
             //loading
         }

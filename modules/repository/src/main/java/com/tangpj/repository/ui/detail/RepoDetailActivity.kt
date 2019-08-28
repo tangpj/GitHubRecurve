@@ -2,6 +2,7 @@ package com.tangpj.repository.ui.detail
 
 import android.os.Bundle
 import android.util.SparseArray
+import android.util.SparseBooleanArray
 import android.util.SparseIntArray
 import androidx.core.util.containsKey
 import androidx.core.util.set
@@ -19,6 +20,10 @@ import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDeatilBinding
 import com.tangpj.repository.databinding.CollasingRepoDetailBinding
+import com.tangpj.repository.databinding.FragmentPathFilesBinding
+import com.tangpj.repository.ui.creator.PathAdapter
+import com.tangpj.repository.ui.creator.PathItem
+import com.tangpj.repository.ui.detail.files.FilesFragmentArgs
 import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
 import com.tangpj.repository.ui.detail.viewer.ViewerFragmentArgs
 import com.tangpj.repository.ui.detail.viewer.ViewerFragmentDirections
@@ -41,7 +46,9 @@ class RepoDetailActivity : BaseActivity(){
 
     private lateinit var repoDetailViewModel: RepoDetailViewModel
 
-    private val isInitPage = SparseArray<Boolean>()
+    private val isInitPage = SparseBooleanArray()
+
+    private val filePathAdapter = PathAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,11 +91,35 @@ class RepoDetailActivity : BaseActivity(){
         isInitPage.append(R.id.files_screen, false)
         isInitPage.append(R.id.files, false)
         val graphIds = listOf(R.navigation.repo_file_content, R.navigation.repo_files)
-        val navController =
-                binding.vpRepoContent.setupWithNavController(this, graphIds, intent )
+        val navController = binding.vpRepoContent
+                .setupWithNavController(this, graphIds,intent){ position ->
+                    when (position){
+                        1 -> R.layout.fragment_path_files to { fragmentBinding ->
+                            initFilesPath(fragmentBinding as FragmentPathFilesBinding)
+                        }
+                        else -> {
+                            null
+                        }
+                    }
+                }
+        //page first init
         navController.observe(this, Observer {
             it ?: return@Observer
             val currentId =  it.currentDestination?.id
+            it.addOnDestinationChangedListener { controller, destination, arguments ->
+                if (controller.graph.id == R.id.files) {
+                    val filesArgs = FilesFragmentArgs.fromBundle(arguments ?: Bundle())
+                    val pathList = filesArgs.path.split('/')
+                    val pathName =  if (pathList.isNotEmpty()){
+                        pathList.last()
+                    }else{
+                        ""
+                    }
+                    val pathItem = PathItem(path = filesArgs.path, name = pathName)
+                    filePathAdapter.addItem(pathItem)
+                }
+
+            }
             setupActionBarWithNavController(it)
             if (currentId == null || !isInitPage.containsKey(currentId) || isInitPage.get(currentId)){
                 return@Observer
@@ -102,11 +133,13 @@ class RepoDetailActivity : BaseActivity(){
                     }.arguments
                 }
                 R.id.files ->{
+
                     FilesFragmentDirections.actionFiles().apply {
                         this.repoDetailQuery = repoDetailQuery
                         this.branch = branch
                         this.path = ""
                     }.arguments
+
                 }
                 else -> Bundle()
             }
@@ -124,6 +157,11 @@ class RepoDetailActivity : BaseActivity(){
                 else -> "README"
             }
         }.attach()
+    }
+
+    private fun initFilesPath(binding: FragmentPathFilesBinding){
+        binding.rvPath.adapter  = filePathAdapter
+        filePathAdapter.addItem(PathItem("", ""))
     }
 
     override fun onNavigateUp(): Boolean {

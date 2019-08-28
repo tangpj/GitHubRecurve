@@ -109,6 +109,13 @@ dependencies {
     api deps.rx_android
     api deps.rxjava2
 
+    // Arrow
+    api deps.arrow.core
+    api deps.arrow.fx
+    api deps.arrow.syntax
+    api deps.arrow.optics
+    kapt deps.arrow.meta
+
     api project(':baselib:res')
 
     api deps.apollo.runtime

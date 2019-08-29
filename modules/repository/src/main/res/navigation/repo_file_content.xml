@@ -6,8 +6,6 @@
     app:startDestination="@id/files_screen"
     tools:ignore="UnusedNavigation">
 
-
-
     <fragment android:id="@+id/files_screen"
         android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
         android:label="FileContent"
@@ -27,7 +25,8 @@
 
         <argument
             android:name="path"
-            android:defaultValue="README.md"
+            android:defaultValue="@null"
+            app:nullable="true"
             app:argType="string"/>
 
         <action

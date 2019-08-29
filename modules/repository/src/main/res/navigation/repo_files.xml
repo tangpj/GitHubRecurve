@@ -25,7 +25,8 @@
 
         <argument
             android:name="path"
-            android:defaultValue="README.md"
+            android:defaultValue="@null"
+            app:nullable="true"
             app:argType="string"/>
 
         <action
@@ -58,7 +59,8 @@
 
         <argument
             android:name="path"
-            android:defaultValue="README.md"
+            android:defaultValue="@null"
+            app:nullable="true"
             app:argType="string"/>
 
     </fragment>

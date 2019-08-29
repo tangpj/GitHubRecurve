@@ -27,6 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"
             />
 
         <TextView
@@ -34,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_vertical_material"
             android:layout_marginStart="@dimen/margin_horizontal_material"
-            android:layout_marginEnd="@dimen/margin_horizontal_material"
             android:layout_marginBottom="@dimen/margin_vertical_material"
             android:drawablePadding="@dimen/padding_horizontal_material"
             android:gravity="center_vertical"
@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_home"
             tools:text="root"
-            tools:drawableEnd="@drawable/ic_keyboard_arrow_right"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

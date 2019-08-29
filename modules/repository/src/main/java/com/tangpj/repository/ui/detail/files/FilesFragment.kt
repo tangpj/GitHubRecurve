@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
+import arrow.typeclasses.Monoid
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.ui.creator.FileItemCreator
 import com.tangpj.repository.valueObject.query.GitObjectQuery
@@ -54,13 +55,13 @@ class FilesFragment : ModulePagingFragment(){
                 FilesFragmentDirections.actionFiles().apply {
                     this.repoDetailQuery = gitObjectQuery.repoDetailQuery
                     this.branch = gitObjectQuery.branch
-                    this.path = gitObjectQuery.nextPath(e.name)
+                    path = gitObjectQuery.nextPath(e.name)
                 }
             }else {
                 FilesFragmentDirections.actionFilesToFlContent().apply {
                     this.repoDetailQuery = gitObjectQuery.repoDetailQuery
                     this.branch = gitObjectQuery.branch
-                    this.path = gitObjectQuery.nextPath(e.name)
+                    path = gitObjectQuery.nextPath(e.name)
                 }
 
             }
@@ -86,6 +87,6 @@ private fun FilesFragmentArgs.convertToGitObjectQuery() =
            GitObjectQuery(
                    repoDetailQuery = it,
                    branch = branch,
-                   path = path
+                   path = path ?: ""
            )
        }

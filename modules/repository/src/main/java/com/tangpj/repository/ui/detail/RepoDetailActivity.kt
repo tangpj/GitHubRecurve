@@ -106,17 +106,17 @@ class RepoDetailActivity : BaseActivity(){
         navController.observe(this, Observer {
             it ?: return@Observer
             val currentId =  it.currentDestination?.id
-            it.addOnDestinationChangedListener { controller, destination, arguments ->
-                if (controller.graph.id == R.id.files) {
+            it.addOnDestinationChangedListener { _, destination, arguments ->
+                if (destination.id == R.id.files) {
                     val filesArgs = FilesFragmentArgs.fromBundle(arguments ?: Bundle())
-                    val pathList = filesArgs.path.split('/')
+                    val pathList = filesArgs.path?.split('/') ?: emptyList()
                     val pathName =  if (pathList.isNotEmpty()){
                         pathList.last()
                     }else{
                         ""
                     }
-                    val pathItem = PathItem(path = filesArgs.path, name = pathName)
-                    filePathAdapter.addItem(pathItem)
+                    val pathItem = PathItem(path = filesArgs.path ?: "", name = pathName)
+                    filePathAdapter.pushPathItem(pathItem)
                 }
 
             }
@@ -127,17 +127,15 @@ class RepoDetailActivity : BaseActivity(){
             val args: Bundle = when(currentId){
                 R.id.files_screen -> {
                     ViewerFragmentDirections.fileContentInit().apply {
+                        path = "README.md"
                         this.repoDetailQuery = repoDetailQuery
                         this.branch = branch
-                        this.path = "README.md"
                     }.arguments
                 }
                 R.id.files ->{
-
                     FilesFragmentDirections.actionFiles().apply {
                         this.repoDetailQuery = repoDetailQuery
                         this.branch = branch
-                        this.path = ""
                     }.arguments
 
                 }
@@ -161,7 +159,7 @@ class RepoDetailActivity : BaseActivity(){
 
     private fun initFilesPath(binding: FragmentPathFilesBinding){
         binding.rvPath.adapter  = filePathAdapter
-        filePathAdapter.addItem(PathItem("", ""))
+        filePathAdapter.pushPathItem(PathItem("", ""))
     }
 
     override fun onNavigateUp(): Boolean {
@@ -175,7 +173,7 @@ internal fun ViewerFragmentArgs.convertToGitObject() : GitObjectQuery? {
         GitObjectQuery(
                 repoDetailQuery = it,
                 branch = branch,
-                path = path)
+                path = path ?: "" )
     }
 }
 

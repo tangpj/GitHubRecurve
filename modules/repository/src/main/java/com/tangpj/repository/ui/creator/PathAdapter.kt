@@ -2,12 +2,15 @@ package com.tangpj.repository.ui.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.recurve.binding.adapter.DataBindingAdapter
 import com.tangpj.repository.databinding.ItemFilePathBinding
 
 class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
 
-    val pathPosition = mutableMapOf<PathItem, Int>()
+    private val pathPosition = mutableMapOf<PathItem, Int>()
+
+    private lateinit var internalRecyclerView: RecyclerView
 
     /**
      *
@@ -18,17 +21,27 @@ class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
      * @createTime: 2019-08-29 16:23
      */
     fun pushPathItem(pathItem: PathItem){
+        val count = itemCount
+        if (count - 1 == pathPosition[pathItem]){
+            return
+        }
         if (pathPosition.containsKey(pathItem)){
             pathPosition[pathItem]?.let { it ->
                 val start = it + 1
-                removeItemRange(start, itemCount - start){ path ->
+                removeItemRange(start, count - start){ path ->
                     pathPosition.remove(path)
                 }
             }
         }else{
-            pathPosition[pathItem] = itemCount
+            pathPosition[pathItem] = count
             addItem(pathItem)
+            internalRecyclerView.scrollToPosition(itemCount - 1)
         }
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        internalRecyclerView = recyclerView
     }
 
     override fun onCreateBinding(parent: ViewGroup, viewType: Int): ItemFilePathBinding {

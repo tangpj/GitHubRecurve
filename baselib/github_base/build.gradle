@@ -134,7 +134,7 @@ dependencies {
 
     api 'javax.annotation:jsr250-api:1.0'
 
-    androidTestImplementation deps.junit
+    testImplementation deps.junit
     androidTestImplementation (deps.mock_web_server, {
         exclude group: 'com.android.support'
     })

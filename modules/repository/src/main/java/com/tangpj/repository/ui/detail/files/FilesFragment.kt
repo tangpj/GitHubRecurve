@@ -1,6 +1,7 @@
 package com.tangpj.repository.ui.detail.files
 
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer

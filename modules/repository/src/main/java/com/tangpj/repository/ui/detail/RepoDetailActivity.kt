@@ -1,9 +1,9 @@
 package com.tangpj.repository.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.SparseArray
 import android.util.SparseBooleanArray
-import android.util.SparseIntArray
+import android.view.MotionEvent
 import androidx.core.util.containsKey
 import androidx.core.util.set
 import androidx.lifecycle.LiveData
@@ -40,15 +40,18 @@ private const val BRANCH_MASTER = "master"
 class RepoDetailActivity : BaseActivity(){
 
     private var currentNavController: LiveData<NavController>? = null
+    private lateinit var currentRepoDetailQuery: RepoDetailQuery
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var repoDetailViewModel: RepoDetailViewModel
+    private var currentBranch = "master"
 
     private val isInitPage = SparseBooleanArray()
 
     private val filePathAdapter = PathAdapter()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,7 @@ class RepoDetailActivity : BaseActivity(){
         repoDetailViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepoDetailViewModel::class.java)
         initView(repoDetailQuery, binding)
+        currentRepoDetailQuery = repoDetailQuery
         repoDetailViewModel.loadRepoDetail(repoDetailQuery.login, repoDetailQuery.name)
     }
 
@@ -80,7 +84,7 @@ class RepoDetailActivity : BaseActivity(){
                 }
             }
         }
-        initViewPager(binding, repoDetailQuery, "master")
+        initViewPager(binding, repoDetailQuery, currentBranch)
 
     }
 
@@ -154,11 +158,28 @@ class RepoDetailActivity : BaseActivity(){
                 1 -> "FILES"
                 else -> "README"
             }
-        }.attach()
-    }
+        }.attach() }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initFilesPath(binding: FragmentPathFilesBinding){
         binding.rvPath.adapter  = filePathAdapter
+        filePathAdapter.onClickListener = { _, pathItem, position ->
+            currentNavController?.value?.let {
+                val action = FilesFragmentDirections.actionFiles().apply {
+                    repoDetailQuery = currentRepoDetailQuery
+                    branch = currentBranch
+                    path = pathItem.path
+                }
+                if (position == filePathAdapter.itemCount - 1){
+                    return@let
+                }
+                if (pathItem.path.isBlank()){
+                    it.setGraph(it.graph, action.arguments)
+                }else{
+                    it.navigate(action)
+                }
+            }
+        }
         filePathAdapter.pushPathItem(PathItem("", ""))
     }
 

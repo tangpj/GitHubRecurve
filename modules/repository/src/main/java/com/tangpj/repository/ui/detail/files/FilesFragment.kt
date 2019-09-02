@@ -1,8 +1,6 @@
 package com.tangpj.repository.ui.detail.files
 
-import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
+
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +8,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
-import arrow.typeclasses.Monoid
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.ui.creator.FileItemCreator
 import com.tangpj.repository.valueObject.query.GitObjectQuery
@@ -26,11 +23,6 @@ class FilesFragment : ModulePagingFragment(){
     private lateinit var filesViewModel: FilesViewModel
 
     private lateinit var fileItemCreator: FileItemCreator
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     override fun onBindingInit(binding: ViewDataBinding) {
         super.onBindingInit(binding)

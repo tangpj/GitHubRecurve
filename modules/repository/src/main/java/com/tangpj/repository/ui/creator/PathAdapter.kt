@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.recurve.binding.adapter.DataBindingAdapter
 import com.tangpj.repository.databinding.ItemFilePathBinding
 
+
+
 class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
 
     private val pathPosition = mutableMapOf<PathItem, Int>()
@@ -32,7 +34,7 @@ class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
                     pathPosition.remove(path)
                 }
             }
-        }else{
+        }else {
             pathPosition[pathItem] = count
             addItem(pathItem)
             internalRecyclerView.scrollToPosition(itemCount - 1)
@@ -41,6 +43,8 @@ class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
+
+
         internalRecyclerView = recyclerView
     }
 

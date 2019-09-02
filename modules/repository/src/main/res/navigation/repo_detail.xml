@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/repo_detail">
+
+    <fragment android:id="@+id/files"
+        android:name="com.tangpj.repository.ui.detail.RepoDetailFragment"
+        android:label="@string/repo_detail"
+        tools:layout="@layout/fragment_repo_detail">
+
+        <argument
+            android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument
+            android:name="branch"
+            android:defaultValue="master"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="graphIds"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="integer[]"
+            />
+
+    </fragment>
+
+</navigation>

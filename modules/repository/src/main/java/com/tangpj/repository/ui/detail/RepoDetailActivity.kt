@@ -39,7 +39,6 @@ const val KEY_REPO_DETAIL_QUERY = "com.tangpj.repository.ui.detail.KEY_FILE_CONT
 @Route(path = PATH_REPO_DETAILS)
 class RepoDetailActivity : BaseActivity(){
 
-    private var currentNavController: LiveData<NavController>? = null
     private lateinit var currentRepoDetailQuery: RepoDetailQuery
 
     @Inject
@@ -47,10 +46,8 @@ class RepoDetailActivity : BaseActivity(){
 
     private lateinit var repoDetailViewModel: RepoDetailViewModel
     private var currentBranch = "master"
+    private var currentNavController: LiveData<NavController>? = null
 
-    private val isInitPage = SparseBooleanArray()
-
-    private val filePathAdapter = PathAdapter()
 
     private lateinit var activityRepoDetailBinding: ActivityRepoDetailBinding
 
@@ -86,137 +83,12 @@ class RepoDetailActivity : BaseActivity(){
                 }
             }
         }
-        initViewPager(binding, repoDetailQuery, currentBranch)
+//        initViewPager(binding, repoDetailQuery, currentBranch)
 
     }
 
-    private fun initViewPager(
-            binding: ActivityRepoDetailBinding,
-            repoDetailQuery: RepoDetailQuery,
-            branch: String){
-        isInitPage.append(R.id.files_screen, false)
-        isInitPage.append(R.id.files, false)
-        binding.vpRepoContent.isUserInputEnabled
-        val graphIds = listOf(R.navigation.repo_file_content, R.navigation.repo_files)
-        val navController = binding.vpRepoContent
-                .setupWithNavController(this, graphIds,intent){ position ->
-                    when (position){
-                        1 -> R.layout.fragment_path_files to { fragmentBinding ->
-                            initFilesPath(fragmentBinding as FragmentPathFilesBinding)
-                        }
-                        else -> {
-                            null
-                        }
-                    }
-                }
-        //page first init
-        navController.observe(this, Observer {
-            it ?: return@Observer
-            val currentId =  it.currentDestination?.id
-            it.addOnDestinationChangedListener { _, destination, arguments ->
-                if (destination.id == R.id.files) {
-                    val filesArgs = FilesFragmentArgs.fromBundle(arguments ?: Bundle())
-                    val pathList = filesArgs.path?.split('/') ?: emptyList()
-                    val pathName =  if (pathList.isNotEmpty()){
-                        pathList.last()
-                    }else{
-                        ""
-                    }
-                    val pathItem = PathItem(path = filesArgs.path ?: "", name = pathName)
-                    filePathAdapter.pushPathItem(pathItem)
-                }
-
-            }
-            setupActionBarWithNavController(it)
-            if (currentId == null || !isInitPage.containsKey(currentId) || isInitPage.get(currentId)){
-                return@Observer
-            }
-            val args: Bundle = when(currentId){
-                R.id.files_screen -> {
-                    ViewerFragmentDirections.fileContentInit().apply {
-                        path = "README.md"
-                        this.repoDetailQuery = repoDetailQuery
-                        this.branch = branch
-                    }.arguments
-                }
-                R.id.files ->{
-                    FilesFragmentDirections.actionFiles().apply {
-                        this.repoDetailQuery = repoDetailQuery
-                        this.branch = branch
-                    }.arguments
 
 
-                }
-                else -> Bundle()
-            }
-            isInitPage[currentId] = true
-            it.setGraph(it.graph, args)
-        })
-
-        currentNavController = navController
-
-        TabLayoutMediator(
-                binding.tlRepoTitle,
-                binding.vpRepoContent){ tab, position ->
-            tab.text = when(position){
-                1 -> "FILES"
-                else -> "README"
-            }
-        }.attach() }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun initFilesPath(binding: FragmentPathFilesBinding){
-        binding.rvPath.adapter  = filePathAdapter
-        binding.rvPath.itemAnimator?.changeDuration = 0
-        binding.rvPath.run {
-            addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-                var lastX = 0
-                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    when (e.action) {
-                        MotionEvent.ACTION_DOWN -> lastX = e.x.toInt()
-                        MotionEvent.ACTION_MOVE -> {
-                            val isScrollingRight = e.x < lastX
-                            activityRepoDetailBinding.vpRepoContent.isUserInputEnabled =
-                                    isScrollingRight && (binding.rvPath.layoutManager as LinearLayoutManager)
-                                            .findLastCompletelyVisibleItemPosition() == binding.rvPath.adapter?.itemCount ?: 0- 1 ||
-                                    !isScrollingRight && (binding.rvPath.layoutManager as LinearLayoutManager)
-                                            .findFirstCompletelyVisibleItemPosition() == 0
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            lastX = 0
-                            activityRepoDetailBinding.vpRepoContent.isUserInputEnabled = true
-                        }
-                    }
-                    return false
-                }
-
-                override fun onTouchEvent(@NonNull rv: RecyclerView, @NonNull e: MotionEvent) {}
-
-                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-
-                }
-            })
-        }
-        filePathAdapter.onClickListener = { _, pathItem, position ->
-            currentNavController?.value?.let {
-                val action = FilesFragmentDirections.actionFiles().apply {
-                    repoDetailQuery = currentRepoDetailQuery
-                    branch = currentBranch
-                    path = pathItem.path
-                }
-                if (position == filePathAdapter.itemCount - 1){
-                    return@let
-                }
-                if (pathItem.path.isBlank()){
-                    it.setGraph(it.graph, action.arguments)
-                }else{
-                    it.navigate(action)
-                }
-            }
-        }
-
-        filePathAdapter.pushPathItem(PathItem("", ""))
-    }
 
     override fun onNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false

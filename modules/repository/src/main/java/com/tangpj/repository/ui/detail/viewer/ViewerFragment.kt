@@ -50,7 +50,6 @@ class ViewerFragment : BaseFragment() {
             inflater: LayoutInflater,
             container: ViewGroup?): ViewDataBinding?{
         val binding = FragmentFileContentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
         mBinding = binding
         return mBinding
     }

@@ -27,7 +27,6 @@ abstract class BaseFragment : RecurveDaggerFragment(){
     final override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): ViewDataBinding? {
         _binding = FragmentBaseBinding.inflate(inflater, container, false)
         contentBinding = onCreateContentBinding(inflater, _binding.root as? ViewGroup)
-        _binding.lifecycleOwner = this
         contentBinding?.apply {
             _binding.flRoot.addView(this.root)
             lifecycleOwner = this@BaseFragment

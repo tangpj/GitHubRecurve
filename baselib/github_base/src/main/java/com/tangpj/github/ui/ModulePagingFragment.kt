@@ -39,7 +39,6 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
     final override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?,
                                        savedInstanceState: Bundle?): ViewDataBinding? {
         binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
         onBindingInit(binding)
         val recyclerViewBinding = binding.inRv as? RecyclerViewBinding
         recyclerViewBinding?.let {

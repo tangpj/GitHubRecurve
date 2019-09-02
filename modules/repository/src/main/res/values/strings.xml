@@ -4,7 +4,8 @@
     <string name="star" translatable="false">star</string>
     <string name="forks" translatable="false">forks</string>
     <string name="files">Files</string>
-    <string name="file_content">File Content</string>
+    <string name="file_content">File content</string>
+    <string name="repo_detail">Repo detail</string>
 
 
 </resources>

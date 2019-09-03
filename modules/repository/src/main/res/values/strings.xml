@@ -6,6 +6,8 @@
     <string name="files">Files</string>
     <string name="file_content">File content</string>
     <string name="repo_detail">Repo detail</string>
+    <string name="menu_code">Code</string>
+    <string name="menu_issue">Issue</string>
 
 
 </resources>

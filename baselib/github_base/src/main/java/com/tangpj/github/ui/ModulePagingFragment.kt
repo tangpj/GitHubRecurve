@@ -12,7 +12,6 @@ import com.tangpj.github.databinding.LoadingStateBinding
 import com.tangpj.github.databinding.PageLoadingStateBinding
 import com.tangpj.github.databinding.RecyclerViewBinding
 import com.tangpj.github.ui.creator.ItemLoadingCreator
-import com.tangpj.github.ui.loadState.LoadStateInit
 import com.tangpj.github.ui.loadState.Loading
 import com.tangpj.github.ui.loadState.PageLoading
 import com.tangpj.github.ui.loadState.RealLoadState

@@ -2,9 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/repo_detail">
+    android:id="@+id/code"
+    app:startDestination="@+id/repo_detail">
 
-    <fragment android:id="@+id/files"
+    <fragment android:id="@+id/repo_detail"
         android:name="com.tangpj.repository.ui.detail.RepoDetailFragment"
         android:label="@string/repo_detail"
         tools:layout="@layout/fragment_repo_detail">

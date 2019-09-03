@@ -2,14 +2,11 @@ package com.tangpj.repository.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.util.containsKey
-import androidx.core.util.set
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +15,6 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tangpj.github.ui.TabLayoutMediator
 import com.tangpj.recurve.dagger2.RecurveDaggerFragment
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.FragmentPathFilesBinding
@@ -28,6 +24,7 @@ import com.tangpj.repository.ui.creator.PathItem
 import com.tangpj.repository.ui.detail.files.FilesFragmentArgs
 import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
+import com.tangpj.viewpager.TabLayoutMediator
 import com.tangpj.viewpager.setupWithNavController
 
 class RepoDetailFragment : RecurveDaggerFragment() {
@@ -55,7 +52,10 @@ class RepoDetailFragment : RecurveDaggerFragment() {
             binding: FragmentRepoDetailBinding,
             args: RepoDetailFragmentArgs) {
         binding.pagerRepo.isUserInputEnabled
-        val graphIds = listOf(R.navigation.viewer, R.navigation.repo_files)
+        val graphIds = args.graphIds?.toList()
+
+        graphIds ?: return
+
         val observerFun= binding.pagerRepo
                 .setupWithNavController(childFragmentManager, lifecycle, graphIds, activity?.intent) { position ->
                     when (position) {
@@ -71,7 +71,7 @@ class RepoDetailFragment : RecurveDaggerFragment() {
         //page first init
         observerFun.observe(this, Observer { it{ firstInit, navController  ->
             navController.addOnDestinationChangedListener { _, destination, arguments ->
-                if (destination.id == R.id.files && firstInit) {
+                if (destination.id == R.id.files) {
                     val filesArgs = FilesFragmentArgs.fromBundle(arguments ?: Bundle())
                     val pathList = filesArgs.path?.split('/') ?: emptyList()
                     val pathName = if (pathList.isNotEmpty()) {
@@ -82,12 +82,15 @@ class RepoDetailFragment : RecurveDaggerFragment() {
                     val pathItem = PathItem(path = filesArgs.path ?: "", name = pathName)
                     filePathAdapter.pushPathItem(pathItem)
                 }
+                if(firstInit){
+                    navController.setGraph(navController.graph, args.toBundle())
+                }
 
             }
             (activity as? AppCompatActivity)?.apply {
                 setupActionBarWithNavController( this, navController)
             }
-            navController.setGraph(navController.graph, args.toBundle())
+
             currentNavController = MutableLiveData(navController)
         }})
 

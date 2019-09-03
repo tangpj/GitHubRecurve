@@ -1,38 +1,23 @@
 package com.tangpj.repository.ui.detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.SparseBooleanArray
-import android.view.MotionEvent
-import androidx.annotation.NonNull
-import androidx.core.util.containsKey
-import androidx.core.util.set
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
-import com.tangpj.github.ui.TabLayoutMediator
+import com.tangpj.navigation.setupWithNavController
 import com.tangpj.recurve.util.getColorByAttr
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDetailBinding
 import com.tangpj.repository.databinding.CollasingRepoDetailBinding
-import com.tangpj.repository.databinding.FragmentPathFilesBinding
-import com.tangpj.repository.ui.creator.PathAdapter
-import com.tangpj.repository.ui.creator.PathItem
-import com.tangpj.repository.ui.detail.files.FilesFragmentArgs
-import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
 import com.tangpj.repository.ui.detail.viewer.ViewerFragmentArgs
-import com.tangpj.repository.ui.detail.viewer.ViewerFragmentDirections
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
-import com.tangpj.viewpager.setupWithNavController
 import javax.inject.Inject
 
 const val KEY_REPO_DETAIL_QUERY = "com.tangpj.repository.ui.detail.KEY_FILE_CONTENT_QUERY"
@@ -59,13 +44,23 @@ class RepoDetailActivity : BaseActivity(){
         val repoDetailQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
         repoDetailViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepoDetailViewModel::class.java)
-        initView(repoDetailQuery, activityRepoDetailBinding)
+        initView(repoDetailQuery)
+        if(savedInstanceState == null){
+            setupBottomNavigationBar(repoDetailQuery, activityRepoDetailBinding)
+        }
         currentRepoDetailQuery = repoDetailQuery
         repoDetailViewModel.loadRepoDetail(repoDetailQuery.login, repoDetailQuery.name)
     }
 
 
-    private fun initView(repoDetailQuery: RepoDetailQuery, binding: ActivityRepoDetailBinding) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val repoDetailQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
+        setupBottomNavigationBar(repoDetailQuery, activityRepoDetailBinding)
+    }
+
+
+    private fun initView(repoDetailQuery: RepoDetailQuery) {
         appbar {
             scrollEnable = true
             scrollFlags = "scroll|exitUntilCollapsed"
@@ -83,12 +78,32 @@ class RepoDetailActivity : BaseActivity(){
                 }
             }
         }
-//        initViewPager(binding, repoDetailQuery, currentBranch)
+
 
     }
 
+    private fun setupBottomNavigationBar(
+            repoDetailQuery: RepoDetailQuery,
+            activityRepoDetailBinding: ActivityRepoDetailBinding){
+    val navGraphIds = listOf(R.navigation.repo_detail, R.navigation.viewer)
 
+    val controller = activityRepoDetailBinding.bottomNav.setupWithNavController(
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.nav_host_container,
+            intent = intent)
 
+        controller.observe(this, Observer {
+            setupActionBarWithNavController(it)
+            val args = RepoDetailFragmentArgs.Builder().apply {
+                this.repoDetailQuery = repoDetailQuery
+                this.branch = currentBranch
+                this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files)
+            }.build().toBundle()
+            it.setGraph(it.graph, args)
+        })
+        currentNavController = controller
+    }
 
     override fun onNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false

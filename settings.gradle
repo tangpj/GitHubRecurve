@@ -21,7 +21,9 @@ include 'recurve-retrofit2-support',
         'recurve-module-adapter',
         'recurve-module-paging-support',
         'recurve-glide-support',
-        'viewpager2-navigation-ktx'
+        'viewpager2-navigation-ktx',
+        'bottom-navigation-ktx',
+        'viewpager2-tablayout-ktx'
 
 
 project(":recurve").projectDir = file("../MvvmRecurve/recurve")
@@ -32,4 +34,6 @@ project(":recurve-module-adapter").projectDir = file("../MvvmRecurve/recurve-mod
 project(":recurve-module-paging-support").projectDir = file("../MvvmRecurve/recurve-module-paging-support")
 project(":recurve-glide-support").projectDir = file("../MvvmRecurve/recurve-glide-support")
 project(":viewpager2-navigation-ktx").projectDir = file("../MvvmRecurve/viewpager2-navigation-ktx")
+project(":viewpager2-tablayout-ktx").projectDir = file("../MvvmRecurve/viewpager2-tablayout-ktx")
+project(":bottom-navigation-ktx").projectDir = file("../MvvmRecurve/bottom-navigation-ktx")
 include ':baselib:prettifier'

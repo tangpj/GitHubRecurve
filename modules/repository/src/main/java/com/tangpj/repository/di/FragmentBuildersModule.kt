@@ -1,5 +1,6 @@
 package com.tangpj.repository.di
 
+import com.tangpj.repository.ui.detail.RepoDetailFragment
 import com.tangpj.repository.ui.detail.viewer.ViewerFragment
 import com.tangpj.repository.ui.detail.files.FilesFragment
 import com.tangpj.repository.ui.repositories.ReposFragment
@@ -17,4 +18,7 @@ abstract class FragmentBuildersModule{
 
     @ContributesAndroidInjector
     abstract fun contributesFileContentFragment(): ViewerFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesRepoDetailFragment() : RepoDetailFragment
 }

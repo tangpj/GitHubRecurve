@@ -13,6 +13,7 @@
     <color name="primaryTextColorNormal">#000000</color>
 
     <color name="secondaryTextColorNormal">#000000</color>
+    <color name="navigationIconColorNormal">#000000</color>
 
     <!-- 夜间主题 -->
     <color name="primaryColorNight">#212121</color>
@@ -26,6 +27,6 @@
     <color name="primaryTextColorNight">#ffffff</color>
 
     <color name="secondaryTextColorNight">#ffffff</color>
-
+    <color name="navigationIconColorNight">#ffffff</color>
 
 </resources>

@@ -17,6 +17,7 @@
 
         <item name="colorPrimaryText">@color/primaryTextColorNormal</item>
         <item name="colorSecondaryText">@color/secondaryTextColorNormal</item>
+        <item name="colorNavigationIcon">@color/navigationIconColorNormal</item>
 
         <item name="expandedTitleTextAppearance">@style/TextAppearance.Adaptive.Headline5</item>
     </style>
@@ -37,6 +38,7 @@
 
         <item name="colorPrimaryText">@color/primaryTextColorNight</item>
         <item name="colorSecondaryText">@color/secondaryTextColorNormal</item>
+        <item name="colorNavigationIcon">@color/navigationIconColorNormal</item>
 
         <item name="expandedTitleTextAppearance">@style/TextAppearance.Adaptive.Headline5</item>
 

@@ -3,4 +3,6 @@
     <string name="files">文件</string>
     <string name="file_content">文件内容</string>
     <string name="repo_detail">仓库详情</string>
+    <string name="menu_code">Code</string>
+    <string name="menu_issue">Issue</string>
 </resources>

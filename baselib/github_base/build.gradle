@@ -73,7 +73,6 @@ dependencies {
     api project(':recurve-apollo-support')
     api project(':recurve-module-adapter')
     api project(':recurve-module-paging-support')
-    api project(':viewpager2-navigation-ktx')
 
     api deps.androidx.material
     implementation deps.androidx.viewpager2

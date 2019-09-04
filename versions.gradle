@@ -41,7 +41,7 @@ versions.kotlin = "1.3.21"
 versions.kotlinx = "0.10.0"
 versions.kotlinx_coroutines = "1.3.0-RC"
 versions.ktx = "1.0.0-rc02"
-versions.navigation = "2.2.0-alpha01"
+versions.navigation = "2.1.0-rc01"
 versions.app_code = 1
 versions.app_name = "1.0"
 versions.databinding_compiler = "3.3.2"
@@ -54,6 +54,7 @@ versions.threetenabp = "1.2.0"
 versions.markdown4j = "2.2-cj-1.1"
 versions.svg = "1.4"
 versions.arrow = "0.10.0-SNAPSHOT"
+versions.calces = "3.3.0-alpha01"
 deps.versions = versions
 
 def androidx = [:]
@@ -203,6 +204,8 @@ deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_g
 deps.ext_junit = "androidx.test.ext:junit:$versions.ext_junit"
 deps.threetenabp = "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
 deps.markdown4j = "org.commonjava.googlecode.markdown4j:markdown4j:$versions.markdown4j"
+deps.calces = "gradle.plugin.com.tangpj.tools:component:$versions.calces"
+
 
 ext.deps = deps
 
@@ -231,5 +234,6 @@ static def addRepos(RepositoryHandler handler) {
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     handler.maven { url "https://kotlin.bintray.com/kotlinx" }
     handler.maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+    handler.maven { url "https://plugins.gradle.org/m2/" }
 }
 ext.addRepos = this.&addRepos

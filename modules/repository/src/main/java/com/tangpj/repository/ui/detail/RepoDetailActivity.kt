@@ -1,10 +1,7 @@
 package com.tangpj.repository.ui.detail
 
 import android.os.Bundle
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -79,34 +76,45 @@ class RepoDetailActivity : BaseActivity(){
             }
         }
 
-
     }
 
     private fun setupBottomNavigationBar(
             repoDetailQuery: RepoDetailQuery,
             activityRepoDetailBinding: ActivityRepoDetailBinding){
-    val navGraphIds = listOf(R.navigation.repo_detail, R.navigation.viewer)
+        val navGraphIds = listOf(R.navigation.repo_detail, R.navigation.viewer)
 
-    val controller = activityRepoDetailBinding.bottomNav.setupWithNavController(
-            navGraphIds = navGraphIds,
-            fragmentManager = supportFragmentManager,
-            containerId = R.id.nav_host_container,
-            intent = intent)
+        val controller = activityRepoDetailBinding.bottomNav.setupWithNavController(
+                navGraphIds = navGraphIds,
+                fragmentManager = supportFragmentManager,
+                containerId = R.id.nav_host_container,
+                intent = intent)
 
-        controller.observe(this, Observer {
-            setupActionBarWithNavController(it)
-            val args = RepoDetailFragmentArgs.Builder().apply {
-                this.repoDetailQuery = repoDetailQuery
-                this.branch = currentBranch
-                this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files)
-            }.build().toBundle()
-            it.setGraph(it.graph, args)
-        })
-        currentNavController = controller
+        controller.observe(this, Observer { it {  isFirstInit, navController  ->
+            if(isFirstInit){
+                pagerInit(repoDetailQuery, navController)
+            }
+            setupActionBarWithNavController(navController)
+
+        }})
     }
+
 
     override fun onNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
+    }
+
+    //navigation pager init
+    private fun pagerInit(
+            repoDetailQuery: RepoDetailQuery,
+            navController: NavController){
+        val args = RepoDetailFragmentArgs.Builder().apply {
+            this.repoDetailQuery = repoDetailQuery
+            this.branch = currentBranch
+            this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files)
+        }.build().toBundle()
+        navController.setGraph(navController.graph, args)
+
+
     }
 
 }

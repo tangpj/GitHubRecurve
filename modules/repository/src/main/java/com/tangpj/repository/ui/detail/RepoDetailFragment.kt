@@ -69,29 +69,9 @@ class RepoDetailFragment : RecurveDaggerFragment() {
                 }
 
         //page first init
-        observerFun.observe(this, Observer { it{ firstInit, navController  ->
-            navController.addOnDestinationChangedListener { _, destination, arguments ->
-                if (destination.id == R.id.files) {
-                    val filesArgs = FilesFragmentArgs.fromBundle(arguments ?: Bundle())
-                    val pathList = filesArgs.path?.split('/') ?: emptyList()
-                    val pathName = if (pathList.isNotEmpty()) {
-                        pathList.last()
-                    } else {
-                        ""
-                    }
-                    val pathItem = PathItem(path = filesArgs.path ?: "", name = pathName)
-                    filePathAdapter.pushPathItem(pathItem)
-                }
-                if(firstInit){
-                    navController.setGraph(navController.graph, args.toBundle())
-                }
-
-            }
-            (activity as? AppCompatActivity)?.apply {
-                setupActionBarWithNavController( this, navController)
-            }
-
-            currentNavController = MutableLiveData(navController)
+        observerFun.observe(this, Observer {
+            it {  firstInit, navController  ->
+            pagerInit(firstInit, navController,args)
         }})
 
         TabLayoutMediator(
@@ -102,6 +82,33 @@ class RepoDetailFragment : RecurveDaggerFragment() {
                 else -> "README"
             }
         }.attach()
+    }
+
+    private fun pagerInit(firstInit: Boolean, navController: NavController, args: RepoDetailFragmentArgs){
+        navController.addOnDestinationChangedListener { _, destination, arguments ->
+            if (destination.id == R.id.files) {
+                val path =  arguments?.getString("path") ?: ""
+
+                val pathList = path.split('/')
+                val pathName = if (pathList.isNotEmpty()) {
+                    pathList.last()
+                } else {
+                    ""
+                }
+                val pathItem = PathItem(path = path, name = pathName)
+                filePathAdapter.pushPathItem(pathItem)
+
+            }
+        }
+
+        if(firstInit){
+            navController.setGraph(navController.graph, args.toBundle())
+        }
+
+        (activity as? AppCompatActivity)?.apply {
+            setupActionBarWithNavController( this, navController)
+        }
+
     }
 
     @SuppressLint("ClickableViewAccessibility")

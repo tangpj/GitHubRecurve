@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_home"
             tools:text="root"
-            android:drawableEnd="@drawable/ic_code"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

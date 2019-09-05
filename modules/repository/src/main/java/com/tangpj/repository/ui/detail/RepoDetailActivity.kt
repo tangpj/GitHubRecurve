@@ -1,8 +1,11 @@
 package com.tangpj.repository.ui.detail
 
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.core.app.NavUtils
 import androidx.lifecycle.*
 import androidx.navigation.NavController
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
@@ -28,7 +31,7 @@ class RepoDetailActivity : BaseActivity(){
 
     private lateinit var repoDetailViewModel: RepoDetailViewModel
     private var currentBranch = "master"
-    private var currentNavController: LiveData<NavController>? = null
+    private var currentNavController =  MutableLiveData<NavController>()
 
 
     private lateinit var activityRepoDetailBinding: ActivityRepoDetailBinding
@@ -61,12 +64,11 @@ class RepoDetailActivity : BaseActivity(){
         appbar {
             scrollEnable = true
             scrollFlags = "scroll|exitUntilCollapsed"
+            title = "${repoDetailQuery.login}/${repoDetailQuery.name}"
+            showHomeAsUp = true
             collapsingToolbar {
                 contentScrimColorInt = getColorByAttr(this@RepoDetailActivity, R.attr.colorPrimary)
                 expandedTitleGravity = "top|start"
-                toolBar {
-                    title = "${repoDetailQuery.login}/${repoDetailQuery.name}"
-                }
                 collapsingView { inflater, collapsingToolbarLayout ->
                     val content = CollasingRepoDetailBinding.inflate(inflater, collapsingToolbarLayout, false)
                     content.lifecycleOwner = this@RepoDetailActivity
@@ -93,14 +95,18 @@ class RepoDetailActivity : BaseActivity(){
             if(isFirstInit){
                 pagerInit(repoDetailQuery, navController)
             }
-            setupActionBarWithNavController(navController)
-
+            currentNavController.value = navController
         }})
     }
 
-
-    override fun onNavigateUp(): Boolean {
-        return currentNavController?.value?.navigateUp() ?: false
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     //navigation pager init
@@ -113,7 +119,6 @@ class RepoDetailActivity : BaseActivity(){
             this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files)
         }.build().toBundle()
         navController.setGraph(navController.graph, args)
-
 
     }
 

@@ -9,6 +9,7 @@
     <fragment android:id="@+id/repositories"
         android:name="com.tangpj.repository.ui.repositories.ReposFragment"
         android:label="RepositoriesFragment"
+        app:defaultNavHost="true"
         tools:layout="@layout/fragment_base_recycler_view"
         >
 

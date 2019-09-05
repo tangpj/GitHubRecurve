@@ -8,7 +8,7 @@
 
     <fragment android:id="@+id/viewer"
         android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
-        android:label="FileContent"
+        android:label="viewer"
         tools:layout="@layout/fragment_file_content"
         >
         <argument

@@ -9,6 +9,7 @@
     <fragment android:id="@+id/files"
         android:name="com.tangpj.repository.ui.detail.files.FilesFragment"
         android:label="@string/files"
+        app:defaultNavHost="true"
         tools:layout="@layout/recycler_view">
 
         <argument
@@ -42,6 +43,7 @@
     <fragment android:id="@+id/fl_content"
         android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
         android:label="@string/file_content"
+        app:defaultNavHost="true"
         tools:layout="@layout/fragment_file_content"
         >
 

@@ -1,4 +1,4 @@
-# 查看所有着star过的仓库
+# 查看star过仓库
 query ApolloStartRepositories (
   $login: String = "Tangpj",
   $startFirst: Int = 20,
@@ -81,4 +81,36 @@ query ApolloFileTree(
     }
   }
 }
+
+//获取Commit记录
+query ApolloCommits{
+  repository(owner:"Tangpj", name:"Android-advanced-blueprint"){
+    object(expression:"master"){
+       ... on Commit{
+        history{
+          edges{
+            node{
+              abbreviatedOid
+              message
+              committer{
+                email
+                name
+                avatarUrl
+              }
+              committedDate
+              comments{
+                totalCount
+              }
+            }
+          }
+          pageInfo{
+            ...pageInfoDto
+          }
+          totalCount
+        }
+      }
+    }
+  }
+}
+
 

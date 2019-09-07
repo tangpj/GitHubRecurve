@@ -82,12 +82,15 @@ query ApolloFileTree(
   }
 }
 
-//获取Commit记录
-query ApolloCommits{
-  repository(owner:"Tangpj", name:"Android-advanced-blueprint"){
-    object(expression:"master"){
+query ApolloCommits(
+  $login: String = "Tangpj",
+  $startFirst: Int = 10,
+  $after: String,
+  $author: CommitAuthor){
+  repository(owner: $login, name:"Android-advanced-blueprint"){
+    gitObject: object(expression:"master"){
        ... on Commit{
-        history{
+        history(first: $startFirst, after:$after,author: $author){
           edges{
             node{
               abbreviatedOid
@@ -112,5 +115,3 @@ query ApolloCommits{
     }
   }
 }
-
-

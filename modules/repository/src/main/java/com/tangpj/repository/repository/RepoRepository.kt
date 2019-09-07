@@ -3,10 +3,10 @@ package com.tangpj.repository.repository
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.Config
 import androidx.paging.ItemKeyedDataSource
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.tangpj.github.di.PagingConfig
 import com.tangpj.paging.ItemKeyedBoundResource
 import com.tangpj.repository.entry.vo.Repo
 import com.tangpj.recurve.apollo.LiveDataApollo
@@ -27,13 +27,10 @@ import javax.inject.Inject
 
 class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
-         val repoDb: RepositoryDb){
+         val repoDb: RepositoryDb,
+         val pagingConfig: PagingConfig){
 
     private val reposRateLimiter = RateLimiter<ApolloStartRepositoriesQuery>(1, TimeUnit.MINUTES)
-    private companion object{
-        private const val INITIAL_LOAD_SIZE_HINT = 10
-        private const val PAGE_SIZE = 10
-    }
 
     fun loadStarRepos(login: String) =
             object : ItemKeyedBoundResource<String, Repo, ApolloStartRepositoriesQuery.Data>(){
@@ -64,7 +61,7 @@ class RepoRepository @Inject constructor(
                     val repoResultLive =
                             repoDb.repoDao().loadStarRepoResult(
                                     login = login,
-                                    startFirst = query?.startFirst() ?: INITIAL_LOAD_SIZE_HINT,
+                                    startFirst = query?.startFirst() ?: pagingConfig.initialLoadSizeHint,
                                     after = query?.after() ?: "")
                     return Transformations.switchMap(repoResultLive){
                         repoResult = it
@@ -109,10 +106,7 @@ class RepoRepository @Inject constructor(
 
                 override fun getKey(item: Repo): String = item.id
 
-            }.asListing( Config(
-                    pageSize = 10,
-                    enablePlaceholders = false,
-                    initialLoadSizeHint = 10))
+            }.asListing(pagingConfig.getConfig())
 
 
     private fun saveStarRepo(

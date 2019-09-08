@@ -1,6 +1,7 @@
 package com.tangpj.repository.entry
 
 import android.os.Parcelable
+import androidx.room.Ignore
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -15,4 +16,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 open class Entry(
+        @Ignore
         open val id: String) : Parcelable

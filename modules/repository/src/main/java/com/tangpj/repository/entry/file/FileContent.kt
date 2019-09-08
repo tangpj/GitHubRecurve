@@ -1,17 +1,18 @@
-package com.tangpj.repository.entry.vo
+package com.tangpj.repository.entry.file
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.repository.db.typeConverters.FileContentTypeConverter
+import com.tangpj.repository.entry.Entry
 import kotlinx.android.parcel.Parcelize
 
 
 
 
 /**
- * 资源库的某个文件
+ *
+ * 文件内容
  *
  * @className: RepoFileContent
  * @author create by Tang
@@ -27,7 +28,7 @@ class FileContent(
         override val id: String,
         val content: String,
         val type: Type,
-        val byteSize: Int) :Entry(id){
+        val byteSize: Int) : Entry(id){
 
     enum class Type{
         DEFAULT,

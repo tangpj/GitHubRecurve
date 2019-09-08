@@ -20,8 +20,8 @@ import com.tangpj.repository.valueObject.query.getApolloFileTreeQuery
 import com.tangpj.repository.valueObject.query.getExpression
 import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.valueObject.result.FileItemsResult
-import com.tangpj.repository.entry.vo.FileContent
-import com.tangpj.repository.entry.vo.FileItem
+import com.tangpj.repository.entry.file.FileContent
+import com.tangpj.repository.entry.file.FileItem
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package com.tangpj.repository.db.typeConverters
 
 import androidx.room.TypeConverter
-import com.tangpj.repository.entry.vo.FileContent
+import com.tangpj.repository.entry.file.FileContent
 
 object FileContentTypeConverter{
 

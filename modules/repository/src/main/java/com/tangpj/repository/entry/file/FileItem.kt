@@ -1,9 +1,11 @@
-package com.tangpj.repository.entry.vo
+package com.tangpj.repository.entry.file
 
 import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.tangpj.repository.R
+import com.tangpj.repository.entry.Entry
+import com.tangpj.repository.entry.file.FileType
 import kotlinx.android.parcel.Parcelize
 
 @Entity

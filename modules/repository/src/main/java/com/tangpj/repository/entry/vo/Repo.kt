@@ -2,12 +2,12 @@ package com.tangpj.repository.entry.vo
 
 import android.content.Context
 import android.content.Intent
-import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
+import com.tangpj.repository.entry.Entry
 import com.tangpj.repository.ui.detail.RepoDetailActivity
-import com.tangpj.repository.valueObject.Owner
+import com.tangpj.repository.entry.actor.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -30,7 +30,7 @@ data class Repo constructor(
 ): Entry(id)
 
 fun Repo.startRepoDetail(context: Context){
-    //todo 暂时这样写，后续介入ARouter框架
+    //todo 暂时这样写，后续接入ARouter框架
     val intent: Intent = Intent(context, RepoDetailActivity::class.java)
     context.startActivity(intent)
 }

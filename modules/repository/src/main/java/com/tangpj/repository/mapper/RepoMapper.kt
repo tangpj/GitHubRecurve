@@ -7,7 +7,7 @@ import com.tangpj.repository.fragment.OwnerDto
 import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
-import com.tangpj.repository.valueObject.Owner
+import com.tangpj.repository.entry.actor.Owner
 import com.tangpj.repository.entry.vo.Repo
 
 fun RepoDto.mapperToRepo(): Repo{

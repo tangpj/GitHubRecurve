@@ -4,12 +4,12 @@
 
     <data>
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.repository.entry.vo.FileContent"/>
+        <import type="com.tangpj.repository.entry.file.FileContent"/>
         <import type="com.tangpj.recurve.resource.Resource"/>
 
         <variable
             name="fileContent"
-            type="LiveData&lt;Resource&lt;FileContent>>" />
+            type="LiveData&lt;Resource&lt;FileContent>>"/>
     </data>
 
     <LinearLayout

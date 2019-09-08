@@ -1,4 +1,4 @@
-package com.tangpj.repository.entry.vo;
+package com.tangpj.repository.entry.file;
 
 import androidx.annotation.StringDef;
 

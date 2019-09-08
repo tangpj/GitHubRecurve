@@ -3,9 +3,9 @@ package com.tangpj.repository.mapper
 import com.tangpj.repository.ApolloBlobDetailQuery
 import com.tangpj.repository.ApolloFileTreeQuery
 import com.tangpj.repository.ApolloRepoDetailQuery
-import com.tangpj.repository.entry.vo.FileContent
-import com.tangpj.repository.entry.vo.FileItem
-import com.tangpj.repository.entry.vo.FileType
+import com.tangpj.repository.entry.file.FileContent
+import com.tangpj.repository.entry.file.FileItem
+import com.tangpj.repository.entry.file.FileType
 import com.tangpj.repository.entry.vo.RepoDetail
 
 
@@ -29,10 +29,12 @@ fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{
 
 fun ApolloFileTreeQuery.Data.getFileItems() : List<FileItem>{
     val tree = repository?.gitObject as? ApolloFileTreeQuery.AsTree
-    val groupList = tree?.entries?.map { FileItem(
-            id = it.gitObject?.id ?: "",
-            name = it.name,
-            type = it.type) }?.sortedBy { it.name }?.groupBy {
+    val groupList = tree?.entries?.map {
+        FileItem(
+                id = it.gitObject?.id ?: "",
+                name = it.name,
+                type = it.type)
+    }?.sortedBy { it.name }?.groupBy {
         it.type
     }
     groupList ?: return emptyList()
@@ -52,7 +54,7 @@ fun ApolloBlobDetailQuery.Data.getFileContent(expression: String): FileContent?{
     asBlob?: return null
     return FileContent(
             id = asBlob.id,
-            content = asBlob.text?: "",
+            content = asBlob.text ?: "",
             byteSize = asBlob.byteSize,
             type = extOfType(expression))
 }

@@ -2,7 +2,7 @@ package com.tangpj.repository.db.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.tangpj.repository.entry.vo.Entry
+import com.tangpj.repository.entry.Entry
 
 fun < R : Entry> List<String>.loadDataOrderByMe(load: (List<String>) -> LiveData<List<R>>) : LiveData<List<R>>{
     val order = mutableMapOf<String, Int>()

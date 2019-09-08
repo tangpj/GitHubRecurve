@@ -19,7 +19,7 @@ data class RepoDetailQuery(val login: String, val name: String)
     }
 }
 
-fun RepoDetailQuery.getApolloRepoDetailQuery() = ApolloRepoDetailQuery.builder()
+fun RepoDetailQuery.getApolloRepoDetailQuery(): ApolloRepoDetailQuery = ApolloRepoDetailQuery.builder()
         .owner(login)
         .name(name)
         .build()

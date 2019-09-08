@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.github.db.StringListTypeConverters
-import com.tangpj.repository.valueObject.Owner
+import com.tangpj.repository.entry.actor.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

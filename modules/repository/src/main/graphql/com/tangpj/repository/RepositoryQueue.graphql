@@ -84,11 +84,11 @@ query ApolloFileTree(
 
 query ApolloCommits(
   $login: String = "Tangpj",
-  $name: String = "Android-advanced-blueprint"
+  $repoName: String = "Android-advanced-blueprint"
   $author: CommitAuthor,
   $startFirst: Int = 10,
   $after: String){
-  repository(owner: $login, name: $name){
+  repository(owner: $login, name: $repoName){
     gitObject: object(expression:"master"){
        ... on Commit{
         history(first: $startFirst, after:$after,author: $author){

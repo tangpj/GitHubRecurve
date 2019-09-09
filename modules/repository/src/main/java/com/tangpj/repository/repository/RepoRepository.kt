@@ -122,8 +122,8 @@ class RepoRepository @Inject constructor(
                 after = query.after() ?: "",
                 pageInfo = data.getPageInfo())
         repoDb.runInTransaction {
-        repoDb.repoDao().insertRepos(repoList)
-        repoDb.repoDao().insertStartRepoResult(result)
+            repoDb.repoDao().insertRepos(repoList)
+            repoDb.repoDao().insertStartRepoResult(result)
         }
         return result
     }

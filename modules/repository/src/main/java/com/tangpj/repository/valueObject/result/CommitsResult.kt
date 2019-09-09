@@ -13,7 +13,7 @@ import com.tangpj.repository.entity.author.CommitAuthor
         indices = [Index("login")])
 data class CommitsResult(
         val login: String,
-        val name: String,
+        val repoName: String,
         val authorId: String,
         val commitIds: List<String>,
         val startFirst: Int,

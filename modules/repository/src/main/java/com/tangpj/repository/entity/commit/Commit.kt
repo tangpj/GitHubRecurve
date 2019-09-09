@@ -5,18 +5,16 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.tangpj.github.db.DataTypeConverters
 import com.tangpj.repository.entity.BaseEntity
-import com.tangpj.repository.entity.actor.git.Committer
-import java.time.LocalDateTime
-import java.util.*
+import org.threeten.bp.LocalDateTime
 
 @TypeConverters(DataTypeConverters::class)
 @Entity
 data class Commit(
         @PrimaryKey
         override val id: String,
-        val message: String,
-        val committerId: String,
-        val committedDate: LocalDateTime,
-        val commentCount: String
+        val message: String = "",
+        val committerId: String ="",
+        val committedDate: LocalDateTime = LocalDateTime.now(),
+        val commentCount: Int = 0
 
 ) : BaseEntity(id)

@@ -39,7 +39,7 @@ abstract class RepoDao{
      * @date 2019-06-09 17:28
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertUserRepoResult(starRepoResult: StarRepoResult)
+    abstract fun insertStartRepoResult(starRepoResult: StarRepoResult)
 
     /**
      *

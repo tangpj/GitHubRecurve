@@ -123,7 +123,7 @@ class RepoRepository @Inject constructor(
                 pageInfo = data.getPageInfo())
         repoDb.runInTransaction {
         repoDb.repoDao().insertRepos(repoList)
-        repoDb.repoDao().insertUserRepoResult(result)
+        repoDb.repoDao().insertStartRepoResult(result)
         }
         return result
     }

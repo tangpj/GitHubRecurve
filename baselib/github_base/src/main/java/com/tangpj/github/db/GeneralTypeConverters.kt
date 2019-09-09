@@ -1,12 +1,11 @@
 package com.tangpj.github.db
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import timber.log.Timber
 import java.lang.NumberFormatException
-import java.time.*
-import java.util.*
 
 object IntListTypeConverters{
 

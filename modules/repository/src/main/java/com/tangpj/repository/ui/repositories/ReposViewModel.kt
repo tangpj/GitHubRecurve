@@ -5,7 +5,7 @@ import androidx.paging.PagedList
 import com.tangpj.paging.Listing
 import com.tangpj.paging.PageLoadState
 import com.tangpj.repository.repository.RepoRepository
-import com.tangpj.repository.entry.vo.Repo
+import com.tangpj.repository.vo.Repo
 import javax.inject.Inject
 
 class ReposViewModel @Inject constructor(private val repoRepository: RepoRepository): ViewModel(){

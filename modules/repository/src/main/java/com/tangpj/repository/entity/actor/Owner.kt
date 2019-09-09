@@ -1,4 +1,4 @@
-package com.tangpj.repository.entry.actor
+package com.tangpj.repository.entity.actor
 
 import androidx.room.Entity
 

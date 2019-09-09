@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.tangpj.recurve.resource.Resource
 import com.tangpj.repository.repository.FileRepository
 import com.tangpj.repository.valueObject.query.GitObjectQuery
-import com.tangpj.repository.entry.file.FileContent
+import com.tangpj.repository.entity.file.FileContent
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(private val fileRepository: FileRepository) : ViewModel(){

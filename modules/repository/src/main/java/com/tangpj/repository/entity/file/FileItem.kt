@@ -1,11 +1,10 @@
-package com.tangpj.repository.entry.file
+package com.tangpj.repository.entity.file
 
 import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.tangpj.repository.R
-import com.tangpj.repository.entry.Entry
-import com.tangpj.repository.entry.file.FileType
+import com.tangpj.repository.entity.BaseEntity
 import kotlinx.android.parcel.Parcelize
 
 @Entity
@@ -14,7 +13,7 @@ data class FileItem(
         @field:PrimaryKey
         override val id: String,
         val name: String,
-        val type: String) : Entry(id){
+        val type: String) : BaseEntity(id){
 
     @DrawableRes fun getFileIconId() : Int =
             when(type){

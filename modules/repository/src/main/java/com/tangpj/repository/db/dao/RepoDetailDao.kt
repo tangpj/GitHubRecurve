@@ -1,4 +1,4 @@
-package com.tangpj.repository.db
+package com.tangpj.repository.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -8,9 +8,9 @@ import androidx.room.Query
 import com.tangpj.repository.db.util.loadDataOrderByMe
 import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.valueObject.result.FileItemsResult
-import com.tangpj.repository.entry.file.FileContent
-import com.tangpj.repository.entry.file.FileItem
-import com.tangpj.repository.entry.vo.RepoDetail
+import com.tangpj.repository.entity.file.FileContent
+import com.tangpj.repository.entity.file.FileItem
+import com.tangpj.repository.vo.RepoDetail
 
 @Dao
 abstract class RepoDetailDao{

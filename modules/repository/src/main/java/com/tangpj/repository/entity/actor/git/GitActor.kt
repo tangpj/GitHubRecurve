@@ -1,6 +1,6 @@
-package com.tangpj.repository.entry.actor.git
+package com.tangpj.repository.entity.actor.git
 
-import com.tangpj.repository.entry.Entry
+import com.tangpj.repository.entity.BaseEntity
 import java.util.Date
 
 /**
@@ -19,4 +19,4 @@ open class GitActor(
         open val avatarUrl: String,
         open val date: Date
 
-) : Entry(id)
+) : BaseEntity(id)

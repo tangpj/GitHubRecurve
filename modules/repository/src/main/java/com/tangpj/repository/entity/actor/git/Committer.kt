@@ -1,7 +1,9 @@
-package com.tangpj.repository.entry.actor.git
+package com.tangpj.repository.entity.actor.git
 
+import androidx.room.Entity
 import java.util.Date
 
+@Entity
 class Committer(
         override val id: String,
         override val name: String,

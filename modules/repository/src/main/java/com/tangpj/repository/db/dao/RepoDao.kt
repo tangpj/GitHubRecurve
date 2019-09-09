@@ -1,11 +1,10 @@
-package com.tangpj.repository.db
+package com.tangpj.repository.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.room.*
 import com.tangpj.repository.db.util.loadDataOrderByMe
 import com.tangpj.repository.valueObject.result.StarRepoResult
-import com.tangpj.repository.entry.vo.Repo
+import com.tangpj.repository.vo.Repo
 
 /**
  *

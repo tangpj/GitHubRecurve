@@ -13,7 +13,7 @@ import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.ui.creator.RepositoryCreator
 import com.tangpj.repository.ui.detail.KEY_REPO_DETAIL_QUERY
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
-import com.tangpj.repository.entry.vo.Repo
+import com.tangpj.repository.vo.Repo
 import timber.log.Timber
 import javax.inject.Inject
 

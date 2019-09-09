@@ -84,10 +84,11 @@ query ApolloFileTree(
 
 query ApolloCommits(
   $login: String = "Tangpj",
+  $name: String = "Android-advanced-blueprint"
+  $author: CommitAuthor,
   $startFirst: Int = 10,
-  $after: String,
-  $author: CommitAuthor){
-  repository(owner: $login, name:"Android-advanced-blueprint"){
+  $after: String){
+  repository(owner: $login, name: $name){
     gitObject: object(expression:"master"){
        ... on Commit{
         history(first: $startFirst, after:$after,author: $author){
@@ -95,7 +96,7 @@ query ApolloCommits(
             node{
               abbreviatedOid
               message
-              committer{
+              apolloCommitter: committer{
                 email
                 name
                 avatarUrl

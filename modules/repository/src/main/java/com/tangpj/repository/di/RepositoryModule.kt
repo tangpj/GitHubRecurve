@@ -6,7 +6,7 @@ import com.tangpj.github.BuildConfig
 import com.tangpj.github.GithubApp
 import com.tangpj.github.core.apollo.DateCustomerAdapter
 import com.tangpj.github.di.PagingConfig
-import com.tangpj.repository.db.RepoDao
+import com.tangpj.repository.db.dao.RepoDao
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.type.CustomType
 import dagger.Module

@@ -3,15 +3,15 @@ package com.tangpj.repository.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.tangpj.github.BuildConfig
-import com.tangpj.repository.valueObject.result.FileContentResult
-import com.tangpj.repository.entry.actor.Owner
-import com.tangpj.repository.valueObject.result.FileItemsResult
-import com.tangpj.repository.valueObject.result.StarRepoId
-import com.tangpj.repository.valueObject.result.StarRepoResult
-import com.tangpj.repository.entry.file.FileContent
-import com.tangpj.repository.entry.file.FileItem
-import com.tangpj.repository.entry.vo.Repo
-import com.tangpj.repository.entry.vo.RepoDetail
+import com.tangpj.repository.db.dao.RepoDao
+import com.tangpj.repository.db.dao.RepoDetailDao
+import com.tangpj.repository.entity.actor.Owner
+import com.tangpj.repository.entity.file.FileContent
+import com.tangpj.repository.entity.file.FileItem
+import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.vo.RepoDetail
+import com.tangpj.repository.entity.commit.Commit
+import com.tangpj.repository.valueObject.result.*
 
 
 @Database(
@@ -24,7 +24,10 @@ import com.tangpj.repository.entry.vo.RepoDetail
             FileItem::class,
             FileItemsResult::class,
             FileContent::class,
-            FileContentResult::class],
+            FileContentResult::class,
+            Commit::class,
+            CommitsResult::class
+        ],
         version = BuildConfig.DB_VERSION_GITHUB)
 abstract class RepositoryDb: RoomDatabase(){
 

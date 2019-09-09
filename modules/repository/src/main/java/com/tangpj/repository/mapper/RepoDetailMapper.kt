@@ -3,10 +3,10 @@ package com.tangpj.repository.mapper
 import com.tangpj.repository.ApolloBlobDetailQuery
 import com.tangpj.repository.ApolloFileTreeQuery
 import com.tangpj.repository.ApolloRepoDetailQuery
-import com.tangpj.repository.entry.file.FileContent
-import com.tangpj.repository.entry.file.FileItem
-import com.tangpj.repository.entry.file.FileType
-import com.tangpj.repository.entry.vo.RepoDetail
+import com.tangpj.repository.entity.file.FileContent
+import com.tangpj.repository.entity.file.FileItem
+import com.tangpj.repository.entity.file.FileType
+import com.tangpj.repository.vo.RepoDetail
 
 
 fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{

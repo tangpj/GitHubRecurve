@@ -1,4 +1,4 @@
-package com.tangpj.repository.entry
+package com.tangpj.repository.entity
 
 import android.os.Parcelable
 import androidx.room.Ignore
@@ -15,6 +15,6 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-open class Entry(
+open class BaseEntity(
         @Ignore
         open val id: String) : Parcelable

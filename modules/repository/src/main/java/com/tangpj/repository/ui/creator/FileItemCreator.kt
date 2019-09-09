@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.tangpj.adapter.creator.ItemCreator
 import com.tangpj.repository.databinding.ItemFileBinding
-import com.tangpj.repository.entry.file.FileItem
+import com.tangpj.repository.entity.file.FileItem
 
 class FileItemCreator
     : ItemCreator<FileItem, ItemFileBinding>(){

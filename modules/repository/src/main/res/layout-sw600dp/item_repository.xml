@@ -8,7 +8,7 @@
     <data>
         <variable
             name="repo"
-            type="com.tangpj.repository.entry.vo.Repo"/>
+            type="com.tangpj.repository.vo.Repo"/>
     </data>
 
     <androidx.cardview.widget.CardView

@@ -1,10 +1,10 @@
-package com.tangpj.repository.entry.file
+package com.tangpj.repository.entity.file
 
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.repository.db.typeConverters.FileContentTypeConverter
-import com.tangpj.repository.entry.Entry
+import com.tangpj.repository.entity.BaseEntity
 import kotlinx.android.parcel.Parcelize
 
 
@@ -28,7 +28,7 @@ class FileContent(
         override val id: String,
         val content: String,
         val type: Type,
-        val byteSize: Int) : Entry(id){
+        val byteSize: Int) : BaseEntity(id){
 
     enum class Type{
         DEFAULT,

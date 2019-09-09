@@ -1,8 +1,12 @@
 package com.tangpj.github.db
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import timber.log.Timber
 import java.lang.NumberFormatException
+import java.time.*
+import java.util.*
 
 object IntListTypeConverters{
 
@@ -44,4 +48,17 @@ object StringListTypeConverters{
         return ints?.joinToString(",")
     }
 
+}
+
+object DataTypeConverters{
+
+    @TypeConverter
+    @JvmStatic
+    fun epochMilliToDateTime(time: Long) =
+        LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault())
+
+    @TypeConverter
+    @JvmStatic
+    fun DateTimeToepochMilli(dateTime: LocalDateTime) =
+            dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 }

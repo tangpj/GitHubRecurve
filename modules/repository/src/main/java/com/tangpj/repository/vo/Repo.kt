@@ -1,13 +1,13 @@
-package com.tangpj.repository.entry.vo
+package com.tangpj.repository.vo
 
 import android.content.Context
 import android.content.Intent
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
-import com.tangpj.repository.entry.Entry
+import com.tangpj.repository.entity.BaseEntity
 import com.tangpj.repository.ui.detail.RepoDetailActivity
-import com.tangpj.repository.entry.actor.Owner
+import com.tangpj.repository.entity.actor.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -27,7 +27,7 @@ data class Repo constructor(
         val description: String,
         val stars: Int,
         val forks: Int
-): Entry(id)
+): BaseEntity(id)
 
 fun Repo.startRepoDetail(context: Context){
     //todo 暂时这样写，后续接入ARouter框架

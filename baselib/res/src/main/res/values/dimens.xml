@@ -45,6 +45,7 @@
     <dimen name="text_size_h1_material">96sp</dimen>
 
     <!--  icon dimens  -->
+    <dimen name="icon_xxxhdpi">72dp</dimen>
     <dimen name="icon_xxhdpi">48dp</dimen>
     <dimen name="icon_xhdpi">36dp</dimen>
     <dimen name="icon_hdpi">24dp</dimen>

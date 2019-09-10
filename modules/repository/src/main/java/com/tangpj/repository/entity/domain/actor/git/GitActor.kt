@@ -1,7 +1,8 @@
-package com.tangpj.repository.entity.actor.git
+package com.tangpj.repository.entity.domain.actor.git
 
+import androidx.room.Ignore
 import com.tangpj.repository.entity.BaseEntity
-import java.util.Date
+import org.threeten.bp.LocalDateTime
 
 /**
  *
@@ -13,10 +14,15 @@ import java.util.Date
  * @date  17:45
  */
 open class GitActor(
+        @Ignore
         override val id: String,
+        @Ignore
         open val name: String,
+        @Ignore
         open val email: String,
+        @Ignore
         open val avatarUrl: String,
-        open val date: Date
+        @Ignore
+        open val date: LocalDateTime
 
 ) : BaseEntity(id)

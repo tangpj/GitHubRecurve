@@ -8,7 +8,7 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.tangpj.github.di.PagingConfig
 import com.tangpj.paging.ItemKeyedBoundResource
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.entity.domain.repo.Repo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse

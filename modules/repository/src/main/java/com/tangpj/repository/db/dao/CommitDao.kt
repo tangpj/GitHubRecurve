@@ -1,15 +1,17 @@
 package com.tangpj.repository.db.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.tangpj.repository.db.util.loadDataOrderByMe
-import com.tangpj.repository.entity.actor.git.Committer
-import com.tangpj.repository.entity.author.CommitAuthor
-import com.tangpj.repository.entity.commit.Commit
+import com.tangpj.repository.db.util.loadDataCovertMapById
+import com.tangpj.repository.db.util.loadDataOrderById
+import com.tangpj.repository.entity.domain.actor.git.Committer
+import com.tangpj.repository.entity.domain.commit.Commit
 import com.tangpj.repository.valueObject.result.CommitsResult
+import com.tangpj.repository.vo.CommitVo
 
 @Dao
 abstract class CommitDao{
@@ -57,7 +59,8 @@ abstract class CommitDao{
         SELECT * FROM Committer
         WHERE id IN (:ids)
     """)
-    abstract fun loadCommittees(ids: List<String>) : LiveData<List<Committer>>
+    abstract fun loadCommitteesByIds(ids: List<String>) : LiveData<List<Committer>>
+
 
     /**
      *
@@ -74,9 +77,49 @@ abstract class CommitDao{
     abstract fun loadCommitResult(login: String, repoName: String, authorId: String?) : LiveData<CommitsResult>
 
     fun loadCommitsOrderById(commitIds: List<String>): LiveData<List<Commit>>{
-        return commitIds.loadDataOrderByMe {
+        return commitIds.loadDataOrderById{
             loadCommitsByIds(it)
         }
+    }
+
+    /**
+     *
+     * load committees group by id, If it is repeated, take the first one
+     *
+     * @method: loadCommitteesGroupById
+     * @author: create by Tang
+     * @createTime: 2019-09-10 19:03
+     */
+    fun loadCommitteesGroupById(committerIds: List<String>) =
+        committerIds.loadDataCovertMapById {
+            loadCommitteesByIds(ids = it)
+        }
+
+
+    /**
+     *
+     * Query the list of commits and query the list of committer based on the [Commit.committerId].
+     * Finally combined into CommitVo
+     *
+     * @method: loadCommitVoList
+     * @author: tangpengjian113
+     * @createTime: 2019-09-10 19:27
+     */
+    fun loadCommitVoList(commitIds: List<String>) : LiveData<List<CommitVo>>{
+        val commitsLiveData= loadCommitsOrderById(commitIds)
+        val result = MediatorLiveData<List<CommitVo>>()
+        result.addSource(commitsLiveData){ commits ->
+            result.removeSource(commitsLiveData)
+            val committerIds = commits.map { commit -> commit.committerId }
+            result.addSource(loadCommitteesGroupById(committerIds)){ committerGroup ->
+                result.value = commits.map { commit ->
+                    val committerId = commit.committerId
+                    CommitVo(
+                            commit = commit,
+                            committer = committerGroup[committerId] ?: Committer(committerId) ) }
+            }
+        }
+        return result
     }
 
 }

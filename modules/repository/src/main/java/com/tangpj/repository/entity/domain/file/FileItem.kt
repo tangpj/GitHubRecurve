@@ -1,4 +1,4 @@
-package com.tangpj.repository.entity.file
+package com.tangpj.repository.entity.domain.file
 
 import androidx.annotation.DrawableRes
 import androidx.room.Entity

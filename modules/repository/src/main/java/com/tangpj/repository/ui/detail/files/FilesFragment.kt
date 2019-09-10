@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.ui.creator.FileItemCreator
 import com.tangpj.repository.valueObject.query.GitObjectQuery
-import com.tangpj.repository.entity.file.FileItem
-import com.tangpj.repository.entity.file.FileType
+import com.tangpj.repository.entity.domain.file.FileItem
+import com.tangpj.repository.entity.domain.file.FileType
 import javax.inject.Inject
 
 class FilesFragment : ModulePagingFragment(){

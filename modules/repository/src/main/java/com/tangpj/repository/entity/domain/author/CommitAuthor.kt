@@ -1,4 +1,4 @@
-package com.tangpj.repository.entity.author
+package com.tangpj.repository.entity.domain.author
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

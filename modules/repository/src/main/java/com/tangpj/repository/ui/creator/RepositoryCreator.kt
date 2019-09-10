@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.tangpj.paging.PagedItemCreator
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.entity.domain.repo.Repo
 import com.tangpj.repository.databinding.ItemRepositoryBinding
 
 class RepositoryCreator constructor(

@@ -5,12 +5,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.tangpj.repository.db.util.loadDataOrderByMe
+import com.tangpj.repository.db.util.loadDataOrderById
 import com.tangpj.repository.valueObject.result.FileContentResult
 import com.tangpj.repository.valueObject.result.FileItemsResult
-import com.tangpj.repository.entity.file.FileContent
-import com.tangpj.repository.entity.file.FileItem
-import com.tangpj.repository.vo.RepoDetail
+import com.tangpj.repository.entity.domain.file.FileContent
+import com.tangpj.repository.entity.domain.file.FileItem
+import com.tangpj.repository.entity.domain.repo.RepoDetail
 
 @Dao
 abstract class RepoDetailDao{
@@ -69,9 +69,8 @@ abstract class RepoDetailDao{
     """)
     abstract fun loadFileContentResult(owner: String, name: String, expression: String): LiveData<FileContentResult>
 
-
     fun loadFileItemOrderById(ids: List<String>): LiveData<List<FileItem>>{
-        return ids.loadDataOrderByMe{
+        return ids.loadDataOrderById{
             loadFileItemsById(it)
         }
     }

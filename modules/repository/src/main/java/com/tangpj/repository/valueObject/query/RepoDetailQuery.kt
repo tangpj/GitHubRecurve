@@ -1,6 +1,5 @@
 package com.tangpj.repository.valueObject.query
 
-import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import com.tangpj.github.utils.AbsentLiveData
 import com.tangpj.github.valueObject.Query
@@ -9,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class RepoDetailQuery(val login: String, val name: String)
-    : Query<RepoDetailQuery>, Parcelable {
+    : Query<RepoDetailQuery>{
     override fun <T> ifExists(f: (RepoDetailQuery) -> LiveData<T>): LiveData<T> {
         return if (login.isBlank() || name.isBlank()){
             AbsentLiveData.create()

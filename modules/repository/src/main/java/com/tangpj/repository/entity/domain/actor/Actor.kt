@@ -1,4 +1,4 @@
-package com.tangpj.repository.entity.actor
+package com.tangpj.repository.entity.domain.actor
 
 import androidx.room.Ignore
 import com.tangpj.repository.entity.BaseEntity

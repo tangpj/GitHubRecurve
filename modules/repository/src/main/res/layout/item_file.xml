@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fileItem"
-            type="com.tangpj.repository.entity.file.FileItem" />
+            type="com.tangpj.repository.entity.domain.file.FileItem" />
     </data>
 
     <TextView

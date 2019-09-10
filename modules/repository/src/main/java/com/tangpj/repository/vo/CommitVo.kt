@@ -1,7 +1,7 @@
 package com.tangpj.repository.vo
 
-import com.tangpj.repository.entity.actor.git.Committer
-import com.tangpj.repository.entity.commit.Commit
+import com.tangpj.repository.entity.domain.actor.git.Committer
+import com.tangpj.repository.entity.domain.commit.Commit
 
 /**
  *  UI展现类，只作用与UI层，不会存储数据库中

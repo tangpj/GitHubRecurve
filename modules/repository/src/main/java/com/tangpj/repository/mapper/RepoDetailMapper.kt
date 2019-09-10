@@ -3,10 +3,10 @@ package com.tangpj.repository.mapper
 import com.tangpj.repository.ApolloBlobDetailQuery
 import com.tangpj.repository.ApolloFileTreeQuery
 import com.tangpj.repository.ApolloRepoDetailQuery
-import com.tangpj.repository.entity.file.FileContent
-import com.tangpj.repository.entity.file.FileItem
-import com.tangpj.repository.entity.file.FileType
-import com.tangpj.repository.vo.RepoDetail
+import com.tangpj.repository.entity.domain.file.FileContent
+import com.tangpj.repository.entity.domain.file.FileItem
+import com.tangpj.repository.entity.domain.file.FileType
+import com.tangpj.repository.entity.domain.repo.RepoDetail
 
 
 fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{
@@ -16,14 +16,15 @@ fun ApolloRepoDetailQuery.Data.getRepoDetail() : RepoDetail?{
             id = repoDetailDto.id,
             owner = owner,
             name = repoDetailDto.name,
-            description = repoDetailDto.description ?:  "",
+            description = repoDetailDto.description ?: "",
             stars = repoDetailDto.stargazers.totalCount,
             forks = repoDetailDto.forks.totalCount,
             watchers = repoDetailDto.watchers.totalCount,
             url = repoDetailDto.url,
             sshUrl = "",
             topics = repoDetailDto.repositoryTopics.nodes?.map {
-                it.topic.name } ?: emptyList()
+                it.topic.name
+            } ?: emptyList()
     )
 }
 

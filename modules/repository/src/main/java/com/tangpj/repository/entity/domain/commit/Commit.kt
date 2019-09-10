@@ -1,4 +1,4 @@
-package com.tangpj.repository.entity.commit
+package com.tangpj.repository.entity.domain.commit
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

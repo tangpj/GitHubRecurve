@@ -1,4 +1,4 @@
-package com.tangpj.repository.vo
+package com.tangpj.repository.entity.domain.repo
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import com.tangpj.repository.entity.BaseEntity
 import com.tangpj.repository.ui.detail.RepoDetailActivity
-import com.tangpj.repository.entity.actor.Owner
+import com.tangpj.repository.entity.domain.actor.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

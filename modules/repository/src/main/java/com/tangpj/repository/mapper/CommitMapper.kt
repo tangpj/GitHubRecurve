@@ -2,8 +2,8 @@ package com.tangpj.repository.mapper
 
 import com.tangpj.github.domain.PageInfo
 import com.tangpj.repository.ApolloCommitsQuery
-import com.tangpj.repository.entity.author.CommitAuthor
-import com.tangpj.repository.entity.commit.Commit
+import com.tangpj.repository.entity.domain.author.CommitAuthor
+import com.tangpj.repository.entity.domain.commit.Commit
 
 
 fun CommitAuthor.getApolloAuthor(): com.tangpj.repository.type.CommitAuthor =

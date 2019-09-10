@@ -6,10 +6,9 @@ import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.github.db.StringListTypeConverters
 import com.tangpj.github.domain.PageInfo
-import com.tangpj.repository.entity.author.CommitAuthor
 
 @TypeConverters(StringListTypeConverters::class)
-@Entity(primaryKeys = ["login","name","startFirst","after"],
+@Entity(primaryKeys = ["login","repoName","startFirst","after"],
         indices = [Index("login")])
 data class CommitsResult(
         val login: String,

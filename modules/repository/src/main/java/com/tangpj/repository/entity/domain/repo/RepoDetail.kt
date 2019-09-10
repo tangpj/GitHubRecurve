@@ -1,4 +1,4 @@
-package com.tangpj.repository.vo
+package com.tangpj.repository.entity.domain.repo
 
 import android.os.Parcelable
 import androidx.room.Embedded
@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.github.db.StringListTypeConverters
-import com.tangpj.repository.entity.actor.Owner
+import com.tangpj.repository.entity.domain.actor.Owner
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

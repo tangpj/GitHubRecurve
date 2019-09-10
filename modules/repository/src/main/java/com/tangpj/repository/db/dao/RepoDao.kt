@@ -2,9 +2,9 @@ package com.tangpj.repository.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.tangpj.repository.db.util.loadDataOrderByMe
+import com.tangpj.repository.db.util.loadDataOrderById
 import com.tangpj.repository.valueObject.result.StarRepoResult
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.entity.domain.repo.Repo
 
 /**
  *
@@ -64,7 +64,7 @@ abstract class RepoDao{
     abstract fun loadStarRepoResult(login: String, startFirst: Int, after: String): LiveData<StarRepoResult?>
 
     fun loadRepoOrderById(repoIds: List<String>): LiveData<List<Repo>>{
-        return repoIds.loadDataOrderByMe{
+        return repoIds.loadDataOrderById{
             loadRepoById(it)
         }
     }

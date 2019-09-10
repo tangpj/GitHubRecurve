@@ -4,7 +4,7 @@ import android.view.View
 import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.prettifier.pretty.PrettifyWebView
-import com.tangpj.repository.entity.file.FileContent
+import com.tangpj.repository.entity.domain.file.FileContent
 import org.markdown4j.Markdown4jProcessor
 
 /**

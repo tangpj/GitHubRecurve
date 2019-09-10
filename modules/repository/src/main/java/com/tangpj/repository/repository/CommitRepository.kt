@@ -1,6 +1,5 @@
 package com.tangpj.repository.repository
 
-import android.view.animation.Transformation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.ItemKeyedDataSource
@@ -13,10 +12,9 @@ import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.ApolloCommitsQuery
 import com.tangpj.repository.db.RepositoryDb
-import com.tangpj.repository.entity.author.CommitAuthor
-import com.tangpj.repository.entity.commit.Commit
-import com.tangpj.repository.mapper.getApolloAuthor
 import com.tangpj.repository.mapper.mapperToPageInfoCommitsPair
+import com.tangpj.repository.valueObject.query.CommitsQuery
+import com.tangpj.repository.valueObject.query.getApolloCommitsQuery
 import com.tangpj.repository.valueObject.result.CommitsResult
 import com.tangpj.repository.vo.CommitVo
 import timber.log.Timber
@@ -31,19 +29,16 @@ class CommitRepository @Inject constructor(
 
     private val commitRateLimiter = RateLimiter<ApolloCommitsQuery>(1, TimeUnit.MINUTES)
 
-    fun loadCommits(login: String, repoName: String, author: CommitAuthor? = null ) =
+    fun loadCommits(commitsQuery: CommitsQuery) =
             object : ItemKeyedBoundResource<String, CommitVo, ApolloCommitsQuery.Data>(){
 
                 private var commitsResult: CommitsResult? = null
                 private lateinit var query: ApolloCommitsQuery
 
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<ApolloCommitsQuery.Data>> {
-                    val initialQuery = ApolloCommitsQuery.builder()
-                            .login(login)
-                            .repoName(repoName)
-                            .author(author?.getApolloAuthor())
-                            .startFirst(params.requestedLoadSize)
-                            .build()
+                    val initialQuery =
+                            commitsQuery.getApolloCommitsQuery(startFirst = params.requestedLoadSize)
+                    params.requestedLoadSize
                     query = initialQuery
                     Timber.d("""createInitialCall, start first = ${params.requestedLoadSize},
                         |hasNextPage = ${commitsResult?.pageInfo?.hasNextPage}""".trimMargin())
@@ -54,14 +49,11 @@ class CommitRepository @Inject constructor(
                 }
 
                 override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<ApolloCommitsQuery.Data>>? {
-                    val afterQuery = ApolloCommitsQuery.builder()
-                            .login(login)
-                            .repoName(repoName)
-                            .author(author?.getApolloAuthor())
-                            .startFirst(params.requestedLoadSize)
-                            .after(commitsResult?.after)
-                            .build()
-                    query = afterQuery
+
+                    val afterQuery = commitsQuery.getApolloCommitsQuery(
+                            startFirst = params.requestedLoadSize,
+                            after = commitsResult?.after)
+                   query = afterQuery
                     val commitCall = apolloClient
                             .query(afterQuery)
                             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
@@ -80,20 +72,17 @@ class CommitRepository @Inject constructor(
 
                 override fun loadFromDb(): LiveData<List<CommitVo>> {
                     val commitResultLiveData = repoDb.commitDao().loadCommitResult(
-                            login = login,
-                            repoName = repoName,
-                            authorId = author?.id)
+                            login = commitsQuery.repoDetailQuery.login,
+                            repoName = commitsQuery.repoDetailQuery.name,
+                            authorId = commitsQuery.author?.id)
 
-                    val commitsLiveData = Transformations.switchMap(commitResultLiveData) {
-                        repoDb.commitDao().loadCommitsOrderById(it.commitIds)
-                    }
-                    return Transformations.map(commitsLiveData){ commits ->
-                        commits.map { CommitVo(commit = it, ) }
+                    return Transformations.switchMap(commitResultLiveData) {
+                        repoDb.commitDao().loadCommitVoList(it.commitIds)
                     }
 
                 }
 
-            }
+            }.asListing(pagingConfig.getConfig())
 
 
     private fun saveCommits(

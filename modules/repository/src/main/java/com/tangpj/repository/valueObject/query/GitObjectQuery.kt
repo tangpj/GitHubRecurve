@@ -12,13 +12,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class GitObjectQuery(
         val repoDetailQuery: RepoDetailQuery, val branch: String, val path: String = "")
-    : Query<GitObjectQuery>, Parcelable {
+    : Query<GitObjectQuery>{
     override fun <T> ifExists(f: (GitObjectQuery) -> LiveData<T>): LiveData<T> =
             repoDetailQuery.ifExists {
                 if (getExpression().isBlank()) {
                     AbsentLiveData.create()
                 } else {
-                    f.invoke(this)
+                    f(this)
                 }
 
             }
@@ -30,22 +30,22 @@ data class GitObjectQuery(
     }
 }
 
-    fun GitObjectQuery.getExpression() :String{
-        return when{
-            branch.isBlank() && path.isBlank() -> ""
-            branch.isNotBlank() && path.isBlank() -> "$branch:"
-            else -> "$branch:$path"
-        }
+fun GitObjectQuery.getExpression() :String{
+    return when{
+        branch.isBlank() && path.isBlank() -> ""
+        branch.isNotBlank() && path.isBlank() -> "$branch:"
+        else -> "$branch:$path"
     }
+}
 
-    fun GitObjectQuery.getApolloFileTreeQuery(): ApolloFileTreeQuery = ApolloFileTreeQuery.builder()
-            .owner(repoDetailQuery.login)
-            .name(repoDetailQuery.name)
-            .expression(getExpression())
-            .build()
+fun GitObjectQuery.getApolloFileTreeQuery(): ApolloFileTreeQuery = ApolloFileTreeQuery.builder()
+        .owner(repoDetailQuery.login)
+        .name(repoDetailQuery.name)
+        .expression(getExpression())
+        .build()
 
-    fun GitObjectQuery.getApolloBlobQuery(): ApolloBlobDetailQuery =  ApolloBlobDetailQuery.builder()
-            .owner(repoDetailQuery.login)
-            .name(repoDetailQuery.name)
-            .expression(getExpression())
-            .build()
+fun GitObjectQuery.getApolloBlobQuery(): ApolloBlobDetailQuery =  ApolloBlobDetailQuery.builder()
+        .owner(repoDetailQuery.login)
+        .name(repoDetailQuery.name)
+        .expression(getExpression())
+        .build()

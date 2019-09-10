@@ -12,7 +12,7 @@ import com.prettifier.pretty.PrettifyWebView.OnContentChangedListener
 import com.tangpj.github.ui.BaseFragment
 import com.tangpj.repository.databinding.FragmentFileContentBinding
 import com.tangpj.repository.ui.detail.convertToGitObject
-import com.tangpj.repository.entity.file.FileContent
+import com.tangpj.repository.entity.domain.file.FileContent
 import kotlinx.android.synthetic.main.fragment_file_content.*
 import javax.inject.Inject
 

@@ -17,6 +17,4 @@ class FileItemCreator
             ItemFileBinding
                     .inflate(LayoutInflater.from(parent.context), parent, false)
 
-
-
 }

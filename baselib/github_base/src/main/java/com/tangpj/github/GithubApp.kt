@@ -1,10 +1,7 @@
 package com.tangpj.github
 
-import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.launcher.ARouter
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.tangpj.github.dataBinding.GithubComponent
-import com.tangpj.github.utils.installThemeId
 import dagger.android.support.DaggerApplication
 
 abstract class GithubApp: DaggerApplication(){
@@ -21,7 +18,6 @@ abstract class GithubApp: DaggerApplication(){
             ARouter.openDebug()
         }
         ARouter.init(this)
-        DataBindingUtil.setDefaultComponent(GithubComponent())
     }
 
     companion object {

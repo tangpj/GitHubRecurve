@@ -11,7 +11,6 @@ import dagger.android.AndroidInjector
     GithubAppModule::class,
     RepositoryModule::class,
     ApolloModule::class,
-    FragmentBuildersModule::class,
     ActivityModule::class])
 
 interface RepositoryComponent : AndroidInjector<GithubApp>{

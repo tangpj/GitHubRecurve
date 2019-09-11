@@ -3,6 +3,7 @@ package com.tangpj.repository.di
 import androidx.lifecycle.ViewModel
 import com.tangpj.recurve.dagger2.ViewModelKey
 import com.tangpj.repository.ui.detail.RepoDetailViewModel
+import com.tangpj.repository.ui.detail.commit.CommitsViewModel
 import com.tangpj.repository.ui.detail.viewer.ViewerViewModel
 import com.tangpj.repository.ui.detail.files.FilesViewModel
 import com.tangpj.repository.ui.repositories.ReposViewModel
@@ -31,4 +32,9 @@ abstract class ViewModelModule{
     @IntoMap
     @ViewModelKey(FilesViewModel::class)
     abstract fun bindFilesViewModel(filesViewModel: FilesViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CommitsViewModel::class)
+    abstract fun bindCommitViewModel(commitsViewModel: CommitsViewModel) : ViewModel
 }

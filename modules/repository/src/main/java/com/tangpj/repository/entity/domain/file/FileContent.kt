@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.repository.db.typeConverters.FileContentTypeConverter
-import com.tangpj.repository.entity.BaseEntity
+import com.tangpj.github.entity.BaseEntity
 import kotlinx.android.parcel.Parcelize
 
 

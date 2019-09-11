@@ -1,6 +1,5 @@
 package com.tangpj.repository.valueObject.query
 
-import android.os.Parcelable
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import com.tangpj.github.utils.AbsentLiveData

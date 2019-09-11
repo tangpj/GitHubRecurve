@@ -1,6 +1,6 @@
 package com.tangpj.repository.mapper
 
-import com.tangpj.github.domain.PageInfo
+import com.tangpj.github.entity.domain.PageInfo
 import com.tangpj.repository.ApolloCommitsQuery
 import com.tangpj.repository.entity.domain.author.CommitAuthor
 import com.tangpj.repository.entity.domain.commit.Commit

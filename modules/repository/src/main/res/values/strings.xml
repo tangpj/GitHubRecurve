@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Repository</string>
     <string name="watch" translatable="false">watch</string>
     <string name="star" translatable="false">star</string>
@@ -8,6 +8,7 @@
     <string name="repo_detail">Repo detail</string>
     <string name="menu_code">Code</string>
     <string name="menu_issue">Issue</string>
+    <string name="name_time_format" tools:ignore="MissingTranslation"><Data><![CDATA[您的保障缺口<br>共计<font color="#FA5050">%d</font>万<br>]]></Data></string>
 
 
 </resources>

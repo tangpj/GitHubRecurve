@@ -1,11 +1,11 @@
-package com.tangpj.github.domain;
+package com.tangpj.github.entity.domain;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import androidx.annotation.IntDef;
 
-import static com.tangpj.github.domain.RepoFlag.*;
+import static com.tangpj.github.entity.domain.RepoFlag.*;
 
 @IntDef({CREATE,
         STAR,

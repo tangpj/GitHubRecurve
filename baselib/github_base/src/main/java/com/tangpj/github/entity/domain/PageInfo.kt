@@ -1,4 +1,4 @@
-package com.tangpj.github.domain
+package com.tangpj.github.entity.domain
 
 import androidx.room.Entity
 

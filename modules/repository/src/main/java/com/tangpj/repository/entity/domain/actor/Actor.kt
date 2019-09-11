@@ -1,7 +1,7 @@
 package com.tangpj.repository.entity.domain.actor
 
 import androidx.room.Ignore
-import com.tangpj.repository.entity.BaseEntity
+import com.tangpj.github.entity.BaseEntity
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

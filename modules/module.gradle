@@ -29,6 +29,10 @@ android {
         experimental = true
     }
 
+    kapt {
+        generateStubs = true
+    }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
@@ -76,6 +80,7 @@ dependencies {
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
 
+    kapt deps.dataBinding_compiler
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
 

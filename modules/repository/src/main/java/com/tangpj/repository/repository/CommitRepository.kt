@@ -72,12 +72,12 @@ class CommitRepository @Inject constructor(
 
                 override fun loadFromDb(): LiveData<List<CommitVo>> {
                     val commitResultLiveData = repoDb.commitDao().loadCommitResult(
-                            login = commitsQuery.repoDetailQuery.login,
-                            repoName = commitsQuery.repoDetailQuery.name,
+                            login = commitsQuery.gitObjectQuery.repoDetailQuery.login,
+                            repoName = commitsQuery.gitObjectQuery.repoDetailQuery.name,
                             authorId = commitsQuery.author?.id)
 
                     return Transformations.switchMap(commitResultLiveData) {
-                        repoDb.commitDao().loadCommitVoList(it.commitIds)
+                        repoDb.commitDao().loadCommitVoList(it?.commitIds ?: emptyList())
                     }
 
                 }

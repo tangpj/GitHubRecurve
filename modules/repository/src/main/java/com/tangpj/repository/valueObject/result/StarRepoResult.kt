@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.TypeConverters
 import com.tangpj.github.db.StringListTypeConverters
-import com.tangpj.github.domain.PageInfo
+import com.tangpj.github.entity.domain.PageInfo
 
 @Entity(primaryKeys = ["login","startFirst","after"],
         indices = [

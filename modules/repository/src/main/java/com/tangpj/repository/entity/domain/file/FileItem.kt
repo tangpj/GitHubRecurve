@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.tangpj.repository.R
-import com.tangpj.repository.entity.BaseEntity
+import com.tangpj.github.entity.BaseEntity
 import kotlinx.android.parcel.Parcelize
 
 @Entity

@@ -6,7 +6,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DiffUtil
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.PATH_REPO_DETAILS
@@ -24,7 +23,8 @@ class ReposFragment: ModulePagingFragment() {
 
     private lateinit var repoViewModel: ReposViewModel
 
-    private lateinit var repositoryCreator : RepositoryCreator
+    @Inject
+    lateinit var repositoryCreator: RepositoryCreator
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -38,7 +38,6 @@ class ReposFragment: ModulePagingFragment() {
     override fun onBindingInit(binding: ViewDataBinding) {
         repoViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ReposViewModel::class.java)
-        repositoryCreator = RepositoryCreator(POST_COMPARATOR)
         pagedLoading<Repo> {
             listing = repoViewModel.repoListing
         }
@@ -53,15 +52,4 @@ class ReposFragment: ModulePagingFragment() {
            })
     }
 
-    private val POST_COMPARATOR = object : DiffUtil.ItemCallback<Repo>() {
-        override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean =
-                oldItem == newItem
-
-        override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean =
-                oldItem.name == newItem.name
-
-        override fun getChangePayload(oldItem: Repo, newItem: Repo): Any? {
-           return newItem
-        }
-    }
 }

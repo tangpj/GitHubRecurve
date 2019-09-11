@@ -116,7 +116,7 @@ class RepoDetailActivity : BaseActivity(){
         val args = RepoDetailFragmentArgs.Builder().apply {
             this.repoDetailQuery = repoDetailQuery
             this.branch = currentBranch
-            this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files)
+            this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files, R.navigation.commit)
         }.build().toBundle()
         navController.setGraph(navController.graph, args)
 

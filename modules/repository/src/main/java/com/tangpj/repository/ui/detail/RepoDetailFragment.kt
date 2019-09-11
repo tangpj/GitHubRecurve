@@ -5,17 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.annotation.NonNull
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tangpj.navPager.setupWithNavController
 import com.tangpj.recurve.dagger2.RecurveDaggerFragment
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.FragmentPathFilesBinding
@@ -23,8 +20,7 @@ import com.tangpj.repository.databinding.FragmentRepoDetailBinding
 import com.tangpj.repository.ui.creator.PathAdapter
 import com.tangpj.repository.ui.creator.PathItem
 import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
-import com.tangpj.viewpager.TabLayoutMediator
-import com.tangpj.viewpager.setupWithNavController
+import com.tangpj.tabPager.TabLayoutMediator
 
 class RepoDetailFragment : RecurveDaggerFragment() {
 

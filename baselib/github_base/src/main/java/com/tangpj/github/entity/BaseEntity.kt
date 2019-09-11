@@ -1,4 +1,4 @@
-package com.tangpj.repository.entity
+package com.tangpj.github.entity
 
 import android.os.Parcelable
 import androidx.room.Ignore

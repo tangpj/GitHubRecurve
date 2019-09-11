@@ -9,12 +9,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class CommitsQuery(
-        val repoDetailQuery: RepoDetailQuery,
         val gitObjectQuery: GitObjectQuery,
         val author: CommitAuthor? = null) : Query<CommitsQuery>{
 
     override fun <T> ifExists(f: (CommitsQuery) -> LiveData<T>): LiveData<T> {
-        return ifExistsForQuery2(repoDetailQuery, gitObjectQuery ){ _, _ ->
+        return  gitObjectQuery.ifExists{
             f(this)
         }
     }
@@ -27,8 +26,8 @@ fun CommitsQuery.getApolloCommitsQuery(
         .builder()
         .startFirst(startFirst)
         .after(after)
-        .login(repoDetailQuery.login)
-        .repoName(repoDetailQuery.name)
+        .login(gitObjectQuery.repoDetailQuery.login)
+        .repoName(gitObjectQuery.repoDetailQuery.name)
         .expression(gitObjectQuery.getExpression())
         .author(author?.getApolloAuthor())
         .build()

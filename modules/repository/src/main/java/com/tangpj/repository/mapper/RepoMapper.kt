@@ -1,6 +1,6 @@
 package com.tangpj.repository.mapper
 
-import com.tangpj.github.domain.PageInfo
+import com.tangpj.github.entity.domain.PageInfo
 import com.tangpj.repository.ApolloStartRepositoriesQuery
 import com.tangpj.repository.ApolloWatchRepositoriesQuery
 import com.tangpj.repository.fragment.OwnerDto

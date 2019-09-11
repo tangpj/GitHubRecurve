@@ -3,14 +3,15 @@ package com.tangpj.repository.ui.creator
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.tangpj.github.ui.creator.EntryDiffUtil
 import com.tangpj.paging.PagedItemCreator
 import com.tangpj.repository.entity.domain.repo.Repo
 import com.tangpj.repository.databinding.ItemRepositoryBinding
+import javax.inject.Inject
 
-class RepositoryCreator constructor(
-        diffUtil: DiffUtil.ItemCallback<Repo>,
-        creatorType: Int = 0)
-    : PagedItemCreator<Repo, ItemRepositoryBinding>(creatorType, diffUtil) {
+class RepositoryCreator @Inject constructor(
+        diffUtil: RepoDiffUtil)
+    : PagedItemCreator<Repo, ItemRepositoryBinding>(0, diffUtil) {
 
     override fun onBindItemView(binding: ItemRepositoryBinding,
                                 e: Repo, inCreatorPosition: Int) {
@@ -22,3 +23,5 @@ class RepositoryCreator constructor(
                     .inflate(LayoutInflater.from(parent.context), parent, false)
 
 }
+
+class RepoDiffUtil @Inject constructor(): EntryDiffUtil<Repo>()

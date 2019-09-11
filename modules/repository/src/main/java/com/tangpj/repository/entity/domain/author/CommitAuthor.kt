@@ -2,7 +2,7 @@ package com.tangpj.repository.entity.domain.author
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.tangpj.repository.entity.BaseEntity
+import com.tangpj.github.entity.BaseEntity
 import kotlinx.android.parcel.Parcelize
 
 @Entity

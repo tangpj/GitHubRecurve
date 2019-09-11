@@ -1,4 +1,4 @@
-package com.tangpj.github.domain
+package com.tangpj.github.entity.domain
 
 class Default{
     companion object {

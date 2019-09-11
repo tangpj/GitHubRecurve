@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.tangpj.github.db.DataTypeConverters
-import com.tangpj.repository.entity.BaseEntity
+import com.tangpj.github.entity.BaseEntity
 import org.threeten.bp.LocalDateTime
 
 @TypeConverters(DataTypeConverters::class)

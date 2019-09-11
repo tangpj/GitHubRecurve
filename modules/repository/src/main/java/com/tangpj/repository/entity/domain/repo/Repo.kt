@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
-import com.tangpj.repository.entity.BaseEntity
+import com.tangpj.github.entity.BaseEntity
 import com.tangpj.repository.ui.detail.RepoDetailActivity
 import com.tangpj.repository.entity.domain.actor.Owner
 import kotlinx.android.parcel.Parcelize

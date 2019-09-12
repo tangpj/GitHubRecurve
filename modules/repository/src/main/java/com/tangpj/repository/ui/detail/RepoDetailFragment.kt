@@ -83,12 +83,18 @@ class RepoDetailFragment : RecurveDaggerFragment() {
         navController.addOnDestinationChangedListener { _, destination, arguments ->
             if (destination.id == R.id.files) {
                 val path =  arguments?.getString("path") ?: ""
-                val pathList = path.split('/')
+                val subPath = if (path.startsWith(':')){
+                    path.substring(1)
+                }else{
+                    path
+                }
+                val pathList = subPath.split('/')
                 val pathName = if (pathList.isNotEmpty()) {
                     pathList.last()
                 } else {
                     ""
                 }
+
                 val pathItem = PathItem(path = path, name = pathName)
                 filePathAdapter?.pushPathItem(pathItem)
 
@@ -150,7 +156,6 @@ class RepoDetailFragment : RecurveDaggerFragment() {
             }
         }
 
-        filePathAdapter?.pushPathItem(PathItem("", ""))
     }
 
 }

@@ -22,8 +22,8 @@ data class GitObjectQuery(
 
             }
 
-    fun nextPath(fileName: String) = if(TextUtils.isEmpty(path)){
-        fileName
+    fun nextPath(fileName: String) = if(TextUtils.isEmpty(path) || path == ":"){
+        ":$fileName"
     }else{
         "$path/$fileName"
     }
@@ -32,8 +32,8 @@ data class GitObjectQuery(
 fun GitObjectQuery.getExpression() :String{
     return when{
         branch.isBlank() && path.isBlank() -> ""
-        branch.isNotBlank() && path.isBlank() -> "$branch:"
-        else -> "$branch:$path"
+        branch.isNotBlank() && path.isBlank() -> branch
+        else -> "$branch$path"
     }
 }
 

@@ -54,7 +54,7 @@ class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
     }
 
     override fun onBindBinding(binding: ItemFilePathBinding, e: PathItem, position: Int) {
-        binding.isRoot = position== 0
+        binding.isRoot = position == 0
         binding.text = e.name
     }
 

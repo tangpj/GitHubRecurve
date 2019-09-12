@@ -8,5 +8,6 @@
     <string name="minutes_ago">minutes ago</string>
     <string name="hours_ago">hours ago</string>
     <string name="days_ago">days ago</string>
+    <string name="result_is_empty">can not find data</string>
 
 </resources>

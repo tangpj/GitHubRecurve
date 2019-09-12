@@ -26,8 +26,7 @@
 
         <argument
             android:name="path"
-            android:defaultValue="@null"
-            app:nullable="true"
+            android:defaultValue=":"
             app:argType="string"/>
 
         <action

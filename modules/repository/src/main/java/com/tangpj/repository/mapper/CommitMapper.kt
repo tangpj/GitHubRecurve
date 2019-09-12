@@ -13,7 +13,7 @@ fun CommitAuthor.getApolloAuthor(): com.tangpj.repository.type.CommitAuthor =
                 .build()
 
 fun ApolloCommitsQuery.Data.mapperToPageInfoCommitsPair() : Pair<PageInfo?,List<Commit>> {
-    val history = this.repository?.gitObject as? ApolloCommitsQuery.History
+    val history = (this.repository?.gitObject as? ApolloCommitsQuery.AsCommit)?.history
     val commits = history?.edges?.map {
         val node  = it.node
         if (node == null){

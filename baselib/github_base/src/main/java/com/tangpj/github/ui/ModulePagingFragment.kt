@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.tangpj.github.R
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.github.databinding.LoadingStateBinding
 import com.tangpj.github.databinding.PageLoadingStateBinding
@@ -19,6 +20,7 @@ import com.tangpj.paging.Listing
 import com.tangpj.paging.PageLoadStatus
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
 import com.tangpj.recurve.resource.NetworkState
+import com.tangpj.recurve.resource.Status
 import timber.log.Timber
 
 /**
@@ -90,11 +92,28 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
     private fun observerListing(listing: Listing<*>, pageLoadingStateBinding: PageLoadingStateBinding){
         listing.pageLoadState.observe(this, Observer { pageLoadState ->
             pageLoadingStateBinding.listing = listing
-            pageLoadingStateBinding.isShowLoading = adapter.itemCount <= 0
+            pageLoadingStateBinding.isShowLoading = adapter.itemCount == 0
             if (pageLoadState.status != PageLoadStatus.REFRESH){
                 loadingCreator.networkState = pageLoadState.networkState
             }else{
                 loadingCreator.networkState = null
+            }
+            pageLoadingStateBinding.errorMsg = {
+                when(pageLoadState.networkState.status){
+                    Status.SUCCESS -> {
+                        if (adapter.itemCount == 0) getString(R.string.result_is_empty) else ""
+                    }
+                    Status.LOADING -> ""
+                    Status.ERROR -> pageLoadState.networkState.msg ?: getString(R.string.unknown_error)
+                }
+            }
+
+            pageLoadingStateBinding.showError = {
+                when(pageLoadState.networkState.status){
+                    Status.LOADING -> false
+                    Status.SUCCESS -> adapter.itemCount == 0
+                    Status.ERROR -> true
+                }
             }
             if (pageLoadState.networkState == NetworkState.SUCCESS){
                 Timber.d("adapter count = ${adapter.itemCount}")

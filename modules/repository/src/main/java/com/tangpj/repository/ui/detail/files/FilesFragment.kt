@@ -80,6 +80,6 @@ private fun FilesFragmentArgs.convertToGitObjectQuery() =
            GitObjectQuery(
                    repoDetailQuery = it,
                    branch = branch,
-                   path = path ?: ""
+                   path = path
            )
        }

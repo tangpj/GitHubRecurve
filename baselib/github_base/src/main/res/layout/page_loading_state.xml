@@ -5,10 +5,20 @@
     <data>
         <import type="com.tangpj.recurve.resource.Status"/>
         <import type="com.tangpj.paging.Listing"/>
+        <import type="kotlin.jvm.functions.Function0"/>
 
         <variable
             name="isShowLoading"
             type="boolean" />
+
+        <variable
+            name="errorMsg"
+            type="Function0&lt;String>" />
+
+        <variable
+            name="showError"
+            type="Function0&lt;Boolean>" />
+
 
         <variable name="listing" type="Listing"/>
 
@@ -32,14 +42,14 @@
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/retry"
-            android:id="@+id/retry"
+            android:id="@+id/tv_retry"
             android:onClick="@{() -> listing.refresh.invoke()}"
-            app:visibleGone="@{listing.pageLoadState.networkState.status == Status.ERROR}"/>
+            app:visibleGone="@{safeUnbox(showError.invoke())}"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/error_msg"
-            android:text="@{listing.pageLoadState.networkState.msg ?? @string/unknown_error}"
-            app:visibleGone="@{listing.pageLoadState.networkState.status == Status.ERROR}"
+            android:id="@+id/tv_error_msg"
+            android:text="@{(String) errorMsg.invoke()}"
+            app:visibleGone="@{safeUnbox(showError.invoke())}"
             tools:visibility="visible"/>
     </LinearLayout>
 </layout>

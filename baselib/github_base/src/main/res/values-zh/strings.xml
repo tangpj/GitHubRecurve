@@ -8,4 +8,5 @@
     <string name="minutes_ago">分钟前</string>
     <string name="hours_ago">小时前</string>
     <string name="days_ago">分钟前</string>
+    <string name="result_is_empty">没有找到数据哦</string>
 </resources>

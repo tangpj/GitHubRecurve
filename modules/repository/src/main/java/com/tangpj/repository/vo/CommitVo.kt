@@ -10,4 +10,4 @@ import com.tangpj.repository.entity.domain.commit.Commit
  * @author: tangpj
  * @createTime: 2019-09-09 16:00
  */
-class CommitVo (val commit: Commit, val committer: Committer)
+class CommitVo (val commit: Commit = Commit(""), val committer: Committer = Committer(""))

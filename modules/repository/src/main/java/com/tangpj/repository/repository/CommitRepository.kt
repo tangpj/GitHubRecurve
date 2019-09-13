@@ -12,7 +12,7 @@ import com.tangpj.recurve.resource.ApiResponse
 import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.ApolloCommitsQuery
 import com.tangpj.repository.db.RepositoryDb
-import com.tangpj.repository.mapper.mapperToPageInfoCommitsPair
+import com.tangpj.repository.mapper.*
 import com.tangpj.repository.valueObject.query.CommitsQuery
 import com.tangpj.repository.valueObject.query.getApolloCommitsQuery
 import com.tangpj.repository.valueObject.result.CommitsResult
@@ -33,7 +33,7 @@ class CommitRepository @Inject constructor(
             object : ItemKeyedBoundResource<String, CommitVo, ApolloCommitsQuery.Data>(){
 
                 private var commitsResult: CommitsResult? = null
-                private lateinit var query: ApolloCommitsQuery
+                private var query: ApolloCommitsQuery? = null
 
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<ApolloCommitsQuery.Data>> {
                     val initialQuery =
@@ -64,7 +64,9 @@ class CommitRepository @Inject constructor(
 
 
                 override fun saveCallResult(item: ApolloCommitsQuery.Data) {
-                    commitsResult = saveCommits(query, item)
+                    query?.let {
+                        commitsResult = saveCommits(it, item)
+                    }
                 }
 
                 override fun shouldFetch(data: List<CommitVo>?): Boolean =
@@ -82,34 +84,39 @@ class CommitRepository @Inject constructor(
 
                 }
 
+                override fun hasNextPage(): Boolean {
+                    return commitsResult?.pageInfo?.hasNextPage ?: false
+                }
+
             }.asListing(pagingConfig.getConfig())
 
 
     private fun saveCommits(
             query: ApolloCommitsQuery,
             data: ApolloCommitsQuery.Data
-    ): CommitsResult {
+    ): CommitsResult?{
+        val history = data.getCommitHistory()
+        history ?: return null
+        val pageInfo = history.getLocalPageInfo()
+        val commitVos = history.getCommitVos()
 
-        val pageInfoCommitPair = data.mapperToPageInfoCommitsPair()
-        val pageInfo = pageInfoCommitPair.first
-        val commits = pageInfoCommitPair.second
-        val commitIds = commits.map { it.id }
+        val commitIds = commitVos.map { it.commit.id}
         val result = CommitsResult(
                 login = query.variables().login().value ?: "",
                 repoName = query.variables().repoName().value ?: "",
-                authorId = query.variables().author().value?.id() ?: "",
+                authorId = query.variables().author().value?.id(),
                 commitIds = commitIds,
                 startFirst = query.variables().startFirst().value ?: 10,
                 after = query.variables().after().value ?: "",
                 pageInfo = pageInfo
         )
+        val commits = commitVos.map { it.commit }
+        val committees = commitVos.map { it.committer }
         repoDb.runInTransaction {
+            repoDb.commitDao().insertCommittees(committees)
             repoDb.commitDao().insertCommits(commits)
             repoDb.commitDao().insertCommitsResult(result)
         }
         return result
     }
-
-
-
 }

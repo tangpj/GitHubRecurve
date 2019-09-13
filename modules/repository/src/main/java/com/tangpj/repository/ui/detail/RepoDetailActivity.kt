@@ -3,6 +3,7 @@ package com.tangpj.repository.ui.detail
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.NavUtils
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
@@ -117,6 +118,7 @@ class RepoDetailActivity : BaseActivity(){
             this.repoDetailQuery = repoDetailQuery
             this.branch = currentBranch
             this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files, R.navigation.commit)
+            this.tabTitles = arrayOf("README", "FILES", "COMMIT", "RELEASE")
         }.build().toBundle()
         navController.setGraph(navController.graph, args)
 

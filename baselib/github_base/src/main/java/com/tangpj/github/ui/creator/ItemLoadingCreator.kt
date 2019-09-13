@@ -16,7 +16,7 @@ import com.tangpj.recurve.resource.NetworkState
  * @author: tangpengjian113
  * @createTime: 2019-05-23 21:11
  */
-class ItemLoadingCreator()
+class ItemLoadingCreator
     : ItemCreator<NetworkState, ItemLoadStateBinding>( 99999){
 
     var networkState: NetworkState? = null
@@ -42,6 +42,11 @@ class ItemLoadingCreator()
     override fun onBindItemView(binding: ItemLoadStateBinding, e: NetworkState, inCreatorPosition: Int) {
         binding.networkState = networkState
         binding.retryCallback = retry
+    }
+
+    override fun onBindCreator(adapter: ModulesAdapter) {
+        super.onBindCreator(adapter)
+        addItem(NetworkState.LOADING)
     }
 
     override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemLoadStateBinding {

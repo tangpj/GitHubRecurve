@@ -72,9 +72,9 @@ abstract class CommitDao{
      */
     @Query("""
         SELECT * FROM CommitsResult
-        WHERE login = :login AND repoName = :repoName AND authorId = :authorId
+        WHERE login = :login AND repoName = :repoName AND authorId = :authorId isnull
     """)
-    abstract fun loadCommitResult(login: String, repoName: String, authorId: String?) : LiveData<CommitsResult>
+    abstract fun loadCommitResult(login: String?, repoName: String?, authorId: String?) : LiveData<CommitsResult>
 
     fun loadCommitsOrderById(commitIds: List<String>): LiveData<List<Commit>>{
         return commitIds.loadDataOrderById{

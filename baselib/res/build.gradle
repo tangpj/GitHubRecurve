@@ -12,7 +12,9 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
+    dataBinding{
+        enabled true
+    }
 }
 
 screen{
@@ -37,6 +39,8 @@ dependencies {
 
     api deps.androidx.appcompat
     api deps.androidx.material
+    api project(':recurve-glide-support')
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'

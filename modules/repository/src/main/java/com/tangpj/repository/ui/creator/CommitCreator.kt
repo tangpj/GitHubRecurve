@@ -2,10 +2,10 @@ package com.tangpj.repository.ui.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.databinding.DataBindingUtil
 import com.tangpj.github.ui.creator.BaseDiffUtil
-import com.tangpj.github.ui.creator.EntryDiffUtil
 import com.tangpj.paging.PagedItemCreator
+import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ItemCommitBinding
 import com.tangpj.repository.vo.CommitVo
 import javax.inject.Inject
@@ -17,8 +17,13 @@ class CommitCreator @Inject constructor(
         binding.commit = e
     }
 
-    override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemCommitBinding  =
-            ItemCommitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemCommitBinding{
+        return DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_commit,
+                parent,
+                false)
+    }
 
 
 }

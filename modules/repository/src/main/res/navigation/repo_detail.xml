@@ -29,6 +29,12 @@
             app:argType="integer[]"
             />
 
+        <argument
+            android:name="tabTitles"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="string[]"/>
+
     </fragment>
 
 </navigation>

@@ -23,18 +23,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <include
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/icon_xxhdpi"
                 android:layout_height="@dimen/icon_xxhdpi"
                 android:layout_marginTop="@dimen/margin_vertical_material"
                 android:layout_marginStart="@dimen/margin_horizontal_material"
                 android:layout_marginBottom="@dimen/margin_vertical_material"
-                app:imageUrl="@{commit.committer.avatarUrl}"
+                app:avatarUrl="@{(String) commit.committer.avatarUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:src="@mipmap/github_logo"
+                layout="@layout/include_avatar"
                 />
 
             <TextView
@@ -43,47 +43,49 @@
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:layout_marginTop="@dimen/padding_vertical_material"
+                android:layout_marginTop="@dimen/margin_vertical_material"
                 android:layout_marginStart="@dimen/margin_horizontal_material"
                 android:layout_marginEnd="@dimen/margin_horizontal_material"
                 android:text="@{commit.commit.message}"
-                app:layout_constraintTop_toTopOf="@+id/iv_avatar"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_avatar"
                 style="@style/TextAppearance.Adaptive.Body1"
-                tools:text="hello commit"
+                tools:text="hello commit hello commit hello commit hello commit"
                 />
 
             <TextView
                 android:id="@+id/tv_committer"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:ellipsize="end"
                 android:layout_marginEnd="@dimen/margin_horizontal_material"
                 android:layout_marginTop="@dimen/padding_vertical_material"
+                android:layout_marginBottom="@dimen/margin_vertical_material"
                 android:text="@{commit.committer.name}"
                 app:layout_constraintStart_toStartOf="@+id/tv_message"
                 app:layout_constraintTop_toBottomOf="@+id/tv_message"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 style="@style/TextAppearance.Adaptive.Caption"
                 tools:text="tang"
                 />
 
             <TextView
                 android:id="@+id/tv_timeline"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:ellipsize="end"
                 android:layout_marginEnd="@dimen/margin_horizontal_material"
-                android:layout_marginTop="@dimen/padding_vertical_material"
+                android:layout_marginBottom="@dimen/margin_vertical_material"
+                android:layout_marginStart="@dimen/margin_horizontal_material"
                 app:timeline="@{commit.commit.committedDate}"
-                app:layout_constraintStart_toStartOf="@+id/tv_message"
                 app:layout_constraintTop_toBottomOf="@+id/tv_message"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_committer"
+                app:layout_constraintStart_toEndOf="@+id/tv_committer"
                 style="@style/TextAppearance.Adaptive.Caption"
-                tools:text="tang"
+                tools:text="200000"
                 />
 
 

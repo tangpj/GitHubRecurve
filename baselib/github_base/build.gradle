@@ -72,7 +72,6 @@ dependencies {
     api project(':recurve-apollo-support')
     api project(':recurve-module-adapter')
     api project(':recurve-module-paging-support')
-    api project(':recurve-glide-support')
 
     api deps.androidx.material
     implementation deps.androidx.viewpager2
@@ -130,6 +129,8 @@ dependencies {
 
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
+
+    kapt deps.dataBinding_compiler
 
     api 'javax.annotation:jsr250-api:1.0'
 

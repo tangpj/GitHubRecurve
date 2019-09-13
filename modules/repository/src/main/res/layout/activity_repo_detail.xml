@@ -23,7 +23,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:menu="@menu/bottom_nav_repo_detail"/>
+            app:elevation="@dimen/elevation_material"
+            app:menu="@menu/bottom_nav_repo_detail"
+            app:layout_behavior="@string/bottom_sheet_behavior"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

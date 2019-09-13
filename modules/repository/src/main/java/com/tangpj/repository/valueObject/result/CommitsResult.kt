@@ -13,7 +13,7 @@ import com.tangpj.github.entity.domain.PageInfo
 data class CommitsResult(
         val login: String,
         val repoName: String,
-        val authorId: String,
+        val authorId: String?,
         val commitIds: List<String>,
         val startFirst: Int,
         val after: String,

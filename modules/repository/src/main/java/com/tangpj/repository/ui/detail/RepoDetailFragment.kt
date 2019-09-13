@@ -72,10 +72,14 @@ class RepoDetailFragment : RecurveDaggerFragment() {
         TabLayoutMediator(
                 binding.tabRepo,
                 binding.pagerRepo) { tab, position ->
-            tab.text = when (position) {
-                1 -> "FILES"
-                else -> "README"
+             args.tabTitles?.toList()?.apply {
+                tab.text = if (position < this.size){
+                    get(position)
+                }else{
+                    ""
+                }
             }
+
         }.attach()
     }
 

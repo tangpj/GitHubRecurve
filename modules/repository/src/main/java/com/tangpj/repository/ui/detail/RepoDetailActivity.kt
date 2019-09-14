@@ -1,13 +1,10 @@
 package com.tangpj.repository.ui.detail
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import androidx.core.app.NavUtils
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.NavController
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.navigation.setupWithNavController
@@ -70,6 +67,7 @@ class RepoDetailActivity : BaseActivity(){
             collapsingToolbar {
                 contentScrimColorInt = getColorByAttr(this@RepoDetailActivity, R.attr.colorPrimary)
                 expandedTitleGravity = "top|start"
+                expandedTitleMarginTop = resources.getDimension(R.dimen.actionbar_margin_vertical_material)
                 collapsingView { inflater, collapsingToolbarLayout ->
                     val content = CollasingRepoDetailBinding.inflate(inflater, collapsingToolbarLayout, false)
                     content.lifecycleOwner = this@RepoDetailActivity
@@ -109,6 +107,12 @@ class RepoDetailActivity : BaseActivity(){
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_repo_detail, menu)
+        return true
+    }
+
 
     //navigation pager init
     private fun pagerInit(

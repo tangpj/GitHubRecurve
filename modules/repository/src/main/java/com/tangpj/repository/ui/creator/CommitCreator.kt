@@ -8,6 +8,7 @@ import com.tangpj.paging.PagedItemCreator
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ItemCommitBinding
 import com.tangpj.repository.vo.CommitVo
+import com.tangpj.res.avatarHolder
 import javax.inject.Inject
 
 class CommitCreator @Inject constructor(
@@ -15,6 +16,7 @@ class CommitCreator @Inject constructor(
     : PagedItemCreator<CommitVo, ItemCommitBinding>(0, diffUtil){
     override fun onBindItemView(binding: ItemCommitBinding, e: CommitVo, inCreatorPosition: Int) {
         binding.commit = e
+        binding.avatarPlaceholder = avatarHolder()
     }
 
     override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemCommitBinding{

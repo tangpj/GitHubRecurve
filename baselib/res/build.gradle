@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'calces.screen'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -37,9 +40,10 @@ screen{
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api deps.androidx.appcompat
-    api deps.androidx.material
-    api project(':recurve-glide-support')
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.material
+    implementation project(':recurve-glide-support')
+    implementation deps.kotlin.stdlib_jdk8
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

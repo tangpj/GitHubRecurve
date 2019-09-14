@@ -6,9 +6,14 @@
 
     <data>
         <import type="com.tangpj.github.utils.DataTimeUtilsKt"/>
+
         <variable
             name="commit"
             type="com.tangpj.repository.vo.CommitVo" />
+
+        <variable
+            name="avatarPlaceholder"
+            type="com.tangpj.res.GlidePlaceholder" />
 
     </data>
 
@@ -30,7 +35,8 @@
                 android:layout_marginTop="@dimen/margin_vertical_material"
                 android:layout_marginStart="@dimen/margin_horizontal_material"
                 android:layout_marginBottom="@dimen/margin_vertical_material"
-                app:avatarUrl="@{(String) commit.committer.avatarUrl}"
+                app:avatarUrl="@{ (String) commit.committer.avatarUrl }"
+                app:placeholder="@{ avatarPlaceholder }"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

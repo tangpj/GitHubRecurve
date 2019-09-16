@@ -6,6 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <FrameLayout
             android:id="@+id/nav_host_container"
             android:layout_width="match_parent"

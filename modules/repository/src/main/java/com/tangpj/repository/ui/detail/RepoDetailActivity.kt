@@ -37,7 +37,7 @@ class RepoDetailActivity : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityRepoDetailBinding = initContentBinding(R.layout.activity_repo_detail)
+        activityRepoDetailBinding = initContentBinding(R.layout.activity_repo_detail,true)
         activityRepoDetailBinding.lifecycleOwner = this
         val repoDetailQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
         repoDetailViewModel = ViewModelProviders.of(this, viewModelFactory)
@@ -48,6 +48,10 @@ class RepoDetailActivity : BaseActivity(){
         }
         currentRepoDetailQuery = repoDetailQuery
         repoDetailViewModel.loadRepoDetail(repoDetailQuery.login, repoDetailQuery.name)
+
+        multipleLoading {
+            loadingResources(repoDetailViewModel.repoDetail)
+        }
     }
 
 

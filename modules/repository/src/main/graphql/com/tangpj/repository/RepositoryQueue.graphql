@@ -43,6 +43,23 @@ query ApolloRepoDetail(
    }
   }
 
+# 获取分支列表
+query ApolloBranch(
+  $login: String = "Tangpj",
+  $name: String = "calces-gradle-plugin"){
+
+  repository(owner: $login, name: $name){
+    branch: refs(first:10, refPrefix:"refs/heads/"){
+      nodes{
+        id
+        name
+      }
+      totalCount
+      ...pageInfoDto
+    }
+  }
+
+}
 
 
 # 根据所有者和仓库名查看文件详情

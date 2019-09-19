@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="com.tangpj.res.R"/>
+
+        <variable
+            name="avatarUrl"
+            type="String" />
+        
+        <variable
+            name="placeholder"
+            type="com.tangpj.res.GlidePlaceholder" />
+        
+    </data>
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:imageUrl="@{avatarUrl}"
+        app:placeHolderSrc="@{ placeholder.placeHolderRes }"
+        app:fallbackSrc="@{ placeholder.fallbackRes }"
+        app:errorSrc="@{ placeholder.errorRes }"
+        tools:ignore="ContentDescription">
+
+    </ImageView>
+</layout>

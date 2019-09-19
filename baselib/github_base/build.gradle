@@ -61,7 +61,6 @@ android {
 apollo{
     customTypeMapping = [
             "URI" : "java.lang.String",
-            "DateTime" : "java.util.Date"
     ]
 }
 
@@ -77,15 +76,13 @@ dependencies {
     api deps.androidx.material
     implementation deps.androidx.viewpager2
 
-    implementation deps.markwon.core
-    implementation deps.markwon.html
-    implementation deps.markwon.recycler
-    implementation deps.markwon.glide
-    implementation deps.markwon.table
+    implementation deps.glide.core
+    implementation deps.svg
 
     implementation deps.okhttp.okhttp3
 
     api deps.room.runtime
+    api deps.room.ktx
     api deps.lifecycle.runtime
     api deps.lifecycle.extensions
     api deps.retrofit.gson
@@ -93,6 +90,7 @@ dependencies {
     api deps.navigation.fragment_ktx
     api deps.navigation.fragment
     api deps.navigation.runtime
+    api deps.navigation.runtime_ktx
     api deps.paging.common
     api deps.paging_ktx
 
@@ -109,6 +107,13 @@ dependencies {
     api deps.rx_android
     api deps.rxjava2
 
+    // Arrow
+    api deps.arrow.core
+    api deps.arrow.fx
+    api deps.arrow.syntax
+    api deps.arrow.optics
+    kapt deps.arrow.meta
+
     api project(':baselib:res')
 
     api deps.apollo.runtime
@@ -120,12 +125,16 @@ dependencies {
     kapt deps.dagger.compiler
     kapt deps.dagger.android_support_compiler
 
+    kapt deps.glide.compiler
+
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
 
+    kapt deps.dataBinding_compiler
+
     api 'javax.annotation:jsr250-api:1.0'
 
-    androidTestImplementation deps.junit
+    testImplementation deps.junit
     androidTestImplementation (deps.mock_web_server, {
         exclude group: 'com.android.support'
     })

@@ -2,18 +2,23 @@
 <!-- app 主题属性 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!--  text color  -->
     <attr name="colorPrimaryTextLight" format="color|reference"/>
     <attr name="colorPrimaryText" format="color|reference"/>
     <attr name="colorPrimaryTextDark" format="color|reference"/>
 
+    <!--  theme color  -->
     <attr name="colorPrimaryLight" format="color|reference"/>
     <attr name="colorSecondaryLight" format="color|reference"/>
     <attr name="colorSecondaryDark" format="color|reference"/>
 
-
+    <!--  secondary text color  -->
     <attr name="colorSecondaryTextLight" format="color|reference"/>
     <attr name="colorSecondaryText" format="color|reference"/>
     <attr name="colorSecondaryTextDark" format="color|reference"/>
+
+    <!--  icon color  -->
+    <attr name="colorNavigationIcon" format="color|reference"/>
 
 
 </resources>

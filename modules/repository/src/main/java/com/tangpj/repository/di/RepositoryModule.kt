@@ -5,7 +5,8 @@ import com.apollographql.apollo.ApolloClient
 import com.tangpj.github.BuildConfig
 import com.tangpj.github.GithubApp
 import com.tangpj.github.core.apollo.DateCustomerAdapter
-import com.tangpj.repository.db.RepoDao
+import com.tangpj.github.di.PagingConfig
+import com.tangpj.repository.db.dao.RepoDao
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.type.CustomType
 import dagger.Module
@@ -37,5 +38,12 @@ class RepositoryModule{
                 .serverUrl(BuildConfig.BASE_URL)
                 .addCustomTypeAdapter(CustomType.DATETIME, datetimeAdapter)
                 .build()
+
+    @RepositoryScope
+    @Provides
+    fun providerRepoPagingConfig() = PagingConfig(
+            pageSize = 10,
+            initialLoadSizeHint = 10,
+            enablePlaceholders = false)
 
 }

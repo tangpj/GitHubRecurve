@@ -1,10 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.lifecycle.LiveData"/>
+        <import type="com.tangpj.recurve.resource.Resource"/>
+        <import type="com.tangpj.repository.entity.domain.repo.RepoDetail"/>
+        <variable
+            name="repoDetail"
+            type="LiveData&lt;Resource&lt;RepoDetail>>" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="?attr/colorPrimaryLight">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="@dimen/toolbar_collapsing_content_height"
+        android:paddingStart="@dimen/margin_horizontal_material"
+        android:paddingBottom="@dimen/margin_vertical_material"
+        android:paddingTop="@dimen/content_margin_vertical_material"
+        android:paddingEnd="@dimen/margin_horizontal_material">
+
+        <TextView
+            android:id="@+id/tv_forks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_watch"
+            android:gravity="center_vertical"
+            android:text="@string/forks"
+            android:textSize="@dimen/text_size_body_2_material"
+            android:drawablePadding="@dimen/padding_vertical_material"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_watch"
+            app:layout_constraintEnd_toEndOf="@+id/tv_forks_num"
+            app:layout_constraintStart_toStartOf="@+id/tv_forks_num"
+            app:layout_constraintTop_toTopOf="@+id/tv_watch"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/tv_repository_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="@{repoDetail.data.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="Android构建工具集：包含快速实现组件化构建脚本，快速实现屏幕最小宽度适配脚本" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_repo_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical_material"
+            android:orientation="horizontal"
+            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc" />
+
+
+        <TextView
+            android:id="@+id/tv_watch_num"
+            style="@style/TextAppearance.Adaptive.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{String.valueOf(repoDetail.data.watchers)}"
+            android:maxWidth="@dimen/button_min_width_material"
+            android:layout_marginTop="@dimen/margin_vertical_material"
+            app:layout_constraintTop_toBottomOf="@id/rv_repo_tag"
+            app:layout_constraintEnd_toStartOf="@+id/tv_star_num"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tool:text="10000000000000" />
+
+        <TextView
+            android:id="@+id/tv_star_num"
+            style="@style/TextAppearance.Adaptive.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="@dimen/button_min_width_material"
+            android:text="@{String.valueOf(repoDetail.data.stars)}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_forks_num"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_watch_num"
+            app:layout_constraintTop_toTopOf="@+id/tv_watch_num"
+            tool:text="20000000000000" />
+
+        <TextView
+            android:id="@+id/tv_forks_num"
+            style="@style/TextAppearance.Adaptive.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="@dimen/button_min_width_material"
+            android:text="@{String.valueOf(repoDetail.data.forks)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_star_num"
+            app:layout_constraintTop_toTopOf="@+id/tv_watch_num"
+            tool:text="30000000000000" />
+
+        <TextView
+            android:id="@+id/tv_watch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical_material"
+            android:drawableStart="@mipmap/ic_watch"
+            android:gravity="center_vertical"
+            android:text="@string/watch"
+            android:drawablePadding="@dimen/padding_vertical_material"
+            android:textSize="@dimen/text_size_body_2_material"
+            app:layout_constraintEnd_toEndOf="@+id/tv_watch_num"
+            app:layout_constraintStart_toStartOf="@+id/tv_watch_num"
+            app:layout_constraintTop_toBottomOf="@+id/tv_watch_num" />
+
+        <TextView
+            android:id="@+id/tv_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_watch"
+            android:gravity="center_vertical"
+            android:text="@string/star"
+            android:textSize="@dimen/text_size_body_2_material"
+            android:drawablePadding="@dimen/padding_vertical_material"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_watch"
+            app:layout_constraintEnd_toEndOf="@+id/tv_star_num"
+            app:layout_constraintStart_toStartOf="@+id/tv_star_num"
+            app:layout_constraintTop_toTopOf="@+id/tv_watch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/icon_mdpi"
+    android:height="@dimen/icon_mdpi"
+    android:viewportHeight="48"
+    android:viewportWidth="48">
+
+    <path android:fillColor="?attr/colorNavigationIcon"
+        android:pathData="M17.17 32.92l9.17-9.17-9.17-9.17L20 11.75l12 12-12 12z"
+        />
+
+</vector>

@@ -1,5 +1,5 @@
-# 查看所有着star过的仓库
-query StartRepositories (
+# 查看star过仓库
+query ApolloStartRepositories (
   $login: String = "Tangpj",
   $startFirst: Int = 20,
   $after: String,
@@ -23,7 +23,7 @@ query StartRepositories (
 }
 
 
-query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
+query ApolloWatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   user(login: $login){
     login
     watching(first: $startFirst){
@@ -34,22 +34,106 @@ query WatchRepositories($login: String = "Tangpj",$startFirst: Int = 10){
   }
 }
 
+# 获取仓库详情的基本信息
+query ApolloRepoDetail(
+  $owner: String = "Tangpj"
+  $name: String = "calces-gradle-plugin"){
+   repository(owner:$owner, name:$name) {
+     ...repoDetailDto
+   }
+  }
+
+# 获取分支列表
+query ApolloBranch(
+  $login: String = "Tangpj",
+  $name: String = "calces-gradle-plugin"){
+
+  repository(owner: $login, name: $name){
+    branch: refs(first:10, refPrefix:"refs/heads/"){
+      nodes{
+        id
+        name
+      }
+      totalCount
+      ...pageInfoDto
+    }
+  }
+
+}
+
+
 # 根据所有者和仓库名查看文件详情
-query BlodDetail(
+query ApolloBlobDetail(
   $owner: String = "Tangpj",
   $name: String = "Android-advanced-blueprint",
   $expression:String = "master:README.md"){
   repository(owner:$owner, name:$name){
-    object(expression:$expression){
+    object(expression: $expression){
       ... on Blob{
         id
         text
         byteSize
       }
+    }
+  }
+
+}
+
+#根据仓库所有者和仓库名查看文件列表
+query ApolloFileTree(
+  $owner: String = "Tangpj",
+  $name: String = "Android-advanced-blueprint",
+  $expression: String = "master:"){
+  repository(owner: $owner, name: $name) {
+    gitObject: object(expression: $expression) {
       ... on Tree{
-              id
-            }
+        entries{
+          gitObject: object{
+            id
+          }
+          name
+          type
+        }
+      }
     }
   }
 }
 
+query ApolloCommits(
+  $login: String = "Tangpj",
+  $repoName: String = "Android-advanced-blueprint"
+  $expression: String = "master:"
+  $author: CommitAuthor,
+  $startFirst: Int = 10,
+  $after: String){
+  repository(owner: $login, name: $repoName){
+    gitObject: object(expression: $expression){
+       ... on Commit{
+        history(first: $startFirst, after:$after,author: $author){
+          edges{
+            node{
+              abbreviatedOid
+              message
+              apolloCommitter: committer{
+                email
+                name
+                avatarUrl
+                user{
+                  id
+                }
+              }
+              committedDate
+              comments{
+                totalCount
+              }
+            }
+          }
+          pageInfo{
+            ...pageInfoDto
+          }
+          totalCount
+        }
+      }
+    }
+  }
+}

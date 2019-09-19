@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_repo_detail"
+    app:startDestination="@id/commit"
+    tools:ignore="UnusedNavigation">
+
+    <fragment android:id="@+id/commit"
+        android:name="com.tangpj.repository.ui.detail.commit.CommitFragment"
+        android:label="commit"
+        tools:layout="@layout/fragment_base_recycler_view"
+        >
+
+        <argument
+            android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument
+            android:name="branch"
+            android:defaultValue="master"
+            app:argType="string"
+            />
+
+
+        <argument
+            android:name="author"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.entity.domain.author.CommitAuthor"/>
+
+        <action
+            android:id="@+id/commit_init"
+            app:popUpTo="@+id/commit"
+            app:popUpToInclusive="true"
+            app:destination="@+id/commit"/>
+
+    </fragment>
+
+
+</navigation>

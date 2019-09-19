@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_response_is_null">返回的数据为空!!</string>
+    <string name="success_copied">已复制</string>
+
+    <string name="seconds_ago">秒前</string>
+    <string name="minutes_ago">分钟前</string>
+    <string name="hours_ago">小时前</string>
+    <string name="days_ago">分钟前</string>
+    <string name="result_is_empty">没有找到数据哦</string>
+</resources>

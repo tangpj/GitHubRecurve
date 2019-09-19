@@ -3,26 +3,25 @@ package com.tangpj.repository.ui.creator
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.tangpj.adapter.adapter.ModulesAdapter
-import com.tangpj.adapter.creator.RecurveViewHolder
+import com.tangpj.github.ui.creator.EntryDiffUtil
 import com.tangpj.paging.PagedItemCreator
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.entity.domain.repo.Repo
 import com.tangpj.repository.databinding.ItemRepositoryBinding
+import javax.inject.Inject
 
-class RepositoryCreator constructor(
-        adapter: ModulesAdapter,
-        diffUtil: DiffUtil.ItemCallback<Repo>,
-        creatorType: Int = 0)
-    : PagedItemCreator<Repo, ItemRepositoryBinding>(adapter, creatorType, diffUtil) {
+class RepositoryCreator @Inject constructor(
+        diffUtil: RepoDiffUtil)
+    : PagedItemCreator<Repo, ItemRepositoryBinding>(0, diffUtil) {
 
-    override fun onBindItemView(itemHolder: RecurveViewHolder<ItemRepositoryBinding>,
-                                e: Repo?, inCreatorPosition: Int) {
-        itemHolder.binding.repo = e
+    override fun onBindItemView(binding: ItemRepositoryBinding,
+                                e: Repo, inCreatorPosition: Int) {
+        binding.repo = e
     }
 
-    override fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): RecurveViewHolder<*> =
-            RecurveViewHolder(
-                    ItemRepositoryBinding
-                    .inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemRepositoryBinding =
+            ItemRepositoryBinding
+                    .inflate(LayoutInflater.from(parent.context), parent, false)
 
 }
+
+class RepoDiffUtil @Inject constructor(): EntryDiffUtil<Repo>()

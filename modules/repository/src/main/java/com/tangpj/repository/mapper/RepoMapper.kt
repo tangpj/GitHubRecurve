@@ -1,36 +1,32 @@
 package com.tangpj.repository.mapper
 
-import com.tangpj.github.domain.PageInfo
-import com.tangpj.repository.StartRepositoriesQuery
-import com.tangpj.repository.WatchRepositoriesQuery
+import com.tangpj.github.entity.domain.PageInfo
+import com.tangpj.repository.ApolloStartRepositoriesQuery
+import com.tangpj.repository.ApolloWatchRepositoriesQuery
+import com.tangpj.repository.fragment.OwnerDto
 import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.fragment.PageInfoDto
 import com.tangpj.repository.fragment.RepoDto
-import com.tangpj.repository.valueObject.Owner
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.entity.domain.actor.Owner
+import com.tangpj.repository.entity.domain.repo.Repo
 
-fun RepoDto.mapperToRepo(): Repo{
-    val languages = languages?.nodes
-    val languageDto = if (languages != null && languages.size > 0){
-        languages[0].fragments.languageDto
-    }else{
-        null
-    }
-    val localOwner = Owner(
-            id = owner.id,
-            login = owner.login,
-            avatarUrl = owner.avatarUrl)
+fun RepoDto.mapperToRepo(): Repo {
+    val languageDto = primaryLanguage?.fragments?.languageDto
+    val ownerDto = owner.fragments.ownerDto
+    val localOwner = ownerDto.getOwner()
     return Repo(
             id = id,
             name = name,
             owner = localOwner,
-            fullName = "${owner.login}/$name",
+            fullName = "${ownerDto.login}/$name",
             language = languageDto?.name ?: "unknown",
             languageColor = languageDto?.color ?: "unknown",
             description = description ?: "",
             stars = stargazers.totalCount,
             forks = forks.totalCount)
 }
+
+fun OwnerDto.getOwner() = Owner(id, login, avatarUrl)
 
 /**
  * 把Apollo框架生成的PageInfo转换成本地的[PageInfo]
@@ -45,6 +41,7 @@ fun PageInfoDto.mapperToLocalPageInfo() = PageInfo(
         startCursor = startCursor ?: "",
         endCursor = endCursor ?: "")
 
+
 /**
  * [starRepoResultListener] 如果不为空，则生成并回调[StarRepoResult]的值对象
  * 这样设计的目的是减少数组遍历，提高性能
@@ -54,7 +51,7 @@ fun PageInfoDto.mapperToLocalPageInfo() = PageInfo(
  * @date 2019-05-15 21:47
  *
  */
-fun StartRepositoriesQuery.Data.mapperToRepoVoList() : List<Repo>{
+fun ApolloStartRepositoriesQuery.Data.mapperToRepoVoList() : List<Repo>{
     val edges = this.user?.starredRepositories?.edges
     edges?.size ?: return mutableListOf()
     val repoVoList = edges.map { edge ->
@@ -65,10 +62,10 @@ fun StartRepositoriesQuery.Data.mapperToRepoVoList() : List<Repo>{
 
 }
 
-fun StartRepositoriesQuery.Data.getPageInfo() : PageInfo? =
+fun ApolloStartRepositoriesQuery.Data.getPageInfo() : PageInfo? =
         user?.starredRepositories?.pageInfo?.fragments?.pageInfoDto?.mapperToLocalPageInfo()
 
-fun WatchRepositoriesQuery.Data.getRepoDtoList() =
+fun ApolloWatchRepositoriesQuery.Data.getRepoDtoList() =
         this.user?.watching?.nodes?.map {
             it.fragments.repoDto
         }

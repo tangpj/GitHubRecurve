@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_repo_detail"
+    app:startDestination="@id/viewer"
+    tools:ignore="UnusedNavigation">
+
+    <fragment android:id="@+id/viewer"
+        android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
+        android:label="viewer"
+        tools:layout="@layout/fragment_file_content"
+        >
+        <argument
+            android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument
+            android:name="branch"
+            android:defaultValue="master"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="path"
+            android:defaultValue=":README.md"
+            app:nullable="true"
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/file_content_init"
+            app:popUpTo="@+id/viewer"
+            app:popUpToInclusive="true"
+            app:destination="@+id/viewer"/>
+
+    </fragment>
+
+
+</navigation>

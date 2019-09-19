@@ -4,18 +4,26 @@
 
     <data>
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.repository.vo.FileContent"/>
+        <import type="com.tangpj.repository.entity.domain.file.FileContent"/>
         <import type="com.tangpj.recurve.resource.Resource"/>
 
         <variable
             name="fileContent"
-            type="LiveData&lt;Resource&lt;FileContent>>" />
+            type="LiveData&lt;Resource&lt;FileContent>>"/>
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_file_content"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:md="@{fileContent.data.content}"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <com.prettifier.pretty.PrettifyWebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:fileContent="@{fileContent.data}"
+            app:webview_background="?android:windowBackground"/>
+    </LinearLayout>
 
 </layout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/repo_files"
+    app:startDestination="@id/files"
+    tools:ignore="InvalidNavigation">
+
+    <fragment android:id="@+id/files"
+        android:name="com.tangpj.repository.ui.detail.files.FilesFragment"
+        android:label="@string/files"
+        app:defaultNavHost="true"
+        tools:layout="@layout/recycler_view">
+
+        <argument
+            android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument
+            android:name="branch"
+            android:defaultValue="master"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="path"
+            android:defaultValue=":"
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/action_files"
+            app:destination="@+id/files"/>
+
+        <action
+            android:id="@+id/action_files_to_fl_content"
+            app:destination="@id/fl_content" />
+
+    </fragment>
+
+    <fragment android:id="@+id/fl_content"
+        android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
+        android:label="@string/file_content"
+        app:defaultNavHost="true"
+        tools:layout="@layout/fragment_file_content"
+        >
+
+        <argument
+            android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument
+            android:name="branch"
+            android:defaultValue="master"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="path"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="string"/>
+
+    </fragment>
+
+</navigation>

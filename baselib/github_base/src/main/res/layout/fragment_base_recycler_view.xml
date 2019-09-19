@@ -1,39 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
-    <data>
 
-        <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.paging.PageLoadState"/>
-        <import type="kotlin.Unit"/>
-        <import type="kotlin.jvm.functions.Function0"/>
-
-        <variable
-            name="pageLoadState"
-            type="LiveData&lt;PageLoadState>"/>
-
-        <variable
-            name="retryCallback"
-            type="LiveData&lt;Function0&lt;Unit>>"/>
-
-    </data>
 
     <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/in_rv"
             layout="@layout/recycler_view" />
-
-        <include
-            layout="@layout/page_loading_state"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            app:pageLoadState="@{(PageLoadState) pageLoadState}"
-            app:callback="@{() -> retryCallback.invoke()}"/>
 
     </FrameLayout>
 

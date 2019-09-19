@@ -1,4 +1,23 @@
 apply from: '../module.gradle'
 dependencies {
     implementation deps.androidx.viewpager2
+    implementation deps.androidx.flexbox_layout
+    implementation deps.navigation.ui_ktx
+    implementation deps.markdown4j
+    implementation project(':viewpager2-navigation-ktx')
+    implementation project(':viewpager2-tablayout-ktx')
+    implementation project(':bottom-navigation-ktx')
+    implementation project(':baselib:prettifier')
+
+}
+
+
+screen{
+
+    mipmap{
+        designDensity "xxxhdpi"
+        mipmapDensity 'xxhdpi','xhdpi','hdpi','mdpi'
+        auto true
+    }
+
 }

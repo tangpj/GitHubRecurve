@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="text"
+            type="String" />
+        <variable
+            name="isRoot"
+            type="boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal_material"
+            android:src="@mipmap/ic_home_black"
+            app:visibleGone="@{isRoot}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical_material"
+            android:layout_marginStart="@dimen/margin_horizontal_material"
+            android:layout_marginBottom="@dimen/margin_vertical_material"
+            android:drawablePadding="@dimen/padding_horizontal_material"
+            android:gravity="center_vertical"
+            android:text="@{text}"
+            style="@style/TextAppearance.Adaptive.Body1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_home"
+            tools:text="root"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

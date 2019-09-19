@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_repositories"
+    app:startDestination="@+id/repositories"
+    tools:ignore="UnusedNavigation">
+
+    <fragment android:id="@+id/repositories"
+        android:name="com.tangpj.repository.ui.repositories.ReposFragment"
+        android:label="RepositoriesFragment"
+        app:defaultNavHost="true"
+        tools:layout="@layout/fragment_base_recycler_view"
+        >
+
+        <argument
+            android:name="login"
+            android:defaultValue="Tangpj"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="type"
+            android:defaultValue="0"
+            app:argType="integer"/>
+
+        <action
+            android:id="@+id/init"
+            app:destination="@+id/repositories"
+            />
+
+    </fragment>
+
+
+</navigation>

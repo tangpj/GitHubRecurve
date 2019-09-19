@@ -16,3 +16,5 @@ schemas/
 /gradle
 gradlew
 gradlew.bat
+# Project exclude paths
+/baselib/prettifier/build/

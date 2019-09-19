@@ -3,12 +3,12 @@ package com.tangpj.repository.repository
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.Config
 import androidx.paging.ItemKeyedDataSource
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.tangpj.github.di.PagingConfig
 import com.tangpj.paging.ItemKeyedBoundResource
-import com.tangpj.repository.vo.Repo
+import com.tangpj.repository.entity.domain.repo.Repo
 import com.tangpj.recurve.apollo.LiveDataApollo
 
 import com.tangpj.recurve.resource.ApiResponse
@@ -18,7 +18,7 @@ import com.tangpj.repository.valueObject.result.StarRepoResult
 import com.tangpj.repository.type.OrderDirection
 import com.tangpj.repository.type.StarOrder
 import com.tangpj.repository.type.StarOrderField
-import com.tangpj.repository.StartRepositoriesQuery
+import com.tangpj.repository.ApolloStartRepositoriesQuery
 import com.tangpj.repository.mapper.getPageInfo
 import com.tangpj.repository.mapper.mapperToRepoVoList
 import timber.log.Timber
@@ -27,12 +27,13 @@ import javax.inject.Inject
 
 class RepoRepository @Inject constructor(
          val apolloClient: ApolloClient,
-         val repoDb: RepositoryDb){
+         val repoDb: RepositoryDb,
+         val pagingConfig: PagingConfig){
 
-    private val repoRateLimiter = RateLimiter<StartRepositoriesQuery>(1, TimeUnit.MILLISECONDS)
+    private val reposRateLimiter = RateLimiter<ApolloStartRepositoriesQuery>(1, TimeUnit.MINUTES)
 
     fun loadStarRepos(login: String) =
-            object : ItemKeyedBoundResource<String, Repo, StartRepositoriesQuery.Data>(){
+            object : ItemKeyedBoundResource<String, Repo, ApolloStartRepositoriesQuery.Data>(){
 
                 private var repoResult: StarRepoResult? = null
 
@@ -41,29 +42,41 @@ class RepoRepository @Inject constructor(
                         .field(StarOrderField.STARRED_AT)
                         .direction(OrderDirection.DESC).build()
 
-                var query: StartRepositoriesQuery? = null
+                var query: ApolloStartRepositoriesQuery? = null
 
-                override fun saveCallResult(item: StartRepositoriesQuery.Data) {
-                    repoResult = saveStarRepo(item)
+                override fun saveCallResult(item: ApolloStartRepositoriesQuery.Data) {
+                    repoResult = saveStarRepo(query, item)
                     Timber.d("saveCallResult, pageInfo = ${repoResult?.pageInfo}")
                 }
 
                 override fun shouldFetch(data: List<Repo>?): Boolean =
-                        (data == null || data.isEmpty() || repoRateLimiter.shouldFetch(query))
+                        (data == null || data.isEmpty() || reposRateLimiter.shouldFetch(query))
+
+                override fun onFetchFailed() {
+                    super.onFetchFailed()
+                    reposRateLimiter.reset(query)
+                }
 
                 override fun loadFromDb(): LiveData<List<Repo>>  {
-                    val repoResultLive = repoDb.repoDao().loadStarRepoResult(login)
+                    val repoResultLive =
+                            repoDb.repoDao().loadStarRepoResult(
+                                    login = login,
+                                    startFirst = query?.startFirst() ?: pagingConfig.initialLoadSizeHint,
+                                    after = query?.after() ?: "")
                     return Transformations.switchMap(repoResultLive){
+                        repoResult = it
                         repoDb.repoDao().loadRepoOrderById(it?.repoIds ?: emptyList())
                     }
                 }
+
 
                 override fun hasNextPage(): Boolean {
                     return repoResult?.pageInfo?.hasNextPage ?: false
                 }
 
-                override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
-                    val initialQuery = StartRepositoriesQuery.builder()
+                override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>)
+                        : LiveData<ApiResponse<ApolloStartRepositoriesQuery.Data>> {
+                    val initialQuery = ApolloStartRepositoriesQuery.builder()
                             .login(login)
                             .startFirst(params.requestedLoadSize)
                             .order(order).build()
@@ -76,8 +89,9 @@ class RepoRepository @Inject constructor(
                 }
 
                 @SuppressLint("BinaryOperationInTimber")
-                override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<StartRepositoriesQuery.Data>> {
-                    val afterQuery = StartRepositoriesQuery.builder()
+                override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>):
+                        LiveData<ApiResponse<ApolloStartRepositoriesQuery.Data>> {
+                    val afterQuery = ApolloStartRepositoriesQuery.builder()
                             .login(login)
                             .startFirst(params.requestedLoadSize)
                             .after(repoResult?.pageInfo?.endCursor)
@@ -92,24 +106,31 @@ class RepoRepository @Inject constructor(
 
                 override fun getKey(item: Repo): String = item.id
 
-            }.asListing( Config(
-                    pageSize = 10,
-                    enablePlaceholders = false,
-                    initialLoadSizeHint = 10))
+            }.asListing(pagingConfig.getConfig())
 
 
-    private fun saveStarRepo(data: StartRepositoriesQuery.Data): StarRepoResult?{
+    private fun saveStarRepo(
+            query: ApolloStartRepositoriesQuery?,
+            data: ApolloStartRepositoriesQuery.Data): StarRepoResult? {
+        query ?: return null
         val repoList = data.mapperToRepoVoList()
         val repoIds = repoList.map { it.id }
         val result = StarRepoResult(
                 login = data.user?.login ?: "",
                 repoIds = repoIds,
+                startFirst = query.startFirst(),
+                after = query.after() ?: "",
                 pageInfo = data.getPageInfo())
         repoDb.runInTransaction {
-        repoDb.repoDao().insertRepos(repoList)
-        repoDb.repoDao().insertUserRepoResult(result)
+            repoDb.repoDao().insertRepos(repoList)
+            repoDb.repoDao().insertStartRepoResult(result)
         }
         return result
     }
 
+    private fun ApolloStartRepositoriesQuery.startFirst() =
+            variables().startFirst().value ?: 0
+
+    private fun ApolloStartRepositoriesQuery.after() =
+            variables().after().value
 }

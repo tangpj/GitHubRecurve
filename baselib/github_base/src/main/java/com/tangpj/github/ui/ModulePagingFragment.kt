@@ -1,16 +1,27 @@
 package com.tangpj.github.ui
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
+import com.tangpj.github.R
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
+import com.tangpj.github.databinding.LoadingStateBinding
+import com.tangpj.github.databinding.PageLoadingStateBinding
+import com.tangpj.github.databinding.RecyclerViewBinding
 import com.tangpj.github.ui.creator.ItemLoadingCreator
+import com.tangpj.github.ui.loadState.Loading
+import com.tangpj.github.ui.loadState.PageLoading
+import com.tangpj.github.ui.loadState.RealLoadState
+import com.tangpj.paging.Listing
 import com.tangpj.paging.PageLoadStatus
 import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
-import kotlinx.android.synthetic.main.recycler_view.view.*
+import com.tangpj.recurve.resource.NetworkState
+import com.tangpj.recurve.resource.Status
+import timber.log.Timber
 
 /**
  *
@@ -23,43 +34,94 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
     private lateinit var binding: FragmentBaseRecyclerViewBinding
     private lateinit var loadingCreator: ItemLoadingCreator
 
-    abstract fun onBindingInit(binding: ViewDataBinding)
+    open fun onBindingInit(binding: ViewDataBinding){}
 
-    override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?,
-                                 savedInstanceState: Bundle?): ViewDataBinding? {
+    @Suppress("CAST_NEVER_SUCCEEDS")
+    final override fun onCreateBinding(inflater: LayoutInflater, container: ViewGroup?,
+                                       savedInstanceState: Bundle?): ViewDataBinding? {
         binding = FragmentBaseRecyclerViewBinding.inflate(inflater, container, false)
-        binding.setLifecycleOwner(this)
         onBindingInit(binding)
-        initRecyclerView(binding.inRv.rvContent)
-        adapter.addCreator(loadingCreator)
+        val recyclerViewBinding = binding.inRv as? RecyclerViewBinding
+        recyclerViewBinding?.let {
+            initRecyclerView(it.rvContent)
+        }
         return binding
 
     }
 
-    fun loading(pageLoadingInvoke: PageLoading.() -> Unit){
-        val loading = PageLoading()
+    fun <T> pagedLoading(pageLoadingInvoke: PageLoading<T>.() -> Unit){
+        val loading = PageLoading<T>()
         loading.pageLoadingInvoke()
-        binding.pageLoadState = loading.pageLoadState
-        binding.retryCallback = loading.refresh
-        loadingCreator = ItemLoadingCreator(adapter)
-        loading.pageLoadState?.let {
-            it.observe(this, Observer { pageLoadState ->
-                if (pageLoadState.status != PageLoadStatus.REFRESH){
-                    loadingCreator.networkState = pageLoadState.networkState
-                }else{
-                    loadingCreator.networkState = null
+        val layoutInflater = LayoutInflater.from(binding.flContent.context)
+        val pageLoadingStateBinding =
+                PageLoadingStateBinding.inflate(layoutInflater, binding.flContent, false)
+        pageLoadingStateBinding.lifecycleOwner = this
+        val params = pageLoadingStateBinding.root.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.CENTER
+        params.width = FrameLayout.LayoutParams.MATCH_PARENT
+        params.height= FrameLayout.LayoutParams.MATCH_PARENT
+
+        binding.flContent.addView(pageLoadingStateBinding.root, params)
+        loading.listing?.observe(this, Observer {
+            loadingCreator = ItemLoadingCreator()
+            adapter.addCreator(loadingCreator)
+            observerListing(it, pageLoadingStateBinding)
+
+        })
+
+    }
+
+    fun <T> loading(loadingInvoke: Loading<T>.() -> Unit) {
+        val realLoadState =
+                RealLoadState<T>(binding.flContent)
+        realLoadState.createLoadBinding { container, loading ->
+            val inflater = LayoutInflater.from(container.context)
+            val loadStateBinding = LoadingStateBinding.inflate(inflater, container, false)
+            loadStateBinding.lifecycleOwner = this
+            loadStateBinding.retry = loading.retry
+            loading.resource?.observe(this, Observer {
+                Timber.d("""netState = ${it.networkState.status}; 
+                    msg = ${it.networkState.msg}""")
+                loadStateBinding.resource = it
+            })
+            loadStateBinding
+        }
+        realLoadState.loading(loadingInvoke)
+    }
+
+    private fun observerListing(listing: Listing<*>, pageLoadingStateBinding: PageLoadingStateBinding){
+        listing.pageLoadState.observe(this, Observer { pageLoadState ->
+            pageLoadingStateBinding.listing = listing
+            pageLoadingStateBinding.isShowLoading = adapter.itemCount == 0
+            if (pageLoadState.status != PageLoadStatus.REFRESH){
+                loadingCreator.networkState = pageLoadState.networkState
+            }else{
+                loadingCreator.networkState = null
+            }
+            pageLoadingStateBinding.errorMsg = {
+                when(pageLoadState.networkState.status){
+                    Status.SUCCESS -> {
+                        if (adapter.itemCount == 0) getString(R.string.result_is_empty) else ""
+                    }
+                    Status.LOADING -> ""
+                    Status.ERROR -> pageLoadState.networkState.msg ?: getString(R.string.unknown_error)
                 }
-            })
+            }
 
-        }
-        loading.retry?.let {
-            it.observe(this, Observer { retry ->
-                loadingCreator.retry = retry
-
-            })
-        }
-
-
+            pageLoadingStateBinding.showError = {
+                when(pageLoadState.networkState.status){
+                    Status.LOADING -> false
+                    Status.SUCCESS -> adapter.itemCount == 0
+                    Status.ERROR -> true
+                }
+            }
+            if (pageLoadState.networkState == NetworkState.SUCCESS){
+                Timber.d("adapter count = ${adapter.itemCount}")
+            }
+            Timber.d("""load status = ${pageLoadState.status};
+                    netState = ${pageLoadState.networkState.status}; 
+                    msg = ${pageLoadState.networkState.msg}""")
+        })
     }
 
 }

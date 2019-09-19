@@ -1,6 +1,9 @@
 package com.tangpj.github.db
 
 import androidx.room.TypeConverter
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import timber.log.Timber
 import java.lang.NumberFormatException
 
@@ -44,4 +47,17 @@ object StringListTypeConverters{
         return ints?.joinToString(",")
     }
 
+}
+
+object DataTypeConverters{
+
+    @TypeConverter
+    @JvmStatic
+    fun epochMilliToDateTime(time: Long) =
+        LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault())
+
+    @TypeConverter
+    @JvmStatic
+    fun DateTimeToepochMilli(dateTime: LocalDateTime) =
+            dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 }

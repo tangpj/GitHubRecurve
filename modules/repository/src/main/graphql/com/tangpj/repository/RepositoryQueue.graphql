@@ -55,7 +55,9 @@ query ApolloBranch(
         name
       }
       totalCount
-      ...pageInfoDto
+      pageInfo{
+        ...pageInfoDto
+      }
     }
   }
 

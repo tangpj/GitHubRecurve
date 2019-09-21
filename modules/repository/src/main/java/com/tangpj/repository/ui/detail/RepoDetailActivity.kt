@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.navigation.setupWithNavController
+import com.tangpj.pager.PagerFragmentArgs
 import com.tangpj.recurve.util.getColorByAttr
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
@@ -86,7 +87,7 @@ class RepoDetailActivity : BaseActivity(){
     private fun setupBottomNavigationBar(
             repoDetailQuery: RepoDetailQuery,
             activityRepoDetailBinding: ActivityRepoDetailBinding){
-        val navGraphIds = listOf(R.navigation.repo_detail, R.navigation.viewer)
+        val navGraphIds = listOf(R.navigation.pager, R.navigation.viewer)
 
         val controller = activityRepoDetailBinding.bottomNav.setupWithNavController(
                 navGraphIds = navGraphIds,
@@ -122,9 +123,11 @@ class RepoDetailActivity : BaseActivity(){
     private fun pagerInit(
             repoDetailQuery: RepoDetailQuery,
             navController: NavController){
-        val args = RepoDetailFragmentArgs.Builder().apply {
-            this.repoDetailQuery = repoDetailQuery
-            this.branch = currentBranch
+        val args = PagerFragmentArgs.Builder().apply {
+            val bundle = Bundle()
+            bundle.putString("branch", currentBranch)
+            bundle.putParcelable("repoDetailQuery", repoDetailQuery)
+            this.params = bundle
             this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files, R.navigation.commit)
             this.tabTitles = arrayOf("README", "FILES", "COMMIT", "RELEASE")
         }.build().toBundle()

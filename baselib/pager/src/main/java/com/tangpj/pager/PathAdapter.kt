@@ -1,14 +1,15 @@
-package com.tangpj.repository.ui.creator
+package com.tangpj.pager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tangpj.pager.databinding.ItemPathBinding
 import com.tangpj.recurve.binding.adapter.DataBindingAdapter
-import com.tangpj.repository.databinding.ItemFilePathBinding
+import javax.inject.Inject
 
 
 
-class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
+class PathAdapter @Inject constructor() : DataBindingAdapter<PathItem, ItemPathBinding>(){
 
     private val pathPosition = mutableMapOf<PathItem, Int>()
 
@@ -48,12 +49,12 @@ class PathAdapter : DataBindingAdapter<PathItem, ItemFilePathBinding>(){
         internalRecyclerView = recyclerView
     }
 
-    override fun onCreateBinding(parent: ViewGroup, viewType: Int): ItemFilePathBinding {
+    override fun onCreateBinding(parent: ViewGroup, viewType: Int): ItemPathBinding {
         val inflater = LayoutInflater.from(parent.context)
-        return ItemFilePathBinding.inflate(inflater, parent, false)
+        return ItemPathBinding.inflate(inflater, parent, false)
     }
 
-    override fun onBindBinding(binding: ItemFilePathBinding, e: PathItem, position: Int) {
+    override fun onBindBinding(binding: ItemPathBinding, e: PathItem, position: Int) {
         binding.isRoot = position == 0
         binding.text = e.name
     }

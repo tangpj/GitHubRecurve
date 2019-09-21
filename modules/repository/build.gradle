@@ -8,6 +8,7 @@ dependencies {
     implementation project(':viewpager2-tablayout-ktx')
     implementation project(':bottom-navigation-ktx')
     implementation project(':baselib:prettifier')
+    implementation project(':baselib:pager')
 
 }
 

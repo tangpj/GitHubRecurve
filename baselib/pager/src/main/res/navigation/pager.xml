@@ -18,6 +18,12 @@
             app:argType="android.os.Bundle"/>
 
         <argument
+            android:name="pathConfig"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.pager.PagerPathConfig"/>
+
+        <argument
             android:name="graphIds"
             android:defaultValue="@null"
             app:nullable="true"

@@ -8,12 +8,16 @@ import androidx.navigation.NavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.navigation.setupWithNavController
+import com.tangpj.pager.ClickAction
 import com.tangpj.pager.PagerFragmentArgs
+import com.tangpj.pager.PagerPathConfig
+import com.tangpj.pager.PathItem
 import com.tangpj.recurve.util.getColorByAttr
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDetailBinding
 import com.tangpj.repository.databinding.CollasingRepoDetailBinding
+import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
 import com.tangpj.repository.ui.detail.viewer.ViewerFragmentArgs
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
@@ -123,6 +127,21 @@ class RepoDetailActivity : BaseActivity(){
     private fun pagerInit(
             repoDetailQuery: RepoDetailQuery,
             navController: NavController){
+        val clickAction = object : ClickAction() {
+            override fun onClick(navController: NavController, pathItem: PathItem, position: Int) {
+                val action = FilesFragmentDirections.actionFiles().apply {
+                    this.repoDetailQuery = repoDetailQuery
+                    this.branch = currentBranch
+                    this.path = pathItem.path
+                }
+                if (pathItem.path.isBlank() || pathItem.path == ":"){
+                    navController.setGraph(navController.graph, action.arguments)
+                }else{
+                    navController.navigate(action)
+                }
+            }
+        }
+        val pathConfig = PagerPathConfig(listOf(R.id.files), clickAction)
         val args = PagerFragmentArgs.Builder().apply {
             val bundle = Bundle()
             bundle.putString("branch", currentBranch)
@@ -130,6 +149,7 @@ class RepoDetailActivity : BaseActivity(){
             this.params = bundle
             this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files, R.navigation.commit)
             this.tabTitles = arrayOf("README", "FILES", "COMMIT", "RELEASE")
+            this.pathConfig = pathConfig
         }.build().toBundle()
         navController.setGraph(navController.graph, args)
 

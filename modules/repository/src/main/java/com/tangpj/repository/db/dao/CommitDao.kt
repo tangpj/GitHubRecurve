@@ -32,12 +32,6 @@ abstract class CommitDao{
     abstract fun insertCommittees(committees: List<Committer>)
 
     @Query("""
-        SELECT * FROM CommitsResult
-        WHERE login = :login AND repoName = :repoName AND authorId = :authorId
-    """)
-    abstract fun loadCommit(login: String, repoName: String, authorId: String?) : LiveData<CommitsResult>
-
-    @Query("""
         SELECT * FROM `Commit` 
         WHERE id = :id
     """)
@@ -61,7 +55,6 @@ abstract class CommitDao{
     """)
     abstract fun loadCommitteesByIds(ids: List<String>) : LiveData<List<Committer>>
 
-
     /**
      *
      * load all when [authorId] is empty
@@ -72,9 +65,14 @@ abstract class CommitDao{
      */
     @Query("""
         SELECT * FROM CommitsResult
-        WHERE login = :login AND repoName = :repoName AND authorId = :authorId isnull
+        WHERE login = :login AND repoName = :repoName 
+        AND startFirst = :startFirst 
+        AND `after` = :after
+        AND authorId = :authorId isnull
     """)
-    abstract fun loadCommitResult(login: String?, repoName: String?, authorId: String?) : LiveData<CommitsResult>
+    abstract fun loadCommitResult(
+            login: String?, repoName: String?, authorId: String?,
+            startFirst: Int, after: String?) : LiveData<CommitsResult>
 
     fun loadCommitsOrderById(commitIds: List<String>): LiveData<List<Commit>>{
         return commitIds.loadDataOrderById{
@@ -101,11 +99,11 @@ abstract class CommitDao{
      * Query the list of commits and query the list of committer based on the [Commit.committerId].
      * Finally combined into CommitVo
      *
-     * @method: loadCommitVoList
+     * @method: loadCommitVoListOrderById
      * @author: tangpengjian113
      * @createTime: 2019-09-10 19:27
      */
-    fun loadCommitVoList(commitIds: List<String>) : LiveData<List<CommitVo>>{
+    fun loadCommitVoListOrderById(commitIds: List<String>) : LiveData<List<CommitVo>>{
         val commitsLiveData= loadCommitsOrderById(commitIds)
         val result = MediatorLiveData<List<CommitVo>>()
         result.addSource(commitsLiveData){ commits ->

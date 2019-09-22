@@ -44,20 +44,24 @@ query ApolloRepoDetail(
   }
 
 # 获取分支列表
-query ApolloBranch(
+query ApolloRefsQuery(
   $login: String = "Tangpj",
-  $name: String = "calces-gradle-plugin"){
+  $name: String = "calces-gradle-plugin",
+  $refPrefix: String = "refs/heads/",
+  $startFirst: Int = 10,
+  $after:String = ""){
 
   repository(owner: $login, name: $name){
-    branch: refs(first:10, refPrefix:"refs/heads/"){
+    refsDto : refs(first:$startFirst, after:$after, refPrefix:$refPrefix){
       nodes{
         id
         name
       }
-      totalCount
       pageInfo{
         ...pageInfoDto
       }
+      totalCount
+
     }
   }
 

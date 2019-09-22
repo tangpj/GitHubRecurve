@@ -1,6 +1,5 @@
 package com.tangpj.repository.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
@@ -48,8 +47,8 @@ class RepoDetailRepository @Inject constructor(
                 }
 
                 override fun onFetchFailed() {
-                    Log.d("Test", "error")
                     super.onFetchFailed()
+                    reposDetailRateLimiter.reset(repoDetailQuery)
                 }
             }.asLiveData()
 }

@@ -47,6 +47,7 @@ class PagerFragment : RecurveDaggerFragment() {
             args: PagerFragmentArgs) {
         binding.pager.isUserInputEnabled
         val graphIds = args.graphIds?.toList()
+        pagerPathConfig = args.pathConfig
         graphIds ?: return
         val observerFun= binding.pager
                 .setupWithNavController(childFragmentManager, lifecycle, graphIds, activity?.intent) { position ->
@@ -103,7 +104,7 @@ class PagerFragment : RecurveDaggerFragment() {
                 }
 
                 val pathItem = PathItem(path = path, name = pathName)
-                filePathAdapter?.pushPathItem(pathItem)
+                filePathAdapter.pushPathItem(pathItem)
 
             }
 
@@ -144,26 +145,14 @@ class PagerFragment : RecurveDaggerFragment() {
                 }
             })
         }
-        filePathAdapter?.apply {
-            onItemClickListener = { _, pathItem, position ->
-                currentNavController.value?.let {
-                    pagerPathConfig?.apply {
+        filePathAdapter.onItemClickListener = { _, pathItem, position ->
+            currentNavController.value?.let {
+                pagerPathConfig?.apply {
+                    if (position != filePathAdapter.itemCount - 1){
                         this.clickAction?.onClick(it, pathItem, position)
                     }
-//                    val action = FilesFragmentDirections.actionFiles().apply {
-//                        repoDetailQuery = args.repoDetailQuery
-//                        branch = args.branch
-//                        path = pathItem.path
-//                    }
-//                    if (position == itemCount - 1){
-//                        return@let
-//                    }
-//                    if (pathItem.path.isBlank()){
-//                        it.setGraph(it.graph, action.arguments)
-//                    }else{
-//                        it.navigate(action)
-//                    }
                 }
+
             }
         }
 
@@ -172,9 +161,9 @@ class PagerFragment : RecurveDaggerFragment() {
 }
 
 @Parcelize
-class PagerPathConfig(val showPathIds: List<Int>, val clickAction: ClickAction? = null) : Parcelable{
+class PagerPathConfig(val showPathIds: List<Int>, val clickAction: ClickAction? = null) : Parcelable
 
-    interface ClickAction : Parcelable{
-        fun onClick(navController: NavController, pathItem: PathItem, position: Int)
-    }
+@Parcelize
+open class ClickAction : Parcelable{
+    open fun onClick(navController: NavController, pathItem: PathItem, position: Int){}
 }

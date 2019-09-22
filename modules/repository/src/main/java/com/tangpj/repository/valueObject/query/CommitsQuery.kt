@@ -31,3 +31,9 @@ fun CommitsQuery.getApolloCommitsQuery(
         .expression(gitObjectQuery.getExpression())
         .author(author?.getApolloAuthor())
         .build()
+
+fun ApolloCommitsQuery.startFirst() =
+        variables().startFirst().value
+
+fun ApolloCommitsQuery.after() =
+        variables().after().value

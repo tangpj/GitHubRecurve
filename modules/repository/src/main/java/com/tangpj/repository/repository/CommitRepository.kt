@@ -14,7 +14,9 @@ import com.tangpj.repository.ApolloCommitsQuery
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.mapper.*
 import com.tangpj.repository.valueObject.query.CommitsQuery
+import com.tangpj.repository.valueObject.query.after
 import com.tangpj.repository.valueObject.query.getApolloCommitsQuery
+import com.tangpj.repository.valueObject.query.startFirst
 import com.tangpj.repository.valueObject.result.CommitsResult
 import com.tangpj.repository.vo.CommitVo
 import timber.log.Timber
@@ -38,7 +40,6 @@ class CommitRepository @Inject constructor(
                 override fun createInitialCall(params: ItemKeyedDataSource.LoadInitialParams<String>): LiveData<ApiResponse<ApolloCommitsQuery.Data>> {
                     val initialQuery =
                             commitsQuery.getApolloCommitsQuery(startFirst = params.requestedLoadSize)
-                    params.requestedLoadSize
                     query = initialQuery
                     Timber.d("""createInitialCall, start first = ${params.requestedLoadSize},
                         |hasNextPage = ${commitsResult?.pageInfo?.hasNextPage}""".trimMargin())
@@ -76,10 +77,12 @@ class CommitRepository @Inject constructor(
                     val commitResultLiveData = repoDb.commitDao().loadCommitResult(
                             login = commitsQuery.gitObjectQuery.repoDetailQuery.login,
                             repoName = commitsQuery.gitObjectQuery.repoDetailQuery.name,
+                            startFirst = query?.startFirst() ?: pagingConfig.initialLoadSizeHint,
+                            after = query?.after() ?: "",
                             authorId = commitsQuery.author?.id)
 
                     return Transformations.switchMap(commitResultLiveData) {
-                        repoDb.commitDao().loadCommitVoList(it?.commitIds ?: emptyList())
+                        repoDb.commitDao().loadCommitVoListOrderById(it?.commitIds ?: emptyList())
                     }
 
                 }
@@ -104,9 +107,9 @@ class CommitRepository @Inject constructor(
         val result = CommitsResult(
                 login = query.variables().login().value ?: "",
                 repoName = query.variables().repoName().value ?: "",
-                authorId = query.variables().author().value?.id(),
+                authorId = query.variables().author().value?.id() ?: "",
                 commitIds = commitIds,
-                startFirst = query.variables().startFirst().value ?: 10,
+                startFirst = query.variables().startFirst().value ?: pagingConfig.initialLoadSizeHint,
                 after = query.variables().after().value ?: "",
                 pageInfo = pageInfo
         )

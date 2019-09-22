@@ -1,6 +1,8 @@
 package com.tangpj.repository.ui.detail.refs
 
+import androidx.lifecycle.ViewModelProvider
 import com.tangpj.github.ui.ModulePagingFragment
+import javax.inject.Inject
 
 /**
  *
@@ -12,5 +14,11 @@ import com.tangpj.github.ui.ModulePagingFragment
  */
 
 class RefsFragment : ModulePagingFragment(){
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var refsViewModel: RefsViewModel
+
 
 }

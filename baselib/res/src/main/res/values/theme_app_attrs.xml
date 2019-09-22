@@ -20,5 +20,7 @@
     <!--  icon color  -->
     <attr name="colorNavigationIcon" format="color|reference"/>
 
+    <!--  line color  -->
+    <attr name="colorLine" format="color|reference"/>
 
 </resources>

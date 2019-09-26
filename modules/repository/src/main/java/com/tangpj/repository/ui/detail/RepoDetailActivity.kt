@@ -93,18 +93,33 @@ class RepoDetailActivity : BaseActivity(){
             activityRepoDetailBinding: ActivityRepoDetailBinding){
         val navGraphIds = listOf(R.navigation.pager, R.navigation.viewer)
 
-        val controller = activityRepoDetailBinding.bottomNav.setupWithNavController(
-                navGraphIds = navGraphIds,
-                fragmentManager = supportFragmentManager,
-                containerId = R.id.nav_host_container,
-                intent = intent)
-
-        controller.observe(this, Observer { it {  isFirstInit, navController  ->
+        val controller =
+                activityRepoDetailBinding.bottomNav.setupWithNavController(
+                        navGraphIds = navGraphIds,
+                        fragmentManager = supportFragmentManager,
+                        containerId = R.id.nav_host_container,
+                        intent = intent)
+        val repoParams = Bundle()
+        repoParams.putString("branch", currentBranch)
+        repoParams.putParcelable("repoDetailQuery", repoDetailQuery)
+        controller.observe(this, Observer { it { isFirstInit, navController  ->
             if(isFirstInit){
-                pagerInit(repoDetailQuery, navController)
+                initBottomNavFragment(navGraphIds, repoDetailQuery, repoParams, navController)
             }
             currentNavController.value = navController
         }})
+    }
+
+    private fun initBottomNavFragment(
+            navGraphIds: List<Int>,
+            repoDetailQuery: RepoDetailQuery,
+            repoParams: Bundle,
+            navController: NavController){
+        if(R.id.pager == navController.graph.startDestination){
+            pagerInit(repoDetailQuery, repoParams, navController)
+        }else{
+            navController.setGraph(navController.graph, repoParams)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -126,6 +141,7 @@ class RepoDetailActivity : BaseActivity(){
     //navigation pager init
     private fun pagerInit(
             repoDetailQuery: RepoDetailQuery,
+            repoParams: Bundle,
             navController: NavController){
         val clickAction = object : ClickAction() {
             override fun onClick(navController: NavController, pathItem: PathItem, position: Int) {
@@ -143,10 +159,7 @@ class RepoDetailActivity : BaseActivity(){
         }
         val pathConfig = PagerPathConfig(listOf(R.id.files), clickAction)
         val args = PagerFragmentArgs.Builder().apply {
-            val bundle = Bundle()
-            bundle.putString("branch", currentBranch)
-            bundle.putParcelable("repoDetailQuery", repoDetailQuery)
-            this.params = bundle
+            this.params = repoParams
             this.graphIds = intArrayOf(R.navigation.viewer, R.navigation.repo_files, R.navigation.commit)
             this.tabTitles = arrayOf("README", "FILES", "COMMIT", "RELEASE")
             this.pathConfig = pathConfig

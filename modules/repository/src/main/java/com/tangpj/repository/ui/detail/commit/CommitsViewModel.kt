@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
 import com.tangpj.paging.Listing
 import com.tangpj.repository.repository.CommitRepository
 import com.tangpj.repository.valueObject.query.CommitsQuery
@@ -20,20 +21,8 @@ class CommitsViewModel @Inject constructor(private val commitRepository: CommitR
         }
     }
 
-    val pageList = Transformations.switchMap(commitsListing){
+    val pageList: LiveData<PagedList<CommitVo>> = Transformations.switchMap(commitsListing){
         it.pagedList
-    }
-
-    val commitRetry = Transformations.map(commitsListing){
-        it.retry
-    }
-
-    val refresh = Transformations.map(commitsListing){
-        it.refresh
-    }
-
-    val pageLoadState = Transformations.switchMap(commitsListing){
-        it?.pageLoadState
     }
 
     fun setCommitQuery(commitsQuery: CommitsQuery){

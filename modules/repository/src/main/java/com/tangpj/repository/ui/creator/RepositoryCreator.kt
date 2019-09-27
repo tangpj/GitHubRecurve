@@ -21,7 +21,6 @@ class RepositoryCreator @Inject constructor(
     override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemRepositoryBinding =
             ItemRepositoryBinding
                     .inflate(LayoutInflater.from(parent.context), parent, false)
-
 }
 
 class RepoDiffUtil @Inject constructor(): EntryDiffUtil<Repo>()

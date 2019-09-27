@@ -26,8 +26,6 @@ class CommitCreator @Inject constructor(
                 parent,
                 false)
     }
-
-
 }
 
 class CommitDiffUtil @Inject constructor() : BaseDiffUtil<CommitVo>() {

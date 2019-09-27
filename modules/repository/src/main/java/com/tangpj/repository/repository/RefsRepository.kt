@@ -88,7 +88,7 @@ class RefsRepository @Inject constructor(
                 override fun hasNextPage(): Boolean  =
                         refsResult?.pageInfo?.hasNextPage == true
 
-            }
+            }.asListing(pagingConfig.getConfig())
 
     private fun saveRefs(
             query: ApolloRefsQuery,

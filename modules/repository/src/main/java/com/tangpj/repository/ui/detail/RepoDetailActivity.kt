@@ -91,7 +91,7 @@ class RepoDetailActivity : BaseActivity(){
     private fun setupBottomNavigationBar(
             repoDetailQuery: RepoDetailQuery,
             activityRepoDetailBinding: ActivityRepoDetailBinding){
-        val navGraphIds = listOf(R.navigation.pager, R.navigation.viewer)
+        val navGraphIds = listOf(R.navigation.repo_detail, R.navigation.viewer)
 
         val controller =
                 activityRepoDetailBinding.bottomNav.setupWithNavController(

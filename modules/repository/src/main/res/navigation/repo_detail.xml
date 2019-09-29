@@ -35,5 +35,24 @@
             app:nullable="true"
             app:argType="string[]"/>
 
+        <action
+            android:id="@+id/action_pager_to_refs"
+            app:destination="@id/refs" />
+
+    </fragment>
+
+    <fragment android:id="@+id/refs"
+        android:name="com.tangpj.repository.ui.detail.refs.RefsFragment"
+        tools:layout="@layout/fragment_base_recycler_view"
+        >
+
+        <argument android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument android:name="prefix"
+            app:argType="com.tangpj.repository.valueObject.query.Prefix"/>
+
     </fragment>
 </navigation>

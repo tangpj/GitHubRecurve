@@ -1,5 +1,6 @@
 package com.tangpj.repository.valueObject.query
 
+import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import com.tangpj.github.valueObject.Query
 import com.tangpj.repository.ApolloRefsQuery
@@ -12,6 +13,7 @@ data class RefsQuery(
     : Query<RefsQuery>{
     override fun <R> ifExists(f: (RefsQuery) -> LiveData<R>): LiveData<R> =
             repoDetailQuery.ifExists {
+                Prefix.HEAD
                 f(this)
             }
 }
@@ -27,7 +29,8 @@ fun RefsQuery.getApolloRefsQuery(
                 .refPrefix(prefix.refName)
                 .build()
 
-enum class Prefix(val refName: String) {
+@Parcelize
+enum class Prefix(val refName: String) : Parcelable{
     HEAD("refs/heads/"),
     TAGS("refs/tags/");
 }

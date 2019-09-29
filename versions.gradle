@@ -233,7 +233,7 @@ static def addRepos(RepositoryHandler handler) {
     handler.mavenCentral()
     handler.mavenLocal()
     handler.maven { url 'https://jitpack.io' }
-    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+//    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     handler.maven { url "https://kotlin.bintray.com/kotlinx" }
     handler.maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     handler.maven { url "https://plugins.gradle.org/m2/" }

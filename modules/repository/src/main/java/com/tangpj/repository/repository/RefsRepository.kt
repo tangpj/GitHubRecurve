@@ -81,7 +81,7 @@ class RefsRepository @Inject constructor(
                             after = query?.variables()?.after()?.value ?: ""
                     )
                     return Transformations.switchMap(refsResult){
-                        repoDb.refDao().loadRefsOrderById(it.refsIds)
+                        repoDb.refDao().loadRefsOrderById(it?.refsIds ?: emptyList())
                     }
                 }
 
@@ -100,7 +100,7 @@ class RefsRepository @Inject constructor(
         val result = RefsResult(
                 login = query.variables().login().value ?: "",
                 repoName = query.variables().name().value ?: "",
-                prefix = Prefix.valueOf(query.variables().refPrefix().value ?: Prefix.HEAD.refName),
+                prefix = Prefix.getPrefixRefName(query.variables().refPrefix().value ?: ""),
                 refsIds = refs.map { it.id },
                 startFirst = query.variables().startFirst().value ?: 10,
                 after =  query.variables().after().value ?: "",

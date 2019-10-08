@@ -41,18 +41,8 @@
 
     </fragment>
 
-    <fragment android:id="@+id/refs"
-        android:name="com.tangpj.repository.ui.detail.refs.RefsFragment"
-        tools:layout="@layout/fragment_base_recycler_view"
-        >
+    <include
+        app:graph="@navigation/refs"
+        />
 
-        <argument android:name="repoDetailQuery"
-            android:defaultValue="@null"
-            app:nullable="true"
-            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
-
-        <argument android:name="prefix"
-            app:argType="com.tangpj.repository.valueObject.query.Prefix"/>
-
-    </fragment>
 </navigation>

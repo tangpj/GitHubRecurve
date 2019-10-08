@@ -23,7 +23,7 @@ fun < R : BaseEntity> List<String>.loadDataOrderById(load: (List<String>) -> Liv
  * @author create by Tang
  * @date 2019-09-09 23:52
  */
-fun <R : BaseEntity> List<String>.loadDataCovertMapById(load: (List<String>) -> LiveData<List<R>>) =
+fun <R : BaseEntity> List<String>.loadDataCovertMapById(load: (List<String>) -> LiveData<List<R>>): LiveData<Map<String, R?>> =
         Transformations.map(load(this)){ list ->
             list.groupingBy{ it.id }
                     .aggregate { _, accumulator: R?, element, isFirst ->

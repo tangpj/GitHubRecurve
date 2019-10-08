@@ -6,6 +6,10 @@
     app:startDestination="@id/viewer"
     tools:ignore="UnusedNavigation">
 
+    <include
+        app:graph="@navigation/refs"
+        />
+
     <fragment android:id="@+id/viewer"
         android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
         android:label="viewer"
@@ -36,6 +40,5 @@
             app:destination="@+id/viewer"/>
 
     </fragment>
-
 
 </navigation>

@@ -33,4 +33,14 @@ fun RefsQuery.getApolloRefsQuery(
 enum class Prefix(val refName: String) : Parcelable{
     HEAD("refs/heads/"),
     TAGS("refs/tags/");
+
+    companion object{
+        fun getPrefixRefName(refName: String) =
+                when(refName){
+                    "refs/heads/" -> HEAD
+                    "refs/tags/" -> TAGS
+                    else -> HEAD
+                }
+    }
 }
+

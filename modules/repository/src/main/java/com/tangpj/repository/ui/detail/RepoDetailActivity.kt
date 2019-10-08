@@ -5,13 +5,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.*
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tangpj.github.ui.BaseActivity
 import com.tangpj.navigation.setupWithNavController
-import com.tangpj.pager.ClickAction
-import com.tangpj.pager.PagerFragmentArgs
-import com.tangpj.pager.PagerPathConfig
-import com.tangpj.pager.PathItem
+import com.tangpj.pager.*
 import com.tangpj.recurve.util.getColorByAttr
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
@@ -20,6 +18,7 @@ import com.tangpj.repository.databinding.CollasingRepoDetailBinding
 import com.tangpj.repository.ui.detail.files.FilesFragmentDirections
 import com.tangpj.repository.ui.detail.viewer.ViewerFragmentArgs
 import com.tangpj.repository.valueObject.query.GitObjectQuery
+import com.tangpj.repository.valueObject.query.Prefix
 import com.tangpj.repository.valueObject.query.RepoDetailQuery
 import javax.inject.Inject
 
@@ -127,6 +126,13 @@ class RepoDetailActivity : BaseActivity(){
             android.R.id.home -> {
                 finish()
                 true
+            }
+            R.id.menu_branch -> {
+                val args = Bundle()
+                args.putParcelable("repoDetailQuery", currentRepoDetailQuery)
+                args.putParcelable("prefix", Prefix.HEAD)
+                currentNavController.value?.navigate(R.id.nav_refs, args)
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }

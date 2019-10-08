@@ -6,6 +6,7 @@ import com.tangpj.repository.ui.detail.RepoDetailViewModel
 import com.tangpj.repository.ui.detail.commit.CommitsViewModel
 import com.tangpj.repository.ui.detail.viewer.ViewerViewModel
 import com.tangpj.repository.ui.detail.files.FilesViewModel
+import com.tangpj.repository.ui.detail.refs.RefsViewModel
 import com.tangpj.repository.ui.repositories.ReposViewModel
 import dagger.Binds
 import dagger.Module
@@ -37,4 +38,9 @@ abstract class ViewModelModule{
     @IntoMap
     @ViewModelKey(CommitsViewModel::class)
     abstract fun bindCommitViewModel(commitsViewModel: CommitsViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RefsViewModel::class)
+    abstract fun bindRefsViewModel(refsViewModel: RefsViewModel) : ViewModel
 }

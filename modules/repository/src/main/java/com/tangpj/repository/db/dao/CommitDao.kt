@@ -74,6 +74,7 @@ abstract class CommitDao{
             login: String?, repoName: String?, authorId: String?,
             startFirst: Int, after: String?) : LiveData<CommitsResult>
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun loadCommitsOrderById(commitIds: List<String>): LiveData<List<Commit>>{
         return commitIds.loadDataOrderById{
             loadCommitsByIds(it)
@@ -88,7 +89,8 @@ abstract class CommitDao{
      * @author: create by Tang
      * @createTime: 2019-09-10 19:03
      */
-    fun loadCommitteesGroupById(committerIds: List<String>) =
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun loadCommitteesGroupById(committerIds: List<String>): LiveData<Map<String, Committer?>> =
         committerIds.loadDataCovertMapById {
             loadCommitteesByIds(ids = it)
         }

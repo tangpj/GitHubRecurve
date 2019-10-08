@@ -6,6 +6,10 @@
     app:startDestination="@id/commit"
     tools:ignore="UnusedNavigation">
 
+    <include
+        app:graph="@navigation/refs"
+        />
+
     <fragment android:id="@+id/commit"
         android:name="com.tangpj.repository.ui.detail.commit.CommitFragment"
         android:label="commit"

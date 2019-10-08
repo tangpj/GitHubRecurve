@@ -6,6 +6,11 @@
     app:startDestination="@id/files"
     tools:ignore="InvalidNavigation">
 
+
+    <include
+        app:graph="@navigation/refs"
+        />
+
     <fragment android:id="@+id/files"
         android:name="com.tangpj.repository.ui.detail.files.FilesFragment"
         android:label="@string/files"
@@ -38,6 +43,10 @@
             app:destination="@id/fl_content" />
 
     </fragment>
+
+    <include
+        app:graph="@navigation/refs"
+        />
 
     <fragment android:id="@+id/fl_content"
         android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"

@@ -10,7 +10,7 @@ import com.tangpj.oauth2.domain.GithubToken
 import com.tangpj.oauth2.repository.Oauth2Repository
 import com.tangpj.oauth2.GithubOauth2
 import com.tangpj.oauth2.request.RequestToken
-import com.tangpj.recurve.resource.Resource
+import com.recurve.core.resource.Resource
 import javax.inject.Inject
 
 

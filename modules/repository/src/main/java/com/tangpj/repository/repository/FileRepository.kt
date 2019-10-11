@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.recurve.apollo.LiveDataApollo
+import com.recurve.core.resource.ApiResponse
+import com.recurve.core.resource.NetworkBoundResource
+import com.recurve.core.util.RateLimiter
 import com.tangpj.github.utils.AbsentLiveData
-import com.tangpj.recurve.apollo.LiveDataApollo
-import com.tangpj.recurve.resource.ApiResponse
-import com.tangpj.recurve.resource.NetworkBoundResource
-import com.tangpj.recurve.util.RateLimiter
 import com.tangpj.repository.ApolloBlobDetailQuery
 import com.tangpj.repository.ApolloFileTreeQuery
 import com.tangpj.repository.db.RepositoryDb
@@ -69,7 +69,7 @@ class FileRepository @Inject constructor(
 
                 }
 
-            }.asLiveData()
+            }.run { asLiveData() }
 
     fun loadFileContent(gitObjectQuery: GitObjectQuery) =
             object : NetworkBoundResource<FileContent, ApolloBlobDetailQuery.Data>(){

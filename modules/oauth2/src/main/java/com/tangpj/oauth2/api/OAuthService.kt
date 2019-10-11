@@ -6,7 +6,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import com.tangpj.oauth2.domain.GithubToken
 import com.tangpj.oauth2.request.RequestToken
-import com.tangpj.recurve.resource.ApiResponse
+import com.recurve.core.resource.ApiResponse
 
 interface OAuthService {
 

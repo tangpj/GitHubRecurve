@@ -19,8 +19,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.tangpj.recurve.resource.Resource"/>
-        <import type="com.tangpj.recurve.resource.Status"/>
+        <import type="com.recurve.core.resource.Resource"/>
+        <import type="com.recurve.core.resource.Status"/>
         <import type="kotlin.Unit"/>
         <import type="kotlin.jvm.functions.Function0"/>
         <import type="android.text.TextUtils"/>

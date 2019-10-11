@@ -13,12 +13,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tangpj.navPager.setupWithNavController
+import com.recurve.dagger2.RecurveDaggerFragment
+import com.recurve.navPager.setupWithNavController
+import com.recurve.tabPager.TabLayoutMediator
 import com.tangpj.pager.databinding.FragmentPagerBinding
 import com.tangpj.pager.databinding.FragmentPagerPathBinding
-import com.tangpj.recurve.dagger2.RecurveDaggerFragment
 
-import com.tangpj.tabPager.TabLayoutMediator
 import kotlinx.android.parcel.Parcelize
 import javax.inject.Inject
 

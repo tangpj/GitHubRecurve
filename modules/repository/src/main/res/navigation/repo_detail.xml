@@ -42,7 +42,8 @@
     </fragment>
 
     <include
-        app:graph="@navigation/refs"
+        app:graph="@navigation/dialog_container"
         />
+
 
 </navigation>

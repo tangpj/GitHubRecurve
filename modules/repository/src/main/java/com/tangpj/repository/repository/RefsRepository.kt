@@ -6,10 +6,10 @@ import androidx.paging.ItemKeyedDataSource
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.tangpj.github.di.PagingConfig
-import com.tangpj.paging.ItemKeyedBoundResource
-import com.tangpj.recurve.apollo.LiveDataApollo
-import com.tangpj.recurve.resource.ApiResponse
-import com.tangpj.recurve.util.RateLimiter
+import com.recurve.paging.ItemKeyedBoundResource
+import com.recurve.apollo.LiveDataApollo
+import com.recurve.core.resource.ApiResponse
+import com.recurve.core.util.RateLimiter
 import com.tangpj.repository.ApolloRefsQuery
 import com.tangpj.repository.db.RepositoryDb
 import com.tangpj.repository.entity.domain.Ref

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.tangpj.paging.Listing
+import com.recurve.paging.Listing
 import com.tangpj.repository.repository.CommitRepository
 import com.tangpj.repository.valueObject.query.CommitsQuery
 import com.tangpj.repository.vo.CommitVo

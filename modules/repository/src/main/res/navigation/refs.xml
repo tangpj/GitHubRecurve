@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/dialog_refs"
+    app:startDestination="@+id/refs"
     android:id="@+id/nav_refs">
 
     <fragment android:id="@+id/refs"
@@ -19,19 +19,5 @@
             app:argType="com.tangpj.repository.valueObject.query.Prefix"/>
 
     </fragment>
-
-    <dialog android:id="@+id/dialog_refs"
-        android:name="com.tangpj.repository.ui.detail.refs.RefsFragment"
-        tools:layout="@layout/fragment_base_recycler_view"
-        >
-        <argument android:name="repoDetailQuery"
-            android:defaultValue="@null"
-            app:nullable="true"
-            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
-
-        <argument android:name="prefix"
-            app:argType="com.tangpj.repository.valueObject.query.Prefix"/>
-
-    </dialog>
 
 </navigation>

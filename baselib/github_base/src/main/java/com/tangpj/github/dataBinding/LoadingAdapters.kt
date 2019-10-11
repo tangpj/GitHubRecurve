@@ -2,8 +2,7 @@ package com.tangpj.github.dataBinding
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.tangpj.recurve.resource.NetworkState
-import com.tangpj.recurve.resource.Status
+import com.recurve.core.resource.Status
 
 @BindingAdapter(value = [
     "state",

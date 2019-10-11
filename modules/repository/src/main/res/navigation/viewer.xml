@@ -7,7 +7,7 @@
     tools:ignore="UnusedNavigation">
 
     <include
-        app:graph="@navigation/refs"
+        app:graph="@navigation/dialog_container"
         />
 
     <fragment android:id="@+id/viewer"
@@ -38,6 +38,10 @@
             app:popUpTo="@+id/viewer"
             app:popUpToInclusive="true"
             app:destination="@+id/viewer"/>
+
+        <action
+            android:id="@+id/action_viewer_to_nav_refs"
+            app:destination="@id/nav_refs" />
 
     </fragment>
 

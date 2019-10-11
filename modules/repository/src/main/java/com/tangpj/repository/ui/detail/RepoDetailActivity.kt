@@ -7,10 +7,12 @@ import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.recurve.core.util.getColorByAttr
+import com.recurve.dagger2.appbar
+import com.recurve.navigation.setupWithNavController
 import com.tangpj.github.ui.BaseActivity
-import com.tangpj.navigation.setupWithNavController
+import com.tangpj.github.ui.WrapperDialogFragmentArgs
 import com.tangpj.pager.*
-import com.tangpj.recurve.util.getColorByAttr
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ActivityRepoDetailBinding
@@ -128,10 +130,13 @@ class RepoDetailActivity : BaseActivity(){
                 true
             }
             R.id.menu_branch -> {
-                val args = Bundle()
-                args.putParcelable("repoDetailQuery", currentRepoDetailQuery)
-                args.putParcelable("prefix", Prefix.HEAD)
-                currentNavController.value?.navigate(R.id.nav_refs, args)
+                val dialogArg = WrapperDialogFragmentArgs.Builder(R.navigation.refs).apply {
+                    val args = Bundle()
+                    args.putParcelable("repoDetailQuery", currentRepoDetailQuery)
+                    args.putParcelable("prefix", Prefix.HEAD)
+                    setArgs(args)
+                }.build()
+                currentNavController.value?.navigate(R.id.nav_dialog, dialogArg.toBundle())
                 return true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,7 +1,7 @@
 package com.tangpj.repository.di
 
 import androidx.lifecycle.ViewModel
-import com.tangpj.recurve.dagger2.ViewModelKey
+import com.recurve.dagger2.ViewModelKey
 import com.tangpj.repository.ui.detail.RepoDetailViewModel
 import com.tangpj.repository.ui.detail.commit.CommitsViewModel
 import com.tangpj.repository.ui.detail.viewer.ViewerViewModel

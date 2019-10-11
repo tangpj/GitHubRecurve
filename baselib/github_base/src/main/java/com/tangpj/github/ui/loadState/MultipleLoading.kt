@@ -2,7 +2,7 @@ package com.tangpj.github.ui.loadState
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.tangpj.recurve.resource.Resource
+import com.recurve.core.resource.Resource
 
 
 /**

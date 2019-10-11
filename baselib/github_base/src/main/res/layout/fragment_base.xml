@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
 
-        <import type="com.tangpj.recurve.resource.Resource"/>
+        <import type="com.recurve.core.resource.Resource"/>
         <import type="kotlin.jvm.functions.Function0"/>
         <import type="kotlin.Unit"/>
 

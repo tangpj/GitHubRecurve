@@ -3,8 +3,8 @@ package com.tangpj.pager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.recurve.core.binding.adapter.DataBindingAdapter
 import com.tangpj.pager.databinding.ItemPathBinding
-import com.tangpj.recurve.binding.adapter.DataBindingAdapter
 import javax.inject.Inject
 
 

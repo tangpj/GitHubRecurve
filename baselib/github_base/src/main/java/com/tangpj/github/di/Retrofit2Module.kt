@@ -1,6 +1,6 @@
 package com.tangpj.github.di
 
-import com.tangpj.recurve.retrofit2.LiveDataCallAdapterFactory
+import com.recurve.retrofit2.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

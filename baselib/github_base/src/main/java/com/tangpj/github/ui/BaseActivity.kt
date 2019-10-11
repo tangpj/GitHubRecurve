@@ -5,6 +5,8 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.recurve.core.resource.Status
+import com.recurve.dagger2.RecurveDaggerActivity
 import com.tangpj.github.GithubApp
 import com.tangpj.github.R
 import com.tangpj.github.databinding.ActivityBaseBinding
@@ -12,8 +14,6 @@ import com.tangpj.github.ui.loadState.Loading
 import com.tangpj.github.ui.loadState.MultipleLoading
 import com.tangpj.github.utils.THEME_ID
 import com.tangpj.github.utils.installAppThemeSp
-import com.tangpj.recurve.dagger2.RecurveDaggerActivity
-import com.tangpj.recurve.resource.Status
 
 abstract class BaseActivity : RecurveDaggerActivity(){
 

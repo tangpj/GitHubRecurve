@@ -21,8 +21,8 @@
 
         <import type="kotlin.jvm.functions.Function0"/>
         <import type="kotlin.Unit"/>
-        <import type="com.tangpj.recurve.resource.NetworkState"/>
-        <import type="com.tangpj.recurve.resource.Status"/>
+        <import type="com.recurve.core.resource.NetworkState"/>
+        <import type="com.recurve.core.resource.Status"/>
 
         <variable
             name="networkState"

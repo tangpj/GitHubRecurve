@@ -1,11 +1,11 @@
 package com.tangpj.github.utils
 
-import com.tangpj.recurve.resource.NextPageStrategy
+import com.recurve.core.resource.NextPageStrategy
 import retrofit2.Response
 import timber.log.Timber
 import java.util.regex.Pattern
 
-class RetrofitNextPageStrategy : NextPageStrategy<Response<*>>{
+class RetrofitNextPageStrategy : NextPageStrategy<Response<*>> {
 
     companion object {
         private val LINK_PATTERN = Pattern.compile("<([^>]*)>[\\s]*;[\\s]*rel=\"([a-zA-Z0-9]+)\"")

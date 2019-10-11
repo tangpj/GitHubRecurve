@@ -3,8 +3,8 @@ package com.tangpj.repository.ui.creator
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.recurve.paging.PagedItemCreator
 import com.tangpj.github.ui.creator.BaseDiffUtil
-import com.tangpj.paging.PagedItemCreator
 import com.tangpj.repository.R
 import com.tangpj.repository.databinding.ItemRefBinding
 import com.tangpj.repository.entity.domain.Ref

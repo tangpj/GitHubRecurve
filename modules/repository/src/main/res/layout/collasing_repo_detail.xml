@@ -5,7 +5,7 @@
 
     <data>
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.recurve.resource.Resource"/>
+        <import type="com.recurve.core.resource.Resource"/>
         <import type="com.tangpj.repository.entity.domain.repo.RepoDetail"/>
         <variable
             name="repoDetail"

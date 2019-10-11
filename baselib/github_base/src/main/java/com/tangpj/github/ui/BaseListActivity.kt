@@ -1,11 +1,11 @@
 package com.tangpj.github.ui
 
 import android.os.Bundle
+import com.recurve.dagger2.RecurveDaggerListActivity
 import com.tangpj.github.GithubApp
 import com.tangpj.github.R
 import com.tangpj.github.utils.THEME_ID
 import com.tangpj.github.utils.installAppThemeSp
-import com.tangpj.recurve.dagger2.RecurveDaggerListActivity
 
 open class BaseListActivity : RecurveDaggerListActivity(){
 

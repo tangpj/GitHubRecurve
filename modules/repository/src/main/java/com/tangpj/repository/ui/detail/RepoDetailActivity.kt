@@ -3,6 +3,7 @@ package com.tangpj.repository.ui.detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -135,6 +136,8 @@ class RepoDetailActivity : BaseActivity(){
                     args.putParcelable("repoDetailQuery", currentRepoDetailQuery)
                     args.putParcelable("prefix", Prefix.HEAD)
                     setArgs(args)
+                    height = ViewGroup.LayoutParams.MATCH_PARENT
+                    width = ViewGroup.LayoutParams.MATCH_PARENT
                 }.build()
                 currentNavController.value?.navigate(R.id.nav_dialog, dialogArg.toBundle())
                 return true

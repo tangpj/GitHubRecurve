@@ -14,10 +14,11 @@ import com.tangpj.github.R
 class WrapperDialogFragment : DialogFragment(){
 
     var navHostFragment = MutableLiveData<NavHostFragment>()
+    lateinit var arg : WrapperDialogFragmentArgs
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         arguments?.let {
-            val arg = WrapperDialogFragmentArgs.fromBundle(it)
+            arg = WrapperDialogFragmentArgs.fromBundle(it)
             val layoutId =  R.layout.fragment_nav_container
             val binding =
                     DataBindingUtil.inflate<ViewDataBinding>(inflater, layoutId, container, false)
@@ -28,5 +29,22 @@ class WrapperDialogFragment : DialogFragment(){
             return binding.root
         }
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val mWindow = dialog?.window
+        mWindow ?: return
+        mWindow.attributes?.apply {
+            mWindow.setLayout(if (arg.width == 0){
+                width
+            }else{
+                arg.width
+            }, if (arg.height == 0){
+                height
+            }else{
+                arg.height
+            })
+        }
     }
 }

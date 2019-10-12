@@ -14,6 +14,16 @@
         <argument android:name="graphId"
             app:argType="integer"/>
 
+        <argument android:name="width"
+            android:defaultValue="0"
+            app:argType="integer"
+            />
+
+        <argument android:name="height"
+            android:defaultValue="0"
+            app:argType="integer"
+            />
+
         <argument android:name="args"
             app:argType="android.os.Bundle"
             app:nullable="true"

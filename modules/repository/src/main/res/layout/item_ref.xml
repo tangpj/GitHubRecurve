@@ -21,8 +21,10 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/text_view_min_height_material"
+            android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_branch"
+            android:layout_marginTop="@dimen/margin_vertical_material"
+            android:layout_marginBottom="@dimen/margin_vertical_material"
             android:paddingStart="@dimen/padding_horizontal_material"
             android:paddingEnd="@dimen/padding_horizontal_material"
             android:drawablePadding="@dimen/padding_horizontal_material"

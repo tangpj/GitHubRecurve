@@ -13,7 +13,7 @@ import com.tangpj.github.R
 
 class WrapperDialogFragment : DialogFragment(){
 
-    var navHostFragment = MutableLiveData<NavHostFragment>()
+    private var navHostFragment = MutableLiveData<NavHostFragment>()
     lateinit var arg : WrapperDialogFragmentArgs
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

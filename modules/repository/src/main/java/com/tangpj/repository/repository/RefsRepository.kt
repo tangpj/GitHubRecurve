@@ -51,7 +51,7 @@ class RefsRepository @Inject constructor(
                 override fun createAfterCall(params: ItemKeyedDataSource.LoadParams<String>): LiveData<ApiResponse<ApolloRefsQuery.Data>>? {
                     val afterQuery = refsQuery.getApolloRefsQuery(
                             startFirst = params.requestedLoadSize,
-                            after = refsResult?.after
+                            after = refsResult?.pageInfo?.endCursor
                     )
                     query = afterQuery
                     val refsCall = apolloClient
@@ -73,14 +73,14 @@ class RefsRepository @Inject constructor(
 
 
                 override fun loadFromDb(): LiveData<List<Ref>> {
-                    val refsResult = repoDb.refDao().loadRefsResult(
+                    val refsResultLive = repoDb.refDao().loadRefsResult(
                             login = refsQuery.repoDetailQuery.login,
                             repoName = refsQuery.repoDetailQuery.name,
                             prefix = refsQuery.prefix.refName,
                             startFirst = query?.variables()?.startFirst()?.value ?: pagingConfig.initialLoadSizeHint,
                             after = query?.variables()?.after()?.value ?: ""
                     )
-                    return Transformations.switchMap(refsResult){
+                    return Transformations.switchMap(refsResultLive){
                         repoDb.refDao().loadRefsOrderById(it?.refsIds ?: emptyList())
                     }
                 }

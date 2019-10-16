@@ -2,8 +2,8 @@ package com.tangpj.repository.ui.repositories
 
 import androidx.lifecycle.*
 import androidx.paging.PagedList
-import com.tangpj.paging.Listing
-import com.tangpj.paging.PageLoadState
+import com.recurve.paging.Listing
+import com.recurve.paging.PageLoadState
 import com.tangpj.repository.repository.RepoRepository
 import com.tangpj.repository.entity.domain.repo.Repo
 import javax.inject.Inject

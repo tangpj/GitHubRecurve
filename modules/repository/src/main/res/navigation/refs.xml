@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/refs"
+    android:id="@+id/nav_refs">
+
+    <fragment android:id="@+id/refs"
+        android:name="com.tangpj.repository.ui.detail.refs.RefsFragment"
+        tools:layout="@layout/fragment_base_recycler_view"
+        >
+
+        <argument android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+
+        <argument android:name="prefix"
+            app:argType="com.tangpj.repository.valueObject.query.Prefix"/>
+
+    </fragment>
+
+</navigation>

@@ -1,7 +1,7 @@
 package com.tangpj.github.ui.loadState
 
 import androidx.lifecycle.LiveData
-import com.tangpj.recurve.resource.Resource
+import com.recurve.core.resource.Resource
 
 class Loading<T>{
 

@@ -8,12 +8,12 @@ import com.tangpj.github.db.StringListTypeConverters
 import com.tangpj.github.entity.domain.PageInfo
 
 @TypeConverters(StringListTypeConverters::class)
-@Entity(primaryKeys = ["login","repoName","startFirst","after"],
+@Entity(primaryKeys = ["login","repoName","authorId","startFirst","after"],
         indices = [Index("login")])
 data class CommitsResult(
         val login: String,
         val repoName: String,
-        val authorId: String?,
+        val authorId: String,
         val commitIds: List<String>,
         val startFirst: Int,
         val after: String,

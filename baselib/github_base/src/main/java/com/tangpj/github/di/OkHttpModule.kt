@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import timber.log.Timber
+import java.net.Proxy
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 

@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.recurve.core.resource.NetworkState
+import com.recurve.core.resource.Status
+import com.recurve.dagger2.RecurveDaggerListFragment
+import com.recurve.paging.Listing
+import com.recurve.paging.PageLoadStatus
 import com.tangpj.github.R
 import com.tangpj.github.databinding.FragmentBaseRecyclerViewBinding
 import com.tangpj.github.databinding.LoadingStateBinding
@@ -16,11 +21,6 @@ import com.tangpj.github.ui.creator.ItemLoadingCreator
 import com.tangpj.github.ui.loadState.Loading
 import com.tangpj.github.ui.loadState.PageLoading
 import com.tangpj.github.ui.loadState.RealLoadState
-import com.tangpj.paging.Listing
-import com.tangpj.paging.PageLoadStatus
-import com.tangpj.recurve.dagger2.RecurveDaggerListFragment
-import com.tangpj.recurve.resource.NetworkState
-import com.tangpj.recurve.resource.Status
 import timber.log.Timber
 
 /**

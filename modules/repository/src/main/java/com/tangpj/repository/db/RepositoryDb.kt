@@ -4,8 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.tangpj.github.BuildConfig
 import com.tangpj.repository.db.dao.CommitDao
+import com.tangpj.repository.db.dao.RefDao
 import com.tangpj.repository.db.dao.RepoDao
 import com.tangpj.repository.db.dao.RepoDetailDao
+import com.tangpj.repository.entity.domain.Ref
 import com.tangpj.repository.entity.domain.actor.Owner
 import com.tangpj.repository.entity.domain.actor.git.Committer
 import com.tangpj.repository.entity.domain.file.FileContent
@@ -29,7 +31,9 @@ import com.tangpj.repository.valueObject.result.*
             FileContentResult::class,
             Commit::class,
             CommitsResult::class,
-            Committer::class
+            Committer::class,
+            Ref::class,
+            RefsResult::class
         ],
         version = BuildConfig.DB_VERSION_GITHUB)
 abstract class RepositoryDb: RoomDatabase(){
@@ -39,4 +43,6 @@ abstract class RepositoryDb: RoomDatabase(){
     abstract fun repoDetailDao() : RepoDetailDao
 
     abstract fun commitDao() : CommitDao
+
+    abstract fun refDao() : RefDao
 }

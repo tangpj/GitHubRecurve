@@ -43,7 +43,7 @@ class RepositoryModule{
     @Provides
     fun providerRepoPagingConfig() = PagingConfig(
             pageSize = 10,
-            initialLoadSizeHint = 10,
+            initialLoadSizeHint = 20,
             enablePlaceholders = false)
 
 }

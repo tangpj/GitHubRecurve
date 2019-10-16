@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.tangpj.recurve.resource.Resource"/>
+        <import type="com.recurve.core.resource.Resource"/>
         <import type="com.tangpj.repository.entity.domain.repo.RepoDetail"/>
         <variable
             name="repoDetail"
@@ -43,11 +43,12 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="4"
+            android:layout_marginTop="@dimen/margin_vertical_material"
             android:text="@{repoDetail.data.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tool:text="Android构建工具集：包含快速实现组件化构建脚本，快速实现屏幕最小宽度适配脚本" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_branch"
+            tools:text="Android构建工具集：包含快速实现组件化构建脚本，快速实现屏幕最小宽度适配脚本" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_repo_tag"
@@ -57,6 +58,17 @@
             android:orientation="horizontal"
             app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/tv_repository_desc" />
+
+
+        <TextView
+            android:id="@+id/tv_branch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/rv_repo_tag"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="branch: master"
+            style="@style/TextAppearance.Adaptive.Body1"
+            />
 
 
         <TextView
@@ -73,7 +85,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_star_num"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            tool:text="10000000000000" />
+            tools:text="10000000000000" />
 
         <TextView
             android:id="@+id/tv_star_num"
@@ -88,7 +100,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_watch_num"
             app:layout_constraintTop_toTopOf="@+id/tv_watch_num"
-            tool:text="20000000000000" />
+            tools:text="20000000000000" />
 
         <TextView
             android:id="@+id/tv_forks_num"
@@ -103,7 +115,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_star_num"
             app:layout_constraintTop_toTopOf="@+id/tv_watch_num"
-            tool:text="30000000000000" />
+            tools:text="30000000000000" />
 
         <TextView
             android:id="@+id/tv_watch"

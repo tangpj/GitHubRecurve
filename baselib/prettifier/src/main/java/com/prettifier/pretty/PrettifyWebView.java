@@ -23,11 +23,10 @@ import com.prettifier.pretty.helper.GithubHelper;
 import com.prettifier.pretty.helper.PrettifyHelper;
 
 import java.util.Objects;
-import java.util.logging.Logger;
 
+import static com.recurve.core.util.UiUtilsKt.getColorByAttr;
 import static com.tangpj.github.utils.AppHelperKt.copyToClipboard;
 import static com.tangpj.github.utils.AppThemeHelperKt.isNightTheme;
-import static com.tangpj.recurve.util.UiUtilsKt.getColorByAttr;
 
 
 public class PrettifyWebView extends NestedWebView {

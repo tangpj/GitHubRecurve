@@ -6,6 +6,10 @@
     app:startDestination="@id/viewer"
     tools:ignore="UnusedNavigation">
 
+    <include
+        app:graph="@navigation/dialog_container"
+        />
+
     <fragment android:id="@+id/viewer"
         android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
         android:label="viewer"
@@ -16,12 +20,6 @@
             android:defaultValue="@null"
             app:nullable="true"
             app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
-
-        <argument
-            android:name="branch"
-            android:defaultValue="master"
-            app:argType="string"
-            />
 
         <argument
             android:name="path"
@@ -35,7 +33,10 @@
             app:popUpToInclusive="true"
             app:destination="@+id/viewer"/>
 
-    </fragment>
+        <action
+            android:id="@+id/action_viewer_to_nav_refs"
+            app:destination="@id/nav_refs" />
 
+    </fragment>
 
 </navigation>

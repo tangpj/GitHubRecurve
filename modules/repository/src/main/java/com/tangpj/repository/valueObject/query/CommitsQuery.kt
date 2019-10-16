@@ -1,7 +1,6 @@
 package com.tangpj.repository.valueObject.query
 
-import androidx.lifecycle.LiveData
-import com.tangpj.github.valueObject.Query
+import android.os.Parcelable
 import com.tangpj.repository.ApolloCommitsQuery
 import com.tangpj.repository.entity.domain.author.CommitAuthor
 import com.tangpj.repository.mapper.getApolloAuthor
@@ -10,13 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CommitsQuery(
         val gitObjectQuery: GitObjectQuery,
-        val author: CommitAuthor? = null) : Query<CommitsQuery>{
-
-    override fun <T> ifExists(f: (CommitsQuery) -> LiveData<T>): LiveData<T> {
-        return  gitObjectQuery.ifExists{
-            f(this)
-        }
-    }
+        val author: CommitAuthor? = null) : Parcelable{
 }
 
 fun CommitsQuery.getApolloCommitsQuery(
@@ -31,3 +24,9 @@ fun CommitsQuery.getApolloCommitsQuery(
         .expression(gitObjectQuery.getExpression())
         .author(author?.getApolloAuthor())
         .build()
+
+fun ApolloCommitsQuery.startFirst() =
+        variables().startFirst().value
+
+fun ApolloCommitsQuery.after() =
+        variables().after().value

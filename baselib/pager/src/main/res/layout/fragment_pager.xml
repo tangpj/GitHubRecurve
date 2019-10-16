@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_repo"
+            android:id="@+id/tab_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimaryLight"
@@ -16,11 +16,11 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager_repo"
+            android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:filterTouchesWhenObscured="true"
-            app:layout_constraintTop_toBottomOf="@+id/tab_repo"
+            app:layout_constraintTop_toBottomOf="@+id/tab_pager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

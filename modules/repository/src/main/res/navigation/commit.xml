@@ -6,6 +6,10 @@
     app:startDestination="@id/commit"
     tools:ignore="UnusedNavigation">
 
+    <include
+        app:graph="@navigation/refs"
+        />
+
     <fragment android:id="@+id/commit"
         android:name="com.tangpj.repository.ui.detail.commit.CommitFragment"
         android:label="commit"
@@ -17,13 +21,6 @@
             android:defaultValue="@null"
             app:nullable="true"
             app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
-
-        <argument
-            android:name="branch"
-            android:defaultValue="master"
-            app:argType="string"
-            />
-
 
         <argument
             android:name="author"

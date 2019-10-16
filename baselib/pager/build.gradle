@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app_versions.code
+        versionName app_versions.name
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    dataBinding{
+        enabled true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    kapt {
+        generateStubs = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.material
+    implementation deps.kotlin.stdlib_jdk8
+    implementation deps.constraint_layout
+    implementation deps.constraint_layout
+    implementation deps.androidx.viewpager2
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    implementation project(':viewpager2-navigation-ktx')
+    implementation project(':viewpager2-tablayout-ktx')
+    implementation project(':baselib:res')
+    implementation project(':recurve')
+    implementation project(':recurve-dagger2-support')
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

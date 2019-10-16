@@ -6,6 +6,11 @@
     app:startDestination="@id/files"
     tools:ignore="InvalidNavigation">
 
+
+    <include
+        app:graph="@navigation/refs"
+        />
+
     <fragment android:id="@+id/files"
         android:name="com.tangpj.repository.ui.detail.files.FilesFragment"
         android:label="@string/files"
@@ -14,15 +19,7 @@
 
         <argument
             android:name="repoDetailQuery"
-            android:defaultValue="@null"
-            app:nullable="true"
             app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
-
-        <argument
-            android:name="branch"
-            android:defaultValue="master"
-            app:argType="string"
-            />
 
         <argument
             android:name="path"
@@ -39,6 +36,10 @@
 
     </fragment>
 
+    <include
+        app:graph="@navigation/refs"
+        />
+
     <fragment android:id="@+id/fl_content"
         android:name="com.tangpj.repository.ui.detail.viewer.ViewerFragment"
         android:label="@string/file_content"
@@ -51,12 +52,6 @@
             android:defaultValue="@null"
             app:nullable="true"
             app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
-
-        <argument
-            android:name="branch"
-            android:defaultValue="master"
-            app:argType="string"
-            />
 
         <argument
             android:name="path"

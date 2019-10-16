@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.tangpj.recurve.resource.Resource
+import com.recurve.core.resource.Resource
 import com.tangpj.repository.repository.FileRepository
 import com.tangpj.repository.valueObject.query.GitObjectQuery
 import com.tangpj.repository.entity.domain.file.FileItem

@@ -5,9 +5,9 @@ import com.tangpj.oauth2.db.GithubTokenDao
 import com.tangpj.oauth2.domain.GithubToken
 import com.tangpj.oauth2.api.OAuthService
 import com.tangpj.oauth2.request.RequestToken
-import com.tangpj.recurve.resource.ApiResponse
-import com.tangpj.recurve.resource.NetworkBoundResource
-import com.tangpj.recurve.util.RateLimiter
+import com.recurve.core.resource.ApiResponse
+import com.recurve.core.resource.NetworkBoundResource
+import com.recurve.core.util.RateLimiter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

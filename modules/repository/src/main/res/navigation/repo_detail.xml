@@ -2,25 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/code"
-    app:startDestination="@+id/repo_detail">
+    android:id="@+id/repo_detail"
+    app:startDestination="@id/pager">
 
-    <fragment android:id="@+id/repo_detail"
-        android:name="com.tangpj.repository.ui.detail.RepoDetailFragment"
+    <fragment android:id="@+id/pager"
+        android:name="com.tangpj.pager.PagerFragment"
         app:defaultNavHost="true"
-        tools:layout="@layout/fragment_repo_detail">
+        tools:layout="@layout/fragment_pager">
 
         <argument
-            android:name="repoDetailQuery"
+            android:name="params"
             android:defaultValue="@null"
             app:nullable="true"
-            app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
+            app:argType="android.os.Bundle"/>
 
         <argument
-            android:name="branch"
-            android:defaultValue="master"
-            app:argType="string"
-            />
+            android:name="pathConfig"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.pager.PagerPathConfig"/>
 
         <argument
             android:name="graphIds"
@@ -35,6 +35,15 @@
             app:nullable="true"
             app:argType="string[]"/>
 
+        <action
+            android:id="@+id/action_pager_to_refs"
+            app:destination="@id/refs" />
+
     </fragment>
+
+    <include
+        app:graph="@navigation/dialog_container"
+        />
+
 
 </navigation>

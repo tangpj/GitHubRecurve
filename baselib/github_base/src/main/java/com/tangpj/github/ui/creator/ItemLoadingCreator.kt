@@ -2,12 +2,10 @@ package com.tangpj.github.ui.creator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.tangpj.adapter.ModulesAdapter
-import com.tangpj.adapter.creator.ItemCreator
-import com.tangpj.adapter.creator.RecurveViewHolder
+import com.recurve.adapter.ModulesAdapter
+import com.recurve.adapter.creator.ItemCreator
+import com.recurve.core.resource.NetworkState
 import com.tangpj.github.databinding.ItemLoadStateBinding
-import com.tangpj.github.databinding.LoadingStateBinding
-import com.tangpj.recurve.resource.NetworkState
 
 /**
  *

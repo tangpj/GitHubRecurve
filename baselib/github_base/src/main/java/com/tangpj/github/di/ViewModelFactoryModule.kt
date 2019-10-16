@@ -2,7 +2,7 @@ package com.tangpj.github.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.tangpj.recurve.viewmodel.RecurevViewModelFactory
+import com.recurve.core.viewmodel.RecurevViewModelFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

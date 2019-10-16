@@ -3,6 +3,9 @@
 buildscript {
     apply from: './github.gradle'
     apply from: './versions.gradle'
+    ext {
+        kotlin_version = '1.3.50'
+    }
     addRepos(repositories)
     dependencies {
         classpath deps.kotlin.plugin

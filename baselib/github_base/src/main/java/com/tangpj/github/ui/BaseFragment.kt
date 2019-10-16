@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.recurve.dagger2.RecurveDaggerFragment
 import com.tangpj.github.databinding.FragmentBaseBinding
 import com.tangpj.github.databinding.LoadingStateBinding
 import com.tangpj.github.ui.loadState.Loading
 import com.tangpj.github.ui.loadState.RealLoadState
-import com.tangpj.recurve.dagger2.RecurveDaggerFragment
 
 abstract class BaseFragment : RecurveDaggerFragment(){
 

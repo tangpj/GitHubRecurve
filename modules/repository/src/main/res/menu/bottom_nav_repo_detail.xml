@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/code"
+        android:id="@+id/menu_code"
         android:icon="@drawable/ic_code"
         android:contentDescription="@string/menu_code"
         android:title="@string/menu_code"/>
 
     <item
-        android:id="@+id/navigation_repo_detail"
+        android:id="@+id/menu_issue"
         android:icon="@drawable/ic_error"
         android:contentDescription="@string/menu_issue"
         android:title="@string/menu_issue"/>

@@ -1,12 +1,8 @@
 package com.prettifier.pretty.helper;
 
 import android.content.Context;
-import android.net.Uri;
 
-import androidx.annotation.AttrRes;
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.prettifier.pretty.R;
 
@@ -15,9 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
-
-import static com.tangpj.recurve.util.UiUtilsKt.getColorByAttr;
+import static com.recurve.core.util.UiUtilsKt.getColorByAttr;
 
 /**
  * Created by Kosh on 25 Dec 2016, 9:12 PM

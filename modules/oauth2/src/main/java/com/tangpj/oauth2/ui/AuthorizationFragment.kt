@@ -12,10 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.tangpj.github.GithubApp
 import com.tangpj.oauth2.domain.GithubToken
 import com.tangpj.oauth2.databinding.FragmentOauth2Binding
-import com.tangpj.recurve.dagger2.RecurveDaggerFragment
-import com.tangpj.recurve.resource.Resource
-import com.tangpj.recurve.resource.Status
-import com.tangpj.recurve.util.openInCustomTabOrBrowser
+import com.recurve.dagger2.RecurveDaggerFragment
+import com.recurve.core.resource.Resource
+import com.recurve.core.resource.Status
+import com.recurve.core.util.openInCustomTabOrBrowser
 import javax.inject.Inject
 
 class AuthorizationFragment : RecurveDaggerFragment(){

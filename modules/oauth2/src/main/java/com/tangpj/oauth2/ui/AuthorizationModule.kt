@@ -1,8 +1,8 @@
 package com.tangpj.oauth2.ui
 
 import androidx.lifecycle.ViewModel
+import com.recurve.dagger2.ViewModelKey
 import com.tangpj.oauth2.di.Oauth2Scope
-import com.tangpj.recurve.dagger2.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

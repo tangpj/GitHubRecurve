@@ -23,7 +23,8 @@ include 'recurve-retrofit2-support',
         'recurve-glide-support',
         'viewpager2-navigation-ktx',
         'bottom-navigation-ktx',
-        'viewpager2-tablayout-ktx'
+        'viewpager2-tablayout-ktx',
+        'navigation-dialog'
 
 
 project(":recurve").projectDir = file("../MvvmRecurve/recurve")
@@ -36,4 +37,6 @@ project(":recurve-glide-support").projectDir = file("../MvvmRecurve/recurve-glid
 project(":viewpager2-navigation-ktx").projectDir = file("../MvvmRecurve/viewpager2-navigation-ktx")
 project(":viewpager2-tablayout-ktx").projectDir = file("../MvvmRecurve/viewpager2-tablayout-ktx")
 project(":bottom-navigation-ktx").projectDir = file("../MvvmRecurve/bottom-navigation-ktx")
+project(":navigation-dialog").projectDir = file("../MvvmRecurve/navigation-dialog")
 include ':baselib:prettifier'
+include ':baselib:pager'

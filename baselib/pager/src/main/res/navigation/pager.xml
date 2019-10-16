@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_pager"
+    app:startDestination="@+id/pager"
+    tools:ignore="UnusedNavigation">
+
+    <fragment android:id="@+id/pager"
+        android:name="com.tangpj.pager.PagerFragment"
+        app:defaultNavHost="true"
+        tools:layout="@layout/fragment_pager">
+
+        <argument
+            android:name="params"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="android.os.Bundle"/>
+
+        <argument
+            android:name="pathConfig"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.tangpj.pager.PagerPathConfig"/>
+
+        <argument
+            android:name="graphIds"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="integer[]"
+            />
+
+        <argument
+            android:name="tabTitles"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="string[]"/>
+
+    </fragment>
+
+</navigation>

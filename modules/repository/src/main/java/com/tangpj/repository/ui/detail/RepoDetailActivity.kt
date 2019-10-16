@@ -1,6 +1,7 @@
 package com.tangpj.repository.ui.detail
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -134,8 +135,10 @@ class RepoDetailActivity : BaseActivity(){
                     args.putParcelable("repoDetailQuery", currentRepoDetailQuery)
                     args.putParcelable("prefix", Prefix.HEAD)
                     setArgs(args)
-                    height = ViewGroup.LayoutParams.MATCH_PARENT
-                    width = ViewGroup.LayoutParams.MATCH_PARENT
+                    val dm = DisplayMetrics()
+                    windowManager.defaultDisplay.getMetrics(dm);
+                    height = (dm.heightPixels * 0.85).toInt()
+                    width = (dm.widthPixels * 0.85).toInt()
                 }.build()
                 currentNavController.value?.navigate(R.id.nav_dialog, dialogArg.toBundle())
                 return true

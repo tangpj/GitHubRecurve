@@ -20,7 +20,7 @@ data class RefsQuery(
 
 fun RefsQuery.getApolloRefsQuery(
         startFirst: Int = 10,
-        after: String? = null) =
+        after: String? = null): ApolloRefsQuery =
         ApolloRefsQuery.builder()
                 .startFirst(startFirst)
                 .after(after)

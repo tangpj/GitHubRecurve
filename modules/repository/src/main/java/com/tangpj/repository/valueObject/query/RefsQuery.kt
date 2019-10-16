@@ -1,8 +1,6 @@
 package com.tangpj.repository.valueObject.query
 
 import android.os.Parcelable
-import androidx.lifecycle.LiveData
-import com.tangpj.github.valueObject.Query
 import com.tangpj.repository.ApolloRefsQuery
 import kotlinx.android.parcel.Parcelize
 
@@ -10,13 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class RefsQuery(
         val repoDetailQuery: RepoDetailQuery,
         val prefix: Prefix)
-    : Query<RefsQuery>{
-    override fun <R> ifExists(f: (RefsQuery) -> LiveData<R>): LiveData<R> =
-            repoDetailQuery.ifExists {
-                Prefix.HEAD
-                f(this)
-            }
-}
+    : Parcelable
 
 fun RefsQuery.getApolloRefsQuery(
         startFirst: Int = 10,

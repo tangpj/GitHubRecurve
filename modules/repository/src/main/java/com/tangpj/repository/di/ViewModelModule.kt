@@ -2,6 +2,7 @@ package com.tangpj.repository.di
 
 import androidx.lifecycle.ViewModel
 import com.recurve.dagger2.ViewModelKey
+import com.tangpj.repository.ui.detail.BranchViewModel
 import com.tangpj.repository.ui.detail.RepoDetailViewModel
 import com.tangpj.repository.ui.detail.commit.CommitsViewModel
 import com.tangpj.repository.ui.detail.viewer.ViewerViewModel
@@ -23,6 +24,11 @@ abstract class ViewModelModule{
     @IntoMap
     @ViewModelKey(RepoDetailViewModel::class)
     abstract fun bindRepoDetailViewModule(repoDetailViewModel: RepoDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BranchViewModel::class)
+    abstract fun bindBranchVIewModel(branchViewModel: BranchViewModel) : ViewModel
 
     @Binds
     @IntoMap

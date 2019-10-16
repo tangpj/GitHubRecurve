@@ -23,13 +23,6 @@
             app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
 
         <argument
-            android:name="branch"
-            android:defaultValue="master"
-            app:argType="string"
-            />
-
-
-        <argument
             android:name="author"
             android:defaultValue="@null"
             app:nullable="true"

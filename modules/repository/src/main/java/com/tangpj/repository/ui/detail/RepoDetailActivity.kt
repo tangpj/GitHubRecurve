@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -162,7 +161,6 @@ class RepoDetailActivity : BaseActivity(){
             override fun onClick(navController: NavController, pathItem: PathItem, position: Int) {
                 val action = FilesFragmentDirections.actionFiles().apply {
                     this.repoDetailQuery = repoDetailQuery
-                    this.branch = currentBranch
                     this.path = pathItem.path
                 }
                 if (pathItem.path.isBlank() || pathItem.path == ":"){
@@ -185,7 +183,7 @@ class RepoDetailActivity : BaseActivity(){
 
 }
 
-internal fun ViewerFragmentArgs.convertToGitObject() : GitObjectQuery? {
+internal fun ViewerFragmentArgs.convertToGitObject(branch: String) : GitObjectQuery? {
     return repoDetailQuery?.let {
         GitObjectQuery(
                 repoDetailQuery = it,

@@ -6,6 +6,7 @@ dependencies {
     implementation deps.markdown4j
     implementation project(':viewpager2-navigation-ktx')
     implementation project(':viewpager2-tablayout-ktx')
+    implementation project(':navigation-dialog')
     implementation project(':bottom-navigation-ktx')
     implementation project(':baselib:prettifier')
     implementation project(':baselib:pager')

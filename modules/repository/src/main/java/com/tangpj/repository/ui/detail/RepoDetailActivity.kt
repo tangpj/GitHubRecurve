@@ -6,13 +6,11 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.lifecycle.*
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.recurve.core.util.getColorByAttr
-import com.recurve.dagger2.appbar
+import com.recurve.navigation.dialog.WrapperDialogFragmentArgs
 import com.recurve.navigation.setupWithNavController
 import com.tangpj.github.ui.BaseActivity
-import com.tangpj.github.ui.WrapperDialogFragmentArgs
 import com.tangpj.pager.*
 import com.tangpj.repository.PATH_REPO_DETAILS
 import com.tangpj.repository.R

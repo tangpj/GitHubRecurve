@@ -15,9 +15,7 @@ class FilesViewModel @Inject constructor(private val fileRepository: FileReposit
     private val _fileTreeQuery = MutableLiveData<GitObjectQuery>()
 
     val fileItems: LiveData<Resource<List<FileItem>>> = Transformations.switchMap(_fileTreeQuery){
-        it.ifExists { fileTreeQuery ->
-            fileRepository.loadFileDirectory(fileTreeQuery)
-        }
+            fileRepository.loadFileDirectory(it)
     }
 
     fun loadFileTreeByQuery(fileTreeQuery : GitObjectQuery){

@@ -35,22 +35,14 @@ class FilesFragment : ModulePagingFragment(){
         fileItemCreator = FileItemCreator()
         filesViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FilesViewModel::class.java)
+        branchViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(BranchViewModel::class.java)
 
         branchViewModel.currentBranch.observe(this, Observer { branch ->
-
-            val query = arguments.toOption()
-                    .map { FilesFragmentArgs.fromBundle(it) }
-                    .map { it.convertToGitObjectQuery(branch)}
-                    .fold({ Timber.d("queryEmpty")}, {
-
-                    })
+            loadFileTree(branch)
         })
-        val gitObjectQuery = arguments?.let{
-            val filesArgs= FilesFragmentArgs.fromBundle(it)
-            filesArgs.convertToGitObjectQuery()
-        }
-        gitObjectQuery?: return
 
+        loadFileTree(branchViewModel.currentBranch.value)
 
         addItemCreator(fileItemCreator)
         filesViewModel.fileItems.observe(this, Observer { resource ->
@@ -59,9 +51,28 @@ class FilesFragment : ModulePagingFragment(){
             }
         })
 
+
+
+        loading<List<FileItem>>{
+            resource = filesViewModel.fileItems
+            retry = { filesViewModel.retry() }
+        }
+    }
+
+    private fun loadFileTree(branch: String?){
+        arguments.toOption()
+                .map { FilesFragmentArgs.fromBundle(it) }
+                .map { it.convertToGitObjectQuery(branch ?: "master")}
+                .fold({ Timber.d("queryEmpty")}, {
+                    filesViewModel.loadFileTreeByQuery(fileTreeQuery = it )
+                    setFileCreatorItemClickListener(it)
+                })
+    }
+
+    private fun setFileCreatorItemClickListener(gitObjectQuery: GitObjectQuery){
         fileItemCreator.setOnItemClickListener { _, e, _ ->
             val action = if (e.type == FileType.TREE){
-                FilesFragmentDirections.actionFiles().apply {
+                FilesFragmentDirections.actionFiles(gitObjectQuery.repoDetailQuery).apply {
                     this.repoDetailQuery = gitObjectQuery.repoDetailQuery
                     path = gitObjectQuery.nextPath(e.name)
                 }
@@ -74,11 +85,6 @@ class FilesFragment : ModulePagingFragment(){
             }
             findNavController().navigate(action)
         }
-
-        loading<List<FileItem>>{
-            resource = filesViewModel.fileItems
-            retry = { filesViewModel.retry() }
-        }
     }
 
 
@@ -90,7 +96,7 @@ class FilesFragment : ModulePagingFragment(){
 }
 
 private fun FilesFragmentArgs.convertToGitObjectQuery(branch: String) =
-           GitObjectQuery(
-                   repoDetailQuery = repoDetailQuery,
-                   branch = branch,
-                   path = path)
+        GitObjectQuery(
+                repoDetailQuery = repoDetailQuery,
+                branch = branch,
+                path = path)

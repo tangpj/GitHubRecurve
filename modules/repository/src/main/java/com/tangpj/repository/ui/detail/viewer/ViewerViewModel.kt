@@ -16,9 +16,7 @@ class ViewerViewModel @Inject constructor(private val fileRepository: FileReposi
 
     val fileContent: LiveData<Resource<FileContent>>
             = Transformations.switchMap(_gitObjectQuery){
-        it.ifExists { fileContentQuery ->
-            fileRepository.loadFileContent(fileContentQuery)
-        }
+        fileRepository.loadFileContent(it)
     }
 
     fun loadFileContentByQuery(gitObjectQuery: GitObjectQuery){

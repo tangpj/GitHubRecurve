@@ -17,9 +17,8 @@ class RefsViewModel @Inject constructor(
     private val _refsQuery = MutableLiveData<RefsQuery>()
 
     val  refListing: LiveData<Listing<Ref>> = Transformations.switchMap(_refsQuery){ query ->
-        query.ifExists {
-            refsRepository.loadRefs(it)
-        }
+            refsRepository.loadRefs(query)
+
     }
 
     val pageList: LiveData<PagedList<Ref>> = Transformations.switchMap(refListing){

@@ -6,14 +6,20 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import arrow.core.Option
+import arrow.core.extensions.option.foldable.fold
+import arrow.core.toOption
 import com.prettifier.pretty.PrettifyWebView.OnContentChangedListener
 import com.tangpj.github.ui.BaseFragment
 import com.tangpj.repository.databinding.FragmentFileContentBinding
 import com.tangpj.repository.ui.detail.convertToGitObject
 import com.tangpj.repository.entity.domain.file.FileContent
+import com.tangpj.repository.ui.detail.BranchViewModel
 import kotlinx.android.synthetic.main.fragment_file_content.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -45,6 +51,7 @@ class ViewerFragment : BaseFragment() {
 
     var mBinding: FragmentFileContentBinding? = null
     private lateinit var viewerViewModel: ViewerViewModel
+    private lateinit var branchViewModel: BranchViewModel
 
     override fun onCreateContentBinding(
             inflater: LayoutInflater,
@@ -58,20 +65,31 @@ class ViewerFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewerViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ViewerViewModel::class.java)
+        branchViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(BranchViewModel::class.java)
         mBinding?.fileContent = viewerViewModel.fileContent
-        val gitObjectQuery = arguments?.let{
-            val viewerQuery= ViewerFragmentArgs.fromBundle(it)
-            viewerQuery.convertToGitObject()
-        }
+
+        branchViewModel.currentBranch.observe(this, Observer { branch ->
+            loadFileContent(branch)
+        })
+        loadFileContent(branch = branchViewModel.currentBranch.value )
 
         mBinding?.webView?.setOnContentChangedListener(onContentListener)
-        gitObjectQuery?.let {
-            viewerViewModel.loadFileContentByQuery(it)
-        }
 
         loading<FileContent> {
             resource = viewerViewModel.fileContent
         }
+    }
+
+    private fun loadFileContent(branch: String?){
+        arguments.toOption()
+                .map { ViewerFragmentArgs.fromBundle(it) }
+                .flatMap { Option.fromNullable(it.convertToGitObject(branch ?: "master")) }
+                .fold({
+                    Timber.d("gitObjectQuery is null")
+                }, {
+                    viewerViewModel.loadFileContentByQuery(it)
+                })
     }
 
 }

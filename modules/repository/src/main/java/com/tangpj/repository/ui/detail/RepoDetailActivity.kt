@@ -33,6 +33,7 @@ class RepoDetailActivity : BaseActivity(){
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var repoDetailViewModel: RepoDetailViewModel
+    private lateinit var branchViewModel: BranchViewModel
     private var currentBranch = "master"
     private var currentNavController =  MutableLiveData<NavController>()
 
@@ -47,6 +48,8 @@ class RepoDetailActivity : BaseActivity(){
         val repoDetailQuery = intent.getParcelableExtra<RepoDetailQuery>(KEY_REPO_DETAIL_QUERY)
         repoDetailViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RepoDetailViewModel::class.java)
+        branchViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(BranchViewModel::class.java)
         initView(repoDetailQuery)
         if(savedInstanceState == null){
             setupBottomNavigationBar(repoDetailQuery, activityRepoDetailBinding)
@@ -54,6 +57,7 @@ class RepoDetailActivity : BaseActivity(){
         currentRepoDetailQuery = repoDetailQuery
         repoDetailViewModel.loadRepoDetail(repoDetailQuery.login, repoDetailQuery.name)
 
+        branchViewModel.changeBranch(currentBranch)
         multipleLoading {
             loadingResources(repoDetailViewModel.repoDetail)
         }
@@ -100,7 +104,6 @@ class RepoDetailActivity : BaseActivity(){
                         containerId = R.id.nav_host_container,
                         intent = intent)
         val repoParams = Bundle()
-        repoParams.putString("branch", currentBranch)
         repoParams.putParcelable("repoDetailQuery", repoDetailQuery)
         controller.observe(this, Observer { it { isFirstInit, navController  ->
             if(isFirstInit){
@@ -159,8 +162,8 @@ class RepoDetailActivity : BaseActivity(){
             navController: NavController){
         val clickAction = object : ClickAction() {
             override fun onClick(navController: NavController, pathItem: PathItem, position: Int) {
-                val action = FilesFragmentDirections.actionFiles().apply {
-                    this.repoDetailQuery = repoDetailQuery
+                val action =
+                        FilesFragmentDirections.actionFiles(repoDetailQuery).apply {
                     this.path = pathItem.path
                 }
                 if (pathItem.path.isBlank() || pathItem.path == ":"){

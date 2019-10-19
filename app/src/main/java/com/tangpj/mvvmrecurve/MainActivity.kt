@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.tangpj.adapter.ModulesAdapter
+import com.recurve.adapter.ModulesAdapter
 import com.tangpj.mvvmrecurve.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

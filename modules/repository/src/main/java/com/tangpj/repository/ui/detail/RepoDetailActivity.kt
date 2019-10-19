@@ -107,14 +107,13 @@ class RepoDetailActivity : BaseActivity(){
         repoParams.putParcelable("repoDetailQuery", repoDetailQuery)
         controller.observe(this, Observer { it { isFirstInit, navController  ->
             if(isFirstInit){
-                initBottomNavFragment(navGraphIds, repoDetailQuery, repoParams, navController)
+                initBottomNavFragment( repoDetailQuery, repoParams, navController)
             }
             currentNavController.value = navController
         }})
     }
 
     private fun initBottomNavFragment(
-            navGraphIds: List<Int>,
             repoDetailQuery: RepoDetailQuery,
             repoParams: Bundle,
             navController: NavController){
@@ -162,8 +161,8 @@ class RepoDetailActivity : BaseActivity(){
             navController: NavController){
         val clickAction = object : ClickAction() {
             override fun onClick(navController: NavController, pathItem: PathItem, position: Int) {
-                val action =
-                        FilesFragmentDirections.actionFiles(repoDetailQuery).apply {
+                val action = FilesFragmentDirections.actionFiles().apply {
+                    this.repoDetailQuery = repoDetailQuery
                     this.path = pathItem.path
                 }
                 if (pathItem.path.isBlank() || pathItem.path == ":"){

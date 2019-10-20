@@ -2,4 +2,14 @@
 <resources>
     <!-- CardView -->
 
+
+    <style name="Widget.AppCompat.CompoundButton.CheckBox.Item" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/selector_checked_text</item>
+        <item name="android:drawableEnd">@drawable/selector_checked_drawable</item>
+        <item name="android:clickable">false</item>
+        <item name="android:layout_marginStart">@dimen/padding_horizontal_material</item>
+        <item name="android:layout_marginLeft">@dimen/padding_horizontal_material</item>
+
+    </style>
+
 </resources>

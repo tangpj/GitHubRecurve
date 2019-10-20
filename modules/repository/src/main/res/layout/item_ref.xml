@@ -11,6 +11,9 @@
         <variable
             name="name"
             type="String" />
+        <variable
+            name="isCheck"
+            type="boolean" />
     </data>
 
     <LinearLayout
@@ -19,19 +22,21 @@
         android:showDividers = "middle"
         android:orientation="vertical">
 
-        <TextView
+        <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_branch"
             android:layout_marginTop="@dimen/margin_vertical_material"
             android:layout_marginBottom="@dimen/margin_vertical_material"
+            android:checked="@{isCheck}"
             android:paddingStart="@dimen/padding_horizontal_material"
+            android:button="@null"
             android:paddingEnd="@dimen/padding_horizontal_material"
             android:drawablePadding="@dimen/padding_horizontal_material"
             android:gravity="center_vertical"
             android:text="@{name}"
             tools:text="master"
-            style="@style/TextAppearance.Adaptive.Body1"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox.Item"
             />
 
         <View

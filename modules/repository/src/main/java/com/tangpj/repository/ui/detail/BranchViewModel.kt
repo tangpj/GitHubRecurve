@@ -16,16 +16,11 @@ import javax.inject.Inject
  */
 class BranchViewModel @Inject constructor(): ViewModel(){
 
-    private val _branch = MutableLiveData<String>()
-
-    //禁止外部修改
-    val currentBranch: LiveData<String> = Transformations.map(_branch){
-        it
-    }
+    val currentBranch = MutableLiveData<String>()
 
     fun changeBranch(branch: String){
-        if (this._branch.value != branch){
-            this._branch.value = branch
+        if (this.currentBranch.value != branch){
+            this.currentBranch.value = branch
         }
     }
 

@@ -23,6 +23,6 @@ class RepositoryApp : GithubApp(){
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerRepositoryComponent.builder().create(this)
+        return DaggerRepositoryComponent.factory().create(this)
     }
 }

@@ -1,5 +1,6 @@
 package com.tangpj.repository.di
 
+import android.content.Context
 import androidx.room.Room
 import com.apollographql.apollo.ApolloClient
 import com.tangpj.github.BuildConfig
@@ -18,7 +19,7 @@ class RepositoryModule{
 
     @RepositoryScope
     @Provides
-    fun providerRepositoryDb(app: GithubApp) =
+    fun providerRepositoryDb(app: Context) =
             Room.databaseBuilder(app, RepositoryDb::class.java, "repository.db")
                     .fallbackToDestructiveMigration()
                     .build()

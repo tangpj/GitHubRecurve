@@ -1,26 +1,22 @@
 package com.tangpj.repository.di
 
+import android.content.Context
 import com.tangpj.github.GithubApp
 import com.tangpj.github.di.ApolloModule
+import com.tangpj.github.di.GithubAppServerModule
 import com.tangpj.github.di.GithubComponent
-import com.tangpj.github.di.ViewModelFactoryModule
 import dagger.Component
 import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
-import javax.inject.Singleton
 
 @RepositoryScope
 @Component(modules = [
+    GithubAppServerModule::class,
     RepositoryModule::class,
-    AndroidSupportInjectionModule::class,
     RepositoryViewModelFactoryModule::class,
     ApolloModule::class,
-    ActivityModule::class], dependencies = [GithubComponent::class])
+    ActivityModule::class])
 
 interface RepositoryComponent : AndroidInjector<GithubApp>{
+    fun githubComponent() : GithubComponent.Factory
 
-    @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<GithubApp>(){
-        abstract fun setGithubComponent(githubComponent: GithubComponent): Builder
-    }
 }

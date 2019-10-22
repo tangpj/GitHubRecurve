@@ -1,20 +1,27 @@
 package com.tangpj.github.di
 
+import android.content.Context
 import com.tangpj.github.GithubApp
-import dagger.Component
+import dagger.*
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
-@Singleton
-@Component(modules = [GithubAppModule::class])
-interface GithubComponent : AndroidInjector<GithubApp>{
+@GithubScope
+@Subcomponent(modules = [
+    OkHttpModule::class,
+    ViewModelFactoryModule::class])
+interface GithubComponent{
 
-    fun okhttp3() : OkHttpClient
-
-    @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<GithubApp>(){
-
+    @Subcomponent.Factory
+    interface Factory{
+        fun create(@BindsInstance context: Context) : GithubComponent
     }
-
 }
+
+@Module(subcomponents = [GithubComponent::class])
+class GithubAppServerModule
+
+
+

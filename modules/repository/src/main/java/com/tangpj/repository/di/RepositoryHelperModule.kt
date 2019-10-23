@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.apollographql.apollo.ApolloClient
 import com.tangpj.github.BuildConfig
-import com.tangpj.github.GithubApp
 import com.tangpj.github.core.apollo.DateCustomerAdapter
 import com.tangpj.github.di.PagingConfig
 import com.tangpj.repository.db.dao.RepoDao
@@ -15,7 +14,7 @@ import dagger.Provides
 
 @Module(includes = [
     ViewModelModule::class])
-class RepositoryModule{
+class RepositoryHelperModule{
 
     @RepositoryScope
     @Provides

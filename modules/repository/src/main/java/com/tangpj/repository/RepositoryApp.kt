@@ -2,6 +2,7 @@ package com.tangpj.repository
 
 import com.tangpj.github.BuildConfig
 import com.tangpj.github.GithubApp
+import com.tangpj.github.di.DaggerGithubComponent
 import com.tangpj.repository.di.DaggerRepositoryComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
@@ -23,6 +24,11 @@ class RepositoryApp : GithubApp(){
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerRepositoryComponent.factory().create(this)
+        val githubComponent = DaggerGithubComponent.factory().create(this)
+        return DaggerRepositoryComponent
+                .builder()
+                .githubComponent(githubComponent)
+                .bindContext(this)
+                .create()
     }
 }

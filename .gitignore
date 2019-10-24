@@ -18,3 +18,11 @@ gradlew
 gradlew.bat
 # Project exclude paths
 /baselib/prettifier/build/
+**/build/
+baselib/pager/src/main/res/drawable/
+gittestsuper/src/main/java/
+gittestsuper/src/main/res/drawable/
+modules/oauth2/src/main/res/drawable/
+modules/profile/src/main/java/
+modules/profile/src/main/res/drawable/
+modules/repository/src/main/java/com/tangpj/repository/entity/domain/git/

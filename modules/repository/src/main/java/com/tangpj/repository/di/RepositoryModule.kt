@@ -1,8 +1,11 @@
 package com.tangpj.repository.di
 
 import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.apollographql.apollo.ApolloClient
+import com.recurve.core.viewmodel.RecurevViewModelFactory
 import com.tangpj.github.BuildConfig
 import com.tangpj.github.core.apollo.DateCustomerAdapter
 import com.tangpj.github.di.PagingConfig
@@ -14,7 +17,7 @@ import dagger.Provides
 
 @Module(includes = [
     ViewModelModule::class])
-class RepositoryHelperModule{
+class RepositoryModule{
 
     @RepositoryScope
     @Provides
@@ -45,5 +48,11 @@ class RepositoryHelperModule{
             pageSize = 10,
             initialLoadSizeHint = 20,
             enablePlaceholders = false)
+
+
+    @RepositoryScope
+    @Provides
+    fun bindViewModelFactory(creators: Map<Class< out ViewModel>, @JvmSuppressWildcards ViewModel>)
+            : ViewModelProvider.Factory = RecurevViewModelFactory(creators)
 
 }

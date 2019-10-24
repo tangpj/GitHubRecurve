@@ -1,12 +1,15 @@
 package com.tangpj.oauth2.di
 
+import android.content.Context
 import com.tangpj.github.GithubApp
-import com.tangpj.github.di.GithubAppModule
+import com.tangpj.github.di.GithubComponent
 import com.tangpj.github.di.Retrofit2Module
 import com.tangpj.github.di.ViewModelFactoryModule
 import com.tangpj.oauth2.provider.TokenModule
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 /**
@@ -16,17 +19,23 @@ import javax.inject.Singleton
  * @author create by Tang
  * @date 2019/1/22 9:50 PM
  */
-@Singleton
+@Oauth2Scope
 @Component(modules = [
-    GithubAppModule::class,
-    ViewModelFactoryModule::class,
     Retrofit2Module::class,
+    AndroidSupportInjectionModule::class,
     DbModule::class,
     Oauth2Module::class,
-    TokenModule::class
-])
+    TokenModule::class], dependencies = [GithubComponent::class])
 interface Oauth2AppComponent : AndroidInjector<GithubApp>{
 
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<GithubApp>()
+    interface Builder{
+
+        fun githubComponent(component: GithubComponent) : Builder
+
+        fun bindContext(@BindsInstance context: Context) : Builder
+
+        fun creator() : Oauth2AppComponent
+
+    }
 }

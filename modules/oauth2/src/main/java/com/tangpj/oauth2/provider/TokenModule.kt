@@ -7,7 +7,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class TokenModule{
 
-    @Oauth2Scope
     @ContributesAndroidInjector
     abstract fun contributesTokenProvider(): TokenProvider
 

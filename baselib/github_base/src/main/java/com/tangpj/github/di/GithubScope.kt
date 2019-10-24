@@ -4,4 +4,4 @@ import javax.inject.Scope
 
 @Retention(AnnotationRetention.RUNTIME)
 @Scope
-annotation class GithubScope
+internal annotation class GithubScope

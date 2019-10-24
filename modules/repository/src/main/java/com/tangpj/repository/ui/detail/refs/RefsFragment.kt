@@ -5,6 +5,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.tangpj.github.ui.ModulePagingFragment
 import com.tangpj.repository.entity.domain.Ref
 import com.tangpj.repository.ui.creator.RefCreator
@@ -61,6 +62,10 @@ class RefsFragment : ModulePagingFragment(){
         refsViewModel.pageList.observe(this, Observer {
             refCreator.submitList(it)
         })
+        refCreator.setOnItemClickListener { _, e, _ ->
+            branchViewModel.changeBranch(e.name)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
         refCreator.selectBranch = branchViewModel.currentBranch.value
 
     }

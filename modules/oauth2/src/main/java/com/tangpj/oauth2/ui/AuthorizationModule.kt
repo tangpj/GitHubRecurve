@@ -11,11 +11,9 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class AuthorizationModule{
 
-    @Oauth2Scope
     @ContributesAndroidInjector
     abstract fun contributeAuthorizationActivity(): AuthorizationActivity
 
-    @Oauth2Scope
     @ContributesAndroidInjector
     abstract fun contributesAuthorizationFragment(): AuthorizationFragment
 

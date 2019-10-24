@@ -6,8 +6,8 @@ import okhttp3.OkHttpClient
 
 @GithubScope
 @Component(modules = [
-    OkHttpModule::class,
-    ViewModelFactoryModule::class])
+    OkHttpModule::class
+    ])
 interface GithubComponent{
 
     fun okHttp() : OkHttpClient

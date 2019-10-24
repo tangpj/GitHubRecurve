@@ -28,7 +28,7 @@ class RefsRepository @Inject constructor(
         private val repoDb: RepositoryDb,
         private val pagingConfig: PagingConfig){
 
-    private val refsRateLimiter = RateLimiter<ApolloRefsQuery>(1, TimeUnit.MINUTES)
+    private val refsRateLimiter = RateLimiter<RefsQuery>(1, TimeUnit.MINUTES)
 
 
     fun loadRefs(refsQuery: RefsQuery) =
@@ -69,7 +69,7 @@ class RefsRepository @Inject constructor(
                 }
 
                 override fun shouldFetch(data: List<Ref>?): Boolean  =
-                        (data == null || data.isEmpty() || refsRateLimiter.shouldFetch(query))
+                        (data == null || data.isEmpty() || refsRateLimiter.shouldFetch(refsQuery))
 
 
                 override fun loadFromDb(): LiveData<List<Ref>> {
@@ -81,6 +81,7 @@ class RefsRepository @Inject constructor(
                             after = query?.variables()?.after()?.value ?: ""
                     )
                     return Transformations.switchMap(refsResultLive){
+                        refsResult =it
                         repoDb.refDao().loadRefsOrderById(it?.refsIds ?: emptyList())
                     }
                 }

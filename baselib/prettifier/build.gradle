@@ -24,7 +24,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':recurve')
+    implementation deps.recurve.dagger2
     implementation project(':baselib:github_base')
     implementation 'org.jsoup:jsoup:1.11.2'
 }

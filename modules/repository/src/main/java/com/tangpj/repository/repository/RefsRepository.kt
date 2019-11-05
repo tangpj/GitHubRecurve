@@ -99,9 +99,9 @@ class RefsRepository @Inject constructor(
         val refs = refsDto.getRefs()
         val pageInfo = refsDto.getLocalPageInfo()
         val result = RefsResult(
-                login = query.variables().login().value ?: "",
-                repoName = query.variables().name().value ?: "",
-                prefix = Prefix.getPrefixRefName(query.variables().refPrefix().value ?: ""),
+                login = query.variables().login(),
+                repoName = query.variables().name(),
+                prefix = Prefix.getPrefixRefName(query.variables().refPrefix()),
                 refsIds = refs.map { it.id },
                 startFirst = query.variables().startFirst().value ?: 10,
                 after =  query.variables().after().value ?: "",

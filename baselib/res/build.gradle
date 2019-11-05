@@ -42,7 +42,7 @@ dependencies {
 
     implementation deps.androidx.appcompat
     implementation deps.androidx.material
-    implementation project(':recurve-glide-support')
+    implementation deps.recurve.glide
     implementation deps.kotlin.stdlib_jdk8
 
     testImplementation 'junit:junit:4.12'

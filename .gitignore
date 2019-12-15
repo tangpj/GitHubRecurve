@@ -26,3 +26,5 @@ modules/oauth2/src/main/res/drawable/
 modules/profile/src/main/java/
 modules/profile/src/main/res/drawable/
 modules/repository/src/main/java/com/tangpj/repository/entity/domain/git/
+/projectFilesBackup/.idea/workspace.xml
+projectFilesBackup/

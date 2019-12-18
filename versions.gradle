@@ -29,9 +29,10 @@ versions.mockito = "2.8.47"
 versions.mockito_all = "1.10.19"
 versions.dexmaker = "2.2.0"
 versions.constraint_layout = "1.1.0"
-versions.glide = "4.9.0"
-versions.glide_transformations = "3.3.0"
+versions.glide = "4.10.0"
+versions.glide_transformations = "4.1.0"
 versions.timber = "4.7.1"
+
 versions.android_gradle_plugin = '3.6.0-beta01'
 versions.rxjava2 = "2.2.1"
 versions.rx_android = "2.1.0"
@@ -54,7 +55,7 @@ versions.mapstruct = "1.3.0.Final"
 versions.threetenabp = "1.2.0"
 versions.markdown4j = "2.2-cj-1.1"
 versions.svg = "1.4"
-versions.arrow = "0.10.0-SNAPSHOT"
+versions.arrow = "0.10.3"
 versions.calces_screen = "1.3.4-alpha01"
 versions.calces_component = "3.3.0-alpha01"
 deps.versions = versions
@@ -248,9 +249,9 @@ static def addRepos(RepositoryHandler handler) {
     handler.mavenCentral()
     handler.mavenLocal()
     handler.maven { url 'https://jitpack.io' }
-//    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     handler.maven { url "https://kotlin.bintray.com/kotlinx" }
-//    handler.maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+    handler.maven { url "https://dl.bintray.com/arrow-kt/arrow-kt/" }
     handler.maven { url "https://plugins.gradle.org/m2/" }
 }
 ext.addRepos = this.&addRepos

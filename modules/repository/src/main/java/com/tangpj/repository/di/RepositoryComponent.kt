@@ -1,6 +1,7 @@
 package com.tangpj.repository.di
 
 import android.content.Context
+import com.tangpj.github.GithubApp
 import com.tangpj.github.di.*
 import com.tangpj.repository.RepositoryApp
 import dagger.*
@@ -13,7 +14,7 @@ import dagger.android.support.AndroidSupportInjectionModule
     AndroidSupportInjectionModule::class,
     ApolloModule::class,
     ActivityModule::class], dependencies = [GithubComponent::class])
-interface RepositoryComponent : AndroidInjector<RepositoryApp>{
+interface RepositoryComponent : AndroidInjector<GithubApp>{
 
     @Component.Builder
     interface Builder{

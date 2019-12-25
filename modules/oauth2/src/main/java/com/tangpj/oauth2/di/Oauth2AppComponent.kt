@@ -4,13 +4,11 @@ import android.content.Context
 import com.tangpj.github.GithubApp
 import com.tangpj.github.di.GithubComponent
 import com.tangpj.github.di.Retrofit2Module
-import com.tangpj.github.di.ViewModelFactoryModule
 import com.tangpj.oauth2.provider.TokenModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import javax.inject.Singleton
 
 /**
  * Modules单独运行时用到的Component
@@ -35,7 +33,7 @@ interface Oauth2AppComponent : AndroidInjector<GithubApp>{
 
         fun bindContext(@BindsInstance context: Context) : Builder
 
-        fun creator() : Oauth2AppComponent
+        fun create() : Oauth2AppComponent
 
     }
 }

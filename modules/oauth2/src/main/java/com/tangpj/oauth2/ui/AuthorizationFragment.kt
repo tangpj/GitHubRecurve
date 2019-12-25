@@ -26,9 +26,6 @@ class AuthorizationFragment : RecurveDaggerFragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var githubApp : GithubApp
-
     private val authorizeListener = View.OnClickListener{ authorize() }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

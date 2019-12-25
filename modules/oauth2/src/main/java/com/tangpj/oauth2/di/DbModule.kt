@@ -1,20 +1,18 @@
 package com.tangpj.oauth2.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import com.tangpj.github.GithubApp
 import com.tangpj.oauth2.db.GithubDb
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class DbModule{
 
-    @Singleton
+    @Oauth2Scope
     @Provides
-    fun provideDb(app: GithubApp): GithubDb =
-            Room.databaseBuilder(app, GithubDb::class.java, "github.db")
+    fun provideDb(context: Context): GithubDb =
+            Room.databaseBuilder(context, GithubDb::class.java, "github.db")
                     .fallbackToDestructiveMigration()
                     .build()
 

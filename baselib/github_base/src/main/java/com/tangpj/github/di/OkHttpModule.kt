@@ -1,8 +1,7 @@
 package com.tangpj.github.di
 
+import android.content.Context
 import android.net.Uri
-import androidx.loader.content.CursorLoader
-import com.tangpj.github.GithubApp
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -10,9 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import timber.log.Timber
-import java.net.Proxy
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 class OkHttpModule{
@@ -21,6 +18,7 @@ class OkHttpModule{
         const val TOKEN_AUTHORITY = "com.tangpj.oauth2.provider.tokenProvider"
     }
 
+    @GithubScope
     @Provides
     fun provideOkHttpClient(tokenInterceptor: Interceptor): OkHttpClient
             = OkHttpClient.Builder()
@@ -33,7 +31,7 @@ class OkHttpModule{
 
 
     @Provides
-    fun providerTokenInterceptor(app: GithubApp): Interceptor{
+    fun providerTokenInterceptor(app: Context): Interceptor{
         return object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val original: Request = chain.request()

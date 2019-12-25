@@ -4,10 +4,10 @@ dependencies {
     implementation deps.androidx.flexbox_layout
     implementation deps.navigation.ui_ktx
     implementation deps.markdown4j
-    implementation project(':viewpager2-navigation-ktx')
-    implementation project(':viewpager2-tablayout-ktx')
-    implementation project(':navigation-dialog')
-    implementation project(':bottom-navigation-ktx')
+    implementation deps.recurve.viewpager2_navigation
+    implementation deps.recurve.viewpager2_tablayout
+    implementation deps.recurve.navigation_dialog
+    implementation deps.recurve.bottom_navigation
     implementation project(':baselib:prettifier')
     implementation project(':baselib:pager')
 

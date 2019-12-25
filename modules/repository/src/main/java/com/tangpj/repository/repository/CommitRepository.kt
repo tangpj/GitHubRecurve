@@ -105,8 +105,8 @@ class CommitRepository @Inject constructor(
 
         val commitIds = commitVos.map { it.commit.id}
         val result = CommitsResult(
-                login = query.variables().login().value ?: "",
-                repoName = query.variables().repoName().value ?: "",
+                login = query.variables().login(),
+                repoName = query.variables().repoName(),
                 authorId = query.variables().author().value?.id() ?: "",
                 commitIds = commitIds,
                 startFirst = query.variables().startFirst().value ?: pagingConfig.initialLoadSizeHint,

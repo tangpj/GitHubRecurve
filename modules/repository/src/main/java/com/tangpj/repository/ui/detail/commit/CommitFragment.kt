@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProviders
 import arrow.core.Option
 import arrow.core.extensions.option.foldable.get
 import arrow.core.getOrElse
+import arrow.core.toOption
 import arrow.fx.extensions.io.applicative.just
 import com.tangpj.github.ui.ModulePagingFragment
+import com.tangpj.repository.entity.domain.commit.Commit
 import com.tangpj.repository.ui.creator.CommitCreator
 import com.tangpj.repository.ui.detail.BranchViewModel
 import com.tangpj.repository.valueObject.query.CommitsQuery
@@ -31,26 +33,22 @@ class CommitFragment : ModulePagingFragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val argOption: Option<Bundle> = Option.fromNullable(arguments)
-        val commitArgs = argOption.map {
-            CommitFragmentArgs.fromBundle(it)
-        }
+        branchViewModel.currentBranch.observe(this, Observer {
+            setCommitQuery(it)
+        })
+        setCommitQuery(branchViewModel.currentBranch.value)
+    }
 
-        commitArgs.exists { arg ->
-            Timber.d("git object = ${arg.repoDetailQuery} author = ${arg.author}")
-            branchViewModel.currentBranch.observe(this, Observer{
-                val gitObject = arg.convertToGitObjectQuery(it)
-                gitObject ?: return@Observer
-                val commitsQuery = CommitsQuery(
-                        gitObject,
-                        arg.author
-                )
-                commitsViewModel.setCommitQuery(commitsQuery)
-
-            })
-            true
-        }
-
+    private fun setCommitQuery(branch: String?){
+        arguments.toOption()
+                .map { CommitFragmentArgs.fromBundle(it) }
+                .flatMap { it.convertToCommitsQuery(branch ?: "master") }
+                .fold({
+                    Timber.d("gitObjectQuery is null")
+                }, {
+                    Timber.d("git object = ${it.gitObjectQuery.repoDetailQuery} author = ${it.author}")
+                    commitsViewModel.setCommitQuery(it)
+                })
     }
 
     override fun onBindingInit(binding: ViewDataBinding) {
@@ -72,13 +70,16 @@ class CommitFragment : ModulePagingFragment(){
 
     }
 
+    private fun CommitFragmentArgs.convertToCommitsQuery(branch: String) : Option<CommitsQuery>{
+            val gitObjectQuery = repoDetailQuery?.let {
+                GitObjectQuery(
+                        repoDetailQuery = it,
+                        branch = branch
+                )
+            }
+        return gitObjectQuery.toOption().map { CommitsQuery(it, author) }
+    }
 }
 
 
-private fun CommitFragmentArgs.convertToGitObjectQuery(branch: String) =
-        repoDetailQuery?.let {
-            GitObjectQuery(
-                    repoDetailQuery = it,
-                    branch = branch
-            )
-        }
+

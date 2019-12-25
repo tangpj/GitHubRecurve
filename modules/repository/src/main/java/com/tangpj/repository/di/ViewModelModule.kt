@@ -1,6 +1,8 @@
 package com.tangpj.repository.di
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.recurve.core.viewmodel.RecurevViewModelFactory
 import com.recurve.dagger2.ViewModelKey
 import com.tangpj.repository.ui.detail.BranchViewModel
 import com.tangpj.repository.ui.detail.RepoDetailViewModel
@@ -11,10 +13,12 @@ import com.tangpj.repository.ui.detail.refs.RefsViewModel
 import com.tangpj.repository.ui.repositories.ReposViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModule{
+
     @Binds
     @IntoMap
     @ViewModelKey(ReposViewModel::class)

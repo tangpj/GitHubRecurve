@@ -66,12 +66,12 @@ apollo{
 
 
 dependencies {
-    api project(':recurve')
-    api project(':recurve-retrofit2-support')
-    api project(':recurve-dagger2-support')
-    api project(':recurve-apollo-support')
-    api project(':recurve-module-adapter')
-    api project(':recurve-module-paging-support')
+    api deps.recurve.core
+    api deps.recurve.retrofit2
+    api deps.recurve.dagger2
+    api deps.recurve.apollo
+    api deps.recurve.module_adapter
+    api deps.recurve.paging
 
     api deps.androidx.material
     implementation deps.androidx.viewpager2

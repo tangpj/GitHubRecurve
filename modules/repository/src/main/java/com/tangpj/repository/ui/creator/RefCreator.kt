@@ -14,8 +14,18 @@ import javax.inject.Inject
 class RefCreator @Inject constructor(
         diffUtil: RefDiffUtil) : PagedItemCreator<Ref, ItemRefBinding>(0, diffUtil){
 
+    var selectBranch: String? = null
+    set(value) {
+        field = value
+        val pageList = getPageList()
+        pageList ?: return
+        val ref = pageList.first{ ref -> value == ref.name }
+        mAdapter.notifyModulesItemChanged(this, pageList.indexOf(ref))
+    }
+
     override fun onBindItemView(binding: ItemRefBinding, e: Ref, inCreatorPosition: Int) {
         binding.name = e.name
+        binding.isCheck = e.name == selectBranch
     }
 
     override fun onCreateItemBinding(parent: ViewGroup, viewType: Int): ItemRefBinding =

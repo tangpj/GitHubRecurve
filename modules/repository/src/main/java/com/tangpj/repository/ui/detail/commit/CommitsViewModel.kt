@@ -16,9 +16,7 @@ class CommitsViewModel @Inject constructor(private val commitRepository: CommitR
     private val _commitQuery = MutableLiveData<CommitsQuery>()
 
     val commitsListing: LiveData<Listing<CommitVo>> = Transformations.switchMap(_commitQuery){ query ->
-        query.ifExists {
-            commitRepository.loadCommits(it)
-        }
+            commitRepository.loadCommits(query)
     }
 
     val pageList: LiveData<PagedList<CommitVo>> = Transformations.switchMap(commitsListing){

@@ -2,12 +2,11 @@ package com.tangpj.oauth2
 
 import com.tangpj.github.BuildConfig
 import com.tangpj.github.GithubApp
+import com.tangpj.github.di.DaggerGithubComponent
 import com.tangpj.oauth2.di.DaggerOauth2AppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
-
-
 
 /**
  * 测试用Application
@@ -31,7 +30,12 @@ class Oauth2App : GithubApp(){
         }
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication>
-            = DaggerOauth2AppComponent.builder().create(this)
-
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        val githubComponent = DaggerGithubComponent.factory().create(this)
+        return  DaggerOauth2AppComponent
+                .builder()
+                .githubComponent(githubComponent)
+                .bindContext(this)
+                .create()
+    }
 }

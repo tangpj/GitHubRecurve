@@ -19,6 +19,8 @@
 
         <argument
             android:name="repoDetailQuery"
+            android:defaultValue="@null"
+            app:nullable="true"
             app:argType="com.tangpj.repository.valueObject.query.RepoDetailQuery"/>
 
         <argument

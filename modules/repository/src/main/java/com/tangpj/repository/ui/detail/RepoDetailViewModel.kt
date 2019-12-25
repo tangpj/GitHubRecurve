@@ -16,9 +16,8 @@ class RepoDetailViewModel @Inject constructor(private val repoDetailRepository: 
     private val _repoDetailQuery = MutableLiveData<RepoDetailQuery>()
 
     val repoDetail: LiveData<Resource<RepoDetail>> = Transformations.switchMap(_repoDetailQuery){
-        it.ifExists { repoDetailQuery ->
+        repoDetailQuery ->
             repoDetailRepository.loadRepoDetail(repoDetailQuery)
-        }
     }
 
     fun loadRepoDetail(login: String, name: String){

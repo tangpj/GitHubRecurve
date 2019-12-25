@@ -48,11 +48,11 @@ dependencies {
     implementation deps.dagger.android
     implementation deps.dagger.android_support
 
-    implementation project(':viewpager2-navigation-ktx')
-    implementation project(':viewpager2-tablayout-ktx')
+    implementation deps.recurve.viewpager2_navigation
+    implementation deps.recurve.viewpager2_tablayout
     implementation project(':baselib:res')
-    implementation project(':recurve')
-    implementation project(':recurve-dagger2-support')
+    implementation deps.recurve.core
+    implementation deps.recurve.dagger2
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

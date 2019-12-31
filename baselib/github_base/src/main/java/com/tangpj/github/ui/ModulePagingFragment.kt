@@ -32,7 +32,7 @@ import timber.log.Timber
 abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
     private lateinit var binding: FragmentBaseRecyclerViewBinding
-    private lateinit var loadingCreator: ItemLoadingCreator
+    private  var loadingCreator: ItemLoadingCreator? = null
 
     open fun onBindingInit(binding: ViewDataBinding){}
 
@@ -63,8 +63,12 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
 
         binding.flContent.addView(pageLoadingStateBinding.root, params)
         loading.listing?.observe(this, Observer {
-            loadingCreator = ItemLoadingCreator()
-            adapter.addCreator(loadingCreator)
+            if (loadingCreator == null){
+                val itemLoadingCreator= ItemLoadingCreator()
+                loadingCreator = itemLoadingCreator
+                adapter.addCreator(itemLoadingCreator)
+            }
+
             observerListing(it, pageLoadingStateBinding)
 
         })
@@ -94,9 +98,9 @@ abstract class ModulePagingFragment: RecurveDaggerListFragment(){
             pageLoadingStateBinding.listing = listing
             pageLoadingStateBinding.isShowLoading = adapter.itemCount == 0
             if (pageLoadState.status != PageLoadStatus.REFRESH){
-                loadingCreator.networkState = pageLoadState.networkState
+                loadingCreator?.networkState = pageLoadState.networkState
             }else{
-                loadingCreator.networkState = null
+                loadingCreator?.networkState = null
             }
             pageLoadingStateBinding.errorMsg = {
                 when(pageLoadState.networkState.status){

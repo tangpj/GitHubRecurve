@@ -36,8 +36,8 @@ query ApolloWatchRepositories($login: String! = "Tangpj",$startFirst: Int = 10){
 
 # 获取仓库详情的基本信息
 query ApolloRepoDetail(
-  $owner: String! = "Tangpj",
-  $name: String! = "calces-gradle-plugin"){
+  $owner: String! ,
+  $name: String!){
    repository(owner:$owner, name:$name) {
      ...repoDetailDto
    }
@@ -45,8 +45,8 @@ query ApolloRepoDetail(
 
 # 获取分支列表
 query ApolloRefsQuery(
-  $login: String! = "Tangpj",
-  $name: String! = "calces-gradle-plugin",
+  $login: String! ,
+  $name: String!  ,
   $refPrefix: String! = "refs/heads/",
   $startFirst: Int = 10,
   $after:String = ""){
@@ -70,8 +70,8 @@ query ApolloRefsQuery(
 
 # 根据所有者和仓库名查看文件详情
 query ApolloBlobDetail(
-  $owner: String! = "Tangpj",
-  $name: String! = "Android-advanced-blueprint",
+  $owner: String! ,
+  $name: String!,
   $expression: String! = "master:README.md"){
   repository(owner:$owner, name:$name){
     object(expression: $expression){
@@ -106,8 +106,8 @@ query ApolloFileTree(
 }
 
 query ApolloCommits(
-  $login: String! = "Tangpj",
-  $repoName: String! = "Android-advanced-blueprint"
+  $login: String! ,
+  $repoName: String!
   $expression: String = "master:"
   $author: CommitAuthor,
   $startFirst: Int = 10,

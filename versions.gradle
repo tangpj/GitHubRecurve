@@ -7,7 +7,7 @@ ext.deps = [:]
 def deps = [:]
 
 def versions = [:]
-versions.recurve = "1.0.0-alpha01"
+versions.recurve = "1.0.0"
 versions.arch_core = "2.0.0-alpha1"
 versions.lifecycle = "2.0.0"
 versions.paging = "2.1.0"
